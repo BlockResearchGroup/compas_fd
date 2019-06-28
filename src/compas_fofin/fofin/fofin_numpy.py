@@ -35,7 +35,7 @@ def fofin_numpy(mesh):
     Cf    = C[:, fixed]
     Cit   = Ci.transpose()
 
-    selfweight = NumericalSelfweightCalculator(mesh, density=mesh.attributes['density'], thickness_attr_name='t')
+    selfweight = SelfweightCalculator(mesh, density=mesh.attributes['density'], thickness_attr_name='t')
     sw = selfweight(xyz)
     p[:, 2] = - sw[:, 0]
 
