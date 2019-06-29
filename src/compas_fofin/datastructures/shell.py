@@ -41,7 +41,8 @@ class Shell(Mesh):
             't' : 0.0,
             'is_anchor' : False,
             'is_fixed'  : False,
-            'constraint': None
+            'constraint': None,
+            'param'     : None,
         })
         self.default_edge_attributes.update({
             'is_edge' : True,
