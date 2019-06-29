@@ -13,21 +13,18 @@ class Shell(Mesh):
     def __init__(self):
         super(Shell, self).__init__()
         self.attributes.update({
-            'color.vertex'            : (0, 0, 0),
-            'color.face'              : (255, 255, 255),
-            'color.edge'              : (0, 0, 0),
-            'color.force:compression' : (255, 0, 0),
-            'color.force:tension'     : (255, 0, 0),
-            'color.reaction'          : (0, 255, 0),
-            'color.residual'          : (0, 255, 255),
-            'color.load'              : (0, 0, 255),
-            'scale.force'             : 0.1,
-            'scale.reaction'          : 1.0,
-            'scale.residual'          : 1.0,
-            'scale.load'              : 1.0,
-            'tol.reaction'            : 1e-3,
-            'tol.residual'            : 1e-3,
-            'tol.force'               : 1e-3,
+            'color.forces:compression' : (0, 0, 255),
+            'color.forces:tension'     : (255, 0, 0),
+            'color.reactions'          : (0, 255, 0),
+            'color.residuals'          : (0, 255, 255),
+            'color.loads'              : (0, 0, 255),
+            'scale.forces'             : 0.1,
+            'scale.reactions'          : 1.0,
+            'scale.residuals'          : 1.0,
+            'scale.loads'              : 1.0,
+            'tol.reactions'            : 1e-3,
+            'tol.residuals'            : 1e-3,
+            'tol.forces'               : 1e-3,
 
             'density' : 0.0,
         })
@@ -62,7 +59,7 @@ class Shell(Mesh):
     @classmethod
     def from_lines(cls, lines):
         """Make a shell from a Rhino mesh."""
-        return super(Shell, None).from_lines(cls, lines, delete_boundary_face=True)
+        return super(Shell, cls).from_lines(lines, delete_boundary_face=False)
 
     @classmethod
     def from_rhinomesh(cls, guid):
@@ -71,10 +68,10 @@ class Shell(Mesh):
         return mesh_from_guid(cls, guid)
 
     @classmethod
-    def from_rhinosurface(cls, guid):
+    def from_rhinosurface(cls, guid, u=10, v=10):
         """Make a mesh from a Rhino surface."""
-        from compas_rhino.helpers import mesh_from_surface
-        return mesh_from_surface(cls, guid)
+        from compas_rhino.helpers import mesh_from_surface_uv
+        return mesh_from_surface_uv(cls, guid, density=(u, v))
 
     def get_continuous_edges(self, edge):
         """Get the edges forming a continuous line with the selected edge."""
@@ -163,21 +160,21 @@ class Shell(Mesh):
             artist.draw_faces()
         if settings.get('show.forces', False):
             artist.draw_forces(
-                compression=settings.get('color.force:compression', None),
-                tension=settings.get('color.force:compression', None),
-                scale=settings.get('scale.force', None))
+                compression=settings.get('color.forces:compression', None),
+                tension=settings.get('color.forces:tension', None),
+                scale=settings.get('scale.forces', None))
         if settings.get('show.reactions', False):
             artist.draw_reactions(
-                color=settings.get('color.reaction', None),
-                scale=settings.get('scale.reaction', None))
+                color=settings.get('color.reactions', None),
+                scale=settings.get('scale.reactions', None))
         if settings.get('show.residuals', False):
             artist.draw_reactions(
-                color=settings.get('color.residual', None),
-                scale=settings.get('scale.residual', None))
+                color=settings.get('color.residuals', None),
+                scale=settings.get('scale.residuals', None))
         if settings.get('show.loads', False):
             artist.draw_loads(
-                color=settings.get('color.load', None),
-                scale=settings.get('scale.load', None))
+                color=settings.get('color.loads', None),
+                scale=settings.get('scale.loads', None))
         artist.redraw()
 
 

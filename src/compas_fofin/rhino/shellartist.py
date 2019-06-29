@@ -79,11 +79,15 @@ class ShellArtist(MeshArtist):
     def draw_forces(self, compression=None, tension=None, scale=None):
         self.clear_forces()
 
-        compression = compression or self.shell.attributes['color.force:compression']
-        tension = tension or self.shell.attributes['color.force:tension']
-        scale = scale or self.shell.attributes['scale.force']
+        compression = compression or self.shell.attributes['color.forces:compression']
+        tension = tension or self.shell.attributes['color.forces:tension']
+        scale = scale or self.shell.attributes['scale.forces']
 
-        tol = self.shell.attributes['tol.force']
+        print(compression)
+        print(tension)
+        print(scale)
+
+        tol = self.shell.attributes['tol.forces']
         tol2 = tol**2
 
         lines = []
@@ -116,10 +120,10 @@ class ShellArtist(MeshArtist):
     def draw_reactions(self, color=None, scale=None):
         self.clear_reactions()
 
-        color = color or self.shell.attributes['color.reaction']
-        scale = scale or self.shell.attributes['scale.reaction']
+        color = color or self.shell.attributes['color.reactions']
+        scale = scale or self.shell.attributes['scale.reactions']
 
-        tol = self.shell.attributes['tol.reaction']
+        tol = self.shell.attributes['tol.reactions']
         tol2 = tol**2
 
         lines = []
@@ -148,10 +152,10 @@ class ShellArtist(MeshArtist):
     def draw_residuals(self, color=None, scale=None):
         self.clear_residuals()
 
-        color = color or self.shell.attributes['color.residual']
-        scale = scale or self.shell.attributes['scale.residual']
+        color = color or self.shell.attributes['color.residuals']
+        scale = scale or self.shell.attributes['scale.residuals']
 
-        tol = self.shell.attributes['tol.residual']
+        tol = self.shell.attributes['tol.residuals']
         tol2 = tol**2
 
         lines = []
@@ -180,8 +184,8 @@ class ShellArtist(MeshArtist):
     def draw_loads(self, color=None, scale=None):
         self.clear_loads()
 
-        color = color or self.shell.attributes['color.load']
-        scale = scale or self.shell.attributes['scale.load']
+        color = color or self.shell.attributes['color.loads']
+        scale = scale or self.shell.attributes['scale.loads']
 
         lines = []
         for key, attr in self.shell.vertices(True):
