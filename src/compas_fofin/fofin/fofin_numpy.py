@@ -37,7 +37,7 @@ def fofin_numpy(mesh):
 
     selfweight = SelfweightCalculator(mesh, density=mesh.attributes['density'], thickness_attr_name='t')
     sw = selfweight(xyz)
-    p[:, 2] += sw[:, 0]
+    p[:, 2] -= sw[:, 0]
 
     Q = diags([q.flatten()], [0])
     A = Cit.dot(Q).dot(Ci)

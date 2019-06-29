@@ -26,7 +26,7 @@ class Shell(Mesh):
             'tol.residuals'            : 1e-3,
             'tol.forces'               : 1e-3,
 
-            'density' : 0.0,
+            'density' : 1.0,
         })
         self.default_vertex_attributes.update({
             'x' : 0.0,
