@@ -162,13 +162,22 @@ class Shell(Mesh):
         if settings.get('show.faces', True):
             artist.draw_faces()
         if settings.get('show.forces', False):
-            pass
+            artist.draw_forces(
+                compression=settings.get('color.force:compression', None),
+                tension=settings.get('color.force:compression', None),
+                scale=settings.get('scale.force', None))
         if settings.get('show.reactions', False):
-            pass
+            artist.draw_reactions(
+                color=settings.get('color.reaction', None),
+                scale=settings.get('scale.reaction', None))
         if settings.get('show.residuals', False):
-            pass
+            artist.draw_reactions(
+                color=settings.get('color.residual', None),
+                scale=settings.get('scale.residual', None))
         if settings.get('show.loads', False):
-            pass
+            artist.draw_loads(
+                color=settings.get('color.load', None),
+                scale=settings.get('scale.load', None))
         artist.redraw()
 
 

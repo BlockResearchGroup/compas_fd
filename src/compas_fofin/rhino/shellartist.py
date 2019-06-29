@@ -41,7 +41,6 @@ class ShellArtist(MeshArtist):
         self.clear_forces()
         self.clear_reactions()
         self.clear_residuals()
-        self.clear_selfweight()
         self.clear_loads()
 
     def clear_(self, name):
@@ -56,9 +55,6 @@ class ShellArtist(MeshArtist):
 
     def clear_residuals(self):
         self.clear_('residual')
-
-    def clear_selfweight(self):
-        self.clear_('selfweight')
 
     def clear_loads(self):
         self.clear_('load')
@@ -175,33 +171,6 @@ class ShellArtist(MeshArtist):
                 'start' : sp,
                 'end'   : ep,
                 'name'  : "{}.residual.{}".format(self.shell.name, key),
-                'color' : color,
-                'arrow' : 'end'
-            })
-
-        self._draw_lines(lines)
-
-    def draw_selfweight(self, color=None, scale=None):
-        self.clear_selfweight()
-
-        color = color or self.shell.attributes['color.selfweight']
-        scale = scale or self.shell.attributes['scale.selfweight']
-
-        d = self.shell.attributes['density']
-
-        lines = []
-        for key, attr in self.shell.vertices(True):
-            a = self.shell.vertex_area(key)
-            t = attr['t']
-            w = a * t * d
-
-            sp = x, y, z = self.shell.vertex_coordinates(key)
-            ep = x, y, z - scale * w
-
-            lines.append({
-                'start' : sp,
-                'end'   : ep,
-                'name'  : "{}.selfweight.{}".format(self.shell.name, key),
                 'color' : color,
                 'arrow' : 'end'
             })
