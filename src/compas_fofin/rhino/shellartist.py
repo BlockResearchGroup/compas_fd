@@ -83,10 +83,6 @@ class ShellArtist(MeshArtist):
         tension = tension or self.shell.attributes['color.forces:tension']
         scale = scale or self.shell.attributes['scale.forces']
 
-        print(compression)
-        print(tension)
-        print(scale)
-
         tol = self.shell.attributes['tol.forces']
         tol2 = tol**2
 
