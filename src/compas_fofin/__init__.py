@@ -9,6 +9,10 @@ compas_fofin
 .. toctree::
     :maxdepth: 1
 
+    compas_fofin.datastructures
+    compas_fofin.fofin
+    compas_fofin.loads
+    compas_fofin.rhino
 
 """
 
