@@ -74,7 +74,7 @@ class Shell(Mesh):
         from compas_rhino.helpers import mesh_from_surface_uv
         return mesh_from_surface_uv(cls, guid, density=(u, v))
 
-    def get_continuous_edges(self, edge):
+    def get_continuous_edges(self, edge, directed=True):
         """Get the edges forming a continuous line with the selected edge."""
         boundary = set(self.vertices_on_boundary())
         edges = [edge]
@@ -106,8 +106,10 @@ class Shell(Mesh):
             v = nbrs[i - 2]
             edges.append((u, v))
             u, v = v, u
-        directed = set(list(self.edges()))
-        return [(u, v) if (u, v) in directed else (v, u) for u, v in edges]
+        if not directed:
+            return edges
+        edgeset = set(list(self.edges()))
+        return [(u, v) if (u, v) in edgeset else (v, u) for u, v in edges]
 
     def get_parallel_edges(self, edge):
         """Get the edges parallel to the selected edge."""

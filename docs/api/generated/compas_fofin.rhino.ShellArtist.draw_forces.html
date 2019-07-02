@@ -62,7 +62,29 @@
 <dl class="method">
 <dt id="compas_fofin.rhino.ShellArtist.draw_forces">
 <code class="sig-prename descclassname">ShellArtist.</code><code class="sig-name descname">draw_forces</code><span class="sig-paren">(</span><em class="sig-param">compression=None</em>, <em class="sig-param">tension=None</em>, <em class="sig-param">scale=None</em><span class="sig-paren">)</span></dt>
-<dd></dd></dl>
+<dd><p>Draw the internal forces in the shell.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>compression</strong> (<em>color specification, optional</em>) – The color of the compression forces.
+This defaults to the color set in the attributes of the shell.
+<cite>self.shell.attributes[‘color.forces:compression’]</cite></p></li>
+<li><p><strong>tension</strong> (<em>color specification, optional</em>) – The color of the tension forces.
+This defaults to the color set in the attributes of the shell.
+<cite>self.shell.attributes[‘color.forces:tension’]</cite></p></li>
+<li><p><strong>scale</strong> (<em>float, optional</em>) – The scale of the forces.
+This defaults to the scale set in the attributes of the shell.
+<cite>self.shell.attributes[‘scale.forces’]</cite></p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>The forces are drawn as cylinders around the edges of the shell datastructure.
+THe radius of the cylinder is proportional to the size of the force and scaled by
+the specified factor.
+If the radius is smaller than a specified tolerance, the drawing of the specific
+cylinder is skipped.</p>
+</dd></dl>
 
 </div>
 

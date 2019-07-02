@@ -27,9 +27,26 @@ __all__ = ['ShellArtist']
 
 
 class ShellArtist(MeshArtist):
+    """The :class:`ShellArtist` provides functionality for visualisation of shell components in Rhino.
+
+    Examples
+    --------
+    .. code-block:: python
+
+        artist = ShellArtist(shell, layer="Shell")
+        artist.clear_layer()
+        artist.draw_vertices()
+        artist.draw_edges()
+        artist.draw_faces()
+        artist.draw_forces()
+        artist.draw_reactions()
+        artist.redraw()
+
+    """
 
     @property
     def shell(self):
+        """:class:`compas_fofin.datastructures.Shell` : The shell datastructure."""
         return self.datastructure
 
     @shell.setter
@@ -37,6 +54,7 @@ class ShellArtist(MeshArtist):
         self.datastructure = shell
 
     def clear(self):
+        """Clear all components previously drawn by the artist."""
         super(ShellArtist, self).clear()
         self.clear_forces()
         self.clear_reactions()
@@ -48,15 +66,19 @@ class ShellArtist(MeshArtist):
         compas_rhino.delete_objects(guids)
 
     def clear_forces(self):
+        """Clear all internal forces drawn by the artist."""
         self.clear_('force')
 
     def clear_reactions(self):
+        """Clear all reaction forces drawn by the artist."""
         self.clear_('reaction')
 
     def clear_residuals(self):
+        """Clear all residual forces drawn by the artist."""
         self.clear_('residual')
 
     def clear_loads(self):
+        """Clear all loads drawn by the artist."""
         self.clear_('load')
 
     def _draw_lines(self, lines):
@@ -77,6 +99,32 @@ class ShellArtist(MeshArtist):
     # ==========================================================================
 
     def draw_forces(self, compression=None, tension=None, scale=None):
+        """Draw the internal forces in the shell.
+
+        Parameters
+        ----------
+        compression : color specification, optional
+            The color of the compression forces.
+            This defaults to the color set in the attributes of the shell.
+            `self.shell.attributes['color.forces:compression']`
+        tension : color specification, optional
+            The color of the tension forces.
+            This defaults to the color set in the attributes of the shell.
+            `self.shell.attributes['color.forces:tension']`
+        scale : float, optional
+            The scale of the forces.
+            This defaults to the scale set in the attributes of the shell.
+            `self.shell.attributes['scale.forces']`
+
+        Notes
+        -----
+        The forces are drawn as cylinders around the edges of the shell datastructure.
+        THe radius of the cylinder is proportional to the size of the force and scaled by
+        the specified factor.
+        If the radius is smaller than a specified tolerance, the drawing of the specific
+        cylinder is skipped.
+
+        """
         self.clear_forces()
 
         compression = compression or self.shell.attributes['color.forces:compression']

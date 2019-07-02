@@ -63,6 +63,18 @@
 <dt id="compas_fofin.rhino.ShellArtist">
 <em class="property">class </em><code class="sig-prename descclassname">compas_fofin.rhino.</code><code class="sig-name descname">ShellArtist</code><span class="sig-paren">(</span><em class="sig-param">mesh</em>, <em class="sig-param">layer=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Bases: <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas_rhino.artists.MeshArtist.html#compas_rhino.artists.MeshArtist" title="(in COMPAS v0.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rhino.artists.MeshArtist</span></code></a></p>
+<p>The <a class="reference internal" href="#compas_fofin.rhino.ShellArtist" title="compas_fofin.rhino.ShellArtist"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShellArtist</span></code></a> provides functionality for visualisation of shell components in Rhino.</p>
+<p class="rubric">Examples</p>
+<div class="language-python notranslate"><div class="highlight"><pre><code><span></span><span class="n">artist</span> <span class="o">=</span> <span class="n">ShellArtist</span><span class="p">(</span><span class="n">shell</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;Shell&quot;</span><span class="p">)</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">clear_layer</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_vertices</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_edges</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_faces</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_forces</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_reactions</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span>
+</code></pre></div>
+</div>
 <p class="rubric">Attributes</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -71,7 +83,7 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">shell</span></code></p></td>
-<td><p></p></td>
+<td><p>The shell datastructure.</p></td>
 </tr>
 </tbody>
 </table>
@@ -98,25 +110,25 @@
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.ShellArtist.clear.html#compas_fofin.rhino.ShellArtist.clear" title="compas_fofin.rhino.ShellArtist.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
-<td><p>Clear the vertices, faces and edges of the mesh, without clearing the other elements in the layer.</p></td>
+<td><p>Clear all components previously drawn by the artist.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.ShellArtist.clear_.html#compas_fofin.rhino.ShellArtist.clear_" title="compas_fofin.rhino.ShellArtist.clear_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_</span></code></a>(name)</p></td>
 <td><p></p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.ShellArtist.clear_forces.html#compas_fofin.rhino.ShellArtist.clear_forces" title="compas_fofin.rhino.ShellArtist.clear_forces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_forces</span></code></a>()</p></td>
-<td><p></p></td>
+<td><p>Clear all internal forces drawn by the artist.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.ShellArtist.clear_loads.html#compas_fofin.rhino.ShellArtist.clear_loads" title="compas_fofin.rhino.ShellArtist.clear_loads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_loads</span></code></a>()</p></td>
-<td><p></p></td>
+<td><p>Clear all loads drawn by the artist.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.ShellArtist.clear_reactions.html#compas_fofin.rhino.ShellArtist.clear_reactions" title="compas_fofin.rhino.ShellArtist.clear_reactions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_reactions</span></code></a>()</p></td>
-<td><p></p></td>
+<td><p>Clear all reaction forces drawn by the artist.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.ShellArtist.clear_residuals.html#compas_fofin.rhino.ShellArtist.clear_residuals" title="compas_fofin.rhino.ShellArtist.clear_residuals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_residuals</span></code></a>()</p></td>
-<td><p></p></td>
+<td><p>Clear all residual forces drawn by the artist.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.ShellArtist.draw_forces.html#compas_fofin.rhino.ShellArtist.draw_forces" title="compas_fofin.rhino.ShellArtist.draw_forces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_forces</span></code></a>([compression, tension, scale])</p></td>
-<td><p></p></td>
+<td><p>Draw the internal forces in the shell.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.ShellArtist.draw_loads.html#compas_fofin.rhino.ShellArtist.draw_loads" title="compas_fofin.rhino.ShellArtist.draw_loads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_loads</span></code></a>([color, scale])</p></td>
 <td><p></p></td>

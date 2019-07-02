@@ -120,19 +120,6 @@ class ShellHelper(VertexSelector,
         select_faces(shell, strip)
         return strip
 
-    # @staticmethod
-    # def select_edges_from_vertex(shell):
-    #     key = shell.select_vertex()
-    #     if key is None:
-    #         return
-    #     uv = shell.select_edge()
-    #     if not uv:
-    #         return
-    #     if key not in uv:
-    #         return
-    #     keys = shell.get_continuous_edges(uv, key=key)
-    #     select_edges(shell, keys)
-
     @staticmethod
     def update_vertex_attributes(shell, keys, names=None):
         if not names:
