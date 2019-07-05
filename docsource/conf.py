@@ -7,6 +7,8 @@
 import sys
 import os
 
+from sphinx.ext.napoleon.docstring import NumpyDocstring
+
 import sphinx_compas_theme
 
 
@@ -70,6 +72,33 @@ napoleon_use_ivar = False
 napoleon_use_param = False
 napoleon_use_rtype = False
 
+
+# first, we define new methods for any new sections and add them to the class
+def parse_keys_section(self, section):
+    return self._format_fields('Keys', self._consume_fields())
+NumpyDocstring._parse_keys_section = parse_keys_section
+
+
+def parse_attributes_section(self, section):
+    return self._format_fields('Attributes', self._consume_fields())
+NumpyDocstring._parse_attributes_section = parse_attributes_section
+
+
+def parse_class_attributes_section(self, section):
+    return self._format_fields('Class Attributes', self._consume_fields())
+NumpyDocstring._parse_class_attributes_section = parse_class_attributes_section
+
+
+# we now patch the parse method to guarantee that the the above methods are
+# assigned to the _section dict
+def patched_parse(self):
+    self._sections['keys'] = self._parse_keys_section
+    self._sections['class attributes'] = self._parse_class_attributes_section
+    self._unpatched_parse()
+NumpyDocstring._unpatched_parse = NumpyDocstring._parse
+NumpyDocstring._parse = patched_parse
+
+
 # plot options
 
 # plot_include_source
@@ -79,7 +108,92 @@ napoleon_use_rtype = False
 # plot_rcparams
 # plot_apply_rcparams
 # plot_working_directory
-# plot_template
+
+# {% has_class = false -%}
+# {% for option in options -%}
+# {% if option.startswith(':class:') %}
+# {% has_class = true %}
+# {% endif %}
+# {% endfor %}
+
+
+plot_template = """
+{{ source_code }}
+
+{{ only_html }}
+
+   {% if source_link or (html_show_formats and not multi_image) %}
+   (
+   {%- if source_link -%}
+   `Source code <{{ source_link }}>`__
+   {%- endif -%}
+   {%- if html_show_formats and not multi_image -%}
+     {%- for img in images -%}
+       {%- for fmt in img.formats -%}
+         {%- if source_link or not loop.first -%}, {% endif -%}
+         `{{ fmt }} <{{ dest_dir }}/{{ img.basename }}.{{ fmt }}>`__
+       {%- endfor -%}
+     {%- endfor -%}
+   {%- endif -%}
+   )
+   {% endif %}
+
+   {% for img in images %}
+   {% set has_class = false %}
+
+   .. figure:: {{ build_dir }}/{{ img.basename }}.{{ default_fmt }}
+      {% for option in options -%}
+      {%- if option.startswith(':class:') -%}
+      {%- set has_class = true -%}
+      {%- if 'img-fluid' not in option -%}
+      {%- set option = option + ' img-fluid' -%}
+      {%- endif -%}
+      {%- if 'figure-img' not in option -%}
+      {%- set option = option + ' figure-img' -%}
+      {%- endif -%}
+      {%- endif -%}
+      {{ option }}
+      {% endfor %}
+      {%- if not has_class -%}
+      :class: figure-img img-fluid
+      {%- endif %}
+
+      {% if html_show_formats and multi_image -%}
+        (
+        {%- for fmt in img.formats -%}
+        {%- if not loop.first -%}, {% endif -%}
+        `{{ fmt }} <{{ dest_dir }}/{{ img.basename }}.{{ fmt }}>`__
+        {%- endfor -%}
+        )
+      {%- endif -%}
+
+      {{ caption }}
+   {% endfor %}
+
+{{ only_latex }}
+
+   {% for img in images %}
+   {% if 'pdf' in img.formats -%}
+   .. figure:: {{ build_dir }}/{{ img.basename }}.pdf
+      {% for option in options -%}
+      {{ option }}
+      {% endfor %}
+
+      {{ caption }}
+   {% endif -%}
+   {% endfor %}
+
+{{ only_texinfo }}
+
+   {% for img in images %}
+   .. image:: {{ build_dir }}/{{ img.basename }}.png
+      {% for option in options -%}
+      {{ option }}
+      {% endfor %}
+
+   {% endfor %}
+
+"""
 
 plot_html_show_source_link = False
 plot_html_show_formats = False

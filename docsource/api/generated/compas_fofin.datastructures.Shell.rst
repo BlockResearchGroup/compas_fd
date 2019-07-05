@@ -10,25 +10,6 @@ Shell
     
     
 
-    .. rubric:: Attributes
-
-    .. autosummary::
-    
-
-    .. rubric:: Inherited Attributes
-
-    .. autosummary::
-    
-        ~Shell.adjacency
-        ~Shell.data
-        ~Shell.name
-
-    
-    
-
-    
-    
-
     .. rubric:: Methods
 
     .. autosummary::
@@ -41,6 +22,7 @@ Shell
         ~Shell.from_rhinomesh
         ~Shell.from_rhinosurface
         ~Shell.get_continuous_edges
+        ~Shell.get_face_strip
         ~Shell.get_parallel_edges
 
     .. rubric:: Inherited Methods

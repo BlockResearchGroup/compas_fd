@@ -3,11 +3,43 @@ from __future__ import absolute_import
 from __future__ import division
 
 from compas.datastructures import Mesh
+from compas.utilities import pairwise
 
 
 class Shell(Mesh):
-    """``Shell`` extends the ``Mesh`` datastructure
-    with attributes and methods related to form finding and analysis of shells.
+    """:class:`Shell` extends the mesh datastructure
+    with attributes and methods related to form finding (and analysis) of shells.
+
+    Attributes
+    ----------
+    default_vertex_attributes : dict
+        The default data attributes assigned to every new vertex.
+
+        * ``'px' = 0.0`` : Component of an externally applied load along the X axis.
+        * ``'py' = 0.0`` : Component of an externally applied load along the Y axis.
+        * ``'pz' = 0.0`` : Component of an externally applied load along the Z axis.
+        * ``'rx' = 0.0`` : Component of an unbalanced (residual) force along the X axis.
+        * ``'ry' = 0.0`` : Component of an unbalanced (residual) force along the Y axis.
+        * ``'rz' = 0.0`` : Component of an unbalanced (residual) force along the Z axis.
+        * ``'t' = 0.0`` : Thickness of the shell at the vertex.
+        * ``'is_anchor' = False`` : Indicate that a vertex is anchored and can take reaction forces in XYZ.
+        * ``'is_fixed' = False`` : Can be used to mark a vertex as "fixed" during geometrical operations such as smoothing.
+        * ``'constraint' = None`` : Can be used to store the name or ID of a geometrical object to which a vertex is constrained.
+        * ``'param' = None`` : Stores the current parameter of a vertex on the constraint object.
+
+    default_edge_attributes : dict
+        The default data attributes assigned to every new edge.
+
+        * ``'q'`` : ``0.0``
+        * ``'f'`` : ``0.0``
+        * ``'l'`` : ``0.0``
+        * ``'E'`` : ``0.0``
+        * ``'r'`` : ``0.0``
+        * ``'l0'`` : ``0.0``
+
+    Notes
+    -----
+
     """
 
     def __init__(self):
@@ -45,13 +77,13 @@ class Shell(Mesh):
             'param'     : None,
         })
         self.default_edge_attributes.update({
-            'is_edge' : True,
             'q' : 1.0,
             'f' : 0.0,
             'l' : 0.0,
             'E' : 0.0,
             'r' : 0.0,
             'l0' : 0.0,
+            'is_edge' : True,
         })
         self.default_face_attributes.update({
             'strip' : None
@@ -145,6 +177,40 @@ class Shell(Mesh):
             edges.append((u, v))
         directed = set(list(self.edges()))
         return [(u, v) if (u, v) in directed else (v, u) for u, v in edges]
+
+    def get_face_strip(self, fkey):
+        faces = []
+        boundary = set(self.faces_on_boundary())
+        if fkey not in boundary:
+            return faces
+        vertices = self.face_vertices(fkey)
+        if len(vertices) != 4:
+            return faces
+        for u, v in pairwise(vertices + vertices[:1]):
+            nbr = self.halfedge[v][u]
+            if nbr is None:
+                edge = u, v
+                break
+            edge = None
+        if not edge:
+            return faces
+        i = vertices.index(edge[0])
+        u = vertices[i - 2]
+        v = vertices[i - 1]
+        faces.append(fkey)
+        while True:
+            fkey = self.halfedge[v][u]
+            if fkey is None:
+                break
+            v, u = u, v
+            faces.append(fkey)
+            vertices = self.face_vertices(fkey)
+            if len(vertices) != 4:
+                break
+            i = vertices.index(u)
+            u = vertices[i - 2]
+            v = vertices[i - 1]
+        return faces
 
     def draw(self, layer=None, clear_layer=True, settings=None):
         from compas_fofin.rhino import ShellArtist

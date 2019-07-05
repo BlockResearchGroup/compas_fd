@@ -9,10 +9,6 @@ ShellHelper
 
     
     
-    
-
-    
-    
 
     .. rubric:: Methods
 

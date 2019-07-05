@@ -63,35 +63,40 @@
 <dt id="compas_fofin.datastructures.Shell">
 <em class="property">class </em><code class="sig-prename descclassname">compas_fofin.datastructures.</code><code class="sig-name descname">Shell</code></dt>
 <dd><p>Bases: <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.datastructures.Mesh.html#compas.datastructures.Mesh" title="(in COMPAS v0.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.datastructures.Mesh</span></code></a></p>
-<p><code class="docutils literal notranslate"><span class="pre">Shell</span></code> extends the <code class="docutils literal notranslate"><span class="pre">Mesh</span></code> datastructure
-with attributes and methods related to form finding and analysis of shells.</p>
-<p class="rubric">Attributes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-</tbody>
-</table>
-<p class="rubric">Inherited Attributes</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">adjacency</span></code></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">data</span></code></p></td>
-<td><p>A data dict representing the mesh data structure for serialisation.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">name</span></code></p></td>
-<td><p>The name of the data structure.</p></td>
-</tr>
-</tbody>
-</table>
+<p><a class="reference internal" href="#compas_fofin.datastructures.Shell" title="compas_fofin.datastructures.Shell"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shell</span></code></a> extends the mesh datastructure
+with attributes and methods related to form finding (and analysis) of shells.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>default_vertex_attributes</strong> (<em>dict</em>) – The default data attributes assigned to every new vertex.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'px'</span> <span class="pre">=</span> <span class="pre">0.0</span></code> : Component of an externally applied load along the X axis.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'py'</span> <span class="pre">=</span> <span class="pre">0.0</span></code> : Component of an externally applied load along the Y axis.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'pz'</span> <span class="pre">=</span> <span class="pre">0.0</span></code> : Component of an externally applied load along the Z axis.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'rx'</span> <span class="pre">=</span> <span class="pre">0.0</span></code> : Component of an unbalanced (residual) force along the X axis.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'ry'</span> <span class="pre">=</span> <span class="pre">0.0</span></code> : Component of an unbalanced (residual) force along the Y axis.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'rz'</span> <span class="pre">=</span> <span class="pre">0.0</span></code> : Component of an unbalanced (residual) force along the Z axis.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'t'</span> <span class="pre">=</span> <span class="pre">0.0</span></code> : Thickness of the shell at the vertex.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'is_anchor'</span> <span class="pre">=</span> <span class="pre">False</span></code> : Indicate that a vertex is anchored and can take reaction forces in XYZ.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'is_fixed'</span> <span class="pre">=</span> <span class="pre">False</span></code> : Can be used to mark a vertex as “fixed” during geometrical operations such as smoothing.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'constraint'</span> <span class="pre">=</span> <span class="pre">None</span></code> : Can be used to store the name or ID of a geometrical object to which a vertex is constrained.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'param'</span> <span class="pre">=</span> <span class="pre">None</span></code> : Stores the current parameter of a vertex on the constraint object.</p></li>
+</ul>
+</li>
+<li><p><strong>default_edge_attributes</strong> (<em>dict</em>) – The default data attributes assigned to every new edge.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">'q'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'f'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'l'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'E'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'r'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'l0'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
 <p class="rubric">Methods</p>
 <table class="longtable docutils align-default">
 <colgroup>
@@ -114,10 +119,13 @@ with attributes and methods related to form finding and analysis of shells.</p>
 <tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.datastructures.Shell.from_rhinosurface.html#compas_fofin.datastructures.Shell.from_rhinosurface" title="compas_fofin.datastructures.Shell.from_rhinosurface"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_rhinosurface</span></code></a>(guid[, u, v])</p></td>
 <td><p>Make a mesh from a Rhino surface.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.datastructures.Shell.get_continuous_edges.html#compas_fofin.datastructures.Shell.get_continuous_edges" title="compas_fofin.datastructures.Shell.get_continuous_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_continuous_edges</span></code></a>(edge)</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.datastructures.Shell.get_continuous_edges.html#compas_fofin.datastructures.Shell.get_continuous_edges" title="compas_fofin.datastructures.Shell.get_continuous_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_continuous_edges</span></code></a>(edge[, directed])</p></td>
 <td><p>Get the edges forming a continuous line with the selected edge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.datastructures.Shell.get_parallel_edges.html#compas_fofin.datastructures.Shell.get_parallel_edges" title="compas_fofin.datastructures.Shell.get_parallel_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_parallel_edges</span></code></a>(edge)</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.datastructures.Shell.get_face_strip.html#compas_fofin.datastructures.Shell.get_face_strip" title="compas_fofin.datastructures.Shell.get_face_strip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_face_strip</span></code></a>(fkey)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.datastructures.Shell.get_parallel_edges.html#compas_fofin.datastructures.Shell.get_parallel_edges" title="compas_fofin.datastructures.Shell.get_parallel_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_parallel_edges</span></code></a>(edge)</p></td>
 <td><p>Get the edges parallel to the selected edge.</p></td>
 </tr>
 </tbody>
@@ -666,7 +674,7 @@ with attributes and methods related to form finding and analysis of shells.</p>
 
         <footer class="compas-footer">
             
-                Last updated on Jul 02, 2019.
+                Last updated on Jul 04, 2019.
             
 
             

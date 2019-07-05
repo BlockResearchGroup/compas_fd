@@ -9,10 +9,6 @@ SelfweightCalculator
 
     
     
-    
-
-    
-    
 
     .. rubric:: Methods
 

@@ -10,25 +10,6 @@ ShellArtist
     
     
 
-    .. rubric:: Attributes
-
-    .. autosummary::
-    
-        ~ShellArtist.shell
-
-    .. rubric:: Inherited Attributes
-
-    .. autosummary::
-    
-        ~ShellArtist.layer
-        ~ShellArtist.mesh
-
-    
-    
-
-    
-    
-
     .. rubric:: Methods
 
     .. autosummary::
