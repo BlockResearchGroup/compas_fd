@@ -14,12 +14,23 @@ from compas_fofin.loads import SelfweightCalculator
 
 
 __all__ = [
-    'fofin_numpy'
+    'update_xyz_numpy'
 ]
 
 
-def fofin_numpy(mesh):
+def update_xyz_numpy(mesh):
     """Find the equilibrium shape of a mesh for the given force densities.
+
+    Parameters
+    ----------
+    mesh : compas_fofin.datastructures.Shell
+        The mesh to equilibriate.
+
+    Returns
+    -------
+    None
+        The function updates the input mesh and returns nothing.
+
     """
     k_i   = mesh.key_index()
     fixed = mesh.vertices_where({'is_anchor': True})

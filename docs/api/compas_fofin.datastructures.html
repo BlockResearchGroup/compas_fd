@@ -18,11 +18,11 @@
         <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
         
-            <link rel="next" title="Shell" href="generated/compas_fofin.datastructures.Shell.html" />
+            <link rel="next" title="compas_fofin.fofin" href="compas_fofin.fofin.html" />
         
         
         
-            <link rel="prev" title="compas_fofin" href="compas_fofin.html" />
+            <link rel="prev" title="compas_fofin.analysis" href="compas_fofin.analysis.html" />
         
 
         <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -59,20 +59,48 @@
 
                         <span class="target" id="module-compas_fofin.datastructures"></span><div class="section" id="compas-fofin-datastructures">
 <h1>compas_fofin.datastructures</h1>
-<div class="section" id="classes">
-<h2>Classes</h2>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_fofin.datastructures.Shell.html#compas_fofin.datastructures.Shell" title="compas_fofin.datastructures.Shell"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Shell</span></code></a></p></td>
-<td><p><a class="reference internal" href="generated/compas_fofin.datastructures.Shell.html#compas_fofin.datastructures.Shell" title="compas_fofin.datastructures.Shell"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shell</span></code></a> extends the mesh datastructure with attributes and methods related to form finding (and analysis) of shells.</p></td>
-</tr>
-</tbody>
-</table>
+<dl class="class">
+<dt id="compas_fofin.datastructures.Shell">
+<em class="property">class </em><code class="sig-prename descclassname">compas_fofin.datastructures.</code><code class="sig-name descname">Shell</code></dt>
+<dd><p>Bases: <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.datastructures.Mesh.html#compas.datastructures.Mesh" title="(in COMPAS v0.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.datastructures.Mesh</span></code></a></p>
+<p><a class="reference internal" href="generated/compas_fofin.datastructures.Shell.html#compas_fofin.datastructures.Shell" title="compas_fofin.datastructures.Shell"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shell</span></code></a> extends the mesh datastructure
+with attributes and methods related to form finding (and analysis) of shells.</p>
+<dl class="field-list">
+<dt class="field-odd">Attributes</dt>
+<dd class="field-odd"><ul>
+<li><p><strong>default_vertex_attributes</strong> (<em>dict</em>) – The default data attributes assigned to every new vertex.</p>
+<div class="language-python notranslate"><div class="highlight"><pre><code><span></span><span class="p">{</span>
+    <span class="s1">&#39;px&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>            <span class="c1"># X-component of an externally applied load.</span>
+    <span class="s1">&#39;py&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>            <span class="c1"># Y-component of an externally applied load.</span>
+    <span class="s1">&#39;pz&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>            <span class="c1"># Z-component of an externally applied load.</span>
+    <span class="s1">&#39;rx&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>            <span class="c1"># X-component of an unbalanced (residual) force.</span>
+    <span class="s1">&#39;ry&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>            <span class="c1"># Y-component of an unbalanced (residual) force.</span>
+    <span class="s1">&#39;rz&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>            <span class="c1"># Z-component of an unbalanced (residual) force.</span>
+    <span class="s1">&#39;t&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>             <span class="c1"># Thickness of the shell.</span>
+    <span class="s1">&#39;is_anchor&#39;</span> <span class="p">:</span> <span class="bp">False</span><span class="p">,</span>   <span class="c1"># Indicate that a vertex is anchored and can take reaction forces in XYZ.</span>
+    <span class="s1">&#39;is_fixed&#39;</span> <span class="p">:</span> <span class="bp">False</span><span class="p">,</span>    <span class="c1"># Can be used to mark a vertex as &quot;fixed&quot; during geometrical operations such as smoothing.</span>
+    <span class="s1">&#39;constraint&#39;</span> <span class="p">:</span> <span class="bp">None</span><span class="p">,</span>   <span class="c1"># Can be used to store the name or ID of a geometrical object to which a vertex is constrained.</span>
+    <span class="s1">&#39;param&#39;</span> <span class="p">:</span> <span class="bp">None</span><span class="p">,</span>        <span class="c1"># Stores the current parameter of a vertex on the constraint object.</span>
+<span class="p">}</span>
+</code></pre></div>
 </div>
+</li>
+<li><p><strong>default_edge_attributes</strong> (<em>dict</em>) – The default data attributes assigned to every new edge.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">'q'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'f'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'l'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'E'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'r'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">'l0'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
+</ul>
+</li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+</dd></dl>
+
 </div>
 
                         
@@ -107,6 +135,7 @@
 <li class="nav-item"><a class="nav-link reference internal" href="../examples.html">Examples</a></li>
 <li class="nav-item active"><a class="nav-link reference internal" href="../api.html">API Reference</a><ul class="nav active">
 <li class="nav-item active"><a class="nav-link reference internal" href="compas_fofin.html">compas_fofin</a><ul class="nav active">
+<li class="nav-item"><a class="nav-link reference internal" href="compas_fofin.analysis.html">compas_fofin.analysis</a></li>
 <li class="nav-item active"><a class="nav-link active current reference internal" href="#">compas_fofin.datastructures</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="compas_fofin.fofin.html">compas_fofin.fofin</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="compas_fofin.loads.html">compas_fofin.loads</a></li>
@@ -134,10 +163,7 @@
                     
 
                     <ul class="nav flex-column" id="compas-localnav">
-<li class="nav-item"><a class="nav-link reference internal" href="#">compas_fofin.datastructures</a><ul class="nav">
-<li class="nav-item"><a class="nav-link reference internal" href="#classes">Classes</a></li>
-</ul>
-</li>
+<li class="nav-item"><a class="nav-link reference internal" href="#">compas_fofin.datastructures</a></li>
 </ul>
 
 
@@ -148,11 +174,11 @@
 
         <footer class="compas-footer">
             
-                Last updated on Jul 04, 2019.
+                Last updated on Aug 08, 2019.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.1.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
             
         </footer>
 

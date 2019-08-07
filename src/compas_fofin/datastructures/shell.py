@@ -15,17 +15,21 @@ class Shell(Mesh):
     default_vertex_attributes : dict
         The default data attributes assigned to every new vertex.
 
-        * ``'px' = 0.0`` : Component of an externally applied load along the X axis.
-        * ``'py' = 0.0`` : Component of an externally applied load along the Y axis.
-        * ``'pz' = 0.0`` : Component of an externally applied load along the Z axis.
-        * ``'rx' = 0.0`` : Component of an unbalanced (residual) force along the X axis.
-        * ``'ry' = 0.0`` : Component of an unbalanced (residual) force along the Y axis.
-        * ``'rz' = 0.0`` : Component of an unbalanced (residual) force along the Z axis.
-        * ``'t' = 0.0`` : Thickness of the shell at the vertex.
-        * ``'is_anchor' = False`` : Indicate that a vertex is anchored and can take reaction forces in XYZ.
-        * ``'is_fixed' = False`` : Can be used to mark a vertex as "fixed" during geometrical operations such as smoothing.
-        * ``'constraint' = None`` : Can be used to store the name or ID of a geometrical object to which a vertex is constrained.
-        * ``'param' = None`` : Stores the current parameter of a vertex on the constraint object.
+        .. code-block:: python
+
+            {
+                'px' : 0.0,            # X-component of an externally applied load.
+                'py' : 0.0,            # Y-component of an externally applied load.
+                'pz' : 0.0,            # Z-component of an externally applied load.
+                'rx' : 0.0,            # X-component of an unbalanced (residual) force.
+                'ry' : 0.0,            # Y-component of an unbalanced (residual) force.
+                'rz' : 0.0,            # Z-component of an unbalanced (residual) force.
+                't' : 0.0,             # Thickness of the shell.
+                'is_anchor' : False,   # Indicate that a vertex is anchored and can take reaction forces in XYZ.
+                'is_fixed' : False,    # Can be used to mark a vertex as "fixed" during geometrical operations such as smoothing.
+                'constraint' : None,   # Can be used to store the name or ID of a geometrical object to which a vertex is constrained.
+                'param' : None,        # Stores the current parameter of a vertex on the constraint object.
+            }
 
     default_edge_attributes : dict
         The default data attributes assigned to every new edge.

@@ -6,14 +6,7 @@ compas_fofin.datastructures
 .. currentmodule:: compas_fofin.datastructures
 
 
-Classes
-=======
-
-.. autosummary::
-    :toctree: generated/
-    :nosignatures:
-
-    Shell
+.. autoclass:: Shell
 
 """
 from __future__ import print_function

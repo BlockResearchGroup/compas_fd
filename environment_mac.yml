@@ -1,0 +1,12 @@
+name: fofin
+channels:
+  - conda-forge
+dependencies:
+  - python=3.6
+  - pip>=19.0
+  - python.app
+  - numpy=1.15.4
+  - COMPAS=0.7.1
+  - cvxpy
+  - pip:
+    - git+https://github.com/BlockResearchGroup/compas_fofin.git#egg=compas_fofin
