@@ -15,6 +15,6 @@ shell = Shell.from_json(FILE)
 update_xyz_numpy(shell)
 
 plotter = MeshPlotter(shell, figsize=(8, 5))
-plotter.draw_vertices()
+plotter.draw_vertices(facecolor={key: '#ff0000' for key in shell.vertices_where({'is_anchor': True})})
 plotter.draw_edges()
 plotter.show()

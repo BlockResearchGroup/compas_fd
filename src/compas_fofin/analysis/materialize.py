@@ -11,22 +11,19 @@ __all__ = [
 ]
 
 
-def mesh_materialize_cables(mesh, maxstress, E, safety, cables=None):
+def mesh_materialize_cables(mesh, maxstress=None, E=None, safety=None):
     """Materialize the edges of the data structure as individual cable segments.
 
     Parameters
     ----------
     mesh : compas.datastructures.Mesh
         The data structure.
-    maxstress : float
+    maxstress : float (400.0)
         The maximum stress in the cables. The value should be provided in ``MPa``.
-        For example, ``600``.
-    E : float
+    E : float (72.5)
         The E-modulus of the cables. The value should be provided in ``GPa``.
-        For example, ``72.5``.
-    safety : float
+    safety : float (1.5)
         The safety factor that should be applied to the forces.
-        For example, ``1.5``.
 
     """
     if not maxstress:
@@ -38,12 +35,6 @@ def mesh_materialize_cables(mesh, maxstress, E, safety, cables=None):
     if not safety:
         safety = 1.5
 
-    if not cables:
-        cables = {
-            '6': {'A': 15.774},
-            '8': {'A': 29.141}
-        }
-
     for u, v, attr in mesh.edges_where({'is_edge': True}, True):
         f = attr['f']
 
@@ -54,32 +45,33 @@ def mesh_materialize_cables(mesh, maxstress, E, safety, cables=None):
 
         if r <= 3.0:
             size = '6'
+            r = 3.0
         elif r <= 4.0:
             size = '8'
-        # elif r <= 5.0:
-        #     size = '10'
-        # elif r <= 6.0:
-        #     size = '12'
-        # elif r <= 7.0:
-        #     size = '14'
-        # elif r <= 8.0:
-        #     size = '16'
-        # elif r <= 9.0:
-        #     size = '18'
-        # elif r <= 10.0:
-        #     size = '20'
+            r = 4.0
+        elif r <= 5.0:
+            size = '10'
+            r = 5.0
+        elif r <= 6.0:
+            size = '12'
+            r = 6.0
+        elif r <= 7.0:
+            size = '14'
+            r = 7.0
+        elif r <= 8.0:
+            size = '16'
+            r = 8.0
+        elif r <= 9.0:
+            size = '18'
+            r = 9.0
+        elif r <= 10.0:
+            size = '20'
+            r = 10.0
         else:
             Exception('Section not available')
 
-        if size == '6':
-            A = cables['6']['A']
-            r = (A / 3.14159) ** 0.5
-            x = f / (E * A)
-
-        elif size == '8':
-            A = cables['8']['A']
-            r = (A / 3.14159) ** 0.5
-            x = f / (E * A)
+        A = pi * r ** 2
+        x = f / (E * A)
 
         l  = mesh.edge_length(u, v)
         l0 = l / (1 + x)
