@@ -1,5 +1,5 @@
 ********************************************************************************
-Compute equilibrium
+Apply loads to the structure
 ********************************************************************************
 
 .. .. figure:: formfinding-cablenet.jpg
@@ -7,6 +7,6 @@ Compute equilibrium
     :class: figure-img img-fluid
 
 
-.. literalinclude:: basic.py
+.. literalinclude:: load_structure.py
     :language: python
     :class: line-numbers

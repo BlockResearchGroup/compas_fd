@@ -1,5 +1,5 @@
 ********************************************************************************
-Compute equilibrium using a proxy
+Materialize the equilibrium geometry
 ********************************************************************************
 
 .. .. figure:: formfinding-cablenet.jpg
@@ -7,6 +7,6 @@ Compute equilibrium using a proxy
     :class: figure-img img-fluid
 
 
-.. literalinclude:: basic_proxy.py
+.. literalinclude:: materialize_geometry.py
     :language: python
     :class: line-numbers

@@ -59,25 +59,62 @@
 
                         <span class="target" id="module-compas_fofin.analysis"></span><div class="section" id="compas-fofin-analysis">
 <h1>compas_fofin.analysis</h1>
+<div class="section" id="functions">
+<h2>Functions</h2>
 <dl class="function">
 <dt id="compas_fofin.analysis.mesh_materialize_cables">
-<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">mesh_materialize_cables</code><span class="sig-paren">(</span><em class="sig-param">mesh</em>, <em class="sig-param">maxstress</em>, <em class="sig-param">E</em>, <em class="sig-param">safety</em>, <em class="sig-param">cables=None</em><span class="sig-paren">)</span></dt>
+<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">mesh_materialize_cables</code><span class="sig-paren">(</span><em class="sig-param">mesh</em>, <em class="sig-param">maxstress=None</em>, <em class="sig-param">E=None</em>, <em class="sig-param">safety=None</em><span class="sig-paren">)</span></dt>
 <dd><p>Materialize the edges of the data structure as individual cable segments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mesh</strong> (<em>compas.datastructures.Mesh</em>) – The data structure.</p></li>
-<li><p><strong>maxstress</strong> (<em>float</em>) – The maximum stress in the cables. The value should be provided in <code class="docutils literal notranslate"><span class="pre">MPa</span></code>.
-For example, <code class="docutils literal notranslate"><span class="pre">600</span></code>.</p></li>
-<li><p><strong>E</strong> (<em>float</em>) – The E-modulus of the cables. The value should be provided in <code class="docutils literal notranslate"><span class="pre">GPa</span></code>.
-For example, <code class="docutils literal notranslate"><span class="pre">72.5</span></code>.</p></li>
-<li><p><strong>safety</strong> (<em>float</em>) – The safety factor that should be applied to the forces.
-For example, <code class="docutils literal notranslate"><span class="pre">1.5</span></code>.</p></li>
+<li><p><strong>maxstress</strong> (<em>float (400.0)</em>) – The maximum stress in the cables. The value should be provided in <code class="docutils literal notranslate"><span class="pre">MPa</span></code>.</p></li>
+<li><p><strong>E</strong> (<em>float (72.5)</em>) – The E-modulus of the cables. The value should be provided in <code class="docutils literal notranslate"><span class="pre">GPa</span></code>.</p></li>
+<li><p><strong>safety</strong> (<em>float (1.5)</em>) – The safety factor that should be applied to the forces.</p></li>
 </ul>
 </dd>
 </dl>
 </dd></dl>
 
+<dl class="function">
+<dt id="compas_fofin.analysis.unload_numpy">
+<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">unload_numpy</code><span class="sig-paren">(</span><em class="sig-param">mesh</em>, <em class="sig-param">kmax=10000</em>, <em class="sig-param">tol=0.01</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_fofin.analysis.apply_loads_numpy">
+<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">apply_loads_numpy</code><span class="sig-paren">(</span><em class="sig-param">mesh</em>, <em class="sig-param">safety=1.0</em>, <em class="sig-param">kmax=10000</em>, <em class="sig-param">tol=0.01</em><span class="sig-paren">)</span></dt>
+<dd><p>Apply loads to a materialised mesh.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mesh</strong> (<em>compas_fofin.datastructures.Shell</em>) – The data structure.</p></li>
+<li><p><strong>safety</strong> (<em>float (1.0)</em>) – Safety factor to be applied to the selfweight.</p></li>
+<li><p><strong>kmax</strong> (<em>int (10000)</em>) – Maximum number of iterations for the relaxation.</p></li>
+<li><p><strong>tol</strong> (<em>float (0.01)</em>) – Tolerance for residual forces.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><em>None</em> – The function updates the input mesh and therefore does not return anything.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="proxies">
+<h2>Proxies</h2>
+<dl class="function">
+<dt id="compas_fofin.analysis.unload_proxy">
+<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">unload_proxy</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="compas_fofin.analysis.apply_loads_proxy">
+<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">apply_loads_proxy</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
+
+</div>
 </div>
 
                         
@@ -109,6 +146,7 @@ For example, <code class="docutils literal notranslate"><span class="pre">1.5</s
                                 <ul class="nav flex-column active">
 <li class="nav-item"><a class="nav-link reference internal" href="../intro.html">Introduction</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../gettingstarted.html">Getting Started</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../tutorial.html">Tutorial</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../examples.html">Examples</a></li>
 <li class="nav-item active"><a class="nav-link reference internal" href="../api.html">API Reference</a><ul class="nav active">
 <li class="nav-item active"><a class="nav-link reference internal" href="compas_fofin.html">compas_fofin</a><ul class="nav active">
@@ -140,7 +178,11 @@ For example, <code class="docutils literal notranslate"><span class="pre">1.5</s
                     
 
                     <ul class="nav flex-column" id="compas-localnav">
-<li class="nav-item"><a class="nav-link reference internal" href="#">compas_fofin.analysis</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#">compas_fofin.analysis</a><ul class="nav">
+<li class="nav-item"><a class="nav-link reference internal" href="#functions">Functions</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#proxies">Proxies</a></li>
+</ul>
+</li>
 </ul>
 
 

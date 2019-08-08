@@ -23,8 +23,6 @@ from scipy.linalg import cho_factor
 from scipy.linalg import solve
 from scipy.linalg import lstsq
 
-from scipy.sparse.linalg import spsolve
-
 from compas.numerical import normrow
 from compas.numerical import connectivity_matrix
 from compas.numerical import devo_numpy
@@ -74,14 +72,14 @@ def find_q_numpy(mesh, qmin=0.001, qmax=1000):
         Cit.dot(W)
     ))
 
-    q = Variable(A.shape[1])
+    q = Variable((A.shape[1], 1))
 
     objective = Minimize(sum_squares(A * q - pi))
     constraints = [qmin <= q, q <= qmax]
 
     prob = Problem(objective, constraints)
 
-    prob.solve(verbose=False)
+    prob.solve(verbose=False, solver='CPLEX')
 
     q = array(q.value.ravel()).reshape((-1, 1))
     # ==========================================================================

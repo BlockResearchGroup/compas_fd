@@ -8,6 +8,7 @@ compas_fofin
 
    intro
    gettingstarted
+   tutorial
    examples
    api
    license
