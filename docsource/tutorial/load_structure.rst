@@ -9,4 +9,3 @@ Apply loads to the structure
 
 .. literalinclude:: load_structure.py
     :language: python
-    :class: line-numbers

@@ -9,4 +9,3 @@ Compute forcedensities
 
 .. literalinclude:: compute_forcedensities.py
     :language: python
-    :class: line-numbers

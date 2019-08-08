@@ -9,4 +9,3 @@ Compute equilibrium
 
 .. literalinclude:: compute_equilibrium.py
     :language: python
-    :class: line-numbers

@@ -9,4 +9,3 @@ Materialize the equilibrium geometry
 
 .. literalinclude:: materialize_geometry.py
     :language: python
-    :class: line-numbers

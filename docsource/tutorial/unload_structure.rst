@@ -9,4 +9,3 @@ Unload the structure
 
 .. literalinclude:: unload_structure.py
     :language: python
-    :class: line-numbers
