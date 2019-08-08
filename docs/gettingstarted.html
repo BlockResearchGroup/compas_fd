@@ -57,13 +57,46 @@
 
                     <div class="section" id="getting-started">
 <h1>Getting Started</h1>
-<p>The easiest way to get started is to create a <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment with one of
-the environment files in the repo.</p>
-<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>conda env create -f environment_win.yml
+<p><code class="docutils literal notranslate"><span class="pre">compas_fofin</span></code> uses <code class="docutils literal notranslate"><span class="pre">cvxpy</span></code> and <code class="docutils literal notranslate"><span class="pre">cplex</span></code> in some of its algorithms.
+We will make these optional dependencies in the future,
+but in the meantime please follow the instructions below to get these properly installed.</p>
+<div class="card">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#windows">Windows</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#osx">OSX</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <div class="tab-content"><div class="tab-pane active" id="windows"><p>Make sure to install the Visual Studio C++ compiler for Python 2.7
+or the Visual Studio build tools for Python 3, as instructued in the <a class="reference external" href="https://www.cvxpy.org/install/index.html">CVXPY docs</a></p>
+<p>Afterwards, in Anaconda Prompt:</p>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>conda create -n fofin <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6 pip
 conda activate fofin
+pip install cvxpy
+conda install -c ibmdecisionoptimization cplex
+conda install -c conda-forge COMPAS
+pip install git+https://github.com/BlockResearchGroup/compas_fofin.git#egg<span class="o">=</span>compas_fofin
 </code></pre></div>
 </div>
 </div>
+<div class="tab-pane" id="osx"><p>In Terminal:</p>
+<div class="language-bash notranslate"><div class="highlight"><pre><code><span></span>conda create -n fofin <span class="nv">python</span><span class="o">=</span><span class="m">3</span>.6 pip python.app
+conda activate fofin
+pip install cvxpy
+conda install -c ibmdecisionoptimization cplex
+conda install -c conda-forge COMPAS
+pip install git+https://github.com/BlockResearchGroup/compas_fofin.git#egg<span class="o">=</span>compas_fofin
+</code></pre></div>
+</div>
+</div>
+</div>
+</div>
+</div></div>
 
                     
                 
