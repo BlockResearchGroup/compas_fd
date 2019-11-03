@@ -19,9 +19,7 @@ zmax = max(z)
 vertexcolor = {key: i_to_black((attr['z'] - zmin) / (zmax - zmin)) for key, attr in shell.vertices(True)}
 
 plotter = MeshPlotter(shell, figsize=(10, 7))
-plotter.draw_vertices(
-    facecolor=vertexcolor,
-    radius=0.05)
+plotter.draw_vertices(facecolor=vertexcolor, radius=0.05)
 plotter.draw_edges()
 plotter.show()
 
