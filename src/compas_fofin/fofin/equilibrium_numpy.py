@@ -18,7 +18,7 @@ __all__ = [
 ]
 
 
-def update_xyz_numpy(mesh, thickness_attr_name='t'):
+def update_xyz_numpy(mesh):
     """Find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
@@ -45,13 +45,6 @@ def update_xyz_numpy(mesh, thickness_attr_name='t'):
     Ci    = C[:, free]
     Cf    = C[:, fixed]
     Cit   = Ci.transpose()
-
-    if thickness_attr_name:
-        selfweight = SelfweightCalculator(mesh,
-                                          density=mesh.attributes['density'],
-                                          thickness_attr_name=thickness_attr_name)
-        sw = selfweight(xyz)
-        p[:, 2] -= sw[:, 0]
 
     Q = diags([q.flatten()], [0])
     A = Cit.dot(Q).dot(Ci)

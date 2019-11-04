@@ -6,9 +6,13 @@ from compas.datastructures import Mesh
 from compas.utilities import pairwise
 
 
-class Shell(Mesh):
-    """:class:`Shell` extends the mesh datastructure
-    with attributes and methods related to form finding (and analysis) of shells.
+__all__ = ['Cablenet']
+
+
+class Cablenet(Mesh):
+    """:class:`Cablenet` extends the mesh datastructure
+    with attributes and methods related to form finding (and analysis) of
+    flexible cablenet formwork for concrete shells.
 
     Attributes
     ----------
@@ -34,20 +38,26 @@ class Shell(Mesh):
     default_edge_attributes : dict
         The default data attributes assigned to every new edge.
 
-        * ``'q'`` : ``0.0``
-        * ``'f'`` : ``0.0``
-        * ``'l'`` : ``0.0``
-        * ``'E'`` : ``0.0``
-        * ``'r'`` : ``0.0``
-        * ``'l0'`` : ``0.0``
+        .. code-block:: python
+
+            {
+                'q' : 0.0,
+                'f' : 0.0,
+                'l' : 0.0,
+                'E' : 0.0,
+                'r' : 0.0,
+                'l0' : 0.0,
+            }
 
     Notes
     -----
+    The cablenet is implemented as a mesh.
+    This means that it can only be used to model surface-like structures.
 
     """
 
     def __init__(self):
-        super(Shell, self).__init__()
+        super(Cablenet, self).__init__()
         self.attributes.update({
             'color.forces:compression' : (0, 0, 255),
             'color.forces:tension'     : (255, 0, 0),
@@ -95,60 +105,159 @@ class Shell(Mesh):
 
     @classmethod
     def from_lines(cls, lines):
-        """Make a shell from a Rhino mesh."""
-        return super(Shell, cls).from_lines(lines, delete_boundary_face=False)
+        """Make a cable net from a Rhino mesh.
+
+        Parameters
+        ----------
+        lines : list
+            A list of pairs of points: the start and end point of each line.
+
+        Returns
+        -------
+        :class:`Cablenet`
+            An instance of a cable net.
+
+        Notes
+        -----
+        The algorithm used to construct a mesh from the connected lines
+        is a "wall follower". It will also find the "face" belonging to
+        the "outside" of the structure. This face is automatically deleted.
+
+        """
+        return super(Cablenet, cls).from_lines(lines, delete_boundary_face=False)
 
     @classmethod
     def from_rhinomesh(cls, guid):
-        """Make a shell from a Rhino mesh."""
+        """Make a cable net from a Rhino mesh.
+
+        Parameters
+        ----------
+        guid : str
+            The GUID of the Rhino mesh.
+
+        Returns
+        -------
+        :class:`Cablenet`
+            An instance of a cable net.
+
+        """
         from compas_rhino.helpers import mesh_from_guid
         return mesh_from_guid(cls, guid)
 
     @classmethod
     def from_rhinosurface(cls, guid, u=10, v=10):
-        """Make a mesh from a Rhino surface."""
+        """Make a cable net from a Rhino surface.
+
+        Parameters
+        ----------
+        guid : str
+            The GUID of the Rhino surface.
+        u : int (10)
+            The number of isolines in the "u" direction.
+            Default is `10`.
+        v : int (10)
+            The number of isolines in the "v" direction.
+            Default is `10`.
+
+        Returns
+        -------
+        :class:`Cablenet`
+            An instance of a cable net.
+
+        """
         from compas_rhino.helpers import mesh_from_surface_uv
         return mesh_from_surface_uv(cls, guid, density=(u, v))
 
-    def get_continuous_edges(self, edge, directed=True):
-        """Get the edges forming a continuous line with the selected edge."""
+    def get_continuous_edges(self, edge, aligned=False):
+        """Get the edges forming a continuous line with the selected edge.
+
+        Parameters
+        ----------
+        edge : tuple
+            The identifier of the starting edge.
+        aligned : bool (False)
+            Return the edges aligned with the starting edge.
+
+        Returns
+        -------
+        list
+            If ``aligned == True``, vertex pairs directed such that they form
+            a continuous chain with the orientation of the starting edge.
+
+            If ``aligned == False`` (default), vertex pairs directed
+            as they are in the data structure.
+
+        Examples
+        --------
+        Get any edge, not on the boundary as starting edge.
+        >>> edges = cablenet.get_continuous_edges(start, aligned=True)
+        >>> all(cablenet.has_edge(u, v, directed=False) for u, v in edges)
+        True
+        >>> edges = cablenet.get_continuous_edges(start, aligned=False)
+        >>> all(cablenet.has_edge(u, v, directed=False) for u, v in edges)
+        True
+        >>> edges = cablenet.get_continuous_edges(start, aligned=False)
+        >>> all(cablenet.has_edge(u, v, directed=True) for u, v in edges)
+        True
+        >>> edges = cablenet.get_continuous_edges(start, aligned=True)
+        >>> all(cablenet.has_edge(u, v, directed=True) for u, v in edges)
+        False
+
+        """
         boundary = set(self.vertices_on_boundary())
-        edges = [edge]
-        u, v = edge
-        end = v
-        while True:
-            if self.vertex_degree(u) != 4:
-                break
-            if u == end:
-                break
-            if u in boundary:
-                break
-            nbrs = self.vertex_neighbors(u, ordered=True)
-            i = nbrs.index(v)
-            v = nbrs[i - 2]
-            edges.append((u, v))
-            u, v = v, u
+        edges = []
         v, u = edge
-        end = v
+        end = u
         while True:
-            if self.vertex_degree(u) != 4:
+            edges.append((v, u))
+            if v == end:
                 break
-            if u == end:
+            if v in boundary:
                 break
-            if u in boundary:
+            if self.vertex_degree(v) != 4:
                 break
-            nbrs = self.vertex_neighbors(u, ordered=True)
-            i = nbrs.index(v)
-            v = nbrs[i - 2]
-            edges.append((u, v))
+            nbrs = self.vertex_neighbors(v, ordered=True)
+            i = nbrs.index(u)
+            u = nbrs[i - 2]
             u, v = v, u
-        if not directed:
+        edges[:] = edges[::-1]
+        u, v = edge
+        end = u
+        while True:
+            if v == end:
+                break
+            if v in boundary:
+                break
+            if self.vertex_degree(v) != 4:
+                break
+            nbrs = self.vertex_neighbors(v, ordered=True)
+            i = nbrs.index(u)
+            u = nbrs[i - 2]
+            u, v = v, u
+            edges.append((u, v))
+        if aligned:
             return edges
         edgeset = set(list(self.edges()))
         return [(u, v) if (u, v) in edgeset else (v, u) for u, v in edges]
 
     def get_parallel_edges(self, edge):
-        """Get the edges parallel to the selected edge."""
+        """Get the edges parallel to the selected edge.
+
+        Parameters
+        ----------
+        edge : tuple
+            Pair of vertex identifiers.
+
+        Returns
+        -------
+        list
+            Identifiers of edges, as vertex pairs, parallel to the starting edge.
+
+        Examples
+        --------
+        >>>
+
+        """
         edges = [edge]
         u, v = edge
         while True:
@@ -182,7 +291,24 @@ class Shell(Mesh):
         directed = set(list(self.edges()))
         return [(u, v) if (u, v) in directed else (v, u) for u, v in edges]
 
-    def get_face_strip(self, fkey):
+    def get_face_strip(self, edge):
+        """Get the face strip defined by an edge.
+
+        Parameters
+        ----------
+        edge : tuple
+            Pair of vertex identifiers.
+
+        Returns
+        -------
+        list
+            Identifiers of faces.
+
+        Examples
+        --------
+        >>>
+
+        """
         faces = []
         boundary = set(self.faces_on_boundary())
         if fkey not in boundary:
@@ -256,4 +382,44 @@ class Shell(Mesh):
 # ==============================================================================
 
 if __name__ == "__main__":
-    pass
+
+    import os
+    import doctest
+    import random
+    import compas
+    import compas_fofin
+    from compas.utilities import flatten
+    from compas_plotters import MeshPlotter
+
+    FILE = compas.get('quadmesh.obj')
+    cablenet = Cablenet.from_obj(FILE)
+    start = random.choice(list(set(cablenet.edges()) - set(cablenet.edges_on_boundary())))
+
+    notaligned = list(cablenet.get_continuous_edges(start))
+    aligned = list(cablenet.get_continuous_edges(start, aligned=True))
+
+    aligned_directioncheck = [cablenet.has_edge(u, v) for u, v in aligned]
+    notaligned_directioncheck = [cablenet.has_edge(u, v) for u, v in notaligned]
+    notaligned_nodirectioncheck = [cablenet.has_edge(u, v, directed=False) for u, v in notaligned]
+    aligned_nodirectioncheck = [cablenet.has_edge(u, v, directed=False) for u, v in aligned]
+
+    print(start)
+    print(aligned)
+    print(notaligned)
+
+    print(aligned_directioncheck)
+    print(aligned_nodirectioncheck)
+    print(notaligned_directioncheck)
+    print(notaligned_nodirectioncheck)
+
+    print(all(aligned_directioncheck))
+    print(all(aligned_nodirectioncheck))
+    print(all(notaligned_directioncheck))
+    print(all(notaligned_nodirectioncheck))
+
+    plotter = MeshPlotter(cablenet)
+    plotter.draw_edges(width={key: 2.0 for key in notaligned})
+    plotter.draw_vertices(text={key: key for key in list(set(flatten(aligned)))}, radius=0.05)
+    plotter.show()
+
+    doctest.testmod(globs=globals())
