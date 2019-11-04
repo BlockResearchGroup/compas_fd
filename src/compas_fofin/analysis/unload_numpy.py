@@ -4,6 +4,7 @@ from __future__ import print_function
 
 from numpy import array
 from numpy import float64
+from numpy import zeros
 
 from compas.numerical import dr_numpy
 
@@ -14,17 +15,19 @@ __all__ = ['unload_numpy']
 def unload_numpy(mesh, kmax=10000, tol=0.01):
     """"""
     key_index = mesh.key_index()
-    uv_index  = {(u, v): index for index, (u, v) in enumerate(mesh.edges_where({'is_edge': True}))}
+    uv_index = {(u, v): index for index, (u, v) in enumerate(mesh.edges_where({'is_edge': True}))}
 
-    fixed  = [key_index[key] for key in mesh.vertices_where({'is_anchor': True})]
-    xyz    = array(mesh.get_vertices_attributes('xyz'), dtype=float64)
-    p      = array([[0.0, 0.0, 0.0] for _ in range(len(xyz))], dtype=float64)
-    edges  = [(key_index[u], key_index[v]) for u, v in mesh.edges_where({'is_edge': True})]
-    qpre   = array([0.0] * len(edges), dtype=float64).reshape((-1, 1))
-    fpre   = array([0.0] * len(edges), dtype=float64).reshape((-1, 1))
-    lpre   = array([0.0] * len(edges), dtype=float64).reshape((-1, 1))
-    l0     = array([attr['l0'] for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
-    E      = array([attr['E'] * 1e+6 for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
+    fixed = [key_index[key] for key in mesh.vertices_where({'is_anchor': True})]
+    xyz = array(mesh.get_vertices_attributes('xyz'), dtype=float64)
+    edges = [(key_index[u], key_index[v]) for u, v in mesh.edges_where({'is_edge': True})]
+    v = len(xyz)
+    e = len(edges)
+    p = zeros((v, 3), dtype=float64)
+    qpre = zeros((e, 1), dtype=float64)
+    fpre = zeros((e, 1), dtype=float64)
+    lpre = zeros((e, 1), dtype=float64)
+    l0 = array([attr['l0'] for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
+    E = array([attr['E'] * 1e+6 for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
     radius = array([attr['r'] for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
 
     xyz, q, f, l, r = dr_numpy(xyz, edges, fixed, p, qpre, fpre, lpre, l0, E, radius, kmax=kmax, tol1=tol)
@@ -44,7 +47,7 @@ def unload_numpy(mesh, kmax=10000, tol=0.01):
         attr['l'] = l[index, 0]
 
 
-        # ==============================================================================
+# ==============================================================================
 # Main
 # ==============================================================================
 

@@ -4,18 +4,12 @@ from __future__ import print_function
 
 from numpy import array
 from numpy import float64
-from scipy.sparse import diags
-from scipy.sparse.linalg import spsolve
 
-from compas.numerical import normrow
-from compas.numerical import connectivity_matrix
-
+from compas.numerical import fd_numpy
 from compas_fofin.loads import SelfweightCalculator
 
 
-__all__ = [
-    'update_xyz_numpy'
-]
+__all__ = ['update_xyz_numpy']
 
 
 def update_xyz_numpy(mesh):
@@ -23,7 +17,7 @@ def update_xyz_numpy(mesh):
 
     Parameters
     ----------
-    mesh : compas_fofin.datastructures.Shell
+    mesh : compas_fofin.datastructures.Cablenet
         The mesh to equilibriate.
 
     Returns
@@ -40,21 +34,14 @@ def update_xyz_numpy(mesh):
     p     = array(mesh.get_vertices_attributes(('px', 'py', 'pz')), dtype=float64)
     edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'is_edge': True})]
     q     = array([attr['q'] for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
-    C     = connectivity_matrix(edges, 'csr')
-    Ct    = C.transpose()
-    Ci    = C[:, free]
-    Cf    = C[:, fixed]
-    Cit   = Ci.transpose()
 
-    Q = diags([q.flatten()], [0])
-    A = Cit.dot(Q).dot(Ci)
-    b = p[free] - Cit.dot(Q).dot(Cf).dot(xyz[fixed])
+    density = mesh.attributes['density']
+    if density:
+        calculate_sw = SelfweightCalculator(mesh, density=density)
+        sw = calculate_sw(xyz)
+        p[:, 2] = -sw[:, 0]
 
-    xyz[free] = spsolve(A, b)
-
-    l = normrow(C.dot(xyz))
-    f = q * l
-    r = p - Ct.dot(Q).dot(C).dot(xyz)
+    xyz, q, f, l, r = fd_numpy(xyz, edges, fixed, q, p)
 
     for key, attr in mesh.vertices(True):
         index = k_i[key]

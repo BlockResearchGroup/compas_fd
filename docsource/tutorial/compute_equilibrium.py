@@ -1,26 +1,63 @@
 import os
-from compas.utilities import i_to_black
-from compas_fofin.datastructures import Shell
+
+from compas.utilities import Colormap
+
+from compas_fofin.datastructures import Cablenet
 from compas_fofin.fofin import update_xyz_numpy
+
 from compas_plotters import MeshPlotter
 
+# ==============================================================================
+# Create a cablenet
+# ==============================================================================
+
 HERE = os.path.dirname(__file__)
-FILE_I = os.path.join(HERE, 'hypar.obj')
+FILE_I = os.path.join(HERE, 'lines.json')
 FILE_O = os.path.join(HERE, 'hypar.json')
 
-shell = Shell.from_obj(FILE_I)
-shell.set_vertices_attribute('is_anchor', True, keys=list(shell.vertices_on_boundary()))
+cablenet = Cablenet.from_json(FILE_I)
 
-update_xyz_numpy(shell)
+cablenet.attributes['density'] = 0.0
 
-z = shell.get_vertices_attribute('z')
-zmin = min(z)
-zmax = max(z)
-vertexcolor = {key: i_to_black((attr['z'] - zmin) / (zmax - zmin)) for key, attr in shell.vertices(True)}
+# ==============================================================================
+# Identify anchors
+# ==============================================================================
 
-plotter = MeshPlotter(shell, figsize=(10, 7))
+corners = list(cablenet.vertices_where({'vertex_degree': 3}))
+
+cablenet.set_vertices_attribute('is_anchor', True, keys=list(cablenet.vertices_on_boundary()))
+
+# ==============================================================================
+# Update force densities
+# ==============================================================================
+
+# cablenet.set_edges_attribute('q', 7.0, keys=list(cablenet.edges_on_boundary()))
+
+# ==============================================================================
+# Compute equilibrium
+# ==============================================================================
+
+update_xyz_numpy(cablenet)
+
+# ==============================================================================
+# Visualize
+# ==============================================================================
+
+heights = cablenet.get_vertices_attribute('z')
+cmap = Colormap(heights, 'black')
+vertexcolor = {key: cmap(z) for key, z in zip(cablenet.vertices(), heights)}
+
+forces = cablenet.get_edges_attribute('f')
+cmap = Colormap(heights, 'rgb')
+edgecolor = {key: cmap(f) for key, f in zip(cablenet.edges(), forces)}
+
+plotter = MeshPlotter(cablenet, figsize=(10, 7))
 plotter.draw_vertices(facecolor=vertexcolor, radius=0.05)
-plotter.draw_edges()
+plotter.draw_edges(width=2.0, color=edgecolor)
 plotter.show()
 
-shell.to_json(FILE_O)
+# ==============================================================================
+# Export
+# ==============================================================================
+
+cablenet.to_json(FILE_O)

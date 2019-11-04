@@ -2,6 +2,8 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
+from math import pi
+
 from compas.datastructures import Mesh
 from compas.utilities import pairwise
 
@@ -59,72 +61,49 @@ class Cablenet(Mesh):
     def __init__(self):
         super(Cablenet, self).__init__()
         self.attributes.update({
-            'color.forces:compression' : (0, 0, 255),
-            'color.forces:tension'     : (255, 0, 0),
-            'color.reactions'          : (0, 255, 0),
-            'color.residuals'          : (0, 255, 255),
-            'color.loads'              : (0, 0, 255),
-            'scale.forces'             : 0.1,
-            'scale.reactions'          : 1.0,
-            'scale.residuals'          : 1.0,
-            'scale.loads'              : 1.0,
-            'tol.reactions'            : 1e-3,
-            'tol.residuals'            : 1e-3,
-            'tol.forces'               : 1e-3,
-
-            'density' : 1.0,
+            'color.forces:compression': (0, 0, 255),
+            'color.forces:tension': (255, 0, 0),
+            'color.reactions': (0, 255, 0),
+            'color.residuals': (0, 255, 255),
+            'color.loads': (0, 0, 255),
+            'scale.forces': 0.1,
+            'scale.reactions': 1.0,
+            'scale.residuals': 1.0,
+            'scale.loads': 1.0,
+            'tol.reactions': 1e-3,
+            'tol.residuals': 1e-3,
+            'tol.forces': 1e-3,
+            'density': 14.0,
         })
         self.default_vertex_attributes.update({
-            'x' : 0.0,
-            'y' : 0.0,
-            'z' : 0.0,
-            'px' : 0.0,
-            'py' : 0.0,
-            'pz' : 0.0,
-            'rx' : 0.0,
-            'ry' : 0.0,
-            'rz' : 0.0,
-            't' : 0.0,
-            'is_anchor' : False,
-            'is_fixed'  : False,
+            'x': 0.0,
+            'y': 0.0,
+            'z': 0.0,
+            'px': 0.0,
+            'py': 0.0,
+            'pz': 0.0,
+            'rx': 0.0,
+            'ry': 0.0,
+            'rz': 0.0,
+            't': 0.05,
+            'is_anchor': False,
+            'is_fixed': False,
             'constraint': None,
-            'param'     : None,
+            'param': None,
         })
         self.default_edge_attributes.update({
-            'q' : 1.0,
-            'f' : 0.0,
-            'l' : 0.0,
-            'E' : 0.0,
-            'r' : 0.0,
-            'l0' : 0.0,
-            'is_edge' : True,
+            'q': 1.0,
+            'f': 0.0,
+            'l': 0.0,
+            'E': 210.0,
+            'r': 0.0,
+            'l0': 0.0,
+            'is_edge': True,
+            'yield': 235.0,
         })
         self.default_face_attributes.update({
-            'strip' : None
+            'strip': None
         })
-
-    @classmethod
-    def from_lines(cls, lines):
-        """Make a cable net from a Rhino mesh.
-
-        Parameters
-        ----------
-        lines : list
-            A list of pairs of points: the start and end point of each line.
-
-        Returns
-        -------
-        :class:`Cablenet`
-            An instance of a cable net.
-
-        Notes
-        -----
-        The algorithm used to construct a mesh from the connected lines
-        is a "wall follower". It will also find the "face" belonging to
-        the "outside" of the structure. This face is automatically deleted.
-
-        """
-        return super(Cablenet, cls).from_lines(lines, delete_boundary_face=False)
 
     @classmethod
     def from_rhinomesh(cls, guid):
@@ -240,13 +219,15 @@ class Cablenet(Mesh):
         edgeset = set(list(self.edges()))
         return [(u, v) if (u, v) in edgeset else (v, u) for u, v in edges]
 
-    def get_parallel_edges(self, edge):
+    def get_parallel_edges(self, edge, aligned=False):
         """Get the edges parallel to the selected edge.
 
         Parameters
         ----------
         edge : tuple
             Pair of vertex identifiers.
+        aligned : bool (False)
+            Return the edges aligned with the starting edge.
 
         Returns
         -------
@@ -287,7 +268,9 @@ class Cablenet(Mesh):
             v = vertices[i - 2]
             if u in edge and v in edge:
                 break
-            edges.append((u, v))
+            edges.append((v, u))
+        if aligned:
+            return edges
         directed = set(list(self.edges()))
         return [(u, v) if (u, v) in directed else (v, u) for u, v in edges]
 
@@ -309,37 +292,20 @@ class Cablenet(Mesh):
         >>>
 
         """
+        edges = self.get_parallel_edges(edge, aligned=True)
         faces = []
-        boundary = set(self.faces_on_boundary())
-        if fkey not in boundary:
-            return faces
-        vertices = self.face_vertices(fkey)
-        if len(vertices) != 4:
-            return faces
-        for u, v in pairwise(vertices + vertices[:1]):
-            nbr = self.halfedge[v][u]
-            if nbr is None:
-                edge = u, v
-                break
-            edge = None
-        if not edge:
-            return faces
-        i = vertices.index(edge[0])
-        u = vertices[i - 2]
-        v = vertices[i - 1]
-        faces.append(fkey)
-        while True:
-            fkey = self.halfedge[v][u]
-            if fkey is None:
-                break
-            v, u = u, v
-            faces.append(fkey)
-            vertices = self.face_vertices(fkey)
-            if len(vertices) != 4:
-                break
-            i = vertices.index(u)
-            u = vertices[i - 2]
-            v = vertices[i - 1]
+        seen = set()
+        for u, v in edges:
+            left = self.halfedge[u][v]
+            right = self.halfedge[v][u]
+            if left is not None:
+                if left not in seen:
+                    faces.append(left)
+                    seen.add(left)
+            if right is not None:
+                if right not in seen:
+                    faces.append(right)
+                    seen.add(right)
         return faces
 
     def draw(self, layer=None, clear_layer=True, settings=None):
@@ -376,50 +342,32 @@ class Cablenet(Mesh):
                 scale=settings.get('scale.loads', None))
         artist.redraw()
 
+    def residual(self, key):
+        return self.get_vertex_attributes(key, ('rx', 'ry', 'rz'))
+
+    def stress(self, key):
+        radius = self.get_edge_attribute(key, 'r')
+        area = pi * radius ** 2
+        force = 1e3 * self.get_edge_attribute(key, 'f')
+        return 1e-6 * force / area
+
+    def strain(self, key):
+        l = self.get_edge_attribute(key, 'l')
+        l0 = self.get_edge_attribute(key, 'l0')
+        return l / l0
+
 
 # ==============================================================================
 # Main
 # ==============================================================================
-
 if __name__ == "__main__":
 
-    import os
     import doctest
     import random
     import compas
-    import compas_fofin
-    from compas.utilities import flatten
-    from compas_plotters import MeshPlotter
 
     FILE = compas.get('quadmesh.obj')
     cablenet = Cablenet.from_obj(FILE)
     start = random.choice(list(set(cablenet.edges()) - set(cablenet.edges_on_boundary())))
-
-    notaligned = list(cablenet.get_continuous_edges(start))
-    aligned = list(cablenet.get_continuous_edges(start, aligned=True))
-
-    aligned_directioncheck = [cablenet.has_edge(u, v) for u, v in aligned]
-    notaligned_directioncheck = [cablenet.has_edge(u, v) for u, v in notaligned]
-    notaligned_nodirectioncheck = [cablenet.has_edge(u, v, directed=False) for u, v in notaligned]
-    aligned_nodirectioncheck = [cablenet.has_edge(u, v, directed=False) for u, v in aligned]
-
-    print(start)
-    print(aligned)
-    print(notaligned)
-
-    print(aligned_directioncheck)
-    print(aligned_nodirectioncheck)
-    print(notaligned_directioncheck)
-    print(notaligned_nodirectioncheck)
-
-    print(all(aligned_directioncheck))
-    print(all(aligned_nodirectioncheck))
-    print(all(notaligned_directioncheck))
-    print(all(notaligned_nodirectioncheck))
-
-    plotter = MeshPlotter(cablenet)
-    plotter.draw_edges(width={key: 2.0 for key in notaligned})
-    plotter.draw_vertices(text={key: key for key in list(set(flatten(aligned)))}, radius=0.05)
-    plotter.show()
 
     doctest.testmod(globs=globals())

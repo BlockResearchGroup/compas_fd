@@ -1,28 +1,50 @@
 import os
-from compas_fofin.datastructures import Shell
+
+from compas.utilities import Colormap
+
+from compas_fofin.datastructures import Cablenet
 from compas_fofin.analysis import mesh_materialize_cables
+
 from compas_plotters import MeshPlotter
+
+# ==============================================================================
+# Create a cablenet
+# ==============================================================================
 
 HERE = os.path.dirname(__file__)
 FILE_I = os.path.join(HERE, 'hypar.json')
-FILE_O = os.path.join(HERE, 'hypar.json')
+FILE_O = os.path.join(HERE, 'hypar_materialized.json')
 
-shell = Shell.from_json(FILE_I)
+cablenet = Cablenet.from_json(FILE_I)
 
-mesh_materialize_cables(shell)
+# ==============================================================================
+# Materialize
+# ==============================================================================
 
-sizes = shell.get_edges_attribute('size')
-r = shell.get_edges_attribute('r')
-l = shell.get_edges_attribute('l')
-l0 = shell.get_edges_attribute('l0')
+mesh_materialize_cables(cablenet)
 
-print(sizes)
-print(r)
-print(["{:.4f}".format(l / l0) for l, l0 in zip(l, l0)])
+# ==============================================================================
+# Visualize
+# ==============================================================================
 
-plotter = MeshPlotter(shell, figsize=(10, 7))
-plotter.draw_vertices(radius=0.05)
-plotter.draw_edges()
+stress = [cablenet.stress(key) for key in cablenet.edges()]
+cmap = Colormap(stress, 'rgb')
+edgecolor = {key: cmap(s) for key, s in zip(cablenet.edges(), stress)}
+
+utilization = [cablenet.stress(key) / cablenet.get_edge_attribute(key, 'yield') for key in cablenet.edges()]
+cmap = Colormap(utilization, 'red')
+edgecolor = {key: cmap(u) for key, u in zip(cablenet.edges(), utilization)}
+
+print(min(utilization))
+print(max(utilization))
+
+plotter = MeshPlotter(cablenet, figsize=(10, 7))
+plotter.draw_vertices(radius=0.05, facecolor={key: (0.0, 0.0, 0.0) for key in cablenet.vertices_where({'is_anchor': True})})
+plotter.draw_edges(width=2.0, color=edgecolor)
 plotter.show()
 
-shell.to_json(FILE_O)
+# ==============================================================================
+# Export
+# ==============================================================================
+
+cablenet.to_json(FILE_O)
