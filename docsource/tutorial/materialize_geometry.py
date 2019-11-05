@@ -27,20 +27,22 @@ mesh_materialize_cables(cablenet)
 # Visualize
 # ==============================================================================
 
-stress = [cablenet.stress(key) for key in cablenet.edges()]
-cmap = Colormap(stress, 'rgb')
-edgecolor = {key: cmap(s) for key, s in zip(cablenet.edges(), stress)}
+edges = list(cablenet.edges_where({'is_edge': True}))
 
-utilization = [cablenet.stress(key) / cablenet.get_edge_attribute(key, 'yield') for key in cablenet.edges()]
+stress = [cablenet.stress(key) for key in edges]
+cmap = Colormap(stress, 'rgb')
+edgecolor = {key: cmap(s) for key, s in zip(edges, stress)}
+
+utilization = [cablenet.stress(key) / cablenet.get_edge_attribute(key, 'yield') for key in edges]
 cmap = Colormap(utilization, 'red')
-edgecolor = {key: cmap(u) for key, u in zip(cablenet.edges(), utilization)}
+edgecolor = {key: cmap(u) for key, u in zip(edges, utilization)}
 
 print(min(utilization))
 print(max(utilization))
 
 plotter = MeshPlotter(cablenet, figsize=(10, 7))
 plotter.draw_vertices(radius=0.05, facecolor={key: (0.0, 0.0, 0.0) for key in cablenet.vertices_where({'is_anchor': True})})
-plotter.draw_edges(width=2.0, color=edgecolor)
+plotter.draw_edges(width=2.0, color=edgecolor, keys=edges)
 plotter.show()
 
 # ==============================================================================

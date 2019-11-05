@@ -38,17 +38,17 @@ if not compas.IPY:
 
 
 def unload_proxy(data, *args, **kwargs):
-    from compas_fofin.datastructures import Shell
-    shell = Shell.from_data(data)
-    unload_numpy(shell, *args, **kwargs)
-    return shell.to_data()
+    from compas_fofin.datastructures import Cablenet
+    cablenet = Cablenet.from_data(data)
+    unload_numpy(cablenet, *args, **kwargs)
+    return cablenet.to_data()
 
 
 def apply_loads_proxy(data, *args, **kwargs):
-    from compas_fofin.datastructures import Shell
-    shell = Shell.from_data(data)
-    apply_loads_numpy(shell, *args, **kwargs)
-    return shell.to_data()
+    from compas_fofin.datastructures import Cablenet
+    cablenet = Cablenet.from_data(data)
+    apply_loads_numpy(cablenet, *args, **kwargs)
+    return cablenet.to_data()
 
 
 __all__ = [name for name in dir() if not name.startswith('_')]

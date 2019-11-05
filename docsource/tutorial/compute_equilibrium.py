@@ -23,15 +23,7 @@ cablenet.attributes['density'] = 0.0
 # Identify anchors
 # ==============================================================================
 
-corners = list(cablenet.vertices_where({'vertex_degree': 3}))
-
 cablenet.set_vertices_attribute('is_anchor', True, keys=list(cablenet.vertices_on_boundary()))
-
-# ==============================================================================
-# Update force densities
-# ==============================================================================
-
-# cablenet.set_edges_attribute('q', 7.0, keys=list(cablenet.edges_on_boundary()))
 
 # ==============================================================================
 # Compute equilibrium
@@ -48,7 +40,7 @@ cmap = Colormap(heights, 'black')
 vertexcolor = {key: cmap(z) for key, z in zip(cablenet.vertices(), heights)}
 
 forces = cablenet.get_edges_attribute('f')
-cmap = Colormap(heights, 'rgb')
+cmap = Colormap(forces, 'rgb')
 edgecolor = {key: cmap(f) for key, f in zip(cablenet.edges(), forces)}
 
 plotter = MeshPlotter(cablenet, figsize=(10, 7))

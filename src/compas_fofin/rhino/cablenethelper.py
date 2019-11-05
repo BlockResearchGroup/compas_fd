@@ -2,6 +2,12 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
+from compas_rhino.modifiers import FaceModifier
+from compas_rhino.modifiers import EdgeModifier
+from compas_rhino.modifiers import VertexModifier
+from compas_rhino.selectors import FaceSelector
+from compas_rhino.selectors import EdgeSelector
+from compas_rhino.selectors import VertexSelector
 from ast import literal_eval
 
 import compas
@@ -12,19 +18,12 @@ from compas.utilities import flatten
 if compas.IPY:
     import rhinoscriptsyntax as rs
 
-from compas_rhino.selectors import VertexSelector
-from compas_rhino.selectors import EdgeSelector
-from compas_rhino.selectors import FaceSelector
-from compas_rhino.modifiers import VertexModifier
-from compas_rhino.modifiers import EdgeModifier
-from compas_rhino.modifiers import FaceModifier
+
+__all__ = ['CablenetHelper']
 
 
-__all__ = ['ShellHelper']
-
-
-def match_vertices(shell, keys):
-    temp = compas_rhino.get_objects(name="{}.vertex.*".format(shell.name))
+def match_vertices(cablenet, keys):
+    temp = compas_rhino.get_objects(name="{}.vertex.*".format(cablenet.name))
     names = compas_rhino.get_object_names(temp)
     guids = []
     for guid, name in zip(temp, names):
@@ -35,8 +34,8 @@ def match_vertices(shell, keys):
     return guids
 
 
-def match_edges(shell, keys):
-    temp = compas_rhino.get_objects(name="{}.edge.*".format(shell.name))
+def match_edges(cablenet, keys):
+    temp = compas_rhino.get_objects(name="{}.edge.*".format(cablenet.name))
     names = compas_rhino.get_object_names(temp)
     guids = []
     for guid, name in zip(temp, names):
@@ -48,8 +47,8 @@ def match_edges(shell, keys):
     return guids
 
 
-def match_faces(shell, keys):
-    temp = compas_rhino.get_objects(name="{}.face.*".format(shell.name))
+def match_faces(cablenet, keys):
+    temp = compas_rhino.get_objects(name="{}.face.*".format(cablenet.name))
     names = compas_rhino.get_object_names(temp)
     guids = []
     for guid, name in zip(temp, names):
@@ -60,76 +59,76 @@ def match_faces(shell, keys):
     return guids
 
 
-def select_vertices(shell, keys):
-    guids = match_vertices(shell, keys)
+def select_vertices(cablenet, keys):
+    guids = match_vertices(cablenet, keys)
     rs.EnableRedraw(False)
     rs.SelectObjects(guids)
     rs.EnableRedraw(True)
 
 
-def select_edges(shell, keys):
-    guids = match_edges(shell, keys)
+def select_edges(cablenet, keys):
+    guids = match_edges(cablenet, keys)
     rs.EnableRedraw(False)
     rs.SelectObjects(guids)
     rs.EnableRedraw(True)
 
 
-def select_faces(shell, keys):
-    guids = match_faces(shell, keys)
+def select_faces(cablenet, keys):
+    guids = match_faces(cablenet, keys)
     rs.EnableRedraw(False)
     rs.SelectObjects(guids)
     rs.EnableRedraw(True)
 
 
-class ShellHelper(VertexSelector,
-                  EdgeSelector,
-                  FaceSelector,
-                  VertexModifier,
-                  EdgeModifier):
-    """A shell helper groups functionality for selecting and modifying shell
+class CablenetHelper(VertexSelector,
+                     EdgeSelector,
+                     FaceSelector,
+                     VertexModifier,
+                     EdgeModifier):
+    """A cablenet helper groups functionality for selecting and modifying cablenet
     vertices and edges in Rhino.
     """
 
     @staticmethod
-    def highlight_faces(shell, keys):
-        select_faces(shell, keys)
+    def highlight_faces(cablenet, keys):
+        select_faces(cablenet, keys)
 
     @staticmethod
-    def select_parallel_edges(shell, keys):
-        keys = [shell.get_parallel_edges(key) for key in keys]
+    def select_parallel_edges(cablenet, keys):
+        keys = [cablenet.get_parallel_edges(key) for key in keys]
         keys = list(set(list(flatten(keys))))
-        select_edges(shell, keys)
+        select_edges(cablenet, keys)
         return keys
 
     @staticmethod
-    def select_continuous_edges(shell, keys):
-        keys = [shell.get_continuous_edges(key) for key in keys]
+    def select_continuous_edges(cablenet, keys):
+        keys = [cablenet.get_continuous_edges(key) for key in keys]
         keys = list(set(list(flatten(keys))))
-        select_edges(shell, keys)
+        select_edges(cablenet, keys)
         return keys
 
     @staticmethod
-    def select_boundary_faces(shell):
-        keys = shell.faces_on_boundary()
-        select_faces(shell, keys)
+    def select_boundary_faces(cablenet):
+        keys = cablenet.faces_on_boundary()
+        select_faces(cablenet, keys)
         return keys
 
     @staticmethod
-    def select_face_strip(shell, fkey):
-        strip = shell.get_face_strip(fkey)
-        select_faces(shell, strip)
+    def select_face_strip(cablenet, fkey):
+        strip = cablenet.get_face_strip(fkey)
+        select_faces(cablenet, strip)
         return strip
 
     @staticmethod
-    def update_vertex_attributes(shell, keys, names=None):
+    def update_vertex_attributes(cablenet, keys, names=None):
         if not names:
-            names = shell.default_vertex_attributes.keys()
+            names = cablenet.default_vertex_attributes.keys()
         names = sorted(names)
-        values = [shell.vertex[keys[0]][name] for name in names]
+        values = [cablenet.vertex[keys[0]][name] for name in names]
         if len(keys) > 1:
             for i, name in enumerate(names):
                 for key in keys[1:]:
-                    if values[i] != shell.vertex[key][name]:
+                    if values[i] != cablenet.vertex[key][name]:
                         values[i] = '-'
                         break
 
@@ -144,24 +143,24 @@ class ShellHelper(VertexSelector,
                             value = literal_eval(value)
                         except (SyntaxError, ValueError, TypeError):
                             pass
-                        shell.set_vertex_attribute(key, name, value)
+                        cablenet.set_vertex_attribute(key, name, value)
 
             return True
         return False
 
     @staticmethod
-    def update_edge_attributes(shell, keys, names=None):
+    def update_edge_attributes(cablenet, keys, names=None):
         if not names:
-            names = shell.default_edge_attributes.keys()
+            names = cablenet.default_edge_attributes.keys()
         names = sorted(names)
 
         key = keys[0]
-        values = shell.get_edge_attributes(key, names)
+        values = cablenet.get_edge_attributes(key, names)
 
         if len(keys) > 1:
             for i, name in enumerate(names):
                 for key in keys[1:]:
-                    if values[i] != shell.get_edge_attribute(key, name):
+                    if values[i] != cablenet.get_edge_attribute(key, name):
                         values[i] = '-'
                         break
 
@@ -176,24 +175,24 @@ class ShellHelper(VertexSelector,
                             value = literal_eval(value)
                         except (SyntaxError, ValueError, TypeError):
                             pass
-                        shell.set_edge_attribute(key, name, value)
+                        cablenet.set_edge_attribute(key, name, value)
 
             return True
         return False
 
     @staticmethod
-    def update_face_attributes(shell, keys, names=None):
+    def update_face_attributes(cablenet, keys, names=None):
         if not names:
-            names = shell.default_face_attributes.keys()
+            names = cablenet.default_face_attributes.keys()
         names = sorted(names)
 
         key = keys[0]
-        values = shell.get_face_attributes(key, names)
+        values = cablenet.get_face_attributes(key, names)
 
         if len(keys) > 1:
             for i, name in enumerate(names):
                 for key in keys[1:]:
-                    if values[i] != shell.get_face_attribute(key, name):
+                    if values[i] != cablenet.get_face_attribute(key, name):
                         values[i] = '-'
                         break
 
@@ -208,7 +207,7 @@ class ShellHelper(VertexSelector,
                             value = literal_eval(value)
                         except (SyntaxError, ValueError, TypeError):
                             pass
-                        shell.set_face_attribute(key, name, value)
+                        cablenet.set_face_attribute(key, name, value)
 
             return True
         return False
