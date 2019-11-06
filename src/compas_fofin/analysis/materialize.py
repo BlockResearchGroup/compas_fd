@@ -36,9 +36,7 @@ def mesh_materialize_cables(mesh, safety_forces=1.0, safety_material=1.0):
 
         r = sqrt(f_factored_N / S_factored_N_m2) * 1e3
 
-        if r <= 1.0:
-            r = 1.0
-        elif r <= 2.0:
+        if r <= 2.0:
             r = 2.0
         elif r <= 3.0:
             r = 3.0
