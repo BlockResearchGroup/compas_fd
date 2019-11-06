@@ -61,20 +61,6 @@ class Cablenet(Mesh):
     def __init__(self):
         super(Cablenet, self).__init__()
         self.attributes.update({
-            'color.forces:compression': (0, 0, 255),
-            'color.forces:tension': (255, 0, 0),
-            'color.reactions': (0, 255, 0),
-            'color.residuals': (0, 255, 255),
-            'color.loads': (0, 0, 255),
-            'color.selfweight': (255, 255, 255),
-            'scale.forces': 0.1,
-            'scale.reactions': 1.0,
-            'scale.residuals': 1.0,
-            'scale.loads': 1.0,
-            'scale.selfweight': 1.0,
-            'tol.reactions': 1e-3,
-            'tol.residuals': 1e-3,
-            'tol.forces': 1e-3,
             'density': 14.0,
         })
         self.default_vertex_attributes.update({
@@ -126,7 +112,7 @@ class Cablenet(Mesh):
         return mesh_from_guid(cls, guid)
 
     @classmethod
-    def from_rhinosurface(cls, guid, u=10, v=10):
+    def from_rhinosurface(cls, guid, u=20, v=10):
         """Make a cable net from a Rhino surface.
 
         Parameters
@@ -325,30 +311,27 @@ class Cablenet(Mesh):
             artist.draw_edges()
         if settings.get('show.faces', True):
             artist.draw_faces()
+        if settings.get('show.normals', True):
+            artist.draw_normals(scale=settings.get('scale.normals', None))
         if settings.get('show.forces', False):
-            artist.draw_forces(
-                compression=settings.get('color.forces:compression', None),
-                tension=settings.get('color.forces:tension', None),
-                scale=settings.get('scale.forces', None))
+            artist.draw_forces(compression=settings.get('color.forces:compression', None),
+                               tension=settings.get('color.forces:tension', None),
+                               scale=settings.get('scale.forces', None))
         if settings.get('show.reactions', False):
-            artist.draw_reactions(
-                color=settings.get('color.reactions', None),
-                scale=settings.get('scale.reactions', None))
+            artist.draw_reactions(color=settings.get('color.reactions', None),
+                                  scale=settings.get('scale.reactions', None))
         if settings.get('show.residuals', False):
-            artist.draw_reactions(
-                color=settings.get('color.residuals', None),
-                scale=settings.get('scale.residuals', None))
+            artist.draw_residuals(color=settings.get('color.residuals', None),
+                                  scale=settings.get('scale.residuals', None),
+                                  tol=settings.get('tol.residuals', None))
         if settings.get('show.loads', False):
-            artist.draw_loads(
-                color=settings.get('color.loads', None),
-                scale=settings.get('scale.loads', None))
+            artist.draw_loads(color=settings.get('color.loads', None),
+                              scale=settings.get('scale.loads', None))
         if settings.get('show.selfweight', False):
-            artist.draw_selfweight(
-                color=settings.get('color.selfweight', None),
-                scale=settings.get('scale.selfweight', None))
+            artist.draw_selfweight(color=settings.get('color.selfweight', None),
+                                   scale=settings.get('scale.selfweight', None))
         if settings.get('show.stress', False):
-            artist.draw_stress(
-                scale=settings.get('scale.stress', None))
+            artist.draw_stress(scale=settings.get('scale.stress', None))
         artist.redraw()
 
     def residual(self, key):

@@ -45,6 +45,25 @@ class CablenetArtist(MeshArtist):
 
     """
 
+    def __init__(self, mesh, layer=None):
+        super(MeshArtist, self).__init__(layer=layer)
+        self.mesh = mesh
+        self.defaults.update({
+            'color.forces:compression': (0, 0, 255),
+            'color.forces:tension': (255, 0, 0),
+            'color.reactions': (0, 255, 0),
+            'color.residuals': (0, 255, 255),
+            'color.loads': (0, 0, 255),
+            'color.selfweight': (255, 255, 255),
+            'scale.forces': 0.1,
+            'scale.reactions': 1.0,
+            'scale.residuals': 1.0,
+            'scale.loads': 1.0,
+            'scale.selfweight': 1.0,
+            'tol.reactions': 1e-3,
+            'tol.residuals': 1e-3,
+            'tol.forces': 1e-3})
+
     @property
     def cablenet(self):
         """:class:`compas_fofin.datastructures.Cablenet` : The cablenet datastructure."""
@@ -117,15 +136,15 @@ class CablenetArtist(MeshArtist):
         compression : color specification, optional
             The color of the compression forces.
             This defaults to the color set in the attributes of the cablenet.
-            `self.cablenet.attributes['color.forces:compression']`
+            `self.defaults['color.forces:compression']`
         tension : color specification, optional
             The color of the tension forces.
             This defaults to the color set in the attributes of the cablenet.
-            `self.cablenet.attributes['color.forces:tension']`
+            `self.defaults['color.forces:tension']`
         scale : float, optional
             The scale of the forces.
             This defaults to the scale set in the attributes of the cablenet.
-            `self.cablenet.attributes['scale.forces']`
+            `self.defaults['scale.forces']`
 
         Notes
         -----
@@ -138,11 +157,11 @@ class CablenetArtist(MeshArtist):
         """
         self.clear_forces()
 
-        compression = compression or self.cablenet.attributes['color.forces:compression']
-        tension = tension or self.cablenet.attributes['color.forces:tension']
-        scale = scale or self.cablenet.attributes['scale.forces']
+        compression = compression or self.defaults['color.forces:compression']
+        tension = tension or self.defaults['color.forces:tension']
+        scale = scale or self.defaults['scale.forces']
 
-        tol = self.cablenet.attributes['tol.forces']
+        tol = self.defaults['tol.forces']
         tol2 = tol**2
 
         lines = []
@@ -175,10 +194,10 @@ class CablenetArtist(MeshArtist):
     def draw_reactions(self, color=None, scale=None):
         self.clear_reactions()
 
-        color = color or self.cablenet.attributes['color.reactions']
-        scale = scale or self.cablenet.attributes['scale.reactions']
+        color = color or self.defaults['color.reactions']
+        scale = scale or self.defaults['scale.reactions']
 
-        tol = self.cablenet.attributes['tol.reactions']
+        tol = self.defaults['tol.reactions']
         tol2 = tol**2
 
         lines = []
@@ -204,13 +223,12 @@ class CablenetArtist(MeshArtist):
 
         self._draw_lines(lines)
 
-    def draw_residuals(self, color=None, scale=None):
+    def draw_residuals(self, color=None, scale=None, tol=None):
         self.clear_residuals()
 
-        color = color or self.cablenet.attributes['color.residuals']
-        scale = scale or self.cablenet.attributes['scale.residuals']
-
-        tol = self.cablenet.attributes['tol.residuals']
+        color = color or self.defaults['color.residuals']
+        scale = scale or self.defaults['scale.residuals']
+        tol = tol or self.defaults['tol.residuals']
         tol2 = tol**2
 
         lines = []
@@ -239,8 +257,8 @@ class CablenetArtist(MeshArtist):
     def draw_loads(self, color=None, scale=None):
         self.clear_loads()
 
-        color = color or self.cablenet.attributes['color.loads']
-        scale = scale or self.cablenet.attributes['scale.loads']
+        color = color or self.defaults['color.loads']
+        scale = scale or self.defaults['scale.loads']
 
         lines = []
         for key, attr in self.cablenet.vertices(True):
@@ -264,8 +282,8 @@ class CablenetArtist(MeshArtist):
     def draw_selfweight(self, color=None, scale=None):
         self.clear_selfweight()
 
-        color = color or self.cablenet.attributes['color.selfweight']
-        scale = scale or self.cablenet.attributes['scale.selfweight']
+        color = color or self.defaults['color.selfweight']
+        scale = scale or self.defaults['scale.selfweight']
 
         rho = self.cablenet.attributes['density']
 
@@ -297,7 +315,7 @@ class CablenetArtist(MeshArtist):
     def draw_stress(self, scale=None):
         self.clear_stress()
 
-        scale = scale or self.cablenet.attributes['scale.stress']
+        scale = scale or self.defaults['scale.stress']
 
         stress = [self.cablenet.stress(key) for key in self.cablenet.edges_where({'is_edge': True})]
         cmap = Colormap(stress, 'rgb')
