@@ -4,8 +4,12 @@ from __future__ import print_function
 
 from numpy import array
 from numpy import float64
+from scipy.sparse import diags
+from scipy.sparse.linalg import spsolve
 
-from compas.numerical import fd_numpy
+from compas.numerical import connectivity_matrix
+from compas.numerical import normrow
+
 from compas_fofin.loads import SelfweightCalculator
 
 
@@ -36,12 +40,31 @@ def update_xyz_numpy(mesh):
     q     = array([attr['q'] for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
 
     density = mesh.attributes['density']
+
+    calculate_sw = SelfweightCalculator(mesh, density=density)
+
     if density:
-        calculate_sw = SelfweightCalculator(mesh, density=density)
         sw = calculate_sw(xyz)
         p[:, 2] = -sw[:, 0]
 
-    xyz, q, f, l, r = fd_numpy(xyz, edges, fixed, q, p)
+    C = connectivity_matrix(edges, 'csr')
+    Ci = C[:, free]
+    Cf = C[:, fixed]
+    Ct = C.transpose()
+    Cit = Ci.transpose()
+    Q = diags([q.flatten()], [0])
+    A = Cit.dot(Q).dot(Ci)
+    b = p[free] - Cit.dot(Q).dot(Cf).dot(xyz[fixed])
+
+    xyz[free] = spsolve(A, b)
+
+    if density:
+        sw = calculate_sw(xyz)
+        p[:, 2] = -sw[:, 0]
+
+    l = normrow(C.dot(xyz))
+    f = q * l
+    r = p - Ct.dot(Q).dot(C).dot(xyz)
 
     for key, attr in mesh.vertices(True):
         index = k_i[key]
