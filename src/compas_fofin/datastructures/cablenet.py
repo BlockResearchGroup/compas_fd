@@ -311,8 +311,8 @@ class Cablenet(Mesh):
             artist.draw_edges()
         if settings.get('show.faces', True):
             artist.draw_faces()
-        if settings.get('show.normals', True):
-            artist.draw_normals(scale=settings.get('scale.normals', None))
+        if settings.get('show.normals', False):
+            artist.draw_normals(scale=settings.get('scale.normals'))
         if settings.get('show.forces', False):
             artist.draw_forces(compression=settings.get('color.forces:compression', None),
                                tension=settings.get('color.forces:tension', None),

@@ -45,9 +45,8 @@ class CablenetArtist(MeshArtist):
 
     """
 
-    def __init__(self, mesh, layer=None):
-        super(MeshArtist, self).__init__(layer=layer)
-        self.mesh = mesh
+    def __init__(self, cablenet, layer=None):
+        super(CablenetArtist, self).__init__(cablenet, layer=layer)
         self.defaults.update({
             'color.forces:compression': (0, 0, 255),
             'color.forces:tension': (255, 0, 0),
@@ -55,23 +54,16 @@ class CablenetArtist(MeshArtist):
             'color.residuals': (0, 255, 255),
             'color.loads': (0, 0, 255),
             'color.selfweight': (255, 255, 255),
+
             'scale.forces': 0.1,
             'scale.reactions': 1.0,
             'scale.residuals': 1.0,
             'scale.loads': 1.0,
             'scale.selfweight': 1.0,
+
             'tol.reactions': 1e-3,
             'tol.residuals': 1e-3,
             'tol.forces': 1e-3})
-
-    @property
-    def cablenet(self):
-        """:class:`compas_fofin.datastructures.Cablenet` : The cablenet datastructure."""
-        return self.datastructure
-
-    @cablenet.setter
-    def cablenet(self, cablenet):
-        self.datastructure = cablenet
 
     def clear(self):
         """Clear all components previously drawn by the artist."""
@@ -84,7 +76,7 @@ class CablenetArtist(MeshArtist):
         self.clear_stress()
 
     def clear_(self, name):
-        guids = compas_rhino.get_objects(name="{}.{}.*".format(self.cablenet.name, name))
+        guids = compas_rhino.get_objects(name="{}.{}.*".format(self.mesh.name, name))
         compas_rhino.delete_objects(guids)
 
     def clear_forces(self):
@@ -165,9 +157,9 @@ class CablenetArtist(MeshArtist):
         tol2 = tol**2
 
         lines = []
-        for u, v in self.cablenet.edges_where({'is_edge': True}):
-            f = self.cablenet.get_edge_attribute((u, v), 'f')
-            sp, ep = self.cablenet.edge_coordinates(u, v)
+        for u, v in self.mesh.edges_where({'is_edge': True}):
+            f = self.mesh.get_edge_attribute((u, v), 'f')
+            sp, ep = self.mesh.edge_coordinates(u, v)
 
             if f ** 2 < tol2:
                 continue
@@ -186,7 +178,7 @@ class CablenetArtist(MeshArtist):
                 'end': ep,
                 'radius': radius,
                 'color': color,
-                'name': "{}.force.{}-{}".format(self.cablenet.name, u, v)
+                'name': "{}.force.{}-{}".format(self.mesh.name, u, v)
             })
 
         self._draw_cylinders(lines)
@@ -201,22 +193,22 @@ class CablenetArtist(MeshArtist):
         tol2 = tol**2
 
         lines = []
-        for key, attr in self.cablenet.vertices(True):
+        for key, attr in self.mesh.vertices(True):
             if not attr['is_anchor']:
                 continue
 
-            r = rx, ry, rz = self.cablenet.get_vertex_attributes(key, ('rx', 'ry', 'rz'))
+            r = rx, ry, rz = self.mesh.get_vertex_attributes(key, ('rx', 'ry', 'rz'))
 
             if length_vector_sqrd(r) <= tol2:
                 continue
 
-            sp = x, y, z = self.cablenet.vertex_coordinates(key)
+            sp = x, y, z = self.mesh.vertex_coordinates(key)
             ep = x - scale * rx, y - scale * ry, z - scale * rz
 
             lines.append({
                 'start': sp,
                 'end': ep,
-                'name': "{}.reaction.{}".format(self.cablenet.name, key),
+                'name': "{}.reaction.{}".format(self.mesh.name, key),
                 'color': color,
                 'arrow': 'end'
             })
@@ -232,22 +224,22 @@ class CablenetArtist(MeshArtist):
         tol2 = tol**2
 
         lines = []
-        for key, attr in self.cablenet.vertices(True):
+        for key, attr in self.mesh.vertices(True):
             if attr['is_anchor']:
                 continue
 
-            r = rx, ry, rz = self.cablenet.get_vertex_attributes(key, ('rx', 'ry', 'rz'))
+            r = rx, ry, rz = self.mesh.get_vertex_attributes(key, ('rx', 'ry', 'rz'))
 
             if length_vector_sqrd(r) <= tol2:
                 continue
 
-            sp = x, y, z = self.cablenet.vertex_coordinates(key)
+            sp = x, y, z = self.mesh.vertex_coordinates(key)
             ep = x + scale * rx, y + scale * ry, z + scale * rz
 
             lines.append({
                 'start': sp,
                 'end': ep,
-                'name': "{}.residual.{}".format(self.cablenet.name, key),
+                'name': "{}.residual.{}".format(self.mesh.name, key),
                 'color': color,
                 'arrow': 'end'
             })
@@ -261,18 +253,18 @@ class CablenetArtist(MeshArtist):
         scale = scale or self.defaults['scale.loads']
 
         lines = []
-        for key, attr in self.cablenet.vertices(True):
+        for key, attr in self.mesh.vertices(True):
             if attr['is_anchor']:
                 continue
 
-            px, py, pz = self.cablenet.get_vertex_attributes(key, ('px', 'py', 'pz'))
-            sp = x, y, z = self.cablenet.vertex_coordinates(key)
+            px, py, pz = self.mesh.get_vertex_attributes(key, ('px', 'py', 'pz'))
+            sp = x, y, z = self.mesh.vertex_coordinates(key)
             ep = x + scale * px, y + scale * py, z + scale * pz
 
             lines.append({
                 'start': sp,
                 'end': ep,
-                'name': "{}.load.{}".format(self.cablenet.name, key),
+                'name': "{}.load.{}".format(self.mesh.name, key),
                 'color': color,
                 'arrow': 'end'
             })
@@ -285,27 +277,27 @@ class CablenetArtist(MeshArtist):
         color = color or self.defaults['color.selfweight']
         scale = scale or self.defaults['scale.selfweight']
 
-        rho = self.cablenet.attributes['density']
+        rho = self.mesh.attributes['density']
 
         if not rho:
             return
 
         lines = []
-        for key, attr in self.cablenet.vertices(True):
+        for key, attr in self.mesh.vertices(True):
             if attr['is_anchor']:
                 continue
 
-            thickness = self.cablenet.get_vertex_attribute(key, 't')
-            area = self.cablenet.vertex_area(key)
+            thickness = self.mesh.get_vertex_attribute(key, 't')
+            area = self.mesh.vertex_area(key)
             volume = area * thickness
             weight = rho * volume
-            sp = x, y, z = self.cablenet.vertex_coordinates(key)
+            sp = x, y, z = self.mesh.vertex_coordinates(key)
             ep = x, y, z - scale * weight
 
             lines.append({
                 'start': sp,
                 'end': ep,
-                'name': "{}.selfweight.{}".format(self.cablenet.name, key),
+                'name': "{}.selfweight.{}".format(self.mesh.name, key),
                 'color': color,
                 'arrow': 'end'
             })
@@ -317,19 +309,19 @@ class CablenetArtist(MeshArtist):
 
         scale = scale or self.defaults['scale.stress']
 
-        stress = [self.cablenet.stress(key) for key in self.cablenet.edges_where({'is_edge': True})]
+        stress = [self.mesh.stress(key) for key in self.mesh.edges_where({'is_edge': True})]
         cmap = Colormap(stress, 'rgb')
 
         lines = []
-        for index, (u, v) in enumerate(self.cablenet.edges_where({'is_edge': True})):
-            sp, ep = self.cablenet.edge_coordinates(u, v)
+        for index, (u, v) in enumerate(self.mesh.edges_where({'is_edge': True})):
+            sp, ep = self.mesh.edge_coordinates(u, v)
 
             lines.append({
                 'start': sp,
                 'end': ep,
                 'radius': scale,
                 'color': cmap(stress[index]),
-                'name': "{}.stress.{}-{}".format(self.cablenet.name, u, v)
+                'name': "{}.stress.{}-{}".format(self.mesh.name, u, v)
             })
 
         self._draw_cylinders(lines)

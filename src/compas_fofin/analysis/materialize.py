@@ -69,6 +69,20 @@ def mesh_materialize_cables(mesh, safety_forces=1.0, safety_material=1.0):
         attr['l0'] = l0
 
 
+def mesh_unstressed_lengths(mesh):
+    for u, v, attr in mesh.edges_where({'is_edge': True}, True):
+        f = attr['f']
+        yieldstress = attr['yield']
+        E = attr['E']
+        r = attr['r']
+        r *= 1e3
+        A = pi * r ** 2
+        x = f / (E * A)
+        l = mesh.edge_length(u, v)
+        l0 = l / (1 + x)
+        attr['l0'] = l0
+
+
 # ==============================================================================
 # Main
 # ==============================================================================
