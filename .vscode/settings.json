@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "/Users/vanmelet/anaconda3/envs/fofin/bin/python"
+    "python.pythonPath": "/Users/vanmelet/anaconda3/envs/fofin/bin/python",
+    "restructuredtext.confPath": "${workspaceFolder}/docsource/conf.py"
 }

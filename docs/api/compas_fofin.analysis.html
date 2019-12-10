@@ -13,7 +13,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="../_static/css/prism.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../_static/css/prism.css" /> -->
     <link rel="stylesheet" type="text/css" href="../_static/css/compas.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
@@ -61,15 +62,18 @@
 <h2>Functions</h2>
 <dl class="function">
 <dt id="compas_fofin.analysis.mesh_materialize_cables">
-<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">mesh_materialize_cables</code><span class="sig-paren">(</span><em class="sig-param">mesh</em>, <em class="sig-param">maxstress=None</em>, <em class="sig-param">E=None</em>, <em class="sig-param">safety=None</em><span class="sig-paren">)</span></dt>
+<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">mesh_materialize_cables</code><span class="sig-paren">(</span><em class="sig-param">mesh</em>, <em class="sig-param">safety_forces=1.0</em>, <em class="sig-param">safety_material=1.0</em><span class="sig-paren">)</span></dt>
 <dd><p>Materialize the edges of the data structure as individual cable segments.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mesh</strong> (<em>compas.datastructures.Mesh</em>) – The data structure.</p></li>
-<li><p><strong>maxstress</strong> (<em>float (400.0)</em>) – The maximum stress in the cables. The value should be provided in <code class="docutils literal notranslate"><span class="pre">MPa</span></code>.</p></li>
-<li><p><strong>E</strong> (<em>float (72.5)</em>) – The E-modulus of the cables. The value should be provided in <code class="docutils literal notranslate"><span class="pre">GPa</span></code>.</p></li>
-<li><p><strong>safety</strong> (<em>float (1.5)</em>) – The safety factor that should be applied to the forces.</p></li>
+<li><p><strong>safety_forces</strong> (<em>float (1.0)</em>) – The safety factor that should be applied to the forces.
+The forces are multiplied by the provided factor.
+Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>safety_material</strong> (<em>float (1.0)</em>) – The safety factor that should be applied to the yield stress of the material.
+The yield stress is divided by the provided factor.
+Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
 </ul>
 </dd>
 </dl>
@@ -82,15 +86,20 @@
 
 <dl class="function">
 <dt id="compas_fofin.analysis.apply_loads_numpy">
-<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">apply_loads_numpy</code><span class="sig-paren">(</span><em class="sig-param">mesh</em>, <em class="sig-param">safety=1.0</em>, <em class="sig-param">kmax=10000</em>, <em class="sig-param">tol=0.01</em><span class="sig-paren">)</span></dt>
+<code class="sig-prename descclassname">compas_fofin.analysis.</code><code class="sig-name descname">apply_loads_numpy</code><span class="sig-paren">(</span><em class="sig-param">mesh</em>, <em class="sig-param">safety_loads=1.0</em>, <em class="sig-param">safety_selfweight=1.0</em>, <em class="sig-param">kmax=10000</em>, <em class="sig-param">tol=0.01</em><span class="sig-paren">)</span></dt>
 <dd><p>Apply loads to a materialised mesh.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>mesh</strong> (<em>compas_fofin.datastructures.Shell</em>) – The data structure.</p></li>
-<li><p><strong>safety</strong> (<em>float (1.0)</em>) – Safety factor to be applied to the selfweight.</p></li>
-<li><p><strong>kmax</strong> (<em>int (10000)</em>) – Maximum number of iterations for the relaxation.</p></li>
-<li><p><strong>tol</strong> (<em>float (0.01)</em>) – Tolerance for residual forces.</p></li>
+<li><p><strong>safety_loads</strong> (<em>float (1.0)</em>) – Safety factor to be applied to the external loads.
+Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>safety_selfweight</strong> (<em>float (1.0)</em>) – Safety factor to be applied to the selfweight.
+Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
+<li><p><strong>kmax</strong> (<em>int (10000)</em>) – Maximum number of iterations for the relaxation.
+Default is <code class="docutils literal notranslate"><span class="pre">10000</span></code>.</p></li>
+<li><p><strong>tol</strong> (<em>float (0.01)</em>) – Tolerance for residual forces.
+Default is <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -192,7 +201,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Aug 08, 2019.
+                Last updated on Dec 10, 2019.
             
 
             
@@ -218,16 +227,25 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
 
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/js/searchtools_.js"></script>
-        <script src="../_static/js/prism.js"></script>
+        <!-- <script src="../_static/js/prism.js"></script> -->
 
         <script>
-            $(document).ready(function() {
-                anchors.add();
-            });
+        $(document).ready(function() {
+        $(".language-default code").addClass("python");
+        $(".language-python code").addClass("python");
+        $(".language-bash code").addClass("bash");
+        $(".language-cpp code").addClass("cpp");
+        $(".language-json code").addClass("json");
+        $(".language-none code").addClass("plaintext");
+
+        hljs.initHighlighting();
+        anchors.add();
+        });
         </script>
     
 </body>

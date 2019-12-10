@@ -13,7 +13,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="../_static/css/prism.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../_static/css/prism.css" /> -->
     <link rel="stylesheet" type="text/css" href="../_static/css/compas.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
@@ -58,11 +59,12 @@
                     <span class="target" id="module-compas_fofin.datastructures"></span><div class="section" id="compas-fofin-datastructures">
 <h1>compas_fofin.datastructures</h1>
 <dl class="class">
-<dt id="compas_fofin.datastructures.Shell">
-<em class="property">class </em><code class="sig-prename descclassname">compas_fofin.datastructures.</code><code class="sig-name descname">Shell</code></dt>
-<dd><p>Bases: <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.datastructures.Mesh.html#compas.datastructures.Mesh" title="(in COMPAS v0.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.datastructures.Mesh</span></code></a></p>
-<p><a class="reference internal" href="generated/compas_fofin.datastructures.Shell.html#compas_fofin.datastructures.Shell" title="compas_fofin.datastructures.Shell"><code class="xref py py-class docutils literal notranslate"><span class="pre">Shell</span></code></a> extends the mesh datastructure
-with attributes and methods related to form finding (and analysis) of shells.</p>
+<dt id="compas_fofin.datastructures.Cablenet">
+<em class="property">class </em><code class="sig-prename descclassname">compas_fofin.datastructures.</code><code class="sig-name descname">Cablenet</code></dt>
+<dd><p>Bases: <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.datastructures.Mesh.html#compas.datastructures.Mesh" title="(in COMPAS v0.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.datastructures.Mesh</span></code></a></p>
+<p><a class="reference internal" href="#compas_fofin.datastructures.Cablenet" title="compas_fofin.datastructures.Cablenet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cablenet</span></code></a> extends the mesh datastructure
+with attributes and methods related to form finding (and analysis) of
+flexible cablenet formwork for concrete shells.</p>
 <dl class="field-list">
 <dt class="field-odd">Attributes</dt>
 <dd class="field-odd"><ul>
@@ -84,19 +86,23 @@ with attributes and methods related to form finding (and analysis) of shells.</p
 </div>
 </li>
 <li><p><strong>default_edge_attributes</strong> (<em>dict</em>) – The default data attributes assigned to every new edge.</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">'q'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'f'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'l'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'E'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'r'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">'l0'</span></code> : <code class="docutils literal notranslate"><span class="pre">0.0</span></code></p></li>
-</ul>
+<div class="language-python notranslate"><div class="highlight"><pre><code><span></span><span class="p">{</span>
+    <span class="s1">&#39;q&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="s1">&#39;f&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="s1">&#39;l&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="s1">&#39;E&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="s1">&#39;r&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+    <span class="s1">&#39;l0&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>
+<span class="p">}</span>
+</code></pre></div>
+</div>
 </li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
+<p>The cablenet is implemented as a mesh.
+This means that it can only be used to model surface-like structures.</p>
 </dd></dl>
 
 </div>
@@ -174,7 +180,7 @@ with attributes and methods related to form finding (and analysis) of shells.</p
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Aug 08, 2019.
+                Last updated on Dec 10, 2019.
             
 
             
@@ -200,16 +206,25 @@ with attributes and methods related to form finding (and analysis) of shells.</p
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
 
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/js/searchtools_.js"></script>
-        <script src="../_static/js/prism.js"></script>
+        <!-- <script src="../_static/js/prism.js"></script> -->
 
         <script>
-            $(document).ready(function() {
-                anchors.add();
-            });
+        $(document).ready(function() {
+        $(".language-default code").addClass("python");
+        $(".language-python code").addClass("python");
+        $(".language-bash code").addClass("bash");
+        $(".language-cpp code").addClass("cpp");
+        $(".language-json code").addClass("json");
+        $(".language-none code").addClass("plaintext");
+
+        hljs.initHighlighting();
+        anchors.add();
+        });
         </script>
     
 </body>

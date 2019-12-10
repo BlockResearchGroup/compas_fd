@@ -128,14 +128,16 @@ table {
   margin-left: -0.5rem;
   margin-right: -0.5rem;
   border-bottom: 0px solid #eee;
-  background-color: #eee; }
+  background-color: #eee;
+  font-weight: normal; }
 
 .staticmethod > dt > code,
 .classmethod > dt > code,
 .method > dt > code,
 .function > dt > code,
 .class > dt > code {
-  background-color: #eee; }
+  background-color: #eee;
+  font-weight: bold; }
 
 .descclassname {
   border-radius: 0;

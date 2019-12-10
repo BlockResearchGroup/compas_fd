@@ -2,9 +2,8 @@
 Getting Started
 ********************************************************************************
 
-``compas_fofin`` uses ``cvxpy`` and ``cplex`` in some of its algorithms.
-We will make these optional dependencies in the future,
-but in the meantime please follow the instructions below to get these properly installed.
+Create an environment
+=====================
 
 .. raw:: html
 
@@ -26,19 +25,11 @@ but in the meantime please follow the instructions below to get these properly i
 
     <div class="tab-pane active" id="windows">
 
-Make sure to install the Visual Studio C++ compiler for Python 2.7
-or the Visual Studio build tools for Python 3, as instructued in the `CVXPY docs <https://www.cvxpy.org/install/index.html>`_
-
-Afterwards, in Anaconda Prompt:
+In Anaconda Prompt:
 
 .. code-block:: bash
 
-    conda create -n fofin python=3.6 pip
-    conda activate fofin
-    pip install cvxpy
-    conda install -c ibmdecisionoptimization cplex
-    conda install -c conda-forge COMPAS
-    pip install git+https://github.com/BlockResearchGroup/compas_fofin.git#egg=compas_fofin
+    conda create -n fofin -c conda-forge git python=3.7 COMPAS
 
 .. raw:: html
 
@@ -49,12 +40,7 @@ In Terminal:
 
 .. code-block:: bash
 
-    conda create -n fofin python=3.6 pip python.app
-    conda activate fofin
-    pip install cvxpy
-    conda install -c ibmdecisionoptimization cplex
-    conda install -c conda-forge COMPAS
-    pip install git+https://github.com/BlockResearchGroup/compas_fofin.git#egg=compas_fofin
+    conda create -n fofin -c conda-forge git python=3.7 python.app COMPAS
 
 .. raw:: html
 
@@ -62,3 +48,57 @@ In Terminal:
     </div>
     </div>
     </div>
+
+Activate the environment
+========================
+
+.. code-block:: bash
+
+    conda activate fofin
+
+Clone ``compas_fofin``
+======================
+
+To clone ``compas_fofin``, use your favourite Git GUI, or simply issue the following commands on the command line.
+
+.. code-block:: bash
+
+    git clone https://github.com/BlockResearchGroup/compas_fofin.git
+
+Install ``compas_fofin``
+========================
+
+.. code-block:: bash
+
+    cd compas_fofin
+    pip install -e .
+
+Verify installation
+===================
+
+Start an interactive Python interpreter on the command line and import the installed packages.
+
+.. code-block:: python
+
+    >>> import compas
+    >>> import compas_fofin
+    >>> exit()
+
+Install in Rhino
+================
+
+Run the following command from the Anaconda Prompt (Windows) or the Terminal (OSX):
+
+.. code-block:: bash
+
+    python -m compas_rhino.install -p compas compas_rhino compas_fofin
+
+Install the Rhino UI
+====================
+
+Run the following command from the Anaconda Prompt (Windows) or the Terminal (OSX):
+
+.. code-block:: bash
+
+    python -m compas_rhino.install_plugin ui/Rhino/FOFIN
+

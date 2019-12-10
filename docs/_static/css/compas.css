@@ -318,7 +318,11 @@ table {
 .highlight {
 	margin-top: 2rem;
 	margin-bottom: 2rem;
-	font-size: 0.8rem;
+	/* font-size: 0.8rem; */
+}
+
+.hljs {
+	padding: 2rem;
 }
 
 .nohighlight pre {

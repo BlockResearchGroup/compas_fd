@@ -13,12 +13,13 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="../_static/css/prism.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../_static/css/prism.css" /> -->
     <link rel="stylesheet" type="text/css" href="../_static/css/compas.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
     
-        <link rel="next" title="ShellArtist" href="generated/compas_fofin.rhino.ShellArtist.html" />
+        <link rel="next" title="CablenetArtist" href="generated/compas_fofin.rhino.CablenetArtist.html" />
     
     
     
@@ -65,11 +66,11 @@
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_fofin.rhino.ShellArtist.html#compas_fofin.rhino.ShellArtist" title="compas_fofin.rhino.ShellArtist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ShellArtist</span></code></a></p></td>
-<td><p>The <a class="reference internal" href="generated/compas_fofin.rhino.ShellArtist.html#compas_fofin.rhino.ShellArtist" title="compas_fofin.rhino.ShellArtist"><code class="xref py py-class docutils literal notranslate"><span class="pre">ShellArtist</span></code></a> provides functionality for visualisation of shell components in Rhino.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="generated/compas_fofin.rhino.CablenetArtist.html#compas_fofin.rhino.CablenetArtist" title="compas_fofin.rhino.CablenetArtist"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CablenetArtist</span></code></a></p></td>
+<td><p>The <a class="reference internal" href="generated/compas_fofin.rhino.CablenetArtist.html#compas_fofin.rhino.CablenetArtist" title="compas_fofin.rhino.CablenetArtist"><code class="xref py py-class docutils literal notranslate"><span class="pre">CablenetArtist</span></code></a> provides functionality for visualisation of cablenet components in Rhino.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="generated/compas_fofin.rhino.ShellHelper.html#compas_fofin.rhino.ShellHelper" title="compas_fofin.rhino.ShellHelper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ShellHelper</span></code></a></p></td>
-<td><p>A shell helper groups functionality for selecting and modifying shell vertices and edges in Rhino.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="generated/compas_fofin.rhino.CablenetHelper.html#compas_fofin.rhino.CablenetHelper" title="compas_fofin.rhino.CablenetHelper"><code class="xref py py-obj docutils literal notranslate"><span class="pre">CablenetHelper</span></code></a></p></td>
+<td><p>A cablenet helper groups functionality for selecting and modifying cablenet vertices and edges in Rhino.</p></td>
 </tr>
 </tbody>
 </table>
@@ -152,7 +153,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Aug 08, 2019.
+                Last updated on Dec 10, 2019.
             
 
             
@@ -178,16 +179,25 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
 
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/js/searchtools_.js"></script>
-        <script src="../_static/js/prism.js"></script>
+        <!-- <script src="../_static/js/prism.js"></script> -->
 
         <script>
-            $(document).ready(function() {
-                anchors.add();
-            });
+        $(document).ready(function() {
+        $(".language-default code").addClass("python");
+        $(".language-python code").addClass("python");
+        $(".language-bash code").addClass("bash");
+        $(".language-cpp code").addClass("cpp");
+        $(".language-json code").addClass("json");
+        $(".language-none code").addClass("plaintext");
+
+        hljs.initHighlighting();
+        anchors.add();
+        });
         </script>
     
 </body>

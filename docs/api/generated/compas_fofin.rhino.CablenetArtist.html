@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>compas_fofin</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <meta name="author" content="" />
+    <meta name="description" content="" />
+
+    <link rel="shortcut icon" href="../../_static/images/compas.ico" type="image/x-icon">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../../_static/css/prism.css" /> -->
+    <link rel="stylesheet" type="text/css" href="../../_static/css/compas.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/compas-reference.css" />
+
+    
+        <link rel="next" title="CablenetArtist.__init__" href="compas_fofin.rhino.CablenetArtist.__init__.html" />
+    
+    
+    
+        <link rel="prev" title="compas_fofin.rhino" href="../compas_fofin.rhino.html" />
+    
+
+    <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+</head>
+
+<body data-spy="scroll" data-target="#compas-localnav">
+
+    <nav class="navbar navbar-expand compas-navbar">
+        <a class="navbar-brand" href="/">
+            <img src="../../_static/images/compas_icon_white.png" width="36px" height="36px" alt="compas" />
+        </a>
+
+        <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="../../index.html">COMPAS FoFin</a></li>
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item"><a class="nav-link" target="_blank" href="">Github</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="https://compas-dev.github.io">COMPAS framework</a></li>
+        </ul>
+    </nav>    
+
+    <div class="container-fluid">
+        <div class="row flex-xl-nowrap">
+
+            <main class="col-12 col-md-9 col-xl-8 compas-content" role="main">
+                <div class="container">
+                
+
+                    
+
+                    <div class="detail section" id="cablenetartist">
+<h1>CablenetArtist</h1>
+<dl class="class">
+<dt id="compas_fofin.rhino.CablenetArtist">
+<em class="property">class </em><code class="sig-prename descclassname">compas_fofin.rhino.</code><code class="sig-name descname">CablenetArtist</code><span class="sig-paren">(</span><em class="sig-param">cablenet</em>, <em class="sig-param">layer=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Bases: <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas_rhino.artists.MeshArtist.html#compas_rhino.artists.MeshArtist" title="(in COMPAS v0.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas_rhino.artists.MeshArtist</span></code></a></p>
+<p>The <a class="reference internal" href="#compas_fofin.rhino.CablenetArtist" title="compas_fofin.rhino.CablenetArtist"><code class="xref py py-class docutils literal notranslate"><span class="pre">CablenetArtist</span></code></a> provides functionality for visualisation of cablenet components in Rhino.</p>
+<p class="rubric">Examples</p>
+<div class="language-python notranslate"><div class="highlight"><pre><code><span></span><span class="n">artist</span> <span class="o">=</span> <span class="n">CablenetArtist</span><span class="p">(</span><span class="n">cablenet</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s2">&quot;Cablenet&quot;</span><span class="p">)</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">clear_layer</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_vertices</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_edges</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_faces</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_forces</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">draw_reactions</span><span class="p">()</span>
+<span class="n">artist</span><span class="o">.</span><span class="n">redraw</span><span class="p">()</span>
+</code></pre></div>
+</div>
+<p class="rubric">Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.__init__.html#compas_fofin.rhino.CablenetArtist.__init__" title="compas_fofin.rhino.CablenetArtist.__init__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__init__</span></code></a>(cablenet[, layer])</p></td>
+<td><p>Initialize self.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear.html#compas_fofin.rhino.CablenetArtist.clear" title="compas_fofin.rhino.CablenetArtist.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a>()</p></td>
+<td><p>Clear all components previously drawn by the artist.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_.html#compas_fofin.rhino.CablenetArtist.clear_" title="compas_fofin.rhino.CablenetArtist.clear_"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_</span></code></a>(name)</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_forces.html#compas_fofin.rhino.CablenetArtist.clear_forces" title="compas_fofin.rhino.CablenetArtist.clear_forces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_forces</span></code></a>()</p></td>
+<td><p>Clear all internal forces drawn by the artist.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_loads.html#compas_fofin.rhino.CablenetArtist.clear_loads" title="compas_fofin.rhino.CablenetArtist.clear_loads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_loads</span></code></a>()</p></td>
+<td><p>Clear all loads drawn by the artist.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_reactions.html#compas_fofin.rhino.CablenetArtist.clear_reactions" title="compas_fofin.rhino.CablenetArtist.clear_reactions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_reactions</span></code></a>()</p></td>
+<td><p>Clear all reaction forces drawn by the artist.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_residuals.html#compas_fofin.rhino.CablenetArtist.clear_residuals" title="compas_fofin.rhino.CablenetArtist.clear_residuals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_residuals</span></code></a>()</p></td>
+<td><p>Clear all residual forces drawn by the artist.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_selfweight.html#compas_fofin.rhino.CablenetArtist.clear_selfweight" title="compas_fofin.rhino.CablenetArtist.clear_selfweight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_selfweight</span></code></a>()</p></td>
+<td><p>Clear all selfweight drawn by the artist.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_stress.html#compas_fofin.rhino.CablenetArtist.clear_stress" title="compas_fofin.rhino.CablenetArtist.clear_stress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_stress</span></code></a>()</p></td>
+<td><p>Clear all stress drawn by the artist.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_forces.html#compas_fofin.rhino.CablenetArtist.draw_forces" title="compas_fofin.rhino.CablenetArtist.draw_forces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_forces</span></code></a>([compression, tension, scale])</p></td>
+<td><p>Draw the internal forces in the cablenet.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_loads.html#compas_fofin.rhino.CablenetArtist.draw_loads" title="compas_fofin.rhino.CablenetArtist.draw_loads"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_loads</span></code></a>([color, scale])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_reactions.html#compas_fofin.rhino.CablenetArtist.draw_reactions" title="compas_fofin.rhino.CablenetArtist.draw_reactions"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_reactions</span></code></a>([color, scale])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_residuals.html#compas_fofin.rhino.CablenetArtist.draw_residuals" title="compas_fofin.rhino.CablenetArtist.draw_residuals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_residuals</span></code></a>([color, scale, tol])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_selfweight.html#compas_fofin.rhino.CablenetArtist.draw_selfweight" title="compas_fofin.rhino.CablenetArtist.draw_selfweight"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_selfweight</span></code></a>([color, scale])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_stress.html#compas_fofin.rhino.CablenetArtist.draw_stress" title="compas_fofin.rhino.CablenetArtist.draw_stress"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_stress</span></code></a>([scale])</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Inherited Methods</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 90%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_edgelabels.html#compas_fofin.rhino.CablenetArtist.clear_edgelabels" title="compas_fofin.rhino.CablenetArtist.clear_edgelabels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_edgelabels</span></code></a>([keys])</p></td>
+<td><p>Clear all edge labels previously drawn by the <code class="docutils literal notranslate"><span class="pre">EdgeArtist</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_edges.html#compas_fofin.rhino.CablenetArtist.clear_edges" title="compas_fofin.rhino.CablenetArtist.clear_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_edges</span></code></a>([keys])</p></td>
+<td><p>Clear all edges previously drawn by the <code class="docutils literal notranslate"><span class="pre">EdgeArtist</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_facelabels.html#compas_fofin.rhino.CablenetArtist.clear_facelabels" title="compas_fofin.rhino.CablenetArtist.clear_facelabels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_facelabels</span></code></a>([keys])</p></td>
+<td><p>Clear all face labels previously drawn by the <code class="docutils literal notranslate"><span class="pre">FaceArtist</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_facenormals.html#compas_fofin.rhino.CablenetArtist.clear_facenormals" title="compas_fofin.rhino.CablenetArtist.clear_facenormals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_facenormals</span></code></a>([keys])</p></td>
+<td><p>Clear the normals of all faces previously drawn by the <code class="docutils literal notranslate"><span class="pre">FaceArtist</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_faces.html#compas_fofin.rhino.CablenetArtist.clear_faces" title="compas_fofin.rhino.CablenetArtist.clear_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_faces</span></code></a>([keys])</p></td>
+<td><p>Clear all faces previously drawn by the <code class="docutils literal notranslate"><span class="pre">FaceArtist</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_layer.html#compas_fofin.rhino.CablenetArtist.clear_layer" title="compas_fofin.rhino.CablenetArtist.clear_layer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_layer</span></code></a>()</p></td>
+<td><p>Clear the main layer of the artist.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_mesh.html#compas_fofin.rhino.CablenetArtist.clear_mesh" title="compas_fofin.rhino.CablenetArtist.clear_mesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_mesh</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_normals.html#compas_fofin.rhino.CablenetArtist.clear_normals" title="compas_fofin.rhino.CablenetArtist.clear_normals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_normals</span></code></a>([keys])</p></td>
+<td><p>Clear all normals previously drawn by the <code class="docutils literal notranslate"><span class="pre">MeshArtist</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_vertexlabels.html#compas_fofin.rhino.CablenetArtist.clear_vertexlabels" title="compas_fofin.rhino.CablenetArtist.clear_vertexlabels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_vertexlabels</span></code></a>([keys])</p></td>
+<td><p>Clear all vertex labels previously drawn by the <code class="docutils literal notranslate"><span class="pre">VertexArtist</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.clear_vertices.html#compas_fofin.rhino.CablenetArtist.clear_vertices" title="compas_fofin.rhino.CablenetArtist.clear_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear_vertices</span></code></a>([keys])</p></td>
+<td><p>Clear all vertices previously drawn by the <code class="docutils literal notranslate"><span class="pre">VertexArtist</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_circles.html#compas_fofin.rhino.CablenetArtist.draw_circles" title="compas_fofin.rhino.CablenetArtist.draw_circles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_circles</span></code></a>(circles[, layer, clear_layer, …])</p></td>
+<td><p>Draw a collection of circles.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_edgelabels.html#compas_fofin.rhino.CablenetArtist.draw_edgelabels" title="compas_fofin.rhino.CablenetArtist.draw_edgelabels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_edgelabels</span></code></a>([text, color])</p></td>
+<td><p>Draw labels for a selection of edges.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_edges.html#compas_fofin.rhino.CablenetArtist.draw_edges" title="compas_fofin.rhino.CablenetArtist.draw_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_edges</span></code></a>([keys, color])</p></td>
+<td><p>Draw a selection of edges.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_facelabels.html#compas_fofin.rhino.CablenetArtist.draw_facelabels" title="compas_fofin.rhino.CablenetArtist.draw_facelabels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_facelabels</span></code></a>([text, color])</p></td>
+<td><p>Draw labels for a selection of faces.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_facenormals.html#compas_fofin.rhino.CablenetArtist.draw_facenormals" title="compas_fofin.rhino.CablenetArtist.draw_facenormals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_facenormals</span></code></a>([color, scale])</p></td>
+<td><p>Draw the normals of the faces.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_faces.html#compas_fofin.rhino.CablenetArtist.draw_faces" title="compas_fofin.rhino.CablenetArtist.draw_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_faces</span></code></a>([keys, color, join_faces])</p></td>
+<td><p>Draw a selection of faces.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_lines.html#compas_fofin.rhino.CablenetArtist.draw_lines" title="compas_fofin.rhino.CablenetArtist.draw_lines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_lines</span></code></a>(lines[, layer, clear_layer, redraw])</p></td>
+<td><p>Draw a collection of lines.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_mesh.html#compas_fofin.rhino.CablenetArtist.draw_mesh" title="compas_fofin.rhino.CablenetArtist.draw_mesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_mesh</span></code></a>([color, disjoint])</p></td>
+<td><p>Draw the mesh as a consolidated RhinoMesh.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_normals.html#compas_fofin.rhino.CablenetArtist.draw_normals" title="compas_fofin.rhino.CablenetArtist.draw_normals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_normals</span></code></a>([keys, color, scale])</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_points.html#compas_fofin.rhino.CablenetArtist.draw_points" title="compas_fofin.rhino.CablenetArtist.draw_points"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_points</span></code></a>(points[, layer, clear_layer, redraw])</p></td>
+<td><p>Draw a collection of points.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_polygons.html#compas_fofin.rhino.CablenetArtist.draw_polygons" title="compas_fofin.rhino.CablenetArtist.draw_polygons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_polygons</span></code></a>(polygons[, layer, …])</p></td>
+<td><p>Draw a collection of polygons.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_polylines.html#compas_fofin.rhino.CablenetArtist.draw_polylines" title="compas_fofin.rhino.CablenetArtist.draw_polylines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_polylines</span></code></a>(polylines[, layer, …])</p></td>
+<td><p>Draw a collection of polygons.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_vertexlabels.html#compas_fofin.rhino.CablenetArtist.draw_vertexlabels" title="compas_fofin.rhino.CablenetArtist.draw_vertexlabels"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_vertexlabels</span></code></a>([text, color])</p></td>
+<td><p>Draw labels for a selection vertices.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.draw_vertices.html#compas_fofin.rhino.CablenetArtist.draw_vertices" title="compas_fofin.rhino.CablenetArtist.draw_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">draw_vertices</span></code></a>([keys, color])</p></td>
+<td><p>Draw a selection of vertices.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.redraw.html#compas_fofin.rhino.CablenetArtist.redraw" title="compas_fofin.rhino.CablenetArtist.redraw"><code class="xref py py-obj docutils literal notranslate"><span class="pre">redraw</span></code></a>([timeout])</p></td>
+<td><p>Redraw the Rhino view.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fofin.rhino.CablenetArtist.save.html#compas_fofin.rhino.CablenetArtist.save" title="compas_fofin.rhino.CablenetArtist.save"><code class="xref py py-obj docutils literal notranslate"><span class="pre">save</span></code></a>(path[, width, height, scale, …])</p></td>
+<td><p>Save the current screen view.</p></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+
+                    
+                
+                </div>
+            </main>
+
+            <!-- site navigation sidebar -->
+
+            <div class="col-12 col-md-3 col-xl-2 compas-sidebar" role="navigation"> 
+                <div class="navbar-light">
+
+                    <form id="" class="d-flex compas-searchbox" action="../../search.html" method="get">
+                        <input class="form-control" type="text" name="q" placeholder="Search docs" />
+                        <input type="hidden" name="check_keywords" value="yes" />
+                        <input type="hidden" name="area" value="default" />
+
+                        <button class="navbar-toggler d-md-none compas-navigation-toggler" type="button" data-toggle="collapse" data-target="#compas-navigation" aria-controls="compas-navigation" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </form>
+
+                    
+                    
+
+                        <div class="navbar-expand-md">
+                            <div id="compas-navigation" class="collapse navbar-collapse compas-navigation">
+
+                            <ul class="nav flex-column active">
+<li class="nav-item"><a class="nav-link reference internal" href="../../intro.html">Introduction</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../gettingstarted.html">Getting Started</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../tutorial.html">Tutorial</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../examples.html">Examples</a></li>
+<li class="nav-item active"><a class="nav-link reference internal" href="../../api.html">API Reference</a><ul class="nav active">
+<li class="nav-item active"><a class="nav-link reference internal" href="../compas_fofin.html">compas_fofin</a><ul class="nav active">
+<li class="nav-item"><a class="nav-link reference internal" href="../compas_fofin.analysis.html">compas_fofin.analysis</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../compas_fofin.datastructures.html">compas_fofin.datastructures</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../compas_fofin.fofin.html">compas_fofin.fofin</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../compas_fofin.loads.html">compas_fofin.loads</a></li>
+<li class="nav-item active"><a class="nav-link reference internal" href="../compas_fofin.rhino.html">compas_fofin.rhino</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="nav-item"><a class="nav-link reference internal" href="../../license.html">License</a></li>
+</ul>
+
+
+                            </div>
+                        </div>
+
+                    
+
+                </div>
+            </div>
+
+            <!-- table of contents of main content -->
+            
+            <div class="d-none d-xl-block col-xl-2 compas-toc" role="toc">
+
+                
+
+                <ul class="nav flex-column" id="compas-localnav">
+<li class="nav-item"><a class="nav-link reference internal" href="#">CablenetArtist</a><ul class="nav">
+</ul>
+</li>
+</ul>
+
+
+            </div>
+
+        </div>
+    </div>
+
+    <footer class="bg-dark pb-5">
+        <div class="container text-center pt-5 pb-5 text-muted">
+            
+                Last updated on Dec 10, 2019.
+            
+
+            
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+            
+        </div>
+    </footer>
+
+    
+        <script type="text/javascript">
+            var DOCUMENTATION_OPTIONS = {
+            URL_ROOT          : '',
+            VERSION           : '0.1.0',
+            COLLAPSE_INDEX    : false,
+            FILE_SUFFIX       : '.html',
+            HAS_SOURCE        : 'false',
+            SOURCELINK_SUFFIX : '.txt'
+            };
+        </script>
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
+
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/js/searchtools_.js"></script>
+        <!-- <script src="../../_static/js/prism.js"></script> -->
+
+        <script>
+        $(document).ready(function() {
+        $(".language-default code").addClass("python");
+        $(".language-python code").addClass("python");
+        $(".language-bash code").addClass("bash");
+        $(".language-cpp code").addClass("cpp");
+        $(".language-json code").addClass("json");
+        $(".language-none code").addClass("plaintext");
+
+        hljs.initHighlighting();
+        anchors.add();
+        });
+        </script>
+    
+</body>
+</html>

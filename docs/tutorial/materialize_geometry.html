@@ -13,7 +13,8 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <link rel="stylesheet" type="text/css" href="../_static/css/prism.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/styles/default.min.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../_static/css/prism.css" /> -->
     <link rel="stylesheet" type="text/css" href="../_static/css/compas.css" />
     <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
@@ -22,7 +23,7 @@
     
     
     
-        <link rel="prev" title="Compute forcedensities" href="compute_forcedensities.html" />
+        <link rel="prev" title="Compute equilibrium" href="compute_equilibrium.html" />
     
 
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -58,33 +59,57 @@
                     <div class="section" id="materialize-the-equilibrium-geometry">
 <h1>Materialize the equilibrium geometry</h1>
 <div class="language-python notranslate"><div class="highlight"><pre><code><span></span><span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">compas_fofin.datastructures</span> <span class="kn">import</span> <span class="n">Shell</span>
+
+<span class="kn">from</span> <span class="nn">compas.utilities</span> <span class="kn">import</span> <span class="n">Colormap</span>
+
+<span class="kn">from</span> <span class="nn">compas_fofin.datastructures</span> <span class="kn">import</span> <span class="n">Cablenet</span>
 <span class="kn">from</span> <span class="nn">compas_fofin.analysis</span> <span class="kn">import</span> <span class="n">mesh_materialize_cables</span>
+
 <span class="kn">from</span> <span class="nn">compas_plotters</span> <span class="kn">import</span> <span class="n">MeshPlotter</span>
+
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># Create a cablenet</span>
+<span class="c1"># ==============================================================================</span>
 
 <span class="n">HERE</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span>
 <span class="n">FILE_I</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HERE</span><span class="p">,</span> <span class="s1">&#39;hypar.json&#39;</span><span class="p">)</span>
-<span class="n">FILE_O</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HERE</span><span class="p">,</span> <span class="s1">&#39;hypar.json&#39;</span><span class="p">)</span>
+<span class="n">FILE_O</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">HERE</span><span class="p">,</span> <span class="s1">&#39;hypar_materialized.json&#39;</span><span class="p">)</span>
 
-<span class="n">shell</span> <span class="o">=</span> <span class="n">Shell</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">FILE_I</span><span class="p">)</span>
+<span class="n">cablenet</span> <span class="o">=</span> <span class="n">Cablenet</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">FILE_I</span><span class="p">)</span>
 
-<span class="n">mesh_materialize_cables</span><span class="p">(</span><span class="n">shell</span><span class="p">)</span>
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># Materialize</span>
+<span class="c1"># ==============================================================================</span>
 
-<span class="n">sizes</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">get_edges_attribute</span><span class="p">(</span><span class="s1">&#39;size&#39;</span><span class="p">)</span>
-<span class="n">r</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">get_edges_attribute</span><span class="p">(</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">l</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">get_edges_attribute</span><span class="p">(</span><span class="s1">&#39;l&#39;</span><span class="p">)</span>
-<span class="n">l0</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">get_edges_attribute</span><span class="p">(</span><span class="s1">&#39;l0&#39;</span><span class="p">)</span>
+<span class="n">mesh_materialize_cables</span><span class="p">(</span><span class="n">cablenet</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="n">sizes</span><span class="p">)</span>
-<span class="k">print</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
-<span class="k">print</span><span class="p">([</span><span class="s2">&quot;{:.4f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">l</span> <span class="o">/</span> <span class="n">l0</span><span class="p">)</span> <span class="k">for</span> <span class="n">l</span><span class="p">,</span> <span class="n">l0</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">l0</span><span class="p">)])</span>
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># Visualize</span>
+<span class="c1"># ==============================================================================</span>
 
-<span class="n">plotter</span> <span class="o">=</span> <span class="n">MeshPlotter</span><span class="p">(</span><span class="n">shell</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
-<span class="n">plotter</span><span class="o">.</span><span class="n">draw_vertices</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.05</span><span class="p">)</span>
-<span class="n">plotter</span><span class="o">.</span><span class="n">draw_edges</span><span class="p">()</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">cablenet</span><span class="o">.</span><span class="n">edges_where</span><span class="p">({</span><span class="s1">&#39;is_edge&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">}))</span>
+
+<span class="n">stress</span> <span class="o">=</span> <span class="p">[</span><span class="n">cablenet</span><span class="o">.</span><span class="n">stress</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">]</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">Colormap</span><span class="p">(</span><span class="n">stress</span><span class="p">,</span> <span class="s1">&#39;rgb&#39;</span><span class="p">)</span>
+<span class="n">edgecolor</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">cmap</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">stress</span><span class="p">)}</span>
+
+<span class="n">utilization</span> <span class="o">=</span> <span class="p">[</span><span class="n">cablenet</span><span class="o">.</span><span class="n">stress</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">/</span> <span class="n">cablenet</span><span class="o">.</span><span class="n">get_edge_attribute</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="s1">&#39;yield&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">]</span>
+<span class="n">cmap</span> <span class="o">=</span> <span class="n">Colormap</span><span class="p">(</span><span class="n">utilization</span><span class="p">,</span> <span class="s1">&#39;red&#39;</span><span class="p">)</span>
+<span class="n">edgecolor</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">cmap</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">u</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">edges</span><span class="p">,</span> <span class="n">utilization</span><span class="p">)}</span>
+
+<span class="k">print</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">utilization</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">utilization</span><span class="p">))</span>
+
+<span class="n">plotter</span> <span class="o">=</span> <span class="n">MeshPlotter</span><span class="p">(</span><span class="n">cablenet</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">draw_vertices</span><span class="p">(</span><span class="n">radius</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">cablenet</span><span class="o">.</span><span class="n">vertices_where</span><span class="p">({</span><span class="s1">&#39;is_anchor&#39;</span><span class="p">:</span> <span class="bp">True</span><span class="p">})})</span>
+<span class="n">plotter</span><span class="o">.</span><span class="n">draw_edges</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">edgecolor</span><span class="p">,</span> <span class="n">keys</span><span class="o">=</span><span class="n">edges</span><span class="p">)</span>
 <span class="n">plotter</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
-<span class="n">shell</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">FILE_O</span><span class="p">)</span>
+<span class="c1"># ==============================================================================</span>
+<span class="c1"># Export</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="n">cablenet</span><span class="o">.</span><span class="n">to_json</span><span class="p">(</span><span class="n">FILE_O</span><span class="p">)</span>
 </code></pre></div>
 </div>
 </div>
@@ -120,7 +145,6 @@
 <li class="nav-item"><a class="nav-link reference internal" href="../gettingstarted.html">Getting Started</a></li>
 <li class="nav-item active"><a class="nav-link reference internal" href="../tutorial.html">Tutorial</a><ul class="nav active">
 <li class="nav-item"><a class="nav-link reference internal" href="compute_equilibrium.html">Compute equilibrium</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compute_forcedensities.html">Compute forcedensities</a></li>
 <li class="nav-item active"><a class="nav-link active current reference internal" href="#">Materialize the equilibrium geometry</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="unload_structure.html">Unload the structure</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="load_structure.html">Apply loads to the structure</a></li>
@@ -159,7 +183,7 @@
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Aug 08, 2019.
+                Last updated on Dec 10, 2019.
             
 
             
@@ -185,16 +209,25 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/anchor-js/4.0.0/anchor.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.9/highlight.min.js"></script>
 
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/js/searchtools_.js"></script>
-        <script src="../_static/js/prism.js"></script>
+        <!-- <script src="../_static/js/prism.js"></script> -->
 
         <script>
-            $(document).ready(function() {
-                anchors.add();
-            });
+        $(document).ready(function() {
+        $(".language-default code").addClass("python");
+        $(".language-python code").addClass("python");
+        $(".language-bash code").addClass("bash");
+        $(".language-cpp code").addClass("cpp");
+        $(".language-json code").addClass("json");
+        $(".language-none code").addClass("plaintext");
+
+        hljs.initHighlighting();
+        anchors.add();
+        });
         </script>
     
 </body>

@@ -6,7 +6,7 @@ compas_fofin.datastructures
 .. currentmodule:: compas_fofin.datastructures
 
 
-.. autoclass:: Shell
+.. autoclass:: Cablenet
 
 """
 from __future__ import print_function
