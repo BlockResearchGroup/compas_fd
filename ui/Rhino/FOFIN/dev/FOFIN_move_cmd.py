@@ -87,7 +87,7 @@ def RunCommand(is_interactive):
     menu = CommandMenu(config)
     action = menu.select_action()
     if action:
-        action(cablenet, settings)
+        action['action'](cablenet, settings)
 
 
 # ==============================================================================
