@@ -47,7 +47,7 @@ class CablenetArtist(MeshArtist):
 
     def __init__(self, cablenet, layer=None):
         super(CablenetArtist, self).__init__(cablenet, layer=layer)
-        self.defaults.update({
+        self.settings.update({
             'color.forces:compression': (0, 0, 255),
             'color.forces:tension': (255, 0, 0),
             'color.reactions': (0, 255, 0),
@@ -128,15 +128,15 @@ class CablenetArtist(MeshArtist):
         compression : color specification, optional
             The color of the compression forces.
             This defaults to the color set in the attributes of the cablenet.
-            `self.defaults['color.forces:compression']`
+            `self.settings['color.forces:compression']`
         tension : color specification, optional
             The color of the tension forces.
             This defaults to the color set in the attributes of the cablenet.
-            `self.defaults['color.forces:tension']`
+            `self.settings['color.forces:tension']`
         scale : float, optional
             The scale of the forces.
             This defaults to the scale set in the attributes of the cablenet.
-            `self.defaults['scale.forces']`
+            `self.settings['scale.forces']`
 
         Notes
         -----
@@ -149,11 +149,11 @@ class CablenetArtist(MeshArtist):
         """
         self.clear_forces()
 
-        compression = compression or self.defaults['color.forces:compression']
-        tension = tension or self.defaults['color.forces:tension']
-        scale = scale or self.defaults['scale.forces']
+        compression = compression or self.settings['color.forces:compression']
+        tension = tension or self.settings['color.forces:tension']
+        scale = scale or self.settings['scale.forces']
 
-        tol = self.defaults['tol.forces']
+        tol = self.settings['tol.forces']
         tol2 = tol**2
 
         lines = []
@@ -186,10 +186,10 @@ class CablenetArtist(MeshArtist):
     def draw_reactions(self, color=None, scale=None):
         self.clear_reactions()
 
-        color = color or self.defaults['color.reactions']
-        scale = scale or self.defaults['scale.reactions']
+        color = color or self.settings['color.reactions']
+        scale = scale or self.settings['scale.reactions']
 
-        tol = self.defaults['tol.reactions']
+        tol = self.settings['tol.reactions']
         tol2 = tol**2
 
         lines = []
@@ -218,9 +218,9 @@ class CablenetArtist(MeshArtist):
     def draw_residuals(self, color=None, scale=None, tol=None):
         self.clear_residuals()
 
-        color = color or self.defaults['color.residuals']
-        scale = scale or self.defaults['scale.residuals']
-        tol = tol or self.defaults['tol.residuals']
+        color = color or self.settings['color.residuals']
+        scale = scale or self.settings['scale.residuals']
+        tol = tol or self.settings['tol.residuals']
         tol2 = tol**2
 
         lines = []
@@ -249,8 +249,8 @@ class CablenetArtist(MeshArtist):
     def draw_loads(self, color=None, scale=None):
         self.clear_loads()
 
-        color = color or self.defaults['color.loads']
-        scale = scale or self.defaults['scale.loads']
+        color = color or self.settings['color.loads']
+        scale = scale or self.settings['scale.loads']
 
         lines = []
         for key, attr in self.mesh.vertices(True):
@@ -274,8 +274,8 @@ class CablenetArtist(MeshArtist):
     def draw_selfweight(self, color=None, scale=None):
         self.clear_selfweight()
 
-        color = color or self.defaults['color.selfweight']
-        scale = scale or self.defaults['scale.selfweight']
+        color = color or self.settings['color.selfweight']
+        scale = scale or self.settings['scale.selfweight']
 
         rho = self.mesh.attributes['density']
 
@@ -307,7 +307,7 @@ class CablenetArtist(MeshArtist):
     def draw_stress(self, scale=None):
         self.clear_stress()
 
-        scale = scale or self.defaults['scale.stress']
+        scale = scale or self.settings['scale.stress']
 
         stress = [self.mesh.stress(key) for key in self.mesh.edges_where({'is_edge': True})]
         cmap = Colormap(stress, 'rgb')
