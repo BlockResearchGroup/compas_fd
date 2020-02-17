@@ -19,11 +19,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/compas-reference.css" />
 
     
-        <link rel="next" title="CablenetArtist.draw_polylines" href="compas_fofin.rhino.CablenetArtist.draw_polylines.html" />
+        <link rel="next" title="CablenetArtist.clear_edgelabels" href="compas_fofin.rhino.CablenetArtist.clear_edgelabels.html" />
     
     
     
-        <link rel="prev" title="CablenetArtist.draw_points" href="compas_fofin.rhino.CablenetArtist.draw_points.html" />
+        <link rel="prev" title="CablenetArtist.draw_stress" href="compas_fofin.rhino.CablenetArtist.draw_stress.html" />
     
 
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -56,45 +56,12 @@
 
                     
 
-                    <div class="detail section" id="cablenetartist-draw-polygons">
-<h1>CablenetArtist.draw_polygons</h1>
+                    <div class="detail section" id="cablenetartist-build">
+<h1>CablenetArtist.build</h1>
 <dl class="method">
-<dt id="compas_fofin.rhino.CablenetArtist.draw_polygons">
-<code class="sig-prename descclassname">CablenetArtist.</code><code class="sig-name descname">draw_polygons</code><span class="sig-paren">(</span><em class="sig-param">polygons</em>, <em class="sig-param">layer=None</em>, <em class="sig-param">clear_layer=False</em>, <em class="sig-param">redraw=False</em><span class="sig-paren">)</span></dt>
-<dd><p>Draw a collection of polygons.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>polylines</strong> (<em>list of dict</em>) – The polygons to draw.</p></li>
-<li><p><strong>layer</strong> (<em>str, optional</em>) – The layer to draw the points in.
-Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, in which case the current layer is used.</p></li>
-<li><p><strong>clear_layer</strong> (<em>bool, optional</em>) – Clear the specified layer.
-Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>redraw</strong> (<em>bool, optional</em>) – Redraw the Rhino view.
-Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><em>list of guid</em> – The GUIDs of the polygon objects.</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>The attributes required for drawing a polygon are stored in a dictionary per polygon.
-The dictionary has the following structure:</p>
-<div class="language-none notranslate"><div class="highlight"><pre><code><span></span>{
-    &#39;points&#39; : list of point,
-    &#39;name&#39;   : str,                      # optional
-    &#39;color&#39;  : rgb or hex,               # optional
-    &#39;layer&#39;  : str,                      # optional, defaults to the value of the parameter ``layer``.
-    &#39;width&#39;  : float,                    # optional, modifies the plot weight if not None.
-    &#39;arrow&#39;  : {&#39;start&#39;, &#39;end&#39;, &#39;both&#39;}  # optional
-}
-</code></pre></div>
-</div>
-<p>Note that the draing of polygons currently falls back on the drawing of polylines.
-The polygon should therefore be closed expicitly, but this is done for you,
-on te fly…</p>
-</dd></dl>
+<dt id="compas_fofin.rhino.CablenetArtist.build">
+<em class="property">static </em><code class="sig-prename descclassname">CablenetArtist.</code><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">item</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
 
 </div>
 
@@ -159,7 +126,7 @@ on te fly…</p>
                 
 
                 <ul class="nav flex-column" id="compas-localnav">
-<li class="nav-item"><a class="nav-link reference internal" href="#">CablenetArtist.draw_polygons</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#">CablenetArtist.build</a></li>
 </ul>
 
 
@@ -171,11 +138,11 @@ on te fly…</p>
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Dec 10, 2019.
+                Last updated on Feb 17, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.
             
         </div>
     </footer>

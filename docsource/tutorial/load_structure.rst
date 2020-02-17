@@ -2,7 +2,7 @@
 Apply loads to the structure
 ********************************************************************************
 
-.. .. figure:: formfinding-cablenet.jpg
+.. figure:: hypar_loaded.png
     :figclass: figure
     :class: figure-img img-fluid
 

@@ -2,7 +2,7 @@
 Materialize the equilibrium geometry
 ********************************************************************************
 
-.. .. figure:: formfinding-cablenet.jpg
+.. figure:: hypar_materialized.png
     :figclass: figure
     :class: figure-img img-fluid
 

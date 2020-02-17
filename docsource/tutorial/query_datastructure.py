@@ -3,7 +3,7 @@ import random
 
 import compas
 
-from compas.files import OBJReader
+from compas.files import OBJ
 from compas.utilities import flatten
 from compas.utilities import i_to_red
 from compas.utilities import i_to_blue
@@ -23,12 +23,12 @@ HERE = os.path.dirname(__file__)
 FILE_I = os.path.join(HERE, 'lines.obj')
 FILE_O = os.path.join(HERE, 'lines.json')
 
-obj = OBJReader(FILE_I)
+obj = OBJ(FILE_I)
 lines = [[obj.vertices[u], obj.vertices[v]] for u, v in obj.lines]
 
 cablenet = Cablenet.from_lines(lines, delete_boundary_face=True)
 
-cablenet.set_edges_attribute('is_edge', False, keys=list(cablenet.edges_on_boundary()))
+cablenet.edges_attribute('is_edge', False, keys=list(cablenet.edges_on_boundary()))
 
 # ==============================================================================
 # Select a starting edge

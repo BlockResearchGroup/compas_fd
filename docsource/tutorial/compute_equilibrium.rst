@@ -2,7 +2,7 @@
 Compute equilibrium
 ********************************************************************************
 
-.. .. figure:: formfinding-cablenet.jpg
+.. figure:: hypar.png
     :figclass: figure
     :class: figure-img img-fluid
 

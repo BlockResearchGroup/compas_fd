@@ -158,7 +158,7 @@ class CablenetArtist(MeshArtist):
 
         lines = []
         for u, v in self.mesh.edges_where({'is_edge': True}):
-            f = self.mesh.get_edge_attribute((u, v), 'f')
+            f = self.mesh.edge_attribute((u, v), 'f')
             sp, ep = self.mesh.edge_coordinates(u, v)
 
             if f ** 2 < tol2:
@@ -197,7 +197,7 @@ class CablenetArtist(MeshArtist):
             if not attr['is_anchor']:
                 continue
 
-            r = rx, ry, rz = self.mesh.get_vertex_attributes(key, ('rx', 'ry', 'rz'))
+            r = rx, ry, rz = self.mesh.vertex_attributes(key, ('rx', 'ry', 'rz'))
 
             if length_vector_sqrd(r) <= tol2:
                 continue
@@ -228,7 +228,7 @@ class CablenetArtist(MeshArtist):
             if attr['is_anchor']:
                 continue
 
-            r = rx, ry, rz = self.mesh.get_vertex_attributes(key, ('rx', 'ry', 'rz'))
+            r = rx, ry, rz = self.mesh.vertex_attributes(key, ('rx', 'ry', 'rz'))
 
             if length_vector_sqrd(r) <= tol2:
                 continue
@@ -257,7 +257,7 @@ class CablenetArtist(MeshArtist):
             if attr['is_anchor']:
                 continue
 
-            px, py, pz = self.mesh.get_vertex_attributes(key, ('px', 'py', 'pz'))
+            px, py, pz = self.mesh.vertex_attributes(key, ('px', 'py', 'pz'))
             sp = x, y, z = self.mesh.vertex_coordinates(key)
             ep = x + scale * px, y + scale * py, z + scale * pz
 
@@ -287,7 +287,7 @@ class CablenetArtist(MeshArtist):
             if attr['is_anchor']:
                 continue
 
-            thickness = self.mesh.get_vertex_attribute(key, 't')
+            thickness = self.mesh.vertex_attribute(key, 't')
             area = self.mesh.vertex_area(key)
             volume = area * thickness
             weight = rho * volume

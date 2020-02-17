@@ -335,17 +335,17 @@ class Cablenet(Mesh):
         artist.redraw()
 
     def residual(self, key):
-        return self.get_vertex_attributes(key, ('rx', 'ry', 'rz'))
+        return self.vertex_attributes(key, ('rx', 'ry', 'rz'))
 
     def stress(self, key):
-        radius = self.get_edge_attribute(key, 'r')
+        radius = self.edge_attribute(key, 'r')
         area = pi * radius ** 2
-        force = 1e3 * self.get_edge_attribute(key, 'f')
+        force = 1e3 * self.edge_attribute(key, 'f')
         return 1e-6 * force / area
 
     def strain(self, key):
-        l = self.get_edge_attribute(key, 'l')
-        l0 = self.get_edge_attribute(key, 'l0')
+        l = self.edge_attribute(key, 'l')
+        l0 = self.edge_attribute(key, 'l0')
         return l / l0
 
 

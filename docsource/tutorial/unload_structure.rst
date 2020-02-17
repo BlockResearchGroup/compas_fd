@@ -2,7 +2,7 @@
 Unload the structure
 ********************************************************************************
 
-.. .. figure:: formfinding-cablenet.jpg
+.. figure:: hypar_unloaded.png
     :figclass: figure
     :class: figure-img img-fluid
 

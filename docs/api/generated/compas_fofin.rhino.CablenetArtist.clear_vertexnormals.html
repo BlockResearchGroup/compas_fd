@@ -19,11 +19,11 @@
     <link rel="stylesheet" type="text/css" href="../../_static/css/compas-reference.css" />
 
     
-        <link rel="next" title="CablenetHelper" href="compas_fofin.rhino.CablenetHelper.html" />
+        <link rel="next" title="CablenetArtist.clear_vertices" href="compas_fofin.rhino.CablenetArtist.clear_vertices.html" />
     
     
     
-        <link rel="prev" title="CablenetArtist.redraw" href="compas_fofin.rhino.CablenetArtist.redraw.html" />
+        <link rel="prev" title="CablenetArtist.clear_vertexlabels" href="compas_fofin.rhino.CablenetArtist.clear_vertexlabels.html" />
     
 
     <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -56,34 +56,16 @@
 
                     
 
-                    <div class="detail section" id="cablenetartist-save">
-<h1>CablenetArtist.save</h1>
+                    <div class="detail section" id="cablenetartist-clear-vertexnormals">
+<h1>CablenetArtist.clear_vertexnormals</h1>
 <dl class="method">
-<dt id="compas_fofin.rhino.CablenetArtist.save">
-<code class="sig-prename descclassname">CablenetArtist.</code><code class="sig-name descname">save</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">width=1920</em>, <em class="sig-param">height=1080</em>, <em class="sig-param">scale=1</em>, <em class="sig-param">draw_grid=False</em>, <em class="sig-param">draw_world_axes=False</em>, <em class="sig-param">draw_cplane_axes=False</em>, <em class="sig-param">background=False</em><span class="sig-paren">)</span></dt>
-<dd><p>Save the current screen view.</p>
+<dt id="compas_fofin.rhino.CablenetArtist.clear_vertexnormals">
+<code class="sig-prename descclassname">CablenetArtist.</code><code class="sig-name descname">clear_vertexnormals</code><span class="sig-paren">(</span><em class="sig-param">keys=None</em><span class="sig-paren">)</span></dt>
+<dd><p>Clear all previously drawn vertex normals.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>path</strong> (<em>str</em>) – The path where the screenshot should be saved.</p></li>
-<li><p><strong>width</strong> (<em>int, optional</em>) – The width of the saved image.
-Default is <code class="docutils literal notranslate"><span class="pre">1920</span></code>.</p></li>
-<li><p><strong>height</strong> (<em>int, optional</em>) – The height of the saved image.
-Default is <code class="docutils literal notranslate"><span class="pre">1080</span></code>.</p></li>
-<li><p><strong>scale</strong> (<em>float, optional</em>) – Scaling factor for the saved view.
-Default is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
-<li><p><strong>draw_grid</strong> (<em>bool, optional</em>) – Include the grid in the screenshot.
-Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>draw_world_axes</strong> (<em>bool, optional</em>) – Include the world axes in the screenshot.
-Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>draw_cplane_axes</strong> (<em>bool, optional</em>) – Include the CPlane axes in the screenshot.
-Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>background</strong> (<em>bool, optional</em>) – Include the current background in the screenshot.
-Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><em>str</em> – The path where the file was saved.</p>
+<dd class="field-odd"><p><strong>keys</strong> (<em>list, optional</em>) – The keys of a specific set of vertices of which the normals should be cleared.
+Default is to clear the normals of all vertices.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -151,7 +133,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">False</s
                 
 
                 <ul class="nav flex-column" id="compas-localnav">
-<li class="nav-item"><a class="nav-link reference internal" href="#">CablenetArtist.save</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#">CablenetArtist.clear_vertexnormals</a></li>
 </ul>
 
 
@@ -163,11 +145,11 @@ Default is <code class="docutils literal notranslate"><span class="pre">False</s
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Dec 10, 2019.
+                Last updated on Feb 17, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.
             
         </div>
     </footer>

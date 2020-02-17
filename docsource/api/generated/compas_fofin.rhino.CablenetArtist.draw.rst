@@ -1,8 +1,8 @@
 .. rst-class:: detail
 
-CablenetArtist.save
+CablenetArtist.draw
 ======================================
 
 .. currentmodule:: compas_fofin.rhino
 
-.. automethod:: CablenetArtist.save
+.. automethod:: CablenetArtist.draw

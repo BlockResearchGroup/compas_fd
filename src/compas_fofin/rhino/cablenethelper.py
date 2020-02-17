@@ -115,7 +115,7 @@ class CablenetHelper(VertexSelector,
 
     @staticmethod
     def select_face_strip(cablenet, fkey):
-        strip = cablenet.get_face_strip(fkey)
+        strip = cablenet.face_strip(fkey)
         select_faces(cablenet, strip)
         return strip
 
@@ -143,7 +143,7 @@ class CablenetHelper(VertexSelector,
                             value = literal_eval(value)
                         except (SyntaxError, ValueError, TypeError):
                             pass
-                        cablenet.set_vertex_attribute(key, name, value)
+                        cablenet.vertex_attribute(key, name, value)
 
             return True
         return False
@@ -155,12 +155,12 @@ class CablenetHelper(VertexSelector,
         names = sorted(names)
 
         key = keys[0]
-        values = cablenet.get_edge_attributes(key, names)
+        values = cablenet.edge_attributes(key, names)
 
         if len(keys) > 1:
             for i, name in enumerate(names):
                 for key in keys[1:]:
-                    if values[i] != cablenet.get_edge_attribute(key, name):
+                    if values[i] != cablenet.edge_attribute(key, name):
                         values[i] = '-'
                         break
 
@@ -175,7 +175,7 @@ class CablenetHelper(VertexSelector,
                             value = literal_eval(value)
                         except (SyntaxError, ValueError, TypeError):
                             pass
-                        cablenet.set_edge_attribute(key, name, value)
+                        cablenet.edge_attribute(key, name, value)
 
             return True
         return False
@@ -187,12 +187,12 @@ class CablenetHelper(VertexSelector,
         names = sorted(names)
 
         key = keys[0]
-        values = cablenet.get_face_attributes(key, names)
+        values = cablenet.face_attributes(key, names)
 
         if len(keys) > 1:
             for i, name in enumerate(names):
                 for key in keys[1:]:
-                    if values[i] != cablenet.get_face_attribute(key, name):
+                    if values[i] != cablenet.face_attribute(key, name):
                         values[i] = '-'
                         break
 
@@ -207,7 +207,7 @@ class CablenetHelper(VertexSelector,
                             value = literal_eval(value)
                         except (SyntaxError, ValueError, TypeError):
                             pass
-                        cablenet.set_face_attribute(key, name, value)
+                        cablenet.face_attribute(key, name, value)
 
             return True
         return False

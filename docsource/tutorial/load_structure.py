@@ -14,11 +14,12 @@ from compas_plotters import MeshPlotter
 HERE = os.path.dirname(__file__)
 FILE_I = os.path.join(HERE, 'hypar_materialized.json')
 FILE_O = os.path.join(HERE, 'hypar_loaded.json')
+FILE_P = os.path.join(HERE, 'hypar_loaded.png')
 
 cablenet = Cablenet.from_json(FILE_I)
 
 cablenet.attributes['density'] = 14.0
-cablenet.set_vertices_attribute('t', 0.05)
+cablenet.vertices_attribute('t', 0.05)
 
 # ==============================================================================
 # Unload the cablenet
@@ -38,17 +39,19 @@ edgecolor = {key: cmap(s) for key, s in zip(edges, stress)}
 
 print(stress)
 
-utilization = [cablenet.stress(key) / cablenet.get_edge_attribute(key, 'yield') for key in edges]
+utilization = [cablenet.stress(key) / cablenet.edge_attribute(key, 'yield') for key in edges]
 # cmap = Colormap(utilization, 'red')
 # edgecolor = {key: cmap(u) for key, u in zip(edges, utilization)}
 
 print(min(utilization))
 print(max(utilization))
 
-plotter = MeshPlotter(cablenet, figsize=(10, 7))
+plotter = MeshPlotter(cablenet, figsize=(16, 9))
 plotter.draw_vertices(radius=0.05, facecolor={key: (0.0, 0.0, 0.0) for key in cablenet.vertices_where({'is_anchor': True})})
 plotter.draw_edges(width=2.0, color=edgecolor, keys=edges)
-plotter.show()
+
+plotter.save(FILE_P, dpi=150)
+# plotter.show()
 
 # ==============================================================================
 # Export

@@ -26,7 +26,8 @@ def mesh_materialize_cables(mesh, safety_forces=1.0, safety_material=1.0):
         Default is ``1.0``.
 
     """
-    for u, v, attr in mesh.edges_where({'is_edge': True}, True):
+    for key, attr in mesh.edges_where({'is_edge': True}, True):
+        u, v = key
         f = attr['f']
         yieldstress = attr['yield']
         E = attr['E']

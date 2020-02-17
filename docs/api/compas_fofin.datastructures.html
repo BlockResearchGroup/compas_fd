@@ -61,7 +61,7 @@
 <dl class="class">
 <dt id="compas_fofin.datastructures.Cablenet">
 <em class="property">class </em><code class="sig-prename descclassname">compas_fofin.datastructures.</code><code class="sig-name descname">Cablenet</code></dt>
-<dd><p>Bases: <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.datastructures.Mesh.html#compas.datastructures.Mesh" title="(in COMPAS v0.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.datastructures.Mesh</span></code></a></p>
+<dd><p>Bases: <a class="reference external" href="https://compas-dev.github.io/main/api/generated/compas.datastructures.Mesh.html#compas.datastructures.Mesh" title="(in COMPAS v0.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.datastructures.Mesh</span></code></a></p>
 <p><a class="reference internal" href="#compas_fofin.datastructures.Cablenet" title="compas_fofin.datastructures.Cablenet"><code class="xref py py-class docutils literal notranslate"><span class="pre">Cablenet</span></code></a> extends the mesh datastructure
 with attributes and methods related to form finding (and analysis) of
 flexible cablenet formwork for concrete shells.</p>
@@ -77,10 +77,10 @@ flexible cablenet formwork for concrete shells.</p>
     <span class="s1">&#39;ry&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>            <span class="c1"># Y-component of an unbalanced (residual) force.</span>
     <span class="s1">&#39;rz&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>            <span class="c1"># Z-component of an unbalanced (residual) force.</span>
     <span class="s1">&#39;t&#39;</span> <span class="p">:</span> <span class="mf">0.0</span><span class="p">,</span>             <span class="c1"># Thickness of the shell.</span>
-    <span class="s1">&#39;is_anchor&#39;</span> <span class="p">:</span> <span class="bp">False</span><span class="p">,</span>   <span class="c1"># Indicate that a vertex is anchored and can take reaction forces in XYZ.</span>
-    <span class="s1">&#39;is_fixed&#39;</span> <span class="p">:</span> <span class="bp">False</span><span class="p">,</span>    <span class="c1"># Can be used to mark a vertex as &quot;fixed&quot; during geometrical operations such as smoothing.</span>
-    <span class="s1">&#39;constraint&#39;</span> <span class="p">:</span> <span class="bp">None</span><span class="p">,</span>   <span class="c1"># Can be used to store the name or ID of a geometrical object to which a vertex is constrained.</span>
-    <span class="s1">&#39;param&#39;</span> <span class="p">:</span> <span class="bp">None</span><span class="p">,</span>        <span class="c1"># Stores the current parameter of a vertex on the constraint object.</span>
+    <span class="s1">&#39;is_anchor&#39;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>   <span class="c1"># Indicate that a vertex is anchored and can take reaction forces in XYZ.</span>
+    <span class="s1">&#39;is_fixed&#39;</span> <span class="p">:</span> <span class="kc">False</span><span class="p">,</span>    <span class="c1"># Can be used to mark a vertex as &quot;fixed&quot; during geometrical operations such as smoothing.</span>
+    <span class="s1">&#39;constraint&#39;</span> <span class="p">:</span> <span class="kc">None</span><span class="p">,</span>   <span class="c1"># Can be used to store the name or ID of a geometrical object to which a vertex is constrained.</span>
+    <span class="s1">&#39;param&#39;</span> <span class="p">:</span> <span class="kc">None</span><span class="p">,</span>        <span class="c1"># Stores the current parameter of a vertex on the constraint object.</span>
 <span class="p">}</span>
 </code></pre></div>
 </div>
@@ -180,11 +180,11 @@ This means that it can only be used to model surface-like structures.</p>
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Dec 10, 2019.
+                Last updated on Feb 17, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.
             
         </div>
     </footer>

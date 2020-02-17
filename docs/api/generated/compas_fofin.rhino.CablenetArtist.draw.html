@@ -56,41 +56,12 @@
 
                     
 
-                    <div class="detail section" id="cablenetartist-draw-circles">
-<h1>CablenetArtist.draw_circles</h1>
+                    <div class="detail section" id="cablenetartist-draw">
+<h1>CablenetArtist.draw</h1>
 <dl class="method">
-<dt id="compas_fofin.rhino.CablenetArtist.draw_circles">
-<code class="sig-prename descclassname">CablenetArtist.</code><code class="sig-name descname">draw_circles</code><span class="sig-paren">(</span><em class="sig-param">circles</em>, <em class="sig-param">layer=None</em>, <em class="sig-param">clear_layer=False</em>, <em class="sig-param">redraw=False</em><span class="sig-paren">)</span></dt>
-<dd><p>Draw a collection of circles.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>circles</strong> (<em>list of dict</em>) – The circles to draw.</p></li>
-<li><p><strong>layer</strong> (<em>str, optional</em>) – The layer to draw the points in.
-Default is <code class="docutils literal notranslate"><span class="pre">None</span></code>, in which case the current layer is used.</p></li>
-<li><p><strong>clear_layer</strong> (<em>bool, optional</em>) – Clear the specified layer.
-Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-<li><p><strong>redraw</strong> (<em>bool, optional</em>) – Redraw the Rhino view.
-Default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><em>list of guid</em> – The GUIDs of the circle objects.</p>
-</dd>
-</dl>
-<p class="rubric">Notes</p>
-<p>The attributes required for drawing a circle are stored in a dictionary per circle.
-The dictionary has the following structure:</p>
-<div class="language-none notranslate"><div class="highlight"><pre><code><span></span>{
-    &#39;plane&#39;  : (point, normal),
-    &#39;radius&#39; : float
-    &#39;name&#39;   : str,              # optional
-    &#39;color&#39;  : rgb or hex,       # optional
-    &#39;layer&#39;  : str               # optional, defaults to the value of the parameter ``layer``.
-}
-</code></pre></div>
-</div>
-</dd></dl>
+<dt id="compas_fofin.rhino.CablenetArtist.draw">
+<code class="sig-prename descclassname">CablenetArtist.</code><code class="sig-name descname">draw</code><span class="sig-paren">(</span><span class="sig-paren">)</span></dt>
+<dd></dd></dl>
 
 </div>
 
@@ -155,7 +126,7 @@ The dictionary has the following structure:</p>
                 
 
                 <ul class="nav flex-column" id="compas-localnav">
-<li class="nav-item"><a class="nav-link reference internal" href="#">CablenetArtist.draw_circles</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="#">CablenetArtist.draw</a></li>
 </ul>
 
 
@@ -167,11 +138,11 @@ The dictionary has the following structure:</p>
     <footer class="bg-dark pb-5">
         <div class="container text-center pt-5 pb-5 text-muted">
             
-                Last updated on Dec 10, 2019.
+                Last updated on Feb 17, 2020.
             
 
             
-                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.1.2.
+                Created using <a href="http://sphinx-doc.org/">Sphinx</a> 2.4.1.
             
         </div>
     </footer>

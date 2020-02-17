@@ -20,7 +20,7 @@ class SelfweightCalculator(object):
 
     def __init__(self, mesh, density=1.0, thickness_attr_name='t'):
         self.mesh = mesh
-        self.rho = array([t * density for t in mesh.get_vertices_attribute(thickness_attr_name, 1.0)]).reshape((-1, 1))
+        self.rho = array([t * density for t in mesh.vertices_attribute(thickness_attr_name)]).reshape((-1, 1))
         self.key_index = mesh.key_index()
         self.fkey_index = {fkey: index for index, fkey in enumerate(mesh.faces())}
         self.is_loaded = {fkey: True for fkey in mesh.faces()}

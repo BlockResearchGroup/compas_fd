@@ -18,7 +18,7 @@ def unload_numpy(mesh, kmax=10000, tol=0.01):
     uv_index = {(u, v): index for index, (u, v) in enumerate(mesh.edges_where({'is_edge': True}))}
 
     fixed = [key_index[key] for key in mesh.vertices_where({'is_anchor': True})]
-    xyz = array(mesh.get_vertices_attributes('xyz'), dtype=float64)
+    xyz = array(mesh.vertices_attributes('xyz'), dtype=float64)
     edges = [(key_index[u], key_index[v]) for u, v in mesh.edges_where({'is_edge': True})]
     v = len(xyz)
     e = len(edges)
@@ -26,9 +26,9 @@ def unload_numpy(mesh, kmax=10000, tol=0.01):
     qpre = zeros((e, 1), dtype=float64)
     fpre = zeros((e, 1), dtype=float64)
     lpre = zeros((e, 1), dtype=float64)
-    l0 = array([attr['l0'] for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
-    E = array([attr['E'] * 1e+6 for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
-    radius = array([attr['r'] for u, v, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
+    l0 = array([attr['l0'] for key, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
+    E = array([attr['E'] * 1e+6 for key, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
+    radius = array([attr['r'] for key, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
 
     xyz, q, f, l, r = dr_numpy(xyz, edges, fixed, p, qpre, fpre, lpre, l0, E, radius, kmax=kmax, tol1=tol)
 
@@ -41,8 +41,8 @@ def unload_numpy(mesh, kmax=10000, tol=0.01):
         attr['ry'] = r[index, 1]
         attr['rz'] = r[index, 2]
 
-    for u, v, attr in mesh.edges_where({'is_edge': True}, True):
-        index = uv_index[(u, v)]
+    for key, attr in mesh.edges_where({'is_edge': True}, True):
+        index = uv_index[key]
         attr['f'] = f[index, 0]
         attr['l'] = l[index, 0]
 
