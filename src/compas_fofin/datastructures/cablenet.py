@@ -108,8 +108,8 @@ class Cablenet(Mesh):
             An instance of a cable net.
 
         """
-        from compas_rhino.geometry._constructors import mesh_from_guid
-        return mesh_from_guid(cls, guid)
+        from compas_rhino.geometry import RhinoMesh
+        return RhinoMesh.from_guid(guid).to_compas(cls=cls)
 
     @classmethod
     def from_rhinosurface(cls, guid, u=20, v=10):
@@ -132,8 +132,8 @@ class Cablenet(Mesh):
             An instance of a cable net.
 
         """
-        from compas_rhino.geometry._constructors import mesh_from_surface_uv
-        return mesh_from_surface_uv(cls, guid, density=(u, v))
+        from compas_rhino.geometry import RhinoSurface
+        return RhinoSurface.from_guid(guid).uv_to_compas(cls=cls, density=(u, v))
 
     def get_continuous_edges(self, edge, aligned=False):
         """Get the edges forming a continuous line with the selected edge.
