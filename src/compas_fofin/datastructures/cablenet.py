@@ -108,7 +108,7 @@ class Cablenet(Mesh):
             An instance of a cable net.
 
         """
-        from compas_rhino.helpers import mesh_from_guid
+        from compas_rhino.geometry._constructors import mesh_from_guid
         return mesh_from_guid(cls, guid)
 
     @classmethod
@@ -132,7 +132,7 @@ class Cablenet(Mesh):
             An instance of a cable net.
 
         """
-        from compas_rhino.helpers import mesh_from_surface_uv
+        from compas_rhino.geometry._constructors import mesh_from_surface_uv
         return mesh_from_surface_uv(cls, guid, density=(u, v))
 
     def get_continuous_edges(self, edge, aligned=False):
