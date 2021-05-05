@@ -25,7 +25,7 @@ optional_requirements = {}
 
 setup(
     name='compas_fofin',
-    version='0.1.0',
+    version='0.1.1rc0',
     description='Form Finding of cablenet structures for the COMPAS framework.',
     long_description=long_description,
     long_description_content_type='text/markdown',
