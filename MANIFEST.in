@@ -8,6 +8,7 @@ prune docsource
 prune examples
 prune temp
 prune tests
+prune scripts
 
 include LICENSE
 include README.md
