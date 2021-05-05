@@ -22,13 +22,13 @@ version = '.'.join(release.split('.')[0:2])
 
 master_doc = 'index'
 source_suffix = ['.rst', ]
-templates_path = ['_templates', ]
+templates_path = ['_templates']
 exclude_patterns = []
 
-pygments_style   = 'sphinx'
-show_authors     = True
+pygments_style = 'sphinx'
+show_authors = True
 add_module_names = True
-language         = None
+language = None
 
 
 # -- Extension configuration ------------------------------------------------
@@ -40,27 +40,31 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.mathjax',
     'sphinx.ext.napoleon',
+    'sphinx.ext.viewcode',
     'matplotlib.sphinxext.plot_directive',
 ]
 
 # autodoc options
 
-autodoc_default_flags = [
-    'undoc-members',
-    'show-inheritance',
-]
+autodoc_mock_imports = ["Rhino", "System", "scriptcontext", "rhinoscriptsyntax", "clr", "bpy"]
 
-autodoc_member_order = 'alphabetical'
+autodoc_default_options = {
+    'undoc-members': True,
+    'show-inheritance': True,
+}
 
-autoclass_content = 'class'
+autodoc_member_order = 'groupwise'
+
+autoclass_content = "class"
 
 # autosummary options
 
 autosummary_generate = True
+autosummary_mock_imports = ["Rhino", "System", "scriptcontext", "rhinoscriptsyntax", "clr", "bpy"]
 
 # napoleon options
 
-napoleon_google_docstring = True
+napoleon_google_docstring = False
 napoleon_numpy_docstring = True
 napoleon_include_init_with_doc = False
 napoleon_include_private_with_doc = False
@@ -76,16 +80,22 @@ napoleon_use_rtype = False
 # first, we define new methods for any new sections and add them to the class
 def parse_keys_section(self, section):
     return self._format_fields('Keys', self._consume_fields())
+
+
 NumpyDocstring._parse_keys_section = parse_keys_section
 
 
 def parse_attributes_section(self, section):
     return self._format_fields('Attributes', self._consume_fields())
+
+
 NumpyDocstring._parse_attributes_section = parse_attributes_section
 
 
 def parse_class_attributes_section(self, section):
     return self._format_fields('Class Attributes', self._consume_fields())
+
+
 NumpyDocstring._parse_class_attributes_section = parse_class_attributes_section
 
 
@@ -95,9 +105,10 @@ def patched_parse(self):
     self._sections['keys'] = self._parse_keys_section
     self._sections['class attributes'] = self._parse_class_attributes_section
     self._unpatched_parse()
+
+
 NumpyDocstring._unpatched_parse = NumpyDocstring._parse
 NumpyDocstring._parse = patched_parse
-
 
 # plot options
 
@@ -108,92 +119,7 @@ NumpyDocstring._parse = patched_parse
 # plot_rcparams
 # plot_apply_rcparams
 # plot_working_directory
-
-# {% has_class = false -%}
-# {% for option in options -%}
-# {% if option.startswith(':class:') %}
-# {% has_class = true %}
-# {% endif %}
-# {% endfor %}
-
-
-plot_template = """
-{{ source_code }}
-
-{{ only_html }}
-
-   {% if source_link or (html_show_formats and not multi_image) %}
-   (
-   {%- if source_link -%}
-   `Source code <{{ source_link }}>`__
-   {%- endif -%}
-   {%- if html_show_formats and not multi_image -%}
-     {%- for img in images -%}
-       {%- for fmt in img.formats -%}
-         {%- if source_link or not loop.first -%}, {% endif -%}
-         `{{ fmt }} <{{ dest_dir }}/{{ img.basename }}.{{ fmt }}>`__
-       {%- endfor -%}
-     {%- endfor -%}
-   {%- endif -%}
-   )
-   {% endif %}
-
-   {% for img in images %}
-   {% set has_class = false %}
-
-   .. figure:: {{ build_dir }}/{{ img.basename }}.{{ default_fmt }}
-      {% for option in options -%}
-      {%- if option.startswith(':class:') -%}
-      {%- set has_class = true -%}
-      {%- if 'img-fluid' not in option -%}
-      {%- set option = option + ' img-fluid' -%}
-      {%- endif -%}
-      {%- if 'figure-img' not in option -%}
-      {%- set option = option + ' figure-img' -%}
-      {%- endif -%}
-      {%- endif -%}
-      {{ option }}
-      {% endfor %}
-      {%- if not has_class -%}
-      :class: figure-img img-fluid
-      {%- endif %}
-
-      {% if html_show_formats and multi_image -%}
-        (
-        {%- for fmt in img.formats -%}
-        {%- if not loop.first -%}, {% endif -%}
-        `{{ fmt }} <{{ dest_dir }}/{{ img.basename }}.{{ fmt }}>`__
-        {%- endfor -%}
-        )
-      {%- endif -%}
-
-      {{ caption }}
-   {% endfor %}
-
-{{ only_latex }}
-
-   {% for img in images %}
-   {% if 'pdf' in img.formats -%}
-   .. figure:: {{ build_dir }}/{{ img.basename }}.pdf
-      {% for option in options -%}
-      {{ option }}
-      {% endfor %}
-
-      {{ caption }}
-   {% endif -%}
-   {% endfor %}
-
-{{ only_texinfo }}
-
-   {% for img in images %}
-   .. image:: {{ build_dir }}/{{ img.basename }}.png
-      {% for option in options -%}
-      {{ option }}
-      {% endfor %}
-
-   {% endfor %}
-
-"""
+# plot_template
 
 plot_html_show_source_link = False
 plot_html_show_formats = False
@@ -202,7 +128,7 @@ plot_html_show_formats = False
 
 intersphinx_mapping = {
     'python': ('https://docs.python.org/', None),
-    'compas': ('https://compas-dev.github.io/main', 'https://compas-dev.github.io/main/objects.inv'),
+    'compas': ('https://compas-dev.github.io/compas', 'https://compas-dev.github.io/compas/objects.inv'),
 }
 
 
@@ -210,13 +136,16 @@ intersphinx_mapping = {
 
 html_theme = 'compaspkg'
 html_theme_path = sphinx_compas_theme.get_html_theme_path()
-
 html_theme_options = {
-    'package_name'    : 'compas_fofin',
-    'package_title'   : project,
-    'package_version' : release,
+    "package_name": "compas_fofin",
+    "package_title": project,
+    "package_version": release,
+    "package_author": "Tom Van Mele",
+    "package_description": "Form Finding of cablenet structures for the COMPAS framework.",
+    "package_repo": "https://github.com/BlockResearchGroup/compas_fofin",
+    "package_docs": "https://blockresearchgroup.github.io/compas_fofin/",
+    "package_old_versions_txt": "https://blockresearchgroup.github.io/compas_fofin/doc_versions.txt"
 }
-
 html_context = {}
 html_static_path = []
 html_extra_path = ['.nojekyll']
