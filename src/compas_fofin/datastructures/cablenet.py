@@ -5,7 +5,6 @@ from __future__ import division
 from math import pi
 
 from compas.datastructures import Mesh
-from compas.utilities import pairwise
 
 
 __all__ = ['Cablenet']

@@ -10,8 +10,6 @@ import scriptcontext as sc
 import compas_rhino
 import compas_fofin
 
-from compas_rhino.ui import CommandMenu
-from compas_rhino.ui import CommandAction
 from compas_fofin.datastructures import Cablenet
 
 

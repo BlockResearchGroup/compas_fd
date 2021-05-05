@@ -30,7 +30,7 @@ if not compas.IPY:
 def update_xyz_proxy(data, *args, **kwargs):
     from compas_fofin.datastructures import Cablenet
     net = Cablenet.from_data(data)
-    update_xyz_numpy(net, *args, **kwargs)
+    update_xyz_numpy(net, *args, **kwargs)  # noqa F405
     return net.to_data()
 
 

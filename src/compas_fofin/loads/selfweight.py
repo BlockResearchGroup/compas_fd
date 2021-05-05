@@ -5,7 +5,6 @@ from __future__ import division
 from numpy import array
 from numpy import zeros
 
-from compas.geometry import subtract_vectors
 from compas.geometry import cross_vectors
 from compas.geometry import length_vector
 from compas.numerical import face_matrix
@@ -37,10 +36,10 @@ class SelfweightCalculator(object):
         return face_matrix(face_vertices, rtype='csr', normalize=True)
 
     def _tributary_areas(self, xyz):
-        mesh       = self.mesh
-        key_index  = self.key_index
+        mesh = self.mesh
+        key_index = self.key_index
         fkey_index = self.fkey_index
-        is_loaded  = self.is_loaded
+        is_loaded = self.is_loaded
 
         C = self.F.dot(xyz)
 
@@ -50,7 +49,7 @@ class SelfweightCalculator(object):
 
             a = 0
             for v in mesh.halfedge[u]:
-                p1  = xyz[key_index[v]]
+                p1 = xyz[key_index[v]]
                 p01 = p1 - p0
 
                 fkey = mesh.halfedge[u][v]

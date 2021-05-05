@@ -45,7 +45,7 @@ def apply_loads_numpy(mesh, safety_loads=1.0, safety_selfweight=1.0, kmax=10000,
     fixed = [key_index[key] for key in mesh.vertices_where({'is_anchor': True})]
     xyz = array(mesh.vertices_attributes('xyz'), dtype=float64)
     edges = [(key_index[u], key_index[v]) for u, v in mesh.edges_where({'is_edge': True})]
-    v = len(xyz)
+    # v = len(xyz)
     e = len(edges)
     p = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
     qpre = zeros((e, 1), dtype=float64)

@@ -3,12 +3,12 @@ from __future__ import absolute_import
 from __future__ import division
 
 import scriptcontext as sc
+import rhinoscriptsyntax as rs
 
 from Rhino.Geometry import Point3d
 
 import compas_rhino
 from compas_rhino.ui import CommandMenu
-from compas_rhino.ui import CommandAction
 from compas_fofin.rhino import CablenetHelper
 
 find_object = sc.doc.Objects.Find

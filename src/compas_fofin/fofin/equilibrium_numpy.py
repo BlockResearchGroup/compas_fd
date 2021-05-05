@@ -30,14 +30,14 @@ def update_xyz_numpy(mesh):
         The function updates the input mesh and returns nothing.
 
     """
-    k_i   = mesh.key_index()
+    k_i = mesh.key_index()
     fixed = mesh.vertices_where({'is_anchor': True})
     fixed = [k_i[key] for key in fixed]
-    free  = list(set(range(mesh.number_of_vertices())) - set(fixed))
-    xyz   = array(mesh.vertices_attributes('xyz'), dtype=float64)
-    p     = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
+    free = list(set(range(mesh.number_of_vertices())) - set(fixed))
+    xyz = array(mesh.vertices_attributes('xyz'), dtype=float64)
+    p = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
     edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'is_edge': True})]
-    q     = array([attr['q'] for key, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
+    q = array([attr['q'] for key, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
 
     density = mesh.attributes['density']
 
@@ -68,9 +68,9 @@ def update_xyz_numpy(mesh):
 
     for key, attr in mesh.vertices(True):
         index = k_i[key]
-        attr['x']  = xyz[index, 0]
-        attr['y']  = xyz[index, 1]
-        attr['z']  = xyz[index, 2]
+        attr['x'] = xyz[index, 0]
+        attr['y'] = xyz[index, 1]
+        attr['z'] = xyz[index, 2]
         attr['rx'] = r[index, 0]
         attr['ry'] = r[index, 1]
         attr['rz'] = r[index, 2]

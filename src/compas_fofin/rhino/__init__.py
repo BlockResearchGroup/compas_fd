@@ -22,8 +22,8 @@ from __future__ import division
 from __future__ import print_function
 
 
-from .cablenetartist import *
-from .cablenethelper import *
+from .cablenetartist import *  # noqa F401
+from .cablenethelper import *  # noqa F401
 
 
 __all__ = [name for name in dir() if not name.startswith('_')]

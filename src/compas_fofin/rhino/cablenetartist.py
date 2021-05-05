@@ -2,26 +2,12 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
-import sys
-from functools import partial
-from math import pi
-
-import compas
 import compas_rhino
 
-from compas.geometry import subtract_vectors
-from compas.geometry import dot_vectors
 from compas.geometry import length_vector_sqrd
-from compas.utilities import i_to_rgb
 from compas.utilities import Colormap
 
 from compas_rhino.artists import MeshArtist
-
-if compas.IPY:
-    import System
-    import Rhino
-    import rhinoscriptsyntax as rs
-    import scriptcontext as sc
 
 
 __all__ = ['CablenetArtist']
@@ -327,11 +313,9 @@ class CablenetArtist(MeshArtist):
         self._draw_cylinders(lines)
 
 
-
 # ==============================================================================
 # Main
 # ==============================================================================
-
 if __name__ == "__main__":
 
     pass
