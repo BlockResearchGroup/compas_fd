@@ -13,10 +13,10 @@ from compas.numerical import normrow
 from compas_fofin.loads import SelfweightCalculator
 
 
-__all__ = ['update_xyz_numpy']
+__all__ = ['fd_xyz_numpy']
 
 
-def update_xyz_numpy(mesh):
+def fd_xyz_numpy(mesh):
     """Find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
