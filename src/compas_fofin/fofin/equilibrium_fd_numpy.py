@@ -11,12 +11,13 @@ from compas.numerical import connectivity_matrix
 from compas.numerical import normrow
 
 # from compas_fofin.loads import SelfweightCalculator
+from compas_formfinder.datastructures import CableMesh
 
 
 __all__ = ['fd_xyz_numpy']
 
 
-def fd_xyz_numpy(mesh, *args, **kwargs):
+def fd_xyz_numpy(data, *args, **kwargs):
     """Find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
@@ -30,6 +31,8 @@ def fd_xyz_numpy(mesh, *args, **kwargs):
         The function updates the input mesh and returns nothing.
 
     """
+    mesh = CableMesh.from_data(data)
+
     k_i = mesh.key_index()
     fixed = mesh.vertices_where({'is_anchor': True})
     fixed = [k_i[key] for key in fixed]
@@ -38,6 +41,7 @@ def fd_xyz_numpy(mesh, *args, **kwargs):
     p = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
     edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'_is_edge': True})]
     q = array([attr['q'] for key, attr in mesh.edges_where({'_is_edge': True}, True)], dtype=float64).reshape((-1, 1))
+    
 
     # density = mesh.attributes['density']
 
@@ -80,4 +84,4 @@ def fd_xyz_numpy(mesh, *args, **kwargs):
         attr['f'] = f[index, 0]
         attr['l'] = l[index, 0]
 
-    return mesh
+    return mesh.to_data()
