@@ -31,7 +31,7 @@ def fd_xyz_numpy(data, *args, **kwargs):
         The function updates the input mesh and returns nothing.
 
     """
-    mesh = CableMesh.from_data(data)
+    mesh = CableMesh.from_data(data) # this is only a temporary work-around as long as the cloud thing doesn't work
 
     k_i = mesh.key_index()
     fixed = mesh.vertices_where({'is_anchor': True})
@@ -41,7 +41,6 @@ def fd_xyz_numpy(data, *args, **kwargs):
     p = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
     edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'_is_edge': True})]
     q = array([attr['q'] for key, attr in mesh.edges_where({'_is_edge': True}, True)], dtype=float64).reshape((-1, 1))
-    
 
     # density = mesh.attributes['density']
 
