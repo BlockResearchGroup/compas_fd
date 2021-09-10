@@ -10,8 +10,8 @@ from scipy.sparse.linalg import spsolve
 from compas.numerical import connectivity_matrix
 from compas.numerical import normrow
 
+from compas_fofin.datastructures import CableMesh
 # from compas_fofin.loads import SelfweightCalculator
-from compas_formfinder.datastructures import CableMesh
 
 
 __all__ = ['fd_xyz_numpy']
@@ -22,7 +22,7 @@ def fd_xyz_numpy(data, *args, **kwargs):
 
     Parameters
     ----------
-    mesh : compas_formfinder.datastructures.CableMesh
+    mesh : compas_fd.datastructures.CableMesh
         The mesh to equilibriate.
 
     Returns
@@ -31,7 +31,7 @@ def fd_xyz_numpy(data, *args, **kwargs):
         The function updates the input mesh and returns nothing.
 
     """
-    mesh = CableMesh.from_data(data) # this is only a temporary work-around as long as the cloud thing doesn't work
+    mesh = CableMesh.from_data(data)  # this is only a temporary work-around as long as the cloud thing doesn't work
 
     k_i = mesh.key_index()
     fixed = mesh.vertices_where({'is_anchor': True})
