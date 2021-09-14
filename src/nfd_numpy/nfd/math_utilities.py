@@ -1,12 +1,13 @@
+from typing import Sequence
 from math import sin, cos, asin, acos, hypot
 
-from numpy import asarray
+from numpy import asarray, ndarray
 
 
 __all__ = [
-    'euclidean_distance',
     'arc_sin',
     'arc_cos',
+    'euclidean_distance',
     'planar_rotation',
     'is_isotropic',
     'transform_stress',
@@ -17,48 +18,58 @@ __all__ = [
 
 
 s, c = sin, cos
-def s2(x): return s(x) * s(x)  # noqa E704
-def c2(x): return c(x) * c(x)  # noqa E704
+
+def s2(angle: float) -> float:
+    """Calculate sine squared of angle in radians."""
+    return s(angle) ** 2
 
 
-def euclidean_distance(u, v):
-    """Calculate distance between two 3D points using the hypotenuse."""
-    return hypot(u[0] - v[0], u[1] - v[1], u[2] - v[2])
+def c2(angle: float) -> float:
+    """Calculate cosine squared of angle in radians."""
+    return c(angle) ** 2
 
 
-def arc_sin(a):
+def arc_sin(num: float) -> float:
     """Calculate inverse sine. Input values are bounded
     between -.9999 and .9999 for numerical stability."""
-    return asin(max(min(a, .9999), -.9999))
+    return asin(max(min(num, .9999), -.9999))
 
 
-def arc_cos(a):
+def arc_cos(num: float) -> float:
     """Calculate inverse cosine. Input values are bounded
     between -.9999 and .9999 for numerical stability."""
-    return acos(max(min(a, .9999), -.9999))
+    return acos(max(min(num, .9999), -.9999))
 
 
-def planar_rotation(angle):
-    """Return a planar rotation matrix from an angle in radians."""
+def euclidean_distance(pt_a: Sequence[float] , pt_b: Sequence[float]) -> float:
+    """Calculate distance between two 3D points using the hypotenuse."""
+    return hypot(pt_a[0] - pt_b[0], pt_a[1] - pt_b[1], pt_a[2] - pt_b[2])
+
+
+def planar_rotation(angle: float) -> ndarray:
+    """Get the planar rotation matrix from an angle in radians."""
     return asarray([[c(angle),  -s(angle)],
                     [s(angle),   c(angle)]])
 
 
-def is_isotropic(vec):
-    """Check whether an input stress pseudo-vector is isotropic."""
+def is_isotropic(vec: Sequence[float]) -> bool:
+    """Check whether a planar stress pseudo-vector is isotropic."""
     return (vec[0] == vec[1]) and (vec[2] == 0)
 
 
-def transform_stress(stress, rotation, invert=False):
-    """Transform planar stress vector by 2x2 rotation matrix."""
-    s, R = stress_vec_to_tensor(stress), rotation
+def transform_stress(stress: ndarray, rotation: ndarray,
+                     invert: bool = False) -> ndarray:
+    """Transform a planar stress pseudo-vector by a 2x2 rotation matrix."""
+    s = stress_vec_to_tensor(stress)
+    R = rotation
     r = (R.dot(s).dot(R.T) if invert
          else R.T.dot(s).dot(R))
     return stress_tensor_to_vec(r)
 
 
-def transform_stress_angle(stress, angle, invert=False):
-    """Transform a planar stress vector by angle in radians."""
+def transform_stress_angle(stress: Sequence[float], angle: float,
+                           invert: bool = False) -> ndarray:
+    """Transform a planar stress pseudo-vector by an angle in radians."""
     a = -angle if invert else angle
     s2a = s2(a)
     c2a = c2(a)
@@ -69,12 +80,12 @@ def transform_stress_angle(stress, angle, invert=False):
     return asarray(T).dot(stress)
 
 
-def stress_vec_to_tensor(vec):
+def stress_vec_to_tensor(vec: Sequence[float]) -> ndarray:
     """Convert planar stresses from pseudo-vector to tensor form."""
     return asarray([[vec[0], vec[2]],
                     [vec[2], vec[1]]])
 
 
-def stress_tensor_to_vec(tens):
+def stress_tensor_to_vec(tens: ndarray) -> ndarray:
     """Convert planar stresses from tensor to pseudo-vector form."""
     return asarray([tens[0, 0], tens[1, 1], tens[0, 1]])
