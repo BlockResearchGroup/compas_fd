@@ -28,8 +28,14 @@ __all__ = [
 # =================================================
 
 s, c = sin, cos
-def s2(x): return s(x) * s(x)  # noqa E704
-def c2(x): return c(x) * c(x)  # noqa E704
+
+
+def s2(x):
+    return s(x) * s(x)
+
+
+def c2(x):
+    return c(x) * c(x)
 
 
 # =================================================
