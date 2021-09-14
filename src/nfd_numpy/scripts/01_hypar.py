@@ -5,7 +5,7 @@ sys.path.append(path.dirname(path.dirname(__file__)))
 from compas.datastructures import Mesh, mesh_subdivide
 from compas_view2 import app
 
-from nfd import nfd_ur
+from nfd import nfd_ur_numpy
 from _helpers import mesh_update
 
 
@@ -23,10 +23,11 @@ mesh = Mesh.from_json(FILE_I)
 mesh.vertices_attribute('is_anchor', True,
                         mesh.vertices_where({'vertex_degree': 2}))
 
-mesh = mesh_subdivide(mesh, scheme='quad', k=3)
+mesh = mesh_subdivide(mesh, scheme='quad', k=2)
+mesh.quads_to_triangles()
 
 bounds = mesh.edges_on_boundaries()[0]
-mesh.edges_attribute('q_pre', 30, bounds)
+mesh.edges_attribute('q_pre', 20, bounds)
 
 dva = {'rx': .0, 'ry': .0, 'rz': .0,
        'px': .0, 'py': .0, 'pz': .0,
@@ -50,8 +51,7 @@ Q = mesh.edges_attribute('q_pre')
 # =================================================
 # run solver
 # =================================================
-xyz, r, s, f = nfd_ur(mesh, S, Q, vertex_loads=P, kmax=10,
-                      s_calc=1, s_tol=.05, xyz_tol=.01)
+xyz, r, s, f = nfd_ur_numpy(mesh, S, Q, vertex_loads=P, kmax=10, s_calc=1)
 mesh_update(mesh, xyz, r, s, f)
 
 

@@ -3,4 +3,4 @@ from pathlib import Path
 top = str(Path(__file__).parents[1])
 sys.path.append(top)
 
-from .nfd import nfd, nfd_ur  # noqa
+from .nfd import nfd_ur_numpy, nfd_numpy  # noqa

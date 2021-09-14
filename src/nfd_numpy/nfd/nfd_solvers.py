@@ -9,17 +9,17 @@ from .matrices import StiffnessMatrixAssembler, LoadMatrixAssembler
 
 
 __all__ = [
-    'nfd_ur',
-    'nfd'
+    'nfd_ur_numpy',
+    'nfd_numpy'
 ]
 
 
 # =================================================
 # outer wrappers
 # =================================================
-def nfd_ur(mesh, stress_goals=None, fd_goals=None, force_goals=None,
-           vertex_loads=None, global_face_loads=None, local_face_loads=None,
-           s_calc=1, s_ref=None, s_tol=1e-2, xyz_tol=1e-2, kmax=10):
+def nfd_ur_numpy(mesh, stress_goals=None, fd_goals=None, force_goals=None,
+                 vertex_loads=None, global_face_loads=None, local_face_loads=None,
+                 s_calc=1, s_ref=None, s_tol=1e-2, xyz_tol=1e-2, kmax=10):
     """Natural force density method with updated reference strategy.
     Input stress fields are taken for the reference geometry
     that is updated at each iteration by the natural force densities.
@@ -126,7 +126,7 @@ def _output_message(converged, k, s_res, xyz_Δ):
               '\nMax displacement residual: ', round(xyz_Δ, 5))
 
 
-nfd = partial(nfd_ur, kmax=1)
+nfd_numpy = partial(nfd_ur_numpy, kmax=1)
 
 
 # =================================================
