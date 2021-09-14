@@ -17,6 +17,7 @@ __all__ = [
 # =================================================
 # outer wrappers
 # =================================================
+
 def nfd_ur_numpy(mesh, stress_goals=None, fd_goals=None, force_goals=None,
                  vertex_loads=None, global_face_loads=None, local_face_loads=None,
                  s_calc=1, s_ref=None, s_tol=1e-2, xyz_tol=1e-2, kmax=10):
@@ -45,21 +46,21 @@ def nfd_ur_numpy(mesh, stress_goals=None, fd_goals=None, force_goals=None,
     local_face_loads : sequence of tuple
         Local face frame XYZ components of loads per face area.
         (default is None, no loads on faces).
-    s_calc: int {0, 1, 2, 3} (default is 1)
+    s_calc : int {0, 1, 2, 3} (default is 1)
         Stress calculation at final iteration.
         0: Do not calculate stresses.
         1: Calculate second Piola-Kirchhoff stresses per face.
         2: Calculate principal stress values and vectors per face.
         3: Calculate principal stress values and vectors in global frame.
-    s_ref: sequence of float
+    s_ref : sequence of float
         Normal of reference plane for non-isotropic stress field orientation.
-    s_tol: float (default is 1e-2)
+    s_tol : float (default is 1e-2)
         Tolerance for averaged sum of squared errors
         of stress vectors to goal stress vector.
-    xyz_tol: float (default is 1e-2)
+    xyz_tol : float (default is 1e-2)
         Tolerance for difference in coordinate displacements
         between two consecutive iterations.
-    kmax: int (default is 10)
+    kmax : int (default is 10)
         Maximum number of iterations.
 
     Returns
@@ -141,8 +142,8 @@ def _nfd_solve(xyz, fixed, faces, edges, loads, s_calc):
     _xyz = array(xyz, copy=True)
 
     # assemble new stiffness matrices
-    stiff = StiffnessMatrixAssembler(faces, edges, free, fixed)
-    D, Di, Df = stiff.full, stiff.free, stiff.fixed
+    sma = StiffnessMatrixAssembler(free, fixed, edges, faces)
+    D, Di, Df = sma.matrix, sma.free_matrix, sma.fixed_matrix
 
     # get updated load matrix
     loads.update()
@@ -161,8 +162,9 @@ def _nfd_solve(xyz, fixed, faces, edges, loads, s_calc):
     return _xyz, r, s, f
 
 
-# ==============================================================================
+# =================================================
 # main
-# ==============================================================================
+# =================================================
+
 if __name__ == '__main__':
     pass

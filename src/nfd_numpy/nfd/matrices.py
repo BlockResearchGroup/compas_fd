@@ -1,4 +1,4 @@
-from numpy import asarray, copy, zeros
+from numpy import asarray, copy, zeros, ix_
 from scipy.sparse import coo_matrix
 
 from compas.geometry import Rotation
@@ -13,9 +13,33 @@ __all__ = [
 class StiffnessMatrixAssembler:
     """Represents assembly of a global force density stiffness matrix.
     A new instance of StiffnessMatrixAssembler should be generated at each
-    solver iteration, so that the stiffness matrix is rebuilt completely."""
+    solver iteration, so that the stiffness matrix is rebuilt completely.
 
-    def __init__(self, faces, edges, free, fixed):
+    Parameters
+    ----------
+    free : sequence of int
+        The indices of free mesh vertices.
+    fixed : sequence of int
+        The indices of fixed mesh vertices.
+    edges : iterable of :class:`NaturalEdge`
+        The processed edges of the mesh.
+    faces : iterable of :class:`NaturalFace`
+        The processed faces of the mesh.
+
+    Attributes
+    ----------
+    matrix : ndarray
+        The full stiffness matrix as a 2D array.
+    free_matrix : ndarray
+        The stiffness matrix of free vertices as a 2D array.
+    fixed_matrix : ndarray
+        The stiffness matrix of fixed vertices as a 2D array.
+    """
+
+    def __init__(self, free, fixed, edges, faces):
+        self.free = free
+        self.fixed = fixed
+
         self.data = []
         self.rows = []
         self.cols = []
@@ -23,12 +47,9 @@ class StiffnessMatrixAssembler:
         self._add_faces(faces)
         self._add_edges(edges)
 
-        vertex_count = len(free + fixed)
-        self._full = coo_matrix((self.data, (self.rows, self.cols)),
-                                (vertex_count, vertex_count)).tocsr()
-        partial = self._full[free, :]
-        self._free = partial[:, free]
-        self._fixed = partial[:, fixed]
+        v_count = len(free + fixed)
+        self._mat = coo_matrix((self.data, (self.rows, self.cols)),
+                               (v_count, v_count)).tocsr()
 
     def _add_faces(self, faces):
         for face in faces:
@@ -66,23 +87,47 @@ class StiffnessMatrixAssembler:
             self.cols += [v0, v1, v1, v0]
 
     @property
-    def full(self):
-        return self._full
+    def matrix(self):
+        return self._mat
 
     @property
-    def free(self):
-        return self._free
+    def free_matrix(self):
+        return self._mat[ix_(self.free, self.free)]
 
     @property
-    def fixed(self):
-        return self._fixed
+    def fixed_matrix(self):
+        return self._mat[ix_(self.free, self.fixed)]
 
 
 class LoadMatrixAssembler:
     """Represents assembly of a global load matrix.
+
+    Parameters
+    ----------
+    vertices : sequence of int
+        The indices of mesh vertices.
+    faces : iterable of :class:`NaturalFace`
+        The processed faces of the mesh.
+    vertex_loads : sequence of tuple
+        The loads on the mesh vertices in global XYZ directions.
+    global_face_loads : sequence of tuple of float
+        The loads on the mesh faces in global XYZ directions.
+    local_face_loads : sequence of tuple of float
+        The loads on the mesh faces in local face XYZ directions.
+        Local loads get converted to global loads by rotation
+        from the local face frames.
+
+    Attributes
+    ----------
+    matrix : ndarray
+        The full load matrix as a 2D array.
+
+    Notes
+    -----
     A LoadMatrixAssembler is to be instantiated once per session and to persist
-    over iterations. When the internal matrix is called at each solver iteration,
-    the matrix is updated corresponding to the geometry of the latest state."""
+    over iterations. By calling instance method update(), the intenral matrix
+    is updated corresponding to the geometry of the latest state.
+    """
 
     def __init__(self, vertices, faces, vertex_loads=None,
                  global_face_loads=None, local_face_loads=None):
@@ -90,8 +135,7 @@ class LoadMatrixAssembler:
         self._vertices_mat = self._load_mat(vertex_loads, zeros((len(vertices), 3)))
         self._gfl = self._load_mat(global_face_loads)
         self._lfl = self._load_mat(local_face_loads)
-        self._has_face_loads = ((self._gfl is not None) or
-                                (self._lfl is not None))
+        self._has_face_loads = ((self._gfl is not None) or (self._lfl is not None))
         self._mat = self._vertices_mat
         self.update()
 
