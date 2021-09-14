@@ -1,2 +1,2 @@
 
-.. automodule:: compas_fofin
+.. automodule:: compas_fd

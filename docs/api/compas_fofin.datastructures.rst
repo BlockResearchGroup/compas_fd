@@ -1,2 +1,2 @@
 
-.. automodule:: compas_fofin.datastructures
+.. automodule:: compas_fd.datastructures

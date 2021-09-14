@@ -24,12 +24,12 @@ requirements = read('requirements.txt').split('\n')
 optional_requirements = {}
 
 setup(
-    name='compas_fofin',
+    name='compas_fd',
     version='0.1.1rc0',
-    description='Form Finding of cablenet structures for the COMPAS framework.',
+    description='Form Finding of CableMesh structures for the COMPAS framework.',
     long_description=long_description,
     long_description_content_type='text/markdown',
-    url='https://github.com/BlockResearchGroup/compas_fofin',
+    url='https://github.com/BlockResearchGroup/compas_fd',
     author='tom van mele',
     author_email='van.mele@arch.ethz.ch',
     license='MIT license',
@@ -52,7 +52,7 @@ setup(
     ],
     keywords=[],
     project_urls={},
-    packages=['compas_fofin'],
+    packages=['compas_fd'],
     package_dir={'': 'src'},
     package_data={},
     data_files=[],

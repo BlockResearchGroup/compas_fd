@@ -1,13 +1,13 @@
 ********************************************************************************
-compas_fofin
+compas_fd
 ********************************************************************************
 
 .. toctree::
    :maxdepth: 3
    :titlesonly:
 
-   intro
-   gettingstarted
+   Introduction <self>
+   installation
    tutorial
    examples
    api

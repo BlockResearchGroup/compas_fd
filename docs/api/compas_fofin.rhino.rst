@@ -1,2 +1,2 @@
 
-.. automodule:: compas_fofin.rhino
+.. automodule:: compas_fd.rhino

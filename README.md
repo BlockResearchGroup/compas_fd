@@ -1,4 +1,4 @@
-# COMPAS FoFin
+# COMPAS fd
 
-Form Finding of cablenet structures for the COMPAS framework.
+Form Finding of CableMesh structures for the COMPAS framework.
 

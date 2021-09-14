@@ -1,6 +1,6 @@
-import compas_fofin
+import compas_fd
 
 
 def test_trivial():
-    print(compas_fofin.__version__)
+    print(compas_fd.__version__)
     assert True

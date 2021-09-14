@@ -1,2 +1,2 @@
 
-.. automodule:: compas_fofin.analysis
+.. automodule:: compas_fd.analysis

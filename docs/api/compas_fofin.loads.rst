@@ -1,2 +1,2 @@
 
-.. automodule:: compas_fofin.loads
+.. automodule:: compas_fd.loads
