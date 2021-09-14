@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from .solvers import nfd_ur_numpy, nfd_numpy
+from .nfd import nfd_ur_numpy, nfd_numpy
 
 
 __all__ = [
