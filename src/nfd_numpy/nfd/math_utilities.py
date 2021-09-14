@@ -19,6 +19,7 @@ __all__ = [
 
 s, c = sin, cos
 
+
 def s2(angle: float) -> float:
     """Calculate sine squared of angle in radians."""
     return s(angle) ** 2
@@ -41,7 +42,7 @@ def arc_cos(num: float) -> float:
     return acos(max(min(num, .9999), -.9999))
 
 
-def euclidean_distance(pt_a: Sequence[float] , pt_b: Sequence[float]) -> float:
+def euclidean_distance(pt_a: Sequence[float], pt_b: Sequence[float]) -> float:
     """Calculate distance between two 3D points using the hypotenuse."""
     return hypot(pt_a[0] - pt_b[0], pt_a[1] - pt_b[1], pt_a[2] - pt_b[2])
 

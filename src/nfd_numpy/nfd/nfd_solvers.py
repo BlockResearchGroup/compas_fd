@@ -15,7 +15,7 @@ __all__ = [
 
 
 # =================================================
-# outer wrappers
+# solver iterators
 # =================================================
 
 def nfd_ur_numpy(mesh, stress_goals=None, fd_goals=None, force_goals=None,
@@ -27,7 +27,7 @@ def nfd_ur_numpy(mesh, stress_goals=None, fd_goals=None, force_goals=None,
 
     Parameters
     ----------
-    mesh : Mesh
+    mesh : :class:`Mesh`
         Instance of Mesh datastructure.
     stress_goals : sequence of tuple
         Goal second Piola-Kirchhoff (σx, σy, τxy) stress field per face,
@@ -38,42 +38,37 @@ def nfd_ur_numpy(mesh, stress_goals=None, fd_goals=None, force_goals=None,
     force_goals : sequence of float
         Goal force per edge (default is None).
     vertex_loads : sequence of tuple
-        Global XYZ components of loads per vertex.
-        (default is None, no loads on vertices).
+        Global XYZ components of loads per vertex (default is None).
     global_face_loads : sequence of tuple
-        Global XYZ components of loads per face area.
-        (default is None, no loads on faces).
+        Global XYZ components of loads per face area (default is None).
     local_face_loads : sequence of tuple
-        Local face frame XYZ components of loads per face area.
-        (default is None, no loads on faces).
-    s_calc : int {0, 1, 2, 3} (default is 1)
-        Stress calculation at final iteration.
+        Local face frame XYZ components of loads per face area (default is None).
+    s_calc : {0, 1, 2, 3}
+        Flag for stress calculation at final solver iteration (default is 1).
         0: Do not calculate stresses.
         1: Calculate second Piola-Kirchhoff stresses per face.
         2: Calculate principal stress values and vectors per face.
         3: Calculate principal stress values and vectors in global frame.
     s_ref : sequence of float
         Normal of reference plane for non-isotropic stress field orientation.
-    s_tol : float (default is 1e-2)
+    s_tol : float
         Tolerance for averaged sum of squared errors
-        of stress vectors to goal stress vector.
-    xyz_tol : float (default is 1e-2)
+        from stress vectors to goal stress vector (default is 1e-2).
+    xyz_tol : float
         Tolerance for difference in coordinate displacements
-        between two consecutive iterations.
-    kmax : int (default is 10)
-        Maximum number of iterations.
+        between two consecutive iterations (default is 1e-2).
+    kmax : int
+        Maximum number of iterations (default is 10).
 
     Returns
     ----------
-    array
+    ndarray
         XYZ coordinates of the equilibrium geometry.
-    array
+    ndarray
         Residual and reaction forces per vertex.
     tuple
-        (None, None) if s_calc set to 0.
-        (list of pk2 stresses, None) if s_calc set to 1.
-        (lists of principal stresses, local eigenvectors) if s_calc set to 2.
-        (lists of principal stresses, global eigenvectors) if s_calc set to 3.
+        Tuple as (stresses, eigenvectors).
+        Exact content of tuple depends on the value given to s_calc parameter.
     list
         Forces per edge.
 
@@ -133,6 +128,7 @@ nfd_numpy = partial(nfd_ur_numpy, kmax=1)
 # =================================================
 # solver
 # =================================================
+
 def _nfd_solve(xyz, fixed, faces, edges, loads, s_calc):
     """Solve system for coordinates and dependent variables
     using the one-shot natural force density method."""
@@ -141,7 +137,7 @@ def _nfd_solve(xyz, fixed, faces, edges, loads, s_calc):
     free = list(set(range(v)) - set(fixed))
     _xyz = array(xyz, copy=True)
 
-    # assemble new stiffness matrices
+    # assemble new stiffness matrix
     sma = StiffnessMatrixAssembler(free, fixed, edges, faces)
     D, Di, Df = sma.matrix, sma.free_matrix, sma.fixed_matrix
 
@@ -151,8 +147,10 @@ def _nfd_solve(xyz, fixed, faces, edges, loads, s_calc):
 
     # solve for coordinates and update elements
     _xyz[free] = spsolve(Di, p[free] - Df.dot(xyz[fixed]))
-    for face in faces: face.update_xyz(_xyz)  # noqa E701
-    for edge in edges: edge.update_xyz(_xyz)  # noqa E701
+    for face in faces:
+        face.update_xyz(_xyz)
+    for edge in edges:
+        edge.update_xyz(_xyz)
 
     # solve for dependent variables
     s = NaturalFace.get_stresses(faces, _xyz, s_calc)

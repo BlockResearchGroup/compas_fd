@@ -26,6 +26,7 @@ __all__ = [
 # =================================================
 # aliases
 # =================================================
+
 s, c = sin, cos
 def s2(x): return s(x) * s(x)  # noqa E704
 def c2(x): return c(x) * c(x)  # noqa E704
@@ -34,6 +35,7 @@ def c2(x): return c(x) * c(x)  # noqa E704
 # =================================================
 # decorators
 # =================================================
+
 def cache_iter(func):
     """Cache function result of the current iteration."""
     cached_func = '_c_' + func.__name__
@@ -60,6 +62,7 @@ def check_singularity(func):
 # =================================================
 # natural geometry datastructures
 # =================================================
+
 class NaturalFace:
     """Represents geometry and natural stress data of a single face."""
 
@@ -413,6 +416,7 @@ class Goals:
 # =================================================
 # mesh data processing
 # =================================================
+
 def mesh_preprocess(mesh, goals):
     """Pre-process mesh to collections of natural elements."""
     # vertex indices mapping
@@ -434,8 +438,8 @@ def mesh_preprocess(mesh, goals):
     return faces, edges, xyz, fixed
 
 
-# ==============================================================================
+# =================================================
 # main
-# ==============================================================================
+# =================================================
 if __name__ == '__main__':
     pass
