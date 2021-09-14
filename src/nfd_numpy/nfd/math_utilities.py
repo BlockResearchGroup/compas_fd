@@ -75,10 +75,3 @@ def stress_vec_to_tensor(vec):
 def stress_tensor_to_vec(tens):
     """Convert planar stresses from tensor to pseudo-vector form."""
     return asarray([tens[0, 0], tens[1, 1], tens[0, 1]])
-
-
-# ==============================================================================
-# main
-# ==============================================================================
-if __name__ == '__main__':
-    pass
