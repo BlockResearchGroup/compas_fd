@@ -14,7 +14,6 @@ from _helpers import mesh_update
 # =================================================
 HERE = path.dirname(__file__)
 FILE_I = path.join(HERE, '..', 'data', 'in_hypar_mesh.json')
-FILE_O = path.join(HERE, '..', 'data', 'out_hypar_mesh_06.json')
 mesh = Mesh.from_json(FILE_I)
 
 
@@ -55,17 +54,3 @@ Q = mesh.edges_attribute('q_pre')
 xyz, r, s, f = nfd_ur(mesh, S, Q, vertex_loads=P, kmax=10,
                       s_calc=3, s_ref=(1, 1, 0))
 mesh_update(mesh, xyz, r, s, f)
-
-
-# =================================================
-# visualisation
-# =================================================
-viewer = app.App()
-viewer.add(mesh)
-viewer.show()
-
-
-# =================================================
-# output
-# =================================================
-mesh.to_json(FILE_O)

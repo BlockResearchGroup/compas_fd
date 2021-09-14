@@ -14,7 +14,6 @@ from _helpers import mesh_update
 # =================================================
 HERE = path.dirname(__file__)
 FILE_I = path.join(HERE, '..', 'data', 'in_hypar_mesh.json')
-FILE_O = path.join(HERE, '..', 'data', 'out_hypar_mesh_03.json')
 mesh = Mesh.from_json(FILE_I)
 
 
@@ -62,9 +61,3 @@ mesh_update(mesh, xyz, r, s, f)
 viewer = app.App()
 viewer.add(mesh)
 viewer.show()
-
-
-# =================================================
-# output
-# =================================================
-# mesh.to_json(FILE_O)
