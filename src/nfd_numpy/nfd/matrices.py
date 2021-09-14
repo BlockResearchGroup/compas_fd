@@ -12,8 +12,9 @@ __all__ = [
 
 class StiffnessMatrixAssembler:
     """Represents assembly of a global force density stiffness matrix.
-    A new instance of StiffnessMatrixBuilder should be generated at each
+    A new instance of StiffnessMatrixAssembler should be generated at each
     solver iteration, so that the stiffness matrix is rebuilt completely."""
+
     def __init__(self, faces, edges, free, fixed):
         self.data = []
         self.rows = []
@@ -79,9 +80,10 @@ class StiffnessMatrixAssembler:
 
 class LoadMatrixAssembler:
     """Represents assembly of a global load matrix.
-    A LoadMatrix is to be instantiated once per session and to persist over
-    iterations. When the internal matrix is called at each solver iteration,
+    A LoadMatrixAssembler is to be instantiated once per session and to persist
+    over iterations. When the internal matrix is called at each solver iteration,
     the matrix is updated corresponding to the geometry of the latest state."""
+
     def __init__(self, vertices, faces, vertex_loads=None,
                  global_face_loads=None, local_face_loads=None):
         self.faces = faces

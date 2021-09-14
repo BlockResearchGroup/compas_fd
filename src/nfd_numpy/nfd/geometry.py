@@ -48,10 +48,10 @@ def cache_iter(func):
     return wrapper
 
 
-def check_singularity(fn):
+def check_singularity(func):
     def wrapper(*args, **kwargs):
         try:
-            return fn(*args, **kwargs)
+            return func(*args, **kwargs)
         except ZeroDivisionError:
             raise Exception('Singularity in transformation matrix.')
     return wrapper
@@ -62,6 +62,7 @@ def check_singularity(fn):
 # =================================================
 class NaturalFace:
     """Represents geometry and natural stress data of a single face."""
+
     face_count = 0
 
     def __new__(cls, xyz, vertices_ids, stress_goal=None,
@@ -276,7 +277,7 @@ class TriFace(NaturalFace):
     @cache_iter
     def edge_lengths(self):
         vts_xyz = self.xyz[1:] + self.xyz[:2]
-        return [euclidian_distance(u, v)
+        return [euclidean_distance(u, v)
                 for u, v in pairwise(vts_xyz)]
 
     @property
@@ -338,6 +339,7 @@ class TriFace(NaturalFace):
 
 class NaturalEdge:
     """Represents geometry and force data of a single edge."""
+
     edge_count = 0
 
     def __new__(cls, xyz, vertices_ids, force_goal, fd_goal):
@@ -362,7 +364,7 @@ class NaturalEdge:
     @property
     @cache_iter
     def length(self):
-        return euclidian_distance(*self.xyz)
+        return euclidean_distance(*self.xyz)
 
     @property
     def xyz(self):
@@ -396,6 +398,7 @@ class NaturalEdge:
 
 class Goals:
     """Represents collection of geometric and stress resultant goals."""
+
     def __init__(self, mesh, stress, densities, forces, stress_ref=None):
         self.f_count = mesh.number_of_faces()
         self.stress = self._process_goal(stress, (1.0, 1.0, .0))

@@ -2,11 +2,9 @@ from math import sin, cos, asin, acos, hypot
 
 from numpy import asarray
 
-from compas.geometry import distance_point_point
-
 
 __all__ = [
-    'euclidian_distance',
+    'euclidean_distance',
     'arc_sin',
     'arc_cos',
     'planar_rotation',
@@ -23,26 +21,31 @@ def s2(x): return s(x) * s(x)  # noqa E704
 def c2(x): return c(x) * c(x)  # noqa E704
 
 
-def euclidian_distance(u, v):
+def euclidean_distance(u, v):
+    """Calculate distance between two 3D points using the hypotenuse."""
     return hypot(u[0] - v[0], u[1] - v[1], u[2] - v[2])
-    # return distance_point_point(u, v)
 
 
 def arc_sin(a):
+    """Calculate inverse sine. Input values are bounded
+    between -.9999 and .9999 for numerical stability."""
     return asin(max(min(a, .9999), -.9999))
 
 
 def arc_cos(a):
+    """Calculate inverse cosine. Input values are bounded
+    between -.9999 and .9999 for numerical stability."""
     return acos(max(min(a, .9999), -.9999))
 
 
 def planar_rotation(angle):
+    """Return a planar rotation matrix from an angle in radians."""
     return asarray([[c(angle),  -s(angle)],
                     [s(angle),   c(angle)]])
 
 
 def is_isotropic(vec):
-    """Check whether input stress pseudo-vector is isotropic."""
+    """Check whether an input stress pseudo-vector is isotropic."""
     return (vec[0] == vec[1]) and (vec[2] == 0)
 
 
@@ -55,7 +58,7 @@ def transform_stress(stress, rotation, invert=False):
 
 
 def transform_stress_angle(stress, angle, invert=False):
-    """Transform planar stress vector by angle."""
+    """Transform a planar stress vector by angle in radians."""
     a = -angle if invert else angle
     s2a = s2(a)
     c2a = c2(a)
