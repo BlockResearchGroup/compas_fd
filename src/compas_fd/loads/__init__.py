@@ -23,6 +23,9 @@ from __future__ import division
 import compas
 
 if not compas.IPY:
-    from .selfweight import * # noqa F401
+    from .selfweight import SelfweightCalculator
 
-__all__ = [name for name in dir() if not name.startswith('_')]
+__all__ = []
+
+if not compas.IPY:
+    __all__ += ['SelfweightCalculator']
