@@ -1,7 +1,3 @@
-from __future__ import print_function
-from __future__ import absolute_import
-from __future__ import division
-
 from numpy import array
 from numpy import zeros
 
@@ -10,12 +6,7 @@ from compas.geometry import length_vector
 from compas.numerical import face_matrix
 
 
-__all__ = [
-    'SelfweightCalculator',
-]
-
-
-class SelfweightCalculator(object):
+class SelfweightCalculator:
 
     def __init__(self, mesh, density=1.0, thickness_attr_name='t'):
         self.mesh = mesh
@@ -65,12 +56,3 @@ class SelfweightCalculator(object):
             areas[key_index[u]] = a
 
         return areas
-
-
-# ==============================================================================
-# Main
-# ==============================================================================
-
-if __name__ == "__main__":
-
-    pass
