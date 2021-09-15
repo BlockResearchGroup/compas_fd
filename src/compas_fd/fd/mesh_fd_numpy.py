@@ -11,7 +11,7 @@ def mesh_fd_numpy(mesh):
 
     Parameters
     ----------
-    mesh : compas_fd.datastructures.CableMesh
+    mesh : :class:`compas_fd.datastructures.CableMesh`
         The mesh to equilibriate.
 
     Returns
@@ -31,7 +31,7 @@ def mesh_fd_numpy(mesh):
     calculate_sw = SelfweightCalculator(mesh, density=density)
     p[:, 2] -= calculate_sw(xyz)
 
-    result = fd_numpy(vertices=xyz, edges=edges, loads=p, q=q, fixed=fixed)
+    result = fd_numpy(vertices=xyz, fixed=fixed, edges=edges, forcedensities=q, loads=p)
 
     for key, attr in mesh.vertices(True):
         index = k_i[key]
