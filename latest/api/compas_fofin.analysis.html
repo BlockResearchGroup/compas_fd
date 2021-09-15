@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   
-  <title>compas_fofin - compas_fofin.analysis</title>
+  <title>compas_fd - &lt;no title&gt;</title>
   
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-  <meta name="author" content="Tom Van Mele" />
-  <meta name="description" content="Form Finding of cablenet structures for the COMPAS framework." />
+  <meta name="author" content="compas-dev" />
+  <meta name="description" content="" />
 
   <link rel="shortcut icon" href="../_static/images/compas.ico" type="image/x-icon">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -19,11 +19,7 @@
   <link rel="stylesheet" type="text/css" href="../_static/css/compas-reference.css" />
 
   
-    <link rel="next" title="compas_fofin.datastructures" href="compas_fofin.datastructures.html" />
-  
 
-  
-    <link rel="prev" title="compas_fofin" href="compas_fofin.html" />
   
 
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -34,19 +30,19 @@
   <header id="header" class="compas-header d-flex align-items-center">
     <nav class="navbar navbar-expand navbar-dark col flex-column flex-md-row text-center">
       <!-- brand -->
-      <a class="navbar-brand" href="https://blockresearchgroup.github.io/compas_fofin/">
-        <img src="../_static/images/compas_icon_white.png" alt="COMPAS FoFin" width="48px" height="48px" />
+      <a class="navbar-brand" href="https://blockresearchgroup.github.io/compas_fd">
+        <img src="../_static/images/compas_icon_white.png" alt="COMPAS Force Density" width="48px" height="48px" />
       </a>
       <!-- brand -->
       <!-- primary -->
       <ul class="navbar-nav">
-        <li class="nav-item active"><a class="nav-link" href="https://blockresearchgroup.github.io/compas_fofin/">COMPAS FoFin</a></li>
+        <li class="nav-item active"><a class="nav-link" href="https://blockresearchgroup.github.io/compas_fd">COMPAS Force Density</a></li>
       </ul>
       <!-- primary -->
       <ul class="navbar-nav d-none d-md-flex ml-md-auto">
         <!-- version -->
         
-        <meta id="doc_versions" data-url="https://blockresearchgroup.github.io/compas_fofin/doc_versions.txt" data-docs="https://blockresearchgroup.github.io/compas_fofin/">
+        <meta id="doc_versions" data-url="https://github.com/blockresearchgroup/compas_fd/doc_versions.txt" data-docs="https://blockresearchgroup.github.io/compas_fd">
         <li class="nav-item nav-versions dropdown">
           <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
@@ -58,7 +54,7 @@
         <!-- version -->
         <!-- social -->
         <li class="nav-item">
-          <a class="nav-link" href="https://github.com/BlockResearchGroup/compas_fofin" target="_blank">
+          <a class="nav-link" href="https://github.com/blockresearchgroup/compas_fd" target="_blank">
             <span class="fab fa-github fa-1x"></span>
           </a>
         </li>
@@ -82,85 +78,14 @@
           <ol class="breadcrumb mb-3 bg-white px-0">
             <li class="breadcrumb-item"><a href="../index.html">docs</a></li>
             
-              <li class="breadcrumb-item"><a href="../api.html">API Reference</a></li>
-            
-              <li class="breadcrumb-item"><a href="compas_fofin.html">compas_fofin</a></li>
-            
-            <li class="breadcrumb-item active" aria-current="page">compas_fofin.analysis</li>
+            <li class="breadcrumb-item active" aria-current="page">&lt;no title&gt;</li>
           </ol>
         </nav>
         
 
         
         
-        <span class="target" id="module-compas_fofin.analysis"></span><div class="section" id="compas-fofin-analysis">
-<h1>compas_fofin.analysis<a class="headerlink" href="#compas-fofin-analysis" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="functions">
-<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt id="compas_fofin.analysis.mesh_materialize_cables">
-<code class="sig-prename descclassname"><span class="pre">compas_fofin.analysis.</span></code><code class="sig-name descname"><span class="pre">mesh_materialize_cables</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safety_forces</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safety_material</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_fofin/analysis/materialize.html#mesh_materialize_cables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#compas_fofin.analysis.mesh_materialize_cables" title="Permalink to this definition">¶</a></dt>
-<dd><p>Materialize the edges of the data structure as individual cable segments.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>mesh</strong> (<em>compas.datastructures.Mesh</em>) – The data structure.</p></li>
-<li><p><strong>safety_forces</strong> (<em>float (1.0)</em>) – The safety factor that should be applied to the forces.
-The forces are multiplied by the provided factor.
-Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
-<li><p><strong>safety_material</strong> (<em>float (1.0)</em>) – The safety factor that should be applied to the yield stress of the material.
-The yield stress is divided by the provided factor.
-Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="compas_fofin.analysis.unload_numpy">
-<code class="sig-prename descclassname"><span class="pre">compas_fofin.analysis.</span></code><code class="sig-name descname"><span class="pre">unload_numpy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_fofin/analysis/unload_numpy.html#unload_numpy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#compas_fofin.analysis.unload_numpy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="compas_fofin.analysis.apply_loads_numpy">
-<code class="sig-prename descclassname"><span class="pre">compas_fofin.analysis.</span></code><code class="sig-name descname"><span class="pre">apply_loads_numpy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mesh</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safety_loads</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">safety_selfweight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kmax</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10000</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tol</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_fofin/analysis/load_numpy.html#apply_loads_numpy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#compas_fofin.analysis.apply_loads_numpy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Apply loads to a materialised mesh.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>mesh</strong> (<em>compas_fofin.datastructures.Shell</em>) – The data structure.</p></li>
-<li><p><strong>safety_loads</strong> (<em>float (1.0)</em>) – Safety factor to be applied to the external loads.
-Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
-<li><p><strong>safety_selfweight</strong> (<em>float (1.0)</em>) – Safety factor to be applied to the selfweight.
-Default is <code class="docutils literal notranslate"><span class="pre">1.0</span></code>.</p></li>
-<li><p><strong>kmax</strong> (<em>int (10000)</em>) – Maximum number of iterations for the relaxation.
-Default is <code class="docutils literal notranslate"><span class="pre">10000</span></code>.</p></li>
-<li><p><strong>tol</strong> (<em>float (0.01)</em>) – Tolerance for residual forces.
-Default is <code class="docutils literal notranslate"><span class="pre">0.01</span></code>.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p><em>None</em> – The function updates the input mesh and therefore does not return anything.</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="proxies">
-<h2>Proxies<a class="headerlink" href="#proxies" title="Permalink to this headline">¶</a></h2>
-<dl class="py function">
-<dt id="compas_fofin.analysis.unload_proxy">
-<code class="sig-prename descclassname"><span class="pre">compas_fofin.analysis.</span></code><code class="sig-name descname"><span class="pre">unload_proxy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_fofin/analysis.html#unload_proxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#compas_fofin.analysis.unload_proxy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="py function">
-<dt id="compas_fofin.analysis.apply_loads_proxy">
-<code class="sig-prename descclassname"><span class="pre">compas_fofin.analysis.</span></code><code class="sig-name descname"><span class="pre">apply_loads_proxy</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/compas_fofin/analysis.html#apply_loads_proxy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#compas_fofin.analysis.apply_loads_proxy" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</div>
-</div>
-
+        
         
       </main>
       <!-- content -->
@@ -177,21 +102,12 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.01</sp
         
         
           <div id="compas-navigation" class="collapse compas-navigation">
-          <ul class="nav flex-column active">
-<li class="nav-item"><a class="nav-link reference internal" href="../intro.html">Introduction</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="../gettingstarted.html">Getting Started</a></li>
+          <ul class="nav flex-column">
+<li class="nav-item"><a class="nav-link reference internal" href="../index.html">Introduction</a></li>
+<li class="nav-item"><a class="nav-link reference internal" href="../installation.html">Getting Started</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../tutorial.html">Tutorial</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../examples.html">Examples</a></li>
-<li class="nav-item active"><a class="nav-link reference internal" href="../api.html">API Reference</a><ul class="nav flex-column active">
-<li class="nav-item active"><a class="nav-link reference internal" href="compas_fofin.html">compas_fofin</a><ul class="nav flex-column active">
-<li class="nav-item active"><a class="nav-link active current reference internal" href="#">compas_fofin.analysis</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_fofin.datastructures.html">compas_fofin.datastructures</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_fofin.fofin.html">compas_fofin.fofin</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="compas_fofin.loads.html">compas_fofin.loads</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="nav-item"><a class="nav-link reference internal" href="../api.html">API Reference</a></li>
 <li class="nav-item"><a class="nav-link reference internal" href="../license.html">License</a></li>
 </ul>
 
@@ -202,12 +118,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.01</sp
       <!-- toc -->
       <div class="d-none d-xl-block col-xl-2 compas-toc" role="toc">
         
-        <ul class="nav flex-column" id="compas-toc">
-<li class="nav-item"><a class="nav-link reference internal" href="#">compas_fofin.analysis</a><ul class="nav flex-column">
-<li class="nav-item"><a class="nav-link reference internal" href="#functions">Functions</a></li>
-<li class="nav-item"><a class="nav-link reference internal" href="#proxies">Proxies</a></li>
-</ul>
-</li>
+        <ul class="simple">
 </ul>
 
       </div>
@@ -219,23 +130,7 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.01</sp
   <footer class="compas-footer">
     <nav class="nav p-2">
       
-        <a href="compas_fofin.html" title="compas_fofin" class="nav-link footer-link float-start text-left d-flex w-50" rel="prev">
-          <div class="nav-button p-2 m-2"><i class="fas fa-arrow-left"></i></div>
-          <div class="nav-title flex-grow-1 align-self-center">
-            <div class="nav-direction small font-weight-light">Previous</div>
-            compas_fofin
-          </div>
-        </a>
-      
 
-      
-        <a href="compas_fofin.datastructures.html" title="compas_fofin.datastructures" class="nav-link footer-link float-end text-right d-flex w-50" rel="next">
-          <div class="nav-title footer-link flex-grow-1 align-self-center">
-            <div class="nav-direction small font-weight-light">Next</div>
-            compas_fofin.datastructures
-          </div>
-          <div class="nav-button p-2 m-2"><i class="fas fa-arrow-right"></i></div>
-        </a>
       
     </nav>  
   </footer>
@@ -306,10 +201,6 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.01</sp
     hljs.initHighlighting();
     anchors.add();
 
-    $('.nav-versions .dropdown-item').filter(function(i, ver) {
-      return window.location.href.startsWith(ver.href);
-    }).addClass("active");
-
   });
 
 
@@ -322,6 +213,13 @@ Default is <code class="docutils literal notranslate"><span class="pre">0.01</sp
       lines.forEach(version => {
         $("#doc_version_list").append("<a class=\"dropdown-item\" href=\""+ docs_site + version + "\">" + version + "</a>");
       });
+
+      var selected_version = $('.nav-versions .dropdown-item').filter(function(i, ver) {
+        return window.location.href.startsWith(ver.href);
+      });
+      selected_version.addClass('active');
+      $("#bd-versions").text(selected_version.text());
+
     })
   }
   </script>
