@@ -7,7 +7,7 @@ from typing import Optional
 from typing_extensions import Annotated
 from nptyping import NDArray
 
-from numpy import asarray
+from numpy import asarray, zeros_like
 from numpy import float64
 from scipy.sparse import diags
 from scipy.sparse.linalg import spsolve
@@ -28,13 +28,14 @@ def fd_numpy(*,
     """
     Compute the equilibrium coordinates of a system of vertices connected by edges.
     """
-    if loads is None or not loads:
-        loads = []
     v = len(vertices)
     free = list(set(range(v)) - set(fixed))
     xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
     q = asarray(forcedensities, dtype=float64).reshape((-1, 1))
-    p = asarray(loads, dtype=float64).reshape((-1, 3))
+    if loads is None or not loads:
+        p = zeros_like(xyz)
+    else:
+        p = asarray(loads, dtype=float64).reshape((-1, 3))
     C = connectivity_matrix(edges, 'csr')
     Ci = C[:, free]
     Cf = C[:, fixed]
