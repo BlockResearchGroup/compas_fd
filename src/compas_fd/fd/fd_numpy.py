@@ -1,7 +1,7 @@
 from typing import List, Tuple, NamedTuple
 from typing_extensions import Annotated
 
-from collections import namedtuple
+# from collections import namedtuple
 
 from numpy import asarray
 from numpy import float64
@@ -10,8 +10,6 @@ from scipy.sparse.linalg import spsolve
 
 from compas.numerical import connectivity_matrix
 from compas.numerical import normrow
-
-from compas_fd.loads import SelfweightCalculator
 
 
 Vector3 = Annotated[List[float], 3]
