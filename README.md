@@ -1,4 +1,3 @@
-# COMPAS fd
+# COMPAS FD
 
-Form Finding of CableMesh structures for the COMPAS framework.
-
+Form Finding of cable meshes using the Force Density Method.
