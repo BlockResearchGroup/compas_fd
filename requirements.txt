@@ -1,3 +1,5 @@
-compas
+compas >=1.8.2
+compas_cloud >=0.3.2
 nptyping
+pint
 typing_extensions
