@@ -28,7 +28,7 @@ lines = [[obj.vertices[u], obj.vertices[v]] for u, v in obj.lines]
 
 CableMesh = CableMesh.from_lines(lines, delete_boundary_face=True)
 
-CableMesh.edges_attribute('is_edge', False, keys=list(CableMesh.edges_on_boundary()))
+CableMesh.edges_attribute('_is_edge', False, keys=list(CableMesh.edges_on_boundary()))
 
 # ==============================================================================
 # Select a starting edge

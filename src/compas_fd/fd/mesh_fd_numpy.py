@@ -25,11 +25,11 @@ def mesh_fd_numpy(mesh):
     fixed = [k_i[key] for key in fixed]
     xyz = array(mesh.vertices_attributes('xyz'), dtype=float64)
     p = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
-    edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'is_edge': True})]
-    q = array([attr['q'] for key, attr in mesh.edges_where({'is_edge': True}, True)], dtype=float64).reshape((-1, 1))
+    edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'_is_edge': True})]
+    q = array([attr['q'] for key, attr in mesh.edges_where({'_is_edge': True}, True)], dtype=float64).reshape((-1, 1))
     density = mesh.attributes['density']
     calculate_sw = SelfweightCalculator(mesh, density=density)
-    p[:, 2] -= calculate_sw(xyz)
+    p[:, 2] -= calculate_sw(xyz)[:, 0]
 
     result = fd_numpy(vertices=xyz, fixed=fixed, edges=edges, forcedensities=q, loads=p)
 
@@ -42,6 +42,8 @@ def mesh_fd_numpy(mesh):
         attr['_ry'] = result.residuals[index, 1]
         attr['_rz'] = result.residuals[index, 2]
 
-    for index, (key, attr) in enumerate(mesh.edges_where({'is_edge': True}, True)):
+    for index, (key, attr) in enumerate(mesh.edges_where({'_is_edge': True}, True)):
         attr['_f'] = result.forces[index, 0]
         attr['_l'] = result.lenghts[index, 0]
+
+    return mesh

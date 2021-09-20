@@ -32,7 +32,7 @@ def fd_numpy(*,
     free = list(set(range(v)) - set(fixed))
     xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
     q = asarray(forcedensities, dtype=float64).reshape((-1, 1))
-    if loads is None or not loads:
+    if loads is None:
         p = zeros_like(xyz)
     else:
         p = asarray(loads, dtype=float64).reshape((-1, 3))
@@ -45,7 +45,7 @@ def fd_numpy(*,
     A = Cit.dot(Q).dot(Ci)
     b = p[free] - Cit.dot(Q).dot(Cf).dot(xyz[fixed])
     xyz[free] = spsolve(A, b)
-    lengths = normrow(C.dot(xyz))  # noqa: E741
+    lengths = normrow(C.dot(xyz))
     forces = q * lengths
     residuals = p - Ct.dot(Q).dot(C).dot(xyz)
     return Result(xyz, residuals, forces, lengths)

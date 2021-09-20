@@ -31,7 +31,7 @@ apply_loads_numpy(CableMesh)
 # Visualize
 # ==============================================================================
 
-edges = list(CableMesh.edges_where({'is_edge': True}))
+edges = list(CableMesh.edges_where({'_is_edge': True}))
 
 stress = [CableMesh.stress(key) for key in edges]
 cmap = Colormap(stress, 'rgb')
