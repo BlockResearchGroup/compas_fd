@@ -2,6 +2,7 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
+import compas
 from compas.datastructures import Mesh
 
 
@@ -14,10 +15,14 @@ class CableMesh(Mesh):
     flexible CableMesh formwork for concrete shells.
     """
 
+    if not compas.IPY:
+        from compas_fd.fd import mesh_fd_numpy
+        fd_numpy = mesh_fd_numpy
+
     def __init__(self):
         super(CableMesh, self).__init__()
         self.attributes.update({
-            'density': 14.0,
+            'density': 22.0,
         })
         self.default_vertex_attributes.update({
             'x': 0.0,
