@@ -1,12 +1,13 @@
 from numpy import array
 from numpy import float64
 
+import compas_fd
+from compas_fd.loads import SelfweightCalculator
 from .fd_numpy import fd_numpy
 
-from compas_fd.loads import SelfweightCalculator
 
 
-def mesh_fd_numpy(mesh):
+def mesh_fd_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
     """Find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
@@ -16,8 +17,10 @@ def mesh_fd_numpy(mesh):
 
     Returns
     -------
-    None
-        The function updates the input mesh and returns nothing.
+    :class:`compas_fd.datastructures.CableMesh`
+        The function updates the mesh in place,
+        but returns a reference to the updated mesh as well
+        for compatibility with RPCs.
 
     """
     k_i = mesh.key_index()
