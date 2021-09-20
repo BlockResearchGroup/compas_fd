@@ -126,7 +126,7 @@
 <span class="c1"># Visualize</span>
 <span class="c1"># ==============================================================================</span>
 
-<span class="n">edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">CableMesh</span><span class="o">.</span><span class="n">edges_where</span><span class="p">({</span><span class="s1">&#39;is_edge&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}))</span>
+<span class="n">edges</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">CableMesh</span><span class="o">.</span><span class="n">edges_where</span><span class="p">({</span><span class="s1">&#39;_is_edge&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">}))</span>
 
 <span class="n">stress</span> <span class="o">=</span> <span class="p">[</span><span class="n">CableMesh</span><span class="o">.</span><span class="n">stress</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">edges</span><span class="p">]</span>
 <span class="n">cmap</span> <span class="o">=</span> <span class="n">Colormap</span><span class="p">(</span><span class="n">stress</span><span class="p">,</span> <span class="s1">&#39;rgb&#39;</span><span class="p">)</span>
