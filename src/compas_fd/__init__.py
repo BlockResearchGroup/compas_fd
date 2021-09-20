@@ -9,11 +9,9 @@ compas_fd
 .. toctree::
     :maxdepth: 1
 
-    compas_fd.analysis
     compas_fd.datastructures
     compas_fd.fd
     compas_fd.loads
-    compas_fd.rhino
 
 """
 
