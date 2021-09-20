@@ -6,7 +6,6 @@ from compas_fd.loads import SelfweightCalculator
 from .fd_numpy import fd_numpy
 
 
-
 def mesh_fd_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
     """Find the equilibrium shape of a mesh for the given force densities.
 
