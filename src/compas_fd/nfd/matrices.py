@@ -148,7 +148,8 @@ class LoadMatrixAssembler:
         return asarray(loads).reshape(-1, 3) if loads is not None else default
 
     def update(self):
-        """Assemble all loads corresponding to current geometry."""
+        """Assemble all loads corresponding to current geometry into updated load matrix.
+        To be called at each iteration where geometry has been updated."""
         if not self._has_face_loads:
             return self._mat
         self._mat = copy(self._vertices_mat)

@@ -158,4 +158,3 @@ def _nfd_solve(xyz, fixed, faces, edges, loads, s_calc):
     r = p - D.dot(xyz)
 
     return _xyz, r, s, f
-    
