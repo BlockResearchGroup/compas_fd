@@ -31,7 +31,7 @@ class CableMesh(Mesh):
             'px': 0.0,
             'py': 0.0,
             'pz': 0.0,
-            't': 0.05,
+            't': 0.0,
             'is_anchor': False,
             'is_fixed': False,
             'constraint': None,
