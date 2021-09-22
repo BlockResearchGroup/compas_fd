@@ -3,8 +3,8 @@ from os import path
 from compas.datastructures import Mesh, mesh_subdivide
 from compas_view2 import app
 
-from compas_fd.nfd_numpy import nfd_ur_numpy
-from _helpers import mesh_update
+from compas_fd.nfd import nfd_ur_numpy
+from _nfd_helpers import mesh_update
 
 
 # =================================================
@@ -24,7 +24,10 @@ mesh.vertices_attribute('is_anchor', True,
                         mesh.vertices_where({'vertex_degree': 2}))
 
 mesh = mesh_subdivide(mesh, scheme='quad', k=2)
-mesh.quads_to_triangles()
+faces_to_split = (mesh.get_any_face() for _ in range(200))
+for face in faces_to_split:
+    v = mesh.face_vertices(face)
+    mesh.split_face(face, v[0], v[2])
 
 bounds = mesh.edges_on_boundaries()[0]
 mesh.edges_attribute('q_pre', 20, bounds)
@@ -53,7 +56,8 @@ Q = mesh.edges_attribute('q_pre')
 # run solver
 # =================================================
 
-xyz, r, s, f = nfd_ur_numpy(mesh, S, Q, vertex_loads=P, kmax=10, s_calc=1)
+xyz, r, s, f = nfd_ur_numpy(mesh, S, Q, vertex_loads=P, kmax=10,
+                            s_calc=1, s_tol=.05, xyz_tol=.01)
 mesh_update(mesh, xyz, r, s, f)
 
 

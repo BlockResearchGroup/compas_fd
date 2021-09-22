@@ -3,8 +3,8 @@ from os import path
 from compas.datastructures import Mesh, mesh_subdivide
 from compas_view2 import app
 
-from compas_fd.nfd_numpy import nfd_ur_numpy
-from _helpers import mesh_update
+from compas_fd.nfd import nfd_ur_numpy
+from _nfd_helpers import mesh_update
 
 
 # =================================================

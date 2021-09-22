@@ -11,6 +11,7 @@ compas_fd
 
     compas_fd.datastructures
     compas_fd.fd
+    compas_fd.nfd
     compas_fd.loads
 
 """

@@ -10,7 +10,8 @@ from compas.geometry import Frame, centroid_points, Rotation
 from compas.geometry import Vector, angle_vectors_signed
 from compas.utilities import pairwise
 
-from .math_utilities import *
+from compas_fd.nfd.math_utilities import euclidean_distance, arc_cos, is_isotropic, \
+    transform_stress_angle, stress_vec_to_tensor, planar_rotation, transform_stress
 
 
 __all__ = [
@@ -405,6 +406,10 @@ class NaturalEdge:
         return forces
 
 
+# =================================================
+# stress goals
+# =================================================
+
 class Goals:
     """Represents collection of geometric and stress resultant goals."""
 
@@ -429,7 +434,7 @@ def mesh_preprocess(mesh, goals):
     v_index = mesh.key_index()
     xyz = [mesh.vertex_coordinates(v) for v in mesh.vertices()]
     fixed = [mesh.key_index()[v] for v
-            in mesh.vertices_where({'is_anchor': True})]
+             in mesh.vertices_where({'is_anchor': True})]
     edges_vts = ([v_index[u], v_index[v]] for u, v in mesh.edges())
     faces_vts = ([v_index[w] for w in mesh.face_vertices(f)]
                  for f in mesh.faces())
@@ -442,10 +447,3 @@ def mesh_preprocess(mesh, goals):
              in zip(edges_vts, goals.forces, goals.densities)] if e]
 
     return faces, edges, xyz, fixed
-
-
-# =================================================
-# main
-# =================================================
-if __name__ == '__main__':
-    pass
