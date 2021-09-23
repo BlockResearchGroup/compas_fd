@@ -45,6 +45,7 @@ mesh.update_default_face_attributes(dfa)
 # get mesh data
 # =================================================
 
+fixed = [mesh.key_index()[v] for v in mesh.vertices_where({'is_anchor': True})]
 P1 = mesh.faces_attributes(['px', 'py', 'pz'])
 P2 = [-0.2 * p for load_vec in P1 for p in load_vec]
 S = mesh.faces_attribute('s_pre')
@@ -52,16 +53,16 @@ Q = mesh.edges_attribute('q_pre')
 
 
 # =================================================
-# run solver
+# solver
 # =================================================
 
-xyz, r, s, f = nfd_ur_numpy(mesh, S, Q, local_face_loads=P1,
-                            global_face_loads=P2, kmax=5, s_calc=1)
+xyz, r, f, _, s = nfd_ur_numpy(mesh, fixed, S, force_density_goals=Q, local_face_loads=P1,
+                               global_face_loads=P2, kmax=5, stress_flag=1)
 mesh_update(mesh, xyz, r, s, f)
 
 
 # =================================================
-# visualisation
+# viz
 # =================================================
 
 viewer = app.App()

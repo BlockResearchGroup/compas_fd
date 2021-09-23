@@ -27,7 +27,7 @@ mesh = mesh_subdivide(mesh, scheme='quad', k=2)
 mesh.quads_to_triangles()
 
 bounds = mesh.edges_on_boundaries()[0]
-mesh.edges_attribute('q_pre', 40, bounds)
+mesh.edges_attribute('q_pre', 30, bounds)
 
 dva = {'rx': .0, 'ry': .0, 'rz': .0,
        'px': .0, 'py': .0, 'pz': .0,
@@ -44,22 +44,23 @@ mesh.update_default_face_attributes(dfa)
 # get mesh data
 # =================================================
 
+fixed = [mesh.key_index()[v] for v in mesh.vertices_where({'is_anchor': True})]
 P = mesh.vertices_attributes(['px', 'py', 'pz'])
 S = mesh.faces_attribute('s_pre')
 Q = mesh.edges_attribute('q_pre')
 
 
 # =================================================
-# run solver
+# solver
 # =================================================
 
-xyz, r, s, f = nfd_ur_numpy(mesh, S, Q, vertex_loads=P, kmax=10,
-                            s_calc=3, s_ref=(1, 1, 0))
+xyz, r, f, _, s = nfd_ur_numpy(mesh, fixed, S, force_density_goals=Q, vertex_loads=P,
+                               kmax=10, stress_flag=3, stress_ref=(1, 1, 0))
 mesh_update(mesh, xyz, r, s, f)
 
 
 # =================================================
-# visualisation
+# viz
 # =================================================
 
 viewer = app.App()

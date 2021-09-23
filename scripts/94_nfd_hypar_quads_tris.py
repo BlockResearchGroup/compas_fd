@@ -30,7 +30,7 @@ for face in faces_to_split:
     mesh.split_face(face, v[0], v[2])
 
 bounds = mesh.edges_on_boundaries()[0]
-mesh.edges_attribute('q_pre', 20, bounds)
+mesh.edges_attribute('q_pre', 15, bounds)
 
 dva = {'rx': .0, 'ry': .0, 'rz': .0,
        'px': .0, 'py': .0, 'pz': .0,
@@ -47,22 +47,23 @@ mesh.update_default_face_attributes(dfa)
 # get mesh data
 # =================================================
 
+fixed = [mesh.key_index()[v] for v in mesh.vertices_where({'is_anchor': True})]
 P = mesh.vertices_attributes(['px', 'py', 'pz'])
 S = mesh.faces_attribute('s_pre')
 Q = mesh.edges_attribute('q_pre')
 
 
 # =================================================
-# run solver
+# solver
 # =================================================
 
-xyz, r, s, f = nfd_ur_numpy(mesh, S, Q, vertex_loads=P, kmax=10,
-                            s_calc=1, s_tol=.05, xyz_tol=.01)
+xyz, r, f, _, s = nfd_ur_numpy(mesh, fixed, S, force_density_goals=Q, vertex_loads=P,
+                               kmax=10, stress_flag=1, stress_tol=.05, xyz_tol=.01)
 mesh_update(mesh, xyz, r, s, f)
 
 
 # =================================================
-# visualisation
+# viz
 # =================================================
 
 viewer = app.App()
