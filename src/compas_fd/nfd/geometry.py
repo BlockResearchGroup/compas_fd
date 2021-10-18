@@ -32,7 +32,6 @@ __all__ = [
     'TriFace',
     'QuadFace',
     'NaturalEdge',
-    'Goals',
     'mesh_preprocess'
 ]
 

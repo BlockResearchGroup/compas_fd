@@ -88,12 +88,12 @@ def transform_stress_angle(stress: NpVec, angle: float, invert: bool = False) ->
     return asarray(T).dot(stress)
 
 
-def stress_vec_to_tensor(vec: NpVec) -> NDArray[(2, 2), float]:
+def stress_vec_to_tensor(vec: NpVec) -> NDArray[(2, 2), float64]:
     """Convert planar stresses from pseudo-vector to tensor form."""
     return asarray([[vec[0], vec[2]],
                     [vec[2], vec[1]]])
 
 
-def stress_tensor_to_vec(tens: NDArray[(2, 2), float]) -> NpVec:
+def stress_tensor_to_vec(tens: NDArray[(2, 2), float64]) -> NpVec:
     """Convert planar stresses from tensor to pseudo-vector form."""
     return asarray([tens[0, 0], tens[1, 1], tens[0, 1]])
