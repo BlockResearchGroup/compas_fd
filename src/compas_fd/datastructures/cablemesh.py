@@ -36,6 +36,9 @@ class CableMesh(Mesh):
             'is_fixed': False,
             'constraint': None,
             'param': None,
+            '_px': 0.0,
+            '_py': 0.0,
+            '_pz': 0.0,
             '_rx': 0.0,
             '_ry': 0.0,
             '_rz': 0.0,
@@ -48,5 +51,8 @@ class CableMesh(Mesh):
             '_r': 0.0,
         })
         self.default_face_attributes.update({
-            'is_loaded': True,
+            'is_loaded': False,
+            't': 0.0,
+            'wind': 0.0,
+            'snow': 0.0
         })
