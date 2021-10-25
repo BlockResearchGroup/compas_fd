@@ -1,9 +1,11 @@
 from functools import partial
 import compas
 from compas.geometry import Vector, Point, Line
-from compas.geometry import vector_component
 from compas_fd.datastructures import CableMesh
 from compas_fd.fd import fd_numpy
+
+from compas_fd.constraints import Constraint
+
 from compas_view2.app import App
 from compas_view2.objects import Object, MeshObject
 
@@ -15,7 +17,10 @@ mesh.vertices_attribute('is_anchor', True, keys=list(mesh.vertices_where({'verte
 mesh.vertices_attribute('t', 0.0)
 
 vertex = list(mesh.vertices_where({'x': 10, 'y': 10}))[0]
-mesh.vertex_attribute(vertex, 'constraint', Line(Point(10, 0, 0), Point(10, 10, 0)))
+line = Line(Point(10, 0, 0), Point(10, 10, 0))
+constraint = Constraint(line)
+
+mesh.vertex_attribute(vertex, 'constraint', constraint)
 
 vertex_index = mesh.vertex_index()
 
@@ -35,9 +40,9 @@ for k in range(100):
     for vertex, constraint in zip(fixed, constraints):
         if not constraint:
             continue
-        residual = residuals[vertex]
-        tangent = Vector(* vector_component(residual, constraint.direction))
-        vertices[vertex] += tangent * 0.5
+        constraint.location = vertices[vertex]
+        constraint.residual = residuals[vertex]
+        vertices[vertex] += constraint.tangent * 0.5
 
 for index, vertex in enumerate(mesh.vertices()):
     mesh.vertex_attributes(vertex, 'xyz', vertices[index])
@@ -56,7 +61,7 @@ for vertex in fixed:
 
 for constraint in constraints:
     if constraint:
-        viewer.add(constraint, linewidth=5, linecolor=(0, 1, 1))
+        viewer.add(constraint.geometry, linewidth=5, linecolor=(0, 1, 1))
 
 for vertex in fixed:
     a = Point(* mesh.vertex_attributes(vertex, 'xyz'))
