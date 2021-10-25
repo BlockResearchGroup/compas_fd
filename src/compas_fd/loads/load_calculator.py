@@ -35,11 +35,11 @@ class LoadCalculator:
 
     Attributes
     ----------
-    loads_mat : ndarray of float
+    LM : ndarray of float
         global vertex load matrix as (v x 3) array.
-    face_normals : ndarray of float
+    FN : ndarray of float
         Face normals for current geometry as (f x 3) array.
-    trib_areas : ndarray of float
+    TA : ndarray of float
         Tributary areas matrix as sparse (v x f) array.
         Entry a_ij holds tributary area of face j for vertex i.
 
@@ -66,7 +66,7 @@ class LoadCalculator:
     _PX, _PY, _PZ = '_px', '_py', '_pz'     # resultant vertex loads
     RHO = 'density'
     THICKNESS = 't'
-    SW = 'is_loaded'
+    HAS_SW = 'is_loaded'
     NORMAL = 'wind'
     PROJECT = 'snow'
 
@@ -77,14 +77,14 @@ class LoadCalculator:
         self._set_load_flags()
 
     def __call__(self, xyz: Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]],
-                 all_faces: bool = False) -> NDArray[(Any, 3), float64]:
+                 process_all_faces: bool = False) -> NDArray[(Any, 3), float64]:
         """Assemble global load matrix for current geometry.
 
         Parameters
         ----------
         xyz : ndarray of float  or  list of lists
             Coordinates of the vertices as (v x 3) array.
-        all_faces : bool
+        process_all_faces : bool
             Switch to calculate all face tributary areas
             and normals, regardless of the applied loads.
             Default is ``False``.
@@ -94,31 +94,31 @@ class LoadCalculator:
         ndarray of float
             Resultant global vertex loads as (v x 3) array.
         """
-        if not self._load_flags['any_face_load'] and not all_faces:
+        if not self._load_flags['any_face_load'] and not process_all_faces:
             return self._vertex_loads
-        self.loads_mat = array(self._vertex_loads, copy=True)
-        self._process_faces(asarray(xyz).reshape(-1, 3), all_faces)
+        self.LM = array(self._vertex_loads, copy=True)
+        self._process_faces(asarray(xyz).reshape(-1, 3), process_all_faces)
         self._add_face_loads()
-        return self.loads_mat
+        return self.LM
 
     def update_mesh(self) -> None:
         """Set the resultant vertex loads in mesh data by
         using the latest calculated internal load matrix."""
         try:
-            lmat = self.loads_mat
+            LM = self.LM
         except AttributeError:
-            lmat = self._vertex_loads
+            LM = self._vertex_loads
         for v, vkey in enumerate(self.mesh.vertices()):
             self.mesh.vertex_attributes(vkey, [self._PX, self._PY, self._PZ],
-                                        [lmat[v, 0], lmat[v, 1], lmat[v, 2]])
+                                        [LM[v, 0], LM[v, 1], LM[v, 2]])
 
     def _set_mesh_maps(self) -> None:
         """Set mesh counts and maps."""
         self._v_count = self.mesh.number_of_vertices()
         self._f_count = self.mesh.number_of_faces()
         self._v_id = self.mesh.key_index()
-        self.face_normals = None
-        self.trib_area = None
+        self.FN = None
+        self.TA = None
 
     def _preprocess_loads(self) -> None:
         """Preprocess loads into arrays."""
@@ -127,18 +127,18 @@ class LoadCalculator:
                                      ).reshape((self._v_count, 3))
         rho = self.mesh.attributes[self.RHO]
         self._weight = asarray([-t * w * rho for t, w in
-                                self.mesh.faces_attributes([self.THICKNESS, self.SW])]
+                                self.mesh.faces_attributes([self.THICKNESS, self.HAS_SW])]
                                ).reshape((self._f_count, 1))
-        self._normal_load = asarray(self.mesh.faces_attribute(self.NORMAL)
-                                    ).reshape((self._f_count, 1))
-        self._project_load = asarray(self.mesh.faces_attribute(self.PROJECT)
+        self._normal_loads = asarray(self.mesh.faces_attribute(self.NORMAL)
                                      ).reshape((self._f_count, 1))
+        self._project_loads = asarray(self.mesh.faces_attribute(self.PROJECT)
+                                      ).reshape((self._f_count, 1))
 
     def _set_load_flags(self) -> None:
         """Set flags for which load types are applied."""
         bool_weight = array(self._weight, dtype=bool)
-        bool_normal = array(self._normal_load, dtype=bool)
-        bool_project = array(self._project_load, dtype=bool)
+        bool_normal = array(self._normal_loads, dtype=bool)
+        bool_project = array(self._project_loads, dtype=bool)
         self._oriented_loads = bool_normal + bool_project
         self._face_loads = self._oriented_loads + bool_weight
         self._load_flags = {'any_face_load': self._face_loads.any(),
@@ -156,34 +156,34 @@ class LoadCalculator:
             self._add_projected_loads()
 
     def _process_faces(self, xyz: NDArray[(Any, 3), float64],
-                       all_faces: bool) -> None:
+                       process_all_faces: bool) -> None:
         """Calculate normals and tributary areas per face,
         for the vertex coordinates of the current geometry."""
-        self.face_normals = empty((self._f_count, 3), dtype=float)
+        self.FN = empty((self._f_count, 3), dtype=float)
         trib_data = []; trib_rows = []; trib_cols = []  # noqa
 
         for f, fkey in enumerate(self.mesh.faces()):
-            if not (self._face_loads[f] or all_faces):
+            if not (self._face_loads[f] or process_all_faces):
                 continue
             vts = [self._v_id[v] for v in
                    self.mesh.face_vertices(fkey)]
             f_xyz = xyz[vts, :]
-            cps = self.__face_cross_products(f_xyz)
+            cps = self._face_cross_products(f_xyz)
             # face tributary areas per vertex
             part_areas = 0.25 * norm(cps, axis=1)
             trib_data.extend(part_areas + roll(part_areas, -1))
             trib_rows.extend(vts)
             trib_cols.extend([f] * len(vts))
             # face normal vector
-            if self._oriented_loads[f] or all_faces:
-                self.face_normals[f, :] = add.reduce(cps)
+            if self._oriented_loads[f] or process_all_faces:
+                self.FN[f, :] = add.reduce(cps)
 
-        self.face_normals /= norm(self.face_normals, axis=1)[:, None]
-        self.trib_areas = coo_matrix((trib_data, (trib_rows, trib_cols)),
-                                     (self._v_count, self._f_count)).tocsr()
+        self.FN /= norm(self.FN, axis=1)[:, None]
+        self.TA = coo_matrix((trib_data, (trib_rows, trib_cols)),
+                             (self._v_count, self._f_count)).tocsr()
 
-    def __face_cross_products(self, f_xyz: NDArray[(Any, 3), float64]
-                              ) -> NDArray[(Any, 3), float64]:
+    def _face_cross_products(self, f_xyz: NDArray[(Any, 3), float64]
+                             ) -> NDArray[(Any, 3), float64]:
         """Utility to calculate cross products of the consecutive
         (centroid -> vertex) vectors for each of the vertices of the face."""
         centroid = average(f_xyz, axis=0)
@@ -194,17 +194,17 @@ class LoadCalculator:
     def _add_weight(self) -> None:
         """Convert all face self-weights into global vertex loads
         and add them into the global load matrix."""
-        self.loads_mat[:, 2:] += self.trib_areas.dot(self._weight)
+        self.LM[:, 2:] += self.TA.dot(self._weight)
 
     def _add_normal_loads(self) -> None:
         """Convert all normal face loads into global vertex loads
         and add them into the global load matrix."""
-        normal_loads = self.face_normals * self._normal_load
-        self.loads_mat += self.trib_areas.dot(normal_loads)
+        NL = self.FN * self._normal_loads
+        self.LM += self.TA.dot(NL)
 
     def _add_projected_loads(self) -> None:
         """Convert all Z-projected face loads into global vertex loads
         and add them into the global load matrix."""
         z = asarray([0, 0, -1]).reshape((3, 1))
-        proj_loads = self.face_normals.dot(z) * self._project_load
-        self.loads_mat[:, 2:] += self.trib_areas.dot(proj_loads)
+        PL = self.FN.dot(z) * self._project_loads
+        self.LM[:, 2:] += self.TA.dot(PL)
