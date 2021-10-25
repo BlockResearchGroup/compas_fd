@@ -64,8 +64,8 @@ class LoadCalculator:
     # attribute names in mesh data
     PX, PY, PZ = 'px', 'py', 'pz'           # input vertex loads
     _PX, _PY, _PZ = '_px', '_py', '_pz'     # resultant vertex loads
-    THICKNESS = 't'
     RHO = 'density'
+    THICKNESS = 't'
     SW = 'is_loaded'
     NORMAL = 'wind'
     PROJECT = 'snow'
@@ -127,19 +127,19 @@ class LoadCalculator:
                                      ).reshape((self._v_count, 3))
         rho = self.mesh.attributes[self.RHO]
         self._weight = asarray([-t * w * rho for t, w in
-                                self.mesh.faces_attributes(
-                                    [self.THICKNESS, self.SW])]
+                                self.mesh.faces_attributes([self.THICKNESS, self.SW])]
                                ).reshape((self._f_count, 1))
-        self._normal = asarray(self.mesh.faces_attribute(self.NORMAL)
-                               ).reshape((self._f_count, 1))
-        self._project = asarray(self.mesh.faces_attribute(self.PROJECT)
-                                ).reshape((self._f_count, 1))
+        self._normal_load = asarray(self.mesh.faces_attribute(self.NORMAL)
+                                    ).reshape((self._f_count, 1))
+        self._project_load = asarray(self.mesh.faces_attribute(self.PROJECT)
+                                     ).reshape((self._f_count, 1))
+        print(self._weight)
 
     def _set_load_flags(self) -> None:
         """Set flags for which load types are applied."""
         bool_weight = array(self._weight, dtype=bool)
-        bool_normal = array(self._normal, dtype=bool)
-        bool_project = array(self._project, dtype=bool)
+        bool_normal = array(self._normal_load, dtype=bool)
+        bool_project = array(self._project_load, dtype=bool)
         self._oriented_loads = bool_normal + bool_project
         self._face_loads = self._oriented_loads + bool_weight
         self._load_flags = {'any_face_load': self._face_loads.any(),
@@ -200,12 +200,12 @@ class LoadCalculator:
     def _add_normal_loads(self) -> None:
         """Convert all normal face loads into global vertex loads
         and add them into the global load matrix."""
-        normal_loads = self.face_normals * self._normal
+        normal_loads = self.face_normals * self._normal_load
         self.loads_mat += self.trib_areas.dot(normal_loads)
 
     def _add_projected_loads(self) -> None:
         """Convert all Z-projected face loads into global vertex loads
         and add them into the global load matrix."""
         z = asarray([0, 0, -1]).reshape((3, 1))
-        proj_loads = self.face_normals.dot(z) * self._project
+        proj_loads = self.face_normals.dot(z) * self._project_load
         self.loads_mat[:, 2:] += self.trib_areas.dot(proj_loads)
