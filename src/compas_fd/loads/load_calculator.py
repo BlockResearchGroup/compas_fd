@@ -50,8 +50,8 @@ class LoadCalculator:
     >>> from compas_fd import LoadCalculator
     >>> mesh = Mesh.from_obj(compas.get('hypar.obj'))
     >>> dva = {'px': .0, 'py': .0, 'pz': .1}
-    >>> dfa = {'density': 2.4, 't': .1,
-               'is_loaded': True, 'wind': 1.0}
+    >>> dfa = {'t': .1, 'is_loaded': True, 'wind': 1.0}
+    >>> mesh.attributes.update({'density': 22.0})
     >>> mesh.update_default_vertex_attributes(dva)
     >>> mesh.update_default_face_attributes(dfa)
     >>> lc = LoadCalculator(mesh)
@@ -125,9 +125,10 @@ class LoadCalculator:
         self._vertex_loads = asarray(self.mesh.vertices_attributes(
                                      names=(self.PX, self.PY, self.PZ))
                                      ).reshape((self._v_count, 3))
-        self._weight = asarray([-t * rho * w for t, rho, w in
+        rho = self.mesh.attributes[self.RHO]
+        self._weight = asarray([-t * w * rho for t, w in
                                 self.mesh.faces_attributes(
-                                    [self.THICKNESS, self.RHO, self.SW])]
+                                    [self.THICKNESS, self.SW])]
                                ).reshape((self._f_count, 1))
         self._normal = asarray(self.mesh.faces_attribute(self.NORMAL)
                                ).reshape((self._f_count, 1))
