@@ -133,7 +133,6 @@ class LoadCalculator:
                                     ).reshape((self._f_count, 1))
         self._project_load = asarray(self.mesh.faces_attribute(self.PROJECT)
                                      ).reshape((self._f_count, 1))
-        print(self._weight)
 
     def _set_load_flags(self) -> None:
         """Set flags for which load types are applied."""
