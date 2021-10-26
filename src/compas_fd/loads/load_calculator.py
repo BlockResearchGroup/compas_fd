@@ -35,8 +35,8 @@ class LoadCalculator:
 
     Attributes
     ----------
-    LM : ndarray of float
-        global vertex load matrix as (v x 3) array.
+    RL : ndarray of float
+        global resultant vertex load matrix as (v x 3) array.
     FN : ndarray of float
         Face normals for current geometry as (f x 3) array.
     TA : ndarray of float
@@ -96,21 +96,21 @@ class LoadCalculator:
         """
         if not self._load_flags['any_face_load'] and not process_all_faces:
             return self._vertex_loads
-        self.LM = array(self._vertex_loads, copy=True)
+        self.RL = array(self._vertex_loads, copy=True)
         self._process_faces(asarray(xyz).reshape(-1, 3), process_all_faces)
         self._add_face_loads()
-        return self.LM
+        return self.RL
 
     def update_mesh(self) -> None:
         """Set the resultant vertex loads in mesh data by
         using the latest calculated internal load matrix."""
         try:
-            LM = self.LM
+            RL = self.RL
         except AttributeError:
-            LM = self._vertex_loads
+            RL = self._vertex_loads
         for v, vkey in enumerate(self.mesh.vertices()):
             self.mesh.vertex_attributes(vkey, [self._PX, self._PY, self._PZ],
-                                        [LM[v, 0], LM[v, 1], LM[v, 2]])
+                                        [RL[v, 0], RL[v, 1], RL[v, 2]])
 
     def _set_mesh_maps(self) -> None:
         """Set mesh counts and maps."""
@@ -194,17 +194,17 @@ class LoadCalculator:
     def _add_weight(self) -> None:
         """Convert all face self-weights into global vertex loads
         and add them into the global load matrix."""
-        self.LM[:, 2:] += self.TA.dot(self._weight)
+        self.RL[:, 2:] += self.TA.dot(self._weight)
 
     def _add_normal_loads(self) -> None:
         """Convert all normal face loads into global vertex loads
         and add them into the global load matrix."""
         NL = self.FN * self._normal_loads
-        self.LM += self.TA.dot(NL)
+        self.RL += self.TA.dot(NL)
 
     def _add_projected_loads(self) -> None:
         """Convert all Z-projected face loads into global vertex loads
         and add them into the global load matrix."""
         z = asarray([0, 0, -1]).reshape((3, 1))
         PL = self.FN.dot(z) * self._project_loads
-        self.LM[:, 2:] += self.TA.dot(PL)
+        self.RL[:, 2:] += self.TA.dot(PL)
