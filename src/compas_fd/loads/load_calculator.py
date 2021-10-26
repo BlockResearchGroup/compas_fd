@@ -50,7 +50,8 @@ class LoadCalculator:
     >>> from compas_fd import LoadCalculator
     >>> mesh = Mesh.from_obj(compas.get('hypar.obj'))
     >>> dva = {'px': .0, 'py': .0, 'pz': .1}
-    >>> dfa = {'t': .1, 'is_loaded': True, 'wind': 1.0}
+    >>> dfa = {'t': .1, 'wind': 1.0, 'snow': .0,
+               'has_weight': True, 'has_wind': True, 'has_snow': False}
     >>> mesh.attributes.update({'density': 22.0})
     >>> mesh.update_default_vertex_attributes(dva)
     >>> mesh.update_default_face_attributes(dfa)
@@ -66,9 +67,11 @@ class LoadCalculator:
     _PX, _PY, _PZ = '_px', '_py', '_pz'     # resultant vertex loads
     RHO = 'density'
     THICKNESS = 't'
-    HAS_SW = 'is_loaded'
     NORMAL = 'wind'
     PROJECT = 'snow'
+    HAS_SW = 'has_weight'
+    HAS_NORMAL = 'has_wind'
+    HAS_PROJ = 'has_snow'
 
     def __init__(self, mesh: Mesh) -> None:
         self.mesh = mesh
@@ -126,17 +129,16 @@ class LoadCalculator:
                                      names=(self.PX, self.PY, self.PZ))
                                      ).reshape((self._v_count, 3))
         rho = self.mesh.attributes[self.RHO]
-        self._weight = asarray([-t * w * rho for t, w in
-                                self.mesh.faces_attributes([self.THICKNESS, self.HAS_SW])]
-                               ).reshape((self._f_count, 1))
-        self._normal_loads = asarray(self.mesh.faces_attribute(self.NORMAL)
-                                     ).reshape((self._f_count, 1))
-        self._project_loads = asarray(self.mesh.faces_attribute(self.PROJECT)
-                                      ).reshape((self._f_count, 1))
+        self._weights = asarray([-t * hw * rho for t, hw in self.mesh.faces_attributes(
+                                [self.THICKNESS, self.HAS_SW])]).reshape((self._f_count, 1))
+        self._normal_loads = asarray([n * hn for n, hn in self.mesh.faces_attributes(
+                                     [self.NORMAL, self.HAS_NORMAL])]).reshape((self._f_count, 1))
+        self._project_loads = asarray([p * hp for p, hp in self.mesh.faces_attributes(
+                                      [self.PROJECT, self.HAS_PROJ])]).reshape((self._f_count, 1))
 
     def _set_load_flags(self) -> None:
         """Set flags for which load types are applied."""
-        bool_weight = array(self._weight, dtype=bool)
+        bool_weight = array(self._weights, dtype=bool)
         bool_normal = array(self._normal_loads, dtype=bool)
         bool_project = array(self._project_loads, dtype=bool)
         self._oriented_loads = bool_normal + bool_project
@@ -194,7 +196,7 @@ class LoadCalculator:
     def _add_weight(self) -> None:
         """Convert all face self-weights into global vertex loads
         and add them into the global load matrix."""
-        self.RL[:, 2:] += self.TA.dot(self._weight)
+        self.RL[:, 2:] += self.TA.dot(self._weights)
 
     def _add_normal_loads(self) -> None:
         """Convert all normal face loads into global vertex loads
