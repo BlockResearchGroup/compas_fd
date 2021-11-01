@@ -208,7 +208,7 @@ class LoadCalculator:
         """Convert all face self-weights into global vertex loads
         and add them into the global load matrix.
         Loads are stepped per vertex tributary area."""
-        self._RL[:, 2:] += (self._v_weights * add.reduce(
+        self._RL[:, 2:] -= (self._v_weights * add.reduce(
                             self._TA * self._have_weight, axis=1)
                             ).reshape((-1, 1))
 
