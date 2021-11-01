@@ -1,10 +1,11 @@
 from functools import partial
 import compas
-from compas.geometry import Vector, Point, Line, Plane
+from compas.geometry import Vector, Point, Line, Plane, Polyline
+from compas_nurbs import Curve
 from compas_fd.datastructures import CableMesh
 from compas_fd.fd import fd_numpy
 
-from compas_fd.constraints import Constraint
+from compas_fd.constraints import Constraint, CurveConstraint
 
 from compas_view2.app import App
 from compas_view2.objects import Object, MeshObject
@@ -18,6 +19,7 @@ mesh.vertices_attribute('is_anchor', True, keys=list(mesh.vertices_where({'verte
 mesh.vertices_attribute('t', 0.0)
 vertex_index = mesh.vertex_index()
 
+constraints = []
 
 # line constraint
 vkey = list(mesh.vertices_where({'x': 10, 'y': 10}))[0]
@@ -30,6 +32,12 @@ vkey = list(mesh.vertices_where({'x': 0, 'y': 0}))[0]
 plane = Plane(Point(2, 2, 0), Vector(1, 0.8, 0.5))
 xyz = mesh.vertex_attributes(vkey, 'xyz')
 Constraint(plane, vertex_index[vkey], location=xyz)
+
+# curve constraint
+vkey = list(mesh.vertices_where({'x': 0, 'y': 10}))[0]
+curve = Curve([(-5, 7, 0), (3, 5, 0), (5, 10, 7)], 2)
+xyz = mesh.vertex_attributes(vkey, 'xyz')
+Constraint(curve, vertex_index[vkey], location=xyz)
 
 
 vertices = mesh.vertices_attributes('xyz')
@@ -61,8 +69,12 @@ for vertex in fixed:
     viewer.add(Point(* mesh.vertex_attributes(vertex, 'xyz')), size=20, color=(0, 0, 0))
 
 for constraint in Constraint.instances:
-    if constraint:
+    if isinstance(constraint, CurveConstraint):
+        pts = curve.points_at([d/30 for d in range(0, 30)])
+        viewer.add(Polyline(pts), linewidth=5, linecolor=(0, 1, 1))
+    else:
         viewer.add(constraint.geometry, linewidth=5, linecolor=(0, 1, 1))
+
 
 for vertex in fixed:
     a = Point(* mesh.vertex_attributes(vertex, 'xyz'))

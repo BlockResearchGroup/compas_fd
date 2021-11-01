@@ -14,17 +14,18 @@ from numpy import dot
 class CurveConstraint(Constraint):
 
     def __init__(self, curve, index, **kwargs):
-        super(CurveConstraint, self).__init__(geometry=curve, index=index, **kwargs)
         self._param = 0.5
-        if not getattr(self, '_location', None):
+        super(CurveConstraint, self).__init__(geometry=curve, index=index, **kwargs)
+        if getattr(self, '_location', None) is None:
             self._location = self.geometry.points_at([self._param])[0]
             self.project_to_geometry()
 
     @property
     def curvature(self):
         # TODO update for proper quadratic approximation
-        curvature = self._ccurvature.unitized()
-        return curvature * (self.residual ** 2) ** 0.5
+        # curvature = self._curvature.unitized()
+        # return projectino of (self.residual ** 2) ** 0.5 to curvature vector
+        pass
 
     def compute_tangent(self):
         tangent = self._curve_tangent.unitized()
@@ -34,17 +35,17 @@ class CurveConstraint(Constraint):
         self._normal = self.residual - self.tangent
 
     def project_to_geometry(self):
-        self._param, self._location, self._curve_tangent, self._ccurvature = (
-            self.geometry.closest_point(self._param, self._location))
+        self._param, self._location, self._curve_tangent = (
+            self.geometry.closest_point(self._location, self._param))
 
     def update_location(self):
-        # quadratic approximation of residual on curve
-        self._location += (self.tangent + self.curvature) * Constraint.damping_factor
+        # self._location += (self.tangent + self.curvature) * Constraint.damping_factor
+        self._location += self.tangent * Constraint.damping_factor
         self.project_to_geometry()
 
 
 # replace with bound method in Curve class
-def closest_point(curve, point, param=0.5, tol=1E-3, is_bounded=False):
+def closest_point(curve, point, param=0.5, tol=1E-3, is_bounded=False, kmax=10):
     """Find the closest point on a curve using the Newton-Rhapson method.
 
         Parameters
@@ -61,6 +62,9 @@ def closest_point(curve, point, param=0.5, tol=1E-3, is_bounded=False):
         is_bounded: bool
             Whether the closest point should lie within
             the [0, 1] parameter domain of the curve.
+        kmax: int
+            Maximum number of Newton-Rhapson iterations.
+            (default is 10)
 
         Returns
         -------
@@ -76,7 +80,7 @@ def closest_point(curve, point, param=0.5, tol=1E-3, is_bounded=False):
     p = point
     t = param
 
-    for _ in range(10):
+    for _ in range(kmax):
         f, df, ddf = curve.derivatives_at([t], 2)[0]
         sx, sy, sz = (p[0] - f[0]), (p[1] - f[1]), (p[2] - f[2])
 
@@ -92,7 +96,7 @@ def closest_point(curve, point, param=0.5, tol=1E-3, is_bounded=False):
         if is_bounded:
             t = max(min(t, 1), 0)
 
-    return t, Point(*f), Vector(*df), Vector(*ddf)
+    return t, Point(*f), Vector(*df)
 
 
 Curve.closest_point = closest_point

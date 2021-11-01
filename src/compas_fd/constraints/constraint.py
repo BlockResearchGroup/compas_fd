@@ -4,7 +4,6 @@ from __future__ import division
 
 from compas.geometry import Point
 from compas.data import Data
-from ..fd.result import Result
 
 
 class Constraint(Data):
@@ -97,11 +96,12 @@ class Constraint(Data):
         self._location += self.tangent * Constraint.damping_factor
 
     # replace with vectorized function collecting all tangent residuals
-    @staticmethod
-    def update_vertices(result: Result):
-        """Update the result coordinates of all constrained vertices."""
+    @classmethod
+    def update_vertices(cls, result, constraints=None):
+        """Update the coordinates of all constrained vertices."""
         vertices = result.vertices.copy()
-        for constraint in Constraint.instances:
+        constraints = constraints or cls.instances
+        for constraint in constraints:
             index = constraint.element_index
             if constraint.location is None:
                 constraint._location = result.vertices[index]
