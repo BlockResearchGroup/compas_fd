@@ -2,14 +2,16 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
-from compas.data import Data
-from compas.geometry import Vector
 from compas.geometry import Point
+from compas.data import Data
+from ..fd.result import Result
 
 
 class Constraint(Data):
 
     GEOMETRY_CONSTRAINT = {}
+    damping_factor = 0.5
+    instances = set()
 
     @property
     def DATASCHEMA(self):
@@ -37,34 +39,28 @@ class Constraint(Data):
         cls = Constraint.GEOMETRY_CONSTRAINT[type(geometry)]
         return super(Constraint, cls).__new__(cls)
 
-    def __init__(self, geometry, **kwargs):
-        super(Constraint, self).__init__(**kwargs)
-        self._geometry = None
+    def __init__(self, geometry, index, **kwargs):
         self._residual = None
         self._tangent = None
         self._normal = None
-        self.geometry = geometry
+        self._geometry = geometry
+        self._index = index
+        if 'location' in kwargs:
+            self._location = Point(*kwargs['location'])
+            self.project_to_geometry()
+        Constraint.instances.add(self)
 
     @property
     def geometry(self):
         return self._geometry
 
-    @geometry.setter
-    def geometry(self, geometry):
-        self._residual = None
-        self._tangent = None
-        self._normal = None
-        self._geometry = geometry
+    @property
+    def element_index(self):
+        return self._index
 
     @property
     def location(self):
-        return self._location
-
-    @location.setter
-    def location(self, point):
-        self._tangent = None
-        self._normal = None
-        self._location = Point(*point)
+        return getattr(self, '_location', None)
 
     @property
     def residual(self):
@@ -74,19 +70,42 @@ class Constraint(Data):
     def residual(self, residual):
         self._tangent = None
         self._normal = None
-        self._residual = Vector(*residual)
-
-    def compute_components(self):
-        raise NotImplementedError
+        self._residual = residual
 
     @property
     def tangent(self):
         if self._tangent is None:
-            self.compute_components()
+            self.compute_tangent()
         return self._tangent
 
     @property
     def normal(self):
         if self._normal is None:
-            self.compute_components()
+            self.compute_normal()
         return self._normal
+
+    def compute_tangent(self):
+        raise NotImplementedError
+
+    def compute_normal(self):
+        raise NotImplementedError
+
+    def project_to_geometry(self):
+        raise NotImplementedError
+
+    def update_location(self):
+        self._location += self.tangent * Constraint.damping_factor
+
+    # replace with vectorized function collecting all tangent residuals
+    @staticmethod
+    def update_vertices(result: Result):
+        """Update the result coordinates of all constrained vertices."""
+        vertices = result.vertices.copy()
+        for constraint in Constraint.instances:
+            index = constraint.element_index
+            if constraint.location is None:
+                constraint._location = result.vertices[index]
+            constraint.residual = result.residuals[index]
+            constraint.update_location()
+            vertices[index] = constraint.location
+        return vertices
