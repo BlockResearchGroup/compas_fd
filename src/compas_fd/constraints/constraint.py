@@ -100,7 +100,8 @@ class Constraint(Data):
     def update_vertices(cls, result, constraints=None):
         """Update the coordinates of all constrained vertices."""
         vertices = result.vertices.copy()
-        constraints = constraints or cls.instances
+        if constraints is None:
+            constraints = cls.instances
         for constraint in constraints:
             index = constraint.element_index
             if constraint.location is None:
