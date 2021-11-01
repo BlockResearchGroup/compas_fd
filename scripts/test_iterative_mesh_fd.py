@@ -36,12 +36,6 @@ line = Line(Point(12, 0, -1), Point(10, 10, -1))
 xyz = mesh.vertex_attributes(vkey, 'xyz')
 constraints.append(Constraint(line, vertex_index[vkey], location=xyz))
 
-# plane constraint
-vkey = list(mesh.vertices_where({'x': 0, 'y': 0}))[0]
-plane = Plane(Point(2, 2, 0), Vector(1, 0.8, 0.5))
-xyz = mesh.vertex_attributes(vkey, 'xyz')
-constraints.append(Constraint(plane, vertex_index[vkey], location=xyz))
-
 # curve constraint
 vkey = list(mesh.vertices_where({'x': 0, 'y': 10}))[0]
 curve = Curve([(-5, 7, 0), (3, 5, 0), (5, 10, 7)], 2)

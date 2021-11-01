@@ -20,12 +20,12 @@ class CurveConstraint(Constraint):
             self._location = self.geometry.points_at([self._param])[0]
             self.project_to_geometry()
 
-    @property
-    def curvature(self):
-        # TODO update for proper quadratic approximation
-        # curvature = self._curvature.unitized()
-        # return projectino of (self.residual ** 2) ** 0.5 to curvature vector
-        pass
+    # @property
+    # def curvature(self):
+    #     # TODO update for proper quadratic approximation
+    #     # curvature = self._curvature.unitized()
+    #     # return projectino of (self.residual ** 2) ** 0.5 to curvature vector
+    #     pass
 
     def compute_tangent(self):
         tangent = self._curve_tangent.unitized()

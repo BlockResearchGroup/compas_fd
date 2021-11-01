@@ -126,7 +126,7 @@ class LoadCalculator:
     >>> from compas.datastructures import Mesh
     >>> from compas_fd import LoadCalculator
     >>> mesh = Mesh.from_obj(compas.get('hypar.obj'))
-    >>> ma = {'density': 22.0 'point_lc': 1, 'weight_lc': 1,
+    >>> ma = {'density': 24.0, 'point_lc': 1, 'weight_lc': 1,
               'wind_lc': 1, 'snow_lc': 1}
     >>> dva = {'px': .0, 'py': .0, 'pz': -.1, 't': .1}
     >>> dfa = {'wind': 1.0, 'snow': .0, 'has_weight': True,
