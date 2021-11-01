@@ -45,8 +45,7 @@ class CableMesh(Mesh):
             '_pz': 0.0,
             '_rx': 0.0,
             '_ry': 0.0,
-            '_rz': 0.0,
-            't': 0.0
+            '_rz': 0.0
         })
         self.default_edge_attributes.update({
             'q': 1.0,
