@@ -49,10 +49,12 @@ class LoadCalculator:
     >>> from compas.datastructures import Mesh
     >>> from compas_fd import LoadCalculator
     >>> mesh = Mesh.from_obj(compas.get('hypar.obj'))
+    >>> ma = {'density': 22.0 'point_lc': 1, 'weight_lc': 1,
+              'wind_lc': 1, 'snow_lc': 1}
     >>> dva = {'px': .0, 'py': .0, 'pz': -.1, 't': .1}
     >>> dfa = {'wind': 1.0, 'snow': .0, 'has_weight': True,
                'has_wind': True, 'has_snow': False}
-    >>> mesh.attributes.update({'density': 22.0})
+    >>> mesh.attributes.update(ma)
     >>> mesh.update_default_vertex_attributes(dva)
     >>> mesh.update_default_face_attributes(dfa)
     >>> lc = LoadCalculator(mesh)
@@ -65,8 +67,14 @@ class LoadCalculator:
     # hardcoded attribute names in mesh data map
     PX, PY, PZ = 'px', 'py', 'pz'           # input vertex loads
     _PX, _PY, _PZ = '_px', '_py', '_pz'     # resultant vertex loads
+
     RHO = 'density'
-    THICKNESS = 't'
+    VTS_LC = 'point_lc'
+    WEIGHT_LC = 'weight_lc'
+    NORMAL_LC = 'wind_lc'
+    PROJ_LC = 'snow_lc'
+
+    TH = 't'
     NORMAL = 'wind'
     PROJECT = 'snow'
     HAS_SW = 'has_weight'
@@ -136,15 +144,19 @@ class LoadCalculator:
 
     def _preprocess_loads(self) -> None:
         """Preprocess loads into arrays."""
+        vts_lc, weight_lc, normal_lc, proj_lc, rho = (self.mesh.attributes[key] for key in (
+            self.VTS_LC, self.WEIGHT_LC, self.NORMAL_LC, self.PROJ_LC, self.RHO))
+
         self._vertex_loads = asarray(self.mesh.vertices_attributes(
                                      names=(self.PX, self.PY, self.PZ))
-                                     ).reshape((self._v_count, 3))
-        self._v_weights = self.mesh.attributes[self.RHO] * asarray(
-                          self.mesh.vertices_attribute(self.THICKNESS))
+                                     ).reshape((self._v_count, 3)) * vts_lc
+        self._v_weights = asarray(self.mesh.vertices_attribute(self.TH)) * rho * weight_lc
         self._normal_loads = asarray([n * hn for n, hn in self.mesh.faces_attributes(
-                                     [self.NORMAL, self.HAS_NORMAL])]).reshape((self._f_count, 1))
+                                     [self.NORMAL, self.HAS_NORMAL])]
+                                     ).reshape((self._f_count, 1)) * normal_lc
         self._project_loads = asarray([p * hp for p, hp in self.mesh.faces_attributes(
-                                      [self.PROJECT, self.HAS_PROJ])]).reshape((self._f_count, 1))
+                                      [self.PROJECT, self.HAS_PROJ])]
+                                      ).reshape((self._f_count, 1)) * proj_lc
 
     def _set_load_flags(self) -> None:
         """Set flags for which face load types are applied."""

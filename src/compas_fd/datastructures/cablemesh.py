@@ -23,6 +23,10 @@ class CableMesh(Mesh):
         super(CableMesh, self).__init__()
         self.attributes.update({
             'density': 22.0,
+            'point_lc': 1.0,
+            'weight_lc': 1.0,
+            'wind_lc': 1.0,
+            'snow_lc': 1.0
         })
         self.default_vertex_attributes.update({
             'x': 0.0,
@@ -51,7 +55,9 @@ class CableMesh(Mesh):
             '_r': 0.0,
         })
         self.default_face_attributes.update({
-            'is_loaded': False,
+            'has_weight': False,
+            'has_snow': False,
+            'has_wind': False,
             't': 0.0,
             'wind': 0.0,
             'snow': 0.0
