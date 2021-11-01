@@ -46,6 +46,7 @@ class CableMesh(Mesh):
             '_rx': 0.0,
             '_ry': 0.0,
             '_rz': 0.0,
+            't': 0.0
         })
         self.default_edge_attributes.update({
             'q': 1.0,
@@ -58,7 +59,6 @@ class CableMesh(Mesh):
             'has_weight': False,
             'has_snow': False,
             'has_wind': False,
-            't': 0.0,
             'wind': 0.0,
             'snow': 0.0
         })
