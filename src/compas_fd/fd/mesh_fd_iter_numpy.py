@@ -10,7 +10,7 @@ from compas_fd.constraints import Constraint
 from .fd_numpy import fd_numpy
 
 
-# for LoadCalculator
+# /for LoadCalculator ----
 from numpy import add
 from numpy import asarray
 from numpy import average
@@ -27,13 +27,14 @@ from typing import List
 from typing import Union
 from typing_extensions import Annotated
 from nptyping import NDArray
+# \for LoadCalculator ----
 
 
-def mesh_fd_numpy(mesh: 'compas_fd.datastructures.CableMesh',
-                  constraints: Sequence[Constraint],
-                  max_iter: int = 30,
-                  tolerance: float = 1E-3
-                  ) -> 'compas_fd.datastructures.CableMesh':
+def mesh_fd_iter_numpy(mesh: 'compas_fd.datastructures.CableMesh',
+                       constraints: Sequence[Constraint] = None,
+                       max_iter: int = 30,
+                       tolerance: float = 1E-3
+                       ) -> 'compas_fd.datastructures.CableMesh':
     """Iteratively find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
@@ -64,14 +65,15 @@ def mesh_fd_numpy(mesh: 'compas_fd.datastructures.CableMesh',
               dtype=float64).reshape((-1, 1))
     loads = LoadCalculator(mesh)
 
-    for _ in range(max_iter):
+    for k in range(max_iter):
         p = loads(xyz)
         result = fd_numpy(vertices=xyz, fixed=fixed, edges=edges, forcedensities=q, loads=p)
         _xyz = Constraint.update_vertices(result, constraints)
-        if norm(_xyz - xyz).max < tolerance:
+        if norm(_xyz - xyz).max() < tolerance:
             break
         xyz = _xyz
 
+    print("Convergence reached at iteration {}".format(k))
     result_update_mesh(result, mesh)
     loads.update_mesh()
     return mesh
