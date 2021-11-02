@@ -17,7 +17,8 @@ mesh.vertices_attribute('is_anchor', True, keys=list(mesh.vertices_where({'verte
 mesh.vertices_attribute('t', 0.0)
 
 vertex = list(mesh.vertices_where({'x': 10, 'y': 10}))[0]
-line = Line(Point(10, 0, 0), Point(10, 10, 0))
+line = Line(Point(10, 10, 0), Point(20, 20, 0))
+line = Line(Point(10, 0, 0), Point(14, 10, 0))
 constraint = Constraint(line)
 
 mesh.vertex_attribute(vertex, 'constraint', constraint)
@@ -42,7 +43,7 @@ for k in range(100):
             continue
         constraint.location = vertices[vertex]
         constraint.residual = residuals[vertex]
-        vertices[vertex] += constraint.tangent * 0.5
+        vertices[vertex] = constraint.location + constraint.tangent * 0.5
 
 for index, vertex in enumerate(mesh.vertices()):
     mesh.vertex_attributes(vertex, 'xyz', vertices[index])
