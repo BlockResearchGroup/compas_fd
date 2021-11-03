@@ -11,7 +11,7 @@ from .constraint import Constraint
 from .lineconstraint import LineConstraint
 from .planeconstraint import PlaneConstraint
 from .curveconstraint import CurveConstraint
-from .curveconstraint import SurfaceConstraint
+from .surfaceconstraint import SurfaceConstraint
 
 Constraint.GEOMETRY_CONSTRAINT[Line] = LineConstraint
 Constraint.GEOMETRY_CONSTRAINT[Plane] = PlaneConstraint
