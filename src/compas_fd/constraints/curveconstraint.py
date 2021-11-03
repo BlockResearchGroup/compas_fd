@@ -13,6 +13,17 @@ class CurveConstraint(Constraint):
     def __init__(self, curve, **kwargs):
         super(CurveConstraint, self).__init__(geometry=curve, **kwargs)
 
+    @property
+    def location(self):
+        return self._location
+
+    @location.setter
+    def location(self, point):
+        self._tangent = None
+        self._normal = None
+        self._location = Point(*point)
+        self.project()
+
     def compute_tangent(self):
         direction = self.geometry.tangent_at(self._param)
         self._tangent = Vector(* vector_component(self.residual, direction))

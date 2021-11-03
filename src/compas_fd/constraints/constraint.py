@@ -28,10 +28,6 @@ class Constraint(Data):
     def data(self, data):
         self.geometry = data['geometry']
 
-    # @classmethod
-    # def from_data(cls, data):
-    #     return cls(data['geometry'])
-
     def __new__(cls, *args, **kwargs):
         geometry = args[0]
         cls = Constraint.GEOMETRY_CONSTRAINT[type(geometry)]
@@ -65,10 +61,9 @@ class Constraint(Data):
         self._tangent = None
         self._normal = None
         self._location = Point(*point)
-        self.project()
-        # if not getattr(self, 'projected', None):
-        #     self.project()
-        #     self.projected = True
+        if not getattr(self, 'projected', None):
+            self.project()
+            self.projected = True
 
     @property
     def residual(self):
