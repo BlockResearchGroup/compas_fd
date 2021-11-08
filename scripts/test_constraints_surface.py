@@ -4,7 +4,7 @@ from compas.geometry import Vector, Point, Line
 from compas_fd.datastructures import CableMesh
 from compas_fd.fd import fd_numpy
 
-from compas_occ.geometry import OCCNurbsSurface as NurbsSurface
+from compas.geometry import NurbsSurface
 
 from compas_fd.constraints import Constraint
 

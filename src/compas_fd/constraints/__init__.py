@@ -4,8 +4,8 @@ from __future__ import division
 
 from compas.geometry import Line
 from compas.geometry import Plane
-from compas_occ.geometry import OCCNurbsCurve as NurbsCurve
-from compas_occ.geometry import OCCNurbsSurface as NurbsSurface
+from compas.geometry import NurbsCurve
+from compas.geometry import NurbsSurface
 
 from .constraint import Constraint
 from .lineconstraint import LineConstraint

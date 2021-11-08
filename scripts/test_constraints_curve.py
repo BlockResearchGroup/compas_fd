@@ -5,7 +5,7 @@ from compas_fd.datastructures import CableMesh
 from compas_fd.fd import fd_numpy
 
 from compas.geometry import Polyline, Bezier
-from compas_occ.geometry import OCCNurbsCurve as NurbsCurve
+from compas.geometry import NurbsCurve
 
 from compas_fd.constraints import Constraint
 
