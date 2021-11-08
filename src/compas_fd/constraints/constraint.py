@@ -22,15 +22,11 @@ class Constraint(Data):
 
     @property
     def data(self):
-        return {}
+        return {'geometry': self._geometry}
 
     @data.setter
     def data(self, data):
-        pass
-
-    @classmethod
-    def from_data(cls, data):
-        return cls()
+        self.geometry = data['geometry']
 
     def __new__(cls, *args, **kwargs):
         geometry = args[0]
@@ -65,6 +61,9 @@ class Constraint(Data):
         self._tangent = None
         self._normal = None
         self._location = Point(*point)
+        if not getattr(self, 'projected', None):
+            self.project()
+            self.projected = True
 
     @property
     def residual(self):
@@ -76,17 +75,23 @@ class Constraint(Data):
         self._normal = None
         self._residual = Vector(*residual)
 
-    def compute_components(self):
+    def compute_tangent(self):
+        raise NotImplementedError
+
+    def compute_normal(self):
+        raise NotImplementedError
+
+    def project(self):
         raise NotImplementedError
 
     @property
     def tangent(self):
         if self._tangent is None:
-            self.compute_components()
+            self.compute_tangent()
         return self._tangent
 
     @property
     def normal(self):
         if self._normal is None:
-            self.compute_components()
+            self.compute_normal()
         return self._normal

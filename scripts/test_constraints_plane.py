@@ -1,6 +1,6 @@
 from functools import partial
 import compas
-from compas.geometry import Vector, Point, Line
+from compas.geometry import Vector, Point, Line, Plane
 from compas_fd.datastructures import CableMesh
 from compas_fd.fd import fd_numpy
 
@@ -17,13 +17,11 @@ mesh.vertices_attribute('is_anchor', True, keys=list(mesh.vertices_where({'verte
 mesh.vertices_attribute('t', 0.0)
 
 vertex = list(mesh.vertices_where({'x': 10, 'y': 10}))[0]
-line = Line(Point(10, 0, 0), Point(14, 10, 0))
-constraint = Constraint(line)
-
+plane = Plane((15, 15, 0), (1, 0, 0))
+constraint = Constraint(plane)
 mesh.vertex_attribute(vertex, 'constraint', constraint)
 
 vertex_index = mesh.vertex_index()
-
 vertices = mesh.vertices_attributes('xyz')
 edges = [(vertex_index[u], vertex_index[v]) for u, v in mesh.edges_where({'_is_edge': True})]
 loads = mesh.vertices_attributes(['px', 'py', 'pz'])
