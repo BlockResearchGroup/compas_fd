@@ -6,9 +6,6 @@ import compas
 from compas.datastructures import Mesh
 
 
-__all__ = ['CableMesh']
-
-
 class CableMesh(Mesh):
     """:class:`CableMesh` extends the mesh datastructure
     with attributes and methods related to form finding (and analysis) of

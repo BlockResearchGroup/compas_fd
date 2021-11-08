@@ -11,22 +11,14 @@ class Constraint(Data):
 
     GEOMETRY_CONSTRAINT = {}
 
-    @property
-    def DATASCHEMA(self):
-        from schema import Schema
-        return Schema()
+    # @property
+    # def DATASCHEMA(self):
+    #     from schema import Schema
+    #     return Schema()
 
-    @property
-    def JSONSCHEMANAME(self):
-        return 'constraint'
-
-    @property
-    def data(self):
-        return {'geometry': self._geometry}
-
-    @data.setter
-    def data(self, data):
-        self.geometry = data['geometry']
+    # @property
+    # def JSONSCHEMANAME(self):
+    #     return 'constraint'
 
     def __new__(cls, *args, **kwargs):
         geometry = args[0]
@@ -40,6 +32,10 @@ class Constraint(Data):
         self._tangent = None
         self._normal = None
         self.geometry = geometry
+
+    @staticmethod
+    def register(gtype, ctype):
+        Constraint.GEOMETRY_CONSTRAINT[gtype] = ctype
 
     @property
     def geometry(self):

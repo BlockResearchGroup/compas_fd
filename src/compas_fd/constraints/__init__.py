@@ -6,6 +6,8 @@ from compas.geometry import Line
 from compas.geometry import Plane
 from compas.geometry import NurbsCurve
 from compas.geometry import NurbsSurface
+from compas_occ.geometry import OCCNurbsCurve
+from compas_occ.geometry import OCCNurbsSurface
 
 from .constraint import Constraint
 from .lineconstraint import LineConstraint
@@ -13,7 +15,9 @@ from .planeconstraint import PlaneConstraint
 from .curveconstraint import CurveConstraint
 from .surfaceconstraint import SurfaceConstraint
 
-Constraint.GEOMETRY_CONSTRAINT[Line] = LineConstraint
-Constraint.GEOMETRY_CONSTRAINT[Plane] = PlaneConstraint
-Constraint.GEOMETRY_CONSTRAINT[NurbsCurve] = CurveConstraint
-Constraint.GEOMETRY_CONSTRAINT[NurbsSurface] = SurfaceConstraint
+Constraint.register(Line, LineConstraint)
+Constraint.register(Plane, PlaneConstraint)
+Constraint.register(NurbsCurve, CurveConstraint)
+Constraint.register(OCCNurbsCurve, CurveConstraint)
+Constraint.register(NurbsSurface, SurfaceConstraint)
+Constraint.register(OCCNurbsSurface, SurfaceConstraint)

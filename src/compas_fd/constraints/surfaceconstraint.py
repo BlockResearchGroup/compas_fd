@@ -5,6 +5,7 @@ from __future__ import division
 from compas.geometry import vector_component
 from compas.geometry import Vector
 from compas.geometry import Point
+from compas.geometry import NurbsSurface
 from .constraint import Constraint
 
 
@@ -12,6 +13,19 @@ class SurfaceConstraint(Constraint):
 
     def __init__(self, surface, **kwargs):
         super(SurfaceConstraint, self).__init__(geometry=surface, **kwargs)
+
+    @property
+    def data(self):
+        return {'geometry': self.geometry.data}
+
+    @data.setter
+    def data(self, data):
+        self.geometry = NurbsSurface.from_data(data['geometry'])
+    
+    @classmethod
+    def from_data(cls, data):
+        srf = NurbsSurface.from_data(data['geometry'])
+        return cls(srf)
 
     @property
     def location(self):

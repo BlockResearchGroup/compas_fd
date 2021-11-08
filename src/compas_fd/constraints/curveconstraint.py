@@ -5,6 +5,7 @@ from __future__ import division
 from compas.geometry import vector_component
 from compas.geometry import Vector
 from compas.geometry import Point
+from compas.geometry import NurbsCurve
 from .constraint import Constraint
 
 
@@ -12,6 +13,19 @@ class CurveConstraint(Constraint):
 
     def __init__(self, curve, **kwargs):
         super(CurveConstraint, self).__init__(geometry=curve, **kwargs)
+
+    @property
+    def data(self):
+        return {'geometry': self.geometry.data}
+
+    @data.setter
+    def data(self, data):
+        self.geometry = NurbsCurve.from_data(data['geometry'])
+    
+    @classmethod
+    def from_data(cls, data):
+        curve = NurbsCurve.from_data(data['geometry'])
+        return cls(curve)
 
     @property
     def location(self):
