@@ -22,7 +22,7 @@ class PlaneConstraint(Constraint):
     @data.setter
     def data(self, data):
         self.geometry = Plane.from_data(data['geometry'])
-    
+
     @classmethod
     def from_data(cls, data):
         plane = Plane.from_data(data['geometry'])
@@ -33,7 +33,7 @@ class PlaneConstraint(Constraint):
 
     def compute_normal(self):
         normal = self.geometry.normal
-        self._normal = Vector(* vector_component(self.residual, normal))
+        self._normal = Vector(*vector_component(self.residual, normal))
 
     def project(self):
-        self._location = Point(* project_point_plane(self._location, self.geometry))
+        self._location = Point(*project_point_plane(self._location, self.geometry))
