@@ -84,7 +84,7 @@ def _is_converged_res(residuals: NDArray[(Any, 3), float64],
                       ) -> bool:
     """Validate whether the maximum constraint residual is within tolerance.
     """
-    if not residuals:
+    if residuals is None or not residuals.any():
         return True
     max_res = max(norm(residuals, axis=1))
     return max_res < tol_res
