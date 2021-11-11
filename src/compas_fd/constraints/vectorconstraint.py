@@ -30,3 +30,6 @@ class VectorConstraint(Constraint):
 
     def compute_normal(self):
         self._normal = self.residual - self.tangent
+
+    def project(self):
+        pass

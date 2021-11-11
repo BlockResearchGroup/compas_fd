@@ -32,3 +32,6 @@ class FrameConstraint(Constraint):
     def compute_normal(self):
         normal = self.geometry.zaxis
         self._normal = Vector(* vector_component(self.residual, normal))
+
+    def project(self):
+        pass
