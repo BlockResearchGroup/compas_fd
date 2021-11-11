@@ -15,15 +15,6 @@ class Constraint(Data):
 
     GEOMETRY_CONSTRAINT = {}
 
-    # @property
-    # def DATASCHEMA(self):
-    #     from schema import Schema
-    #     return Schema()
-
-    # @property
-    # def JSONSCHEMANAME(self):
-    #     return 'constraint'
-
     @staticmethod
     def get_constraint_cls(geometry, **kwargs):
         gtype = type(geometry)
