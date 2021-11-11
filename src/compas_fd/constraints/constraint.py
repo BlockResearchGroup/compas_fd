@@ -2,9 +2,13 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
+import inspect
+
 from compas.data import Data
 from compas.geometry import Vector
 from compas.geometry import Point
+
+from .exceptions import GeometryNotRegisteredAsConstraint
 
 
 class Constraint(Data):
@@ -20,9 +24,21 @@ class Constraint(Data):
     # def JSONSCHEMANAME(self):
     #     return 'constraint'
 
+    @staticmethod
+    def get_constraint_cls(geometry, **kwargs):
+        gtype = type(geometry)
+        cls = None
+        for type_ in inspect.getmro(gtype):
+            cls = Constraint.GEOMETRY_CONSTRAINT.get(type_)
+            if cls is not None:
+                break
+        if cls is None:
+            raise GeometryNotRegisteredAsConstraint('No constraint is registered for this geometry type: {}'.format(gtype))
+        return cls
+
     def __new__(cls, *args, **kwargs):
         geometry = args[0]
-        cls = Constraint.GEOMETRY_CONSTRAINT[type(geometry)]
+        cls = Constraint.get_constraint_cls(geometry)
         return super(Constraint, cls).__new__(cls)
 
     def __init__(self, geometry, **kwargs):
