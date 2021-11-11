@@ -33,7 +33,7 @@ def mesh_fd_iter_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd
     constraints = list(mesh.vertices_attribute('constraint'))
 
     numdata = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
-    solver = FDConstraintSolver(numdata, constraints, max_iter=100, tol_res=1E-3, tol_dxyz=1E-3)
+    solver = FDConstraintSolver(numdata, constraints, kmax=100, tol_res=1E-3, tol_disp=1E-3)
     result = solver()
 
     _update_mesh(mesh, result)

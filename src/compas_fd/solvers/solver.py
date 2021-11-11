@@ -9,17 +9,17 @@ class Solver:
 
     def __init__(self,
                  numdata: NumericalData,
-                 max_iter: int = 100,
+                 kmax: int = 100,
                  **kwargs
                  ) -> None:
         self.numdata = numdata
-        self.max_iter = max_iter
+        self.kmax = kmax
         self.iter_count = 0
         self.result = None
 
     def __call__(self) -> Result:
         """Iteratively apply the solver algorithm."""
-        for self.iter_count in range(1, self.max_iter + 1):
+        for self.iter_count in range(1, self.kmax + 1):
             self.solve()
             if self.is_converged:
                 break

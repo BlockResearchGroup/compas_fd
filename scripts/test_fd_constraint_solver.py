@@ -40,8 +40,8 @@ constraints = list(mesh.vertices_attribute('constraint'))
 
 # set up iterative constraint solver
 numdata = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
-solver = FDConstraintSolver(numdata, constraints, max_iter=30,
-                            tol_res=1E-3, tol_dxyz=1E-3)
+solver = FDConstraintSolver(numdata, constraints, kmax=30,
+                            tol_res=1E-3, tol_disp=1E-3)
 
 # run solver
 result = solver()

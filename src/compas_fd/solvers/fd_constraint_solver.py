@@ -19,45 +19,43 @@ class FDConstraintSolver(Solver):
     def __init__(self,
                  numdata: FDNumericalData,
                  constraints: Sequence[Constraint] = None,
-                 max_iter: int = 100,
-                 tol_dxyz: float = 1E-3,
+                 kmax: int = 100,
                  tol_res: float = 1E-3,
+                 tol_disp: float = 1E-3,
                  **kwargs
                  ) -> None:
-        super(FDConstraintSolver, self).__init__(numdata, max_iter, **kwargs)
+        super(FDConstraintSolver, self).__init__(numdata, kmax, **kwargs)
         self.constraints = constraints
-        self.tol_dxyz = tol_dxyz
         self.tol_res = tol_res
+        self.tol_disp = tol_disp
 
     def solve(self) -> None:
         """Apply force density algorithm for a single iteration."""
-        free, fixed, xyz, C, q, Q, p, A, Ai, Af, *_ = self.numdata
-        b = p[free] - Af.dot(xyz[fixed])
-        xyz[free] = spsolve(Ai, b)
-        self.numdata.residuals = p - A.dot(xyz)
-        self.numdata.xyz_prev = xyz.copy()
-        self.numdata.xyz = xyz
+        nd = self.numdata
+        b = nd.p[nd.free] - nd.Af.dot(nd.xyz[nd.fixed])
+        nd.xyz[nd.free] = spsolve(nd.Ai, b)
+        nd.residuals = nd.p - nd.A.dot(nd.xyz)
+        nd.xyz_prev = nd.xyz.copy()
         self._update_constraints()
 
     def _update_constraints(self):
         """Update all vertex constraints by the residuals of the current iteration,
         and store their updated vertex coordinates in the numdata attribute.
         """
-        xyz = self.numdata.xyz
-        residuals = self.numdata.residuals
+        nd = self.numdata
         for vertex, constraint in enumerate(self.constraints):
             if not constraint:
                 continue
-            constraint.location = xyz[vertex]
-            constraint.residual = residuals[vertex]
-            xyz[vertex] = constraint.location + constraint.tangent * 0.5
-        self.numdata.tangent_residuals = asarray([c.tangent for c in self.constraints if c])
-        self.numdata.xyz = xyz
+            constraint.location = nd.xyz[vertex]
+            constraint.residual = nd.residuals[vertex]
+            nd.xyz[vertex] = constraint.location + constraint.tangent * 0.5
+        nd.tangent_residuals = asarray([c.tangent for c in self.constraints if c])
 
     @property
     def is_converged(self) -> bool:
         """Verify if all convergence criteria are met."""
-        return self._is_converged_residuals and self._is_converged_xyz
+        return (self._is_converged_residuals and
+                self._is_converged_displacements)
 
     @property
     def _is_converged_residuals(self) -> bool:
@@ -69,18 +67,16 @@ class FDConstraintSolver(Solver):
         return max_res < self.tol_res
 
     @property
-    def _is_converged_xyz(self) -> bool:
+    def _is_converged_displacements(self) -> bool:
         """Verify whether the maximum coordinate displacement
         between consecutive iterations is within tolerance.
         """
-        new_xyz = self.numdata.xyz
-        old_xyz = self.numdata.xyz_prev
-        max_dxyz = max(norm(new_xyz - old_xyz, axis=1))
-        return max_dxyz < self.tol_dxyz
+        nd = self.numdata
+        max_dxyz = max(norm(nd.xyz - nd.xyz_prev, axis=1))
+        return max_dxyz < self.tol_disp
 
     def post_process(self) -> None:
         """Compute dependent variables after ending the solver loop."""
-        _, _, xyz, C, q, *_ = self.numdata
-        lengths = normrow(C.dot(xyz))
-        self.numdata.forces = q * lengths
-        self.numdata.lengths = lengths
+        nd = self.numdata
+        nd.lengths = normrow(nd.C.dot(nd.xyz))
+        nd.forces = nd.q * nd.lengths

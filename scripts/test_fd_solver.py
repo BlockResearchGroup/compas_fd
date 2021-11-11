@@ -30,6 +30,7 @@ solver = FDSolver(numdata)
 
 # run solver
 result = solver()
+print(solver.iter_count)
 
 # update mesh
 for index, vertex in enumerate(mesh.vertices()):

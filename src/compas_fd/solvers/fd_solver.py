@@ -16,10 +16,9 @@ class FDSolver(Solver):
 
     def solve(self) -> None:
         """Apply force density algorithm for a single iteration."""
-        free, fixed, xyz, C, q, Q, p, _, Ai, Af, *_ = self.numdata
-        b = p[free] - Af.dot(xyz[fixed])
-        xyz[free] = spsolve(Ai, b)
-        self.numdata.xyz = xyz
+        nd = self.numdata
+        b = nd.p[nd.free] - nd.Af.dot(nd.xyz[nd.fixed])
+        nd.xyz[nd.free] = spsolve(nd.Ai, b)
 
     @property
     def is_converged(self) -> bool:
@@ -28,8 +27,7 @@ class FDSolver(Solver):
 
     def post_process(self) -> None:
         """Compute dependent variables after ending solver."""
-        _, _, xyz, C, q, Q, p, A, *_ = self.numdata
-        lengths = normrow(C.dot(xyz))
-        self.numdata.lengths = lengths
-        self.numdata.forces = q * lengths
-        self.numdata.residuals = p - A.dot(xyz)
+        nd = self.numdata
+        nd.lengths = normrow(nd.C.dot(nd.xyz))
+        nd.forces = nd.q * nd.lengths
+        nd.residuals = nd.p - nd.A.dot(nd.xyz)
