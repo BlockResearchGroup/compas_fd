@@ -10,10 +10,12 @@ from compas.geometry import NurbsCurve
 from compas.geometry import NurbsSurface
 
 from .constraint import Constraint
+
 from .vectorconstraint import VectorConstraint
 from .frameconstraint import FrameConstraint
 from .lineconstraint import LineConstraint
 from .planeconstraint import PlaneConstraint
+
 from .curveconstraint import CurveConstraint
 from .surfaceconstraint import SurfaceConstraint
 
