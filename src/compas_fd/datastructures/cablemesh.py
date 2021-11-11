@@ -8,8 +8,7 @@ from compas.datastructures import Mesh
 
 class CableMesh(Mesh):
     """:class:`CableMesh` extends the mesh datastructure
-    with attributes and methods related to form finding (and analysis) of
-    flexible CableMesh formwork for concrete shells.
+    with attributes and methods related to form finding of tensile surface structures.
     """
 
     if not compas.IPY:
