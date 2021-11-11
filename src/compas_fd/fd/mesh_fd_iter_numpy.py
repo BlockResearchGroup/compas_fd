@@ -22,14 +22,23 @@ def mesh_fd_iter_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd
 
     """
     k_i = mesh.key_index()
-    result = fd_iter_numpy(vertices=array(mesh.vertices_attributes('xyz'), dtype=float64),
-                           fixed=[k_i[v] for v in mesh.vertices_where({'is_anchor': True})],
-                           edges=[(k_i[u], k_i[v]) for u, v in mesh.edges_where({'_is_edge': True})],
-                           forcedensities=asarray([attr['q'] for key, attr in mesh.edges_where({'_is_edge': True}, True)],
-                                                  dtype=float64).reshape((-1, 1)),
-                           loads=array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64),
-                           constraints=list(mesh.vertices_attribute('constraint')),
-                           max_iter=100, tol_res=1E-3, tol_xyz=1E-3)
+    vertices = array(mesh.vertices_attributes('xyz'), dtype=float64)
+    fixed = [k_i[v] for v in mesh.vertices_where({'is_anchor': True})]
+    edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'_is_edge': True})]
+    forcedensities = asarray([attr['q'] for key, attr in mesh.edges_where({'_is_edge': True}, True)],
+                             dtype=float64).reshape((-1, 1))
+    loads = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
+    constraints = list(mesh.vertices_attribute('constraint'))
+
+    result = fd_iter_numpy(vertices=vertices,
+                           fixed=fixed,
+                           edges=edges,
+                           forcedensities=forcedensities,
+                           loads=loads,
+                           constraints=constraints,
+                           max_iter=100,
+                           tol_res=1E-3,
+                           tol_xyz=1E-3)
 
     _update_mesh(mesh, result)
 
