@@ -46,5 +46,5 @@ class SurfaceConstraint(Constraint):
         self._normal = Vector(* vector_component(self.residual, normal))
 
     def project(self):
-        xyz, self._param = self.geometry.closest_point(self._location, parameter=True)
+        xyz, self._param = self.geometry.closest_point(self._location, return_parameter=True)
         self._location = Point(* xyz)
