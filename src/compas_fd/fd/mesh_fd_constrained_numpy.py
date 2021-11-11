@@ -21,12 +21,11 @@ def mesh_fd_constrained_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'co
         for compatibility with RPCs.
 
     """
-    k_i = mesh.key_index()
+    v_i = mesh.vertex_index()
     vertices = array(mesh.vertices_attributes('xyz'), dtype=float64)
-    fixed = [k_i[v] for v in mesh.vertices_where({'is_anchor': True})]
-    edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'_is_edge': True})]
-    forcedensities = asarray([attr['q'] for key, attr in mesh.edges_where({'_is_edge': True}, True)],
-                             dtype=float64).reshape((-1, 1))
+    fixed = [v_i[v] for v in mesh.vertices_where({'is_anchor': True})]
+    edges = [(v_i[u], v_i[v]) for u, v in mesh.edges_where({'_is_edge': True})]
+    forcedensities = asarray([attr['q'] for edge, attr in mesh.edges_where({'_is_edge': True}, True)], dtype=float64).reshape((-1, 1))
     loads = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
     constraints = list(mesh.vertices_attribute('constraint'))
 
@@ -46,8 +45,9 @@ def mesh_fd_constrained_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'co
 
 
 def _update_mesh(mesh, result):
-    for key, attr in mesh.vertices(True):
-        index = mesh.key_index()[key]
+    vertex_index = mesh.vertex_index()
+    for vertex, attr in mesh.vertices(True):
+        index = vertex_index[vertex]
         attr['x'] = result.vertices[index, 0]
         attr['y'] = result.vertices[index, 1]
         attr['z'] = result.vertices[index, 2]
@@ -55,6 +55,6 @@ def _update_mesh(mesh, result):
         attr['_ry'] = result.residuals[index, 1]
         attr['_rz'] = result.residuals[index, 2]
 
-    for index, (key, attr) in enumerate(mesh.edges_where({'_is_edge': True}, True)):
+    for index, (vertex, attr) in enumerate(mesh.edges_where({'_is_edge': True}, True)):
         attr['_f'] = result.forces[index, 0]
         attr['_l'] = result.lenghts[index, 0]
