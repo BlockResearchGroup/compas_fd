@@ -2,10 +2,10 @@ from numpy import array, asarray
 from numpy import float64
 
 import compas_fd
-from .fd_iter_numpy import fd_iter_numpy
+from .fd_constrained_numpy import fd_constrained_numpy
 
 
-def mesh_fd_iter_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
+def mesh_fd_constrained_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
     """Iteratively find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
@@ -30,15 +30,15 @@ def mesh_fd_iter_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd
     loads = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
     constraints = list(mesh.vertices_attribute('constraint'))
 
-    result = fd_iter_numpy(vertices=vertices,
-                           fixed=fixed,
-                           edges=edges,
-                           forcedensities=forcedensities,
-                           loads=loads,
-                           constraints=constraints,
-                           max_iter=100,
-                           tol_res=1E-3,
-                           tol_xyz=1E-3)
+    result = fd_constrained_numpy(vertices=vertices,
+                                  fixed=fixed,
+                                  edges=edges,
+                                  forcedensities=forcedensities,
+                                  loads=loads,
+                                  constraints=constraints,
+                                  kmax=100,
+                                  tol_res=1E-3,
+                                  tol_disp=1E-3)
 
     _update_mesh(mesh, result)
 

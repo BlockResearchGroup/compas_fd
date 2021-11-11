@@ -30,6 +30,7 @@ class FDNumericalData:
     q: NDArray[(Any, 1), float64]
     Q: NDArray[(Any, Any), float64]
     p: NDArray[(Any, 1), float64]
+    A: NDArray[(Any, Any), float64]
     Ai: NDArray[(Any, Any), float64]
     Af: NDArray[(Any, Any), float64]
     forces: NDArray[(Any, 1), float64] = None
@@ -58,9 +59,10 @@ class FDNumericalData:
         Q = diags([q.flatten()], [0])
         p = (zeros_like(xyz) if loads is None else
              asarray(loads, dtype=float64).reshape((-1, 3)))
+        A = C.T.dot(Q).dot(C)
         Ai = Ci.T.dot(Q).dot(Ci)
         Af = Ci.T.dot(Q).dot(Cf)
-        return cls(free, fixed, xyz, C, q, Q, p, Ai, Af)
+        return cls(free, fixed, xyz, C, q, Q, p, A, Ai, Af)
 
     @classmethod
     def from_mesh(cls, mesh):
