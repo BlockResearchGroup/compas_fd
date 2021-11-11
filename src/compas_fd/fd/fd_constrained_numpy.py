@@ -14,9 +14,10 @@ from scipy.sparse.linalg import spsolve
 
 from compas.numerical import normrow
 
+from compas_fd.constraints import Constraint
+
 from .fd_numerical_data import FDNumericalData
 from .result import Result
-from ..constraints import Constraint
 
 
 def fd_constrained_numpy(*,
