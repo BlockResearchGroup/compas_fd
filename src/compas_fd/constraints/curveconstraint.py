@@ -46,5 +46,5 @@ class CurveConstraint(Constraint):
         self._normal = self.residual - self.tangent
 
     def project(self):
-        xyz, self._param = self.geometry.closest_point(self._location, parameter=True)
-        self._location = Point(*xyz)
+        xyz, self._param = self.geometry.closest_point(self._location, return_parameter=True)
+        self._location = Point(* xyz)
