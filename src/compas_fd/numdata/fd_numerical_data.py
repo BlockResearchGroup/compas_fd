@@ -17,11 +17,12 @@ from scipy.sparse import diags
 
 from compas.numerical import connectivity_matrix
 
-from .result import Result
+from .numerical_data import NumericalData
+from ..result import Result
 
 
 @dataclass
-class FDNumericalData:
+class FDNumericalData(NumericalData):
     """Stores numerical data used by the force density algorithms."""
     free: int
     fixed: int
@@ -48,7 +49,8 @@ class FDNumericalData:
                     fixed: List[int],
                     edges: List[Tuple[int, int]],
                     forcedensities: List[float],
-                    loads: Optional[Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]]] = None):
+                    loads: Optional[Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]]] = None
+                    ):
         """Construct numerical arrays from force density solver input parameters."""
         free = list(set(range(len(vertices))) - set(fixed))
         xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
