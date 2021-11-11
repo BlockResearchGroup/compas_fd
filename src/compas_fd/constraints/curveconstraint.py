@@ -21,7 +21,7 @@ class CurveConstraint(Constraint):
     @data.setter
     def data(self, data):
         self.geometry = NurbsCurve.from_data(data['geometry'])
-    
+
     @classmethod
     def from_data(cls, data):
         curve = NurbsCurve.from_data(data['geometry'])
