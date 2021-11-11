@@ -22,7 +22,7 @@ optional_requirements = {}
 
 setup(
     name='compas_fd',
-    version='0.2.0rc0',
+    version='0.2.0',
     description='Form Finding of CableMesh structures for the COMPAS framework.',
     long_description=long_description,
     long_description_content_type='text/markdown',
