@@ -40,7 +40,7 @@ class CurveConstraint(Constraint):
 
     def compute_tangent(self):
         direction = self.geometry.tangent_at(self._param)
-        self._tangent = Vector(* vector_component(self.residual, direction))
+        self._tangent = Vector(*vector_component(self.residual, direction))
 
     def compute_normal(self):
         self._normal = self.residual - self.tangent
