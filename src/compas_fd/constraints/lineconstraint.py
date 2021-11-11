@@ -22,7 +22,7 @@ class LineConstraint(Constraint):
     @data.setter
     def data(self, data):
         self.geometry = Line.from_data(data['geometry'])
-    
+
     @classmethod
     def from_data(cls, data):
         line = Line.from_data(data['geometry'])
@@ -30,10 +30,10 @@ class LineConstraint(Constraint):
 
     def compute_tangent(self):
         direction = self.geometry.direction
-        self._tangent = Vector(* vector_component(self.residual, direction))
+        self._tangent = Vector(*vector_component(self.residual, direction))
 
     def compute_normal(self):
         self._normal = self.residual - self.tangent
 
     def project(self):
-        self._location = Point(* project_point_line(self._location, self.geometry))
+        self._location = Point(*project_point_line(self._location, self.geometry))

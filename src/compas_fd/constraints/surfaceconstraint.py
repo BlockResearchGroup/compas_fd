@@ -21,7 +21,7 @@ class SurfaceConstraint(Constraint):
     @data.setter
     def data(self, data):
         self.geometry = NurbsSurface.from_data(data['geometry'])
-    
+
     @classmethod
     def from_data(cls, data):
         srf = NurbsSurface.from_data(data['geometry'])
@@ -42,9 +42,9 @@ class SurfaceConstraint(Constraint):
         self._tangent = self.residual - self.normal
 
     def compute_normal(self):
-        _, _, _, normal = self.geometry.curvature_at(* self._param)
-        self._normal = Vector(* vector_component(self.residual, normal))
+        _, _, _, normal = self.geometry.curvature_at(*self._param)
+        self._normal = Vector(*vector_component(self.residual, normal))
 
     def project(self):
         xyz, self._param = self.geometry.closest_point(self._location, parameter=True)
-        self._location = Point(* xyz)
+        self._location = Point(*xyz)

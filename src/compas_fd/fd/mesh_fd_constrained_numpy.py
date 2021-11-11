@@ -1,0 +1,60 @@
+from numpy import array, asarray
+from numpy import float64
+
+import compas_fd
+from .fd_constrained_numpy import fd_constrained_numpy
+
+
+def mesh_fd_constrained_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
+    """Iteratively find the equilibrium shape of a mesh for the given force densities.
+
+    Parameters
+    ----------
+    mesh : :class:`compas_fd.datastructures.CableMesh`
+        The mesh to equilibriate.
+
+    Returns
+    -------
+    :class:`compas_fd.datastructures.CableMesh`
+        The function updates the mesh in place,
+        but returns a reference to the updated mesh as well
+        for compatibility with RPCs.
+
+    """
+    k_i = mesh.key_index()
+    vertices = array(mesh.vertices_attributes('xyz'), dtype=float64)
+    fixed = [k_i[v] for v in mesh.vertices_where({'is_anchor': True})]
+    edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'_is_edge': True})]
+    forcedensities = asarray([attr['q'] for key, attr in mesh.edges_where({'_is_edge': True}, True)],
+                             dtype=float64).reshape((-1, 1))
+    loads = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
+    constraints = list(mesh.vertices_attribute('constraint'))
+
+    result = fd_constrained_numpy(vertices=vertices,
+                                  fixed=fixed,
+                                  edges=edges,
+                                  forcedensities=forcedensities,
+                                  loads=loads,
+                                  constraints=constraints,
+                                  kmax=100,
+                                  tol_res=1E-3,
+                                  tol_disp=1E-3)
+
+    _update_mesh(mesh, result)
+
+    return mesh
+
+
+def _update_mesh(mesh, result):
+    for key, attr in mesh.vertices(True):
+        index = mesh.key_index()[key]
+        attr['x'] = result.vertices[index, 0]
+        attr['y'] = result.vertices[index, 1]
+        attr['z'] = result.vertices[index, 2]
+        attr['_rx'] = result.residuals[index, 0]
+        attr['_ry'] = result.residuals[index, 1]
+        attr['_rz'] = result.residuals[index, 2]
+
+    for index, (key, attr) in enumerate(mesh.edges_where({'_is_edge': True}, True)):
+        attr['_f'] = result.forces[index, 0]
+        attr['_l'] = result.lenghts[index, 0]

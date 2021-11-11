@@ -14,7 +14,9 @@ class CableMesh(Mesh):
 
     if not compas.IPY:
         from compas_fd.fd import mesh_fd_numpy
+        from compas_fd.fd import mesh_fd_constrained_numpy
         fd_numpy = mesh_fd_numpy
+        fd_constrained_numpy = mesh_fd_constrained_numpy
 
     def __init__(self):
         super(CableMesh, self).__init__()
