@@ -1,9 +1,10 @@
 import compas
 from compas.geometry import Vector, Plane, Point, Line
 from compas_fd.datastructures import CableMesh
-from compas_fd.fd import fd_constrained_numpy
 
 from compas_fd.constraints import Constraint
+from compas_fd.numdata import FDNumericalData
+from compas_fd.solvers import FDConstraintSolver
 
 from compas_view2.app import App
 from compas_view2.objects import Object, MeshObject
@@ -37,16 +38,14 @@ forcedensities = mesh.edges_attribute('q')
 loads = mesh.vertices_attributes(['px', 'py', 'pz'])
 constraints = list(mesh.vertices_attribute('constraint'))
 
-# solver
-result = fd_constrained_numpy(vertices=vertices,
-                              fixed=fixed,
-                              edges=edges,
-                              forcedensities=forcedensities,
-                              loads=loads,
-                              constraints=constraints,
-                              kmax=100,
-                              tol_res=1E-3,
-                              tol_disp=1E-3)
+# set up iterative constraint solver
+numdata = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
+solver = FDConstraintSolver(numdata, constraints, max_iter=30,
+                            tol_res=1E-3, tol_dxyz=1E-3)
+
+# run solver
+result = solver()
+print(solver.iter_count)
 
 # update mesh
 for index, vertex in enumerate(mesh.vertices()):
