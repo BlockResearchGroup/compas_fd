@@ -4,8 +4,6 @@ from numpy import asarray
 from numpy.linalg import norm
 from scipy.sparse.linalg import spsolve
 
-from compas.numerical import normrow
-
 from compas_fd.numdata import FDNumericalData
 from compas_fd.constraints import Constraint
 from .solver import Solver
@@ -32,24 +30,25 @@ class FDConstraintSolver(Solver):
     def solve(self) -> None:
         """Apply force density algorithm for a single iteration."""
         nd = self.numdata
-        b = nd.p[nd.free] - nd.Af.dot(nd.xyz[nd.fixed])
-        nd.xyz[nd.free] = spsolve(nd.Ai, b)
-        nd.residuals = nd.p - nd.A.dot(nd.xyz)
+        b = nd.p[nd.free] - nd.Df.dot(nd.xyz[nd.fixed])
+        nd.xyz[nd.free] = spsolve(nd.Di, b)
         nd.xyz_prev = nd.xyz.copy()
         self._update_constraints()
 
-    def _update_constraints(self):
+    def _update_constraints(self) -> None:
         """Update all vertex constraints by the residuals of the current iteration,
         and store their updated vertex coordinates in the numdata attribute.
         """
         nd = self.numdata
+        xyz = nd.xyz
         for vertex, constraint in enumerate(self.constraints):
             if not constraint:
                 continue
-            constraint.location = nd.xyz[vertex]
+            constraint.location = xyz[vertex]
             constraint.residual = nd.residuals[vertex]
-            nd.xyz[vertex] = constraint.location + constraint.tangent * 0.5
+            xyz[vertex] = constraint.location + constraint.tangent * 0.5
         nd.tangent_residuals = asarray([c.tangent for c in self.constraints if c])
+        nd.xyz = xyz
 
     @property
     def is_converged(self) -> bool:
@@ -74,9 +73,3 @@ class FDConstraintSolver(Solver):
         nd = self.numdata
         max_dxyz = max(norm(nd.xyz - nd.xyz_prev, axis=1))
         return max_dxyz < self.tol_disp
-
-    def post_process(self) -> None:
-        """Compute dependent variables after ending the solver loop."""
-        nd = self.numdata
-        nd.lengths = normrow(nd.C.dot(nd.xyz))
-        nd.forces = nd.q * nd.lengths

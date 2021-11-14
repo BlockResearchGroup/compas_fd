@@ -1,9 +1,7 @@
 from scipy.sparse.linalg import spsolve
 
-from compas.numerical import normrow
-
+from compas_fd.numdata import FDNumericalData
 from .solver import Solver
-from ..numdata import FDNumericalData
 
 
 class FDSolver(Solver):
@@ -17,17 +15,10 @@ class FDSolver(Solver):
     def solve(self) -> None:
         """Apply force density algorithm for a single iteration."""
         nd = self.numdata
-        b = nd.p[nd.free] - nd.Af.dot(nd.xyz[nd.fixed])
-        nd.xyz[nd.free] = spsolve(nd.Ai, b)
+        b = nd.p[nd.free] - nd.Df.dot(nd.xyz[nd.fixed])
+        nd.xyz[nd.free] = spsolve(nd.Di, b)
 
     @property
     def is_converged(self) -> bool:
         """Verify if all convergence criteria are met."""
         return True
-
-    def post_process(self) -> None:
-        """Compute dependent variables after ending solver."""
-        nd = self.numdata
-        nd.lengths = normrow(nd.C.dot(nd.xyz))
-        nd.forces = nd.q * nd.lengths
-        nd.residuals = nd.p - nd.A.dot(nd.xyz)
