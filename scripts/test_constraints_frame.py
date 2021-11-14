@@ -1,10 +1,9 @@
-from functools import partial
 import compas
 from compas.geometry import Vector, Point, Line, Frame
 from compas_fd.datastructures import CableMesh
-from compas_fd.fd import fd_numpy
 
 from compas_fd.constraints import Constraint
+from compas_fd.fd import mesh_fd_constraint_numpy
 
 from compas_view2.app import App
 from compas_view2.objects import Object, MeshObject
@@ -22,30 +21,12 @@ frame = Frame([0, 0, 0], [1, 0, 1], [1, 1, 5])
 constraint = Constraint(frame)
 mesh.vertex_attribute(vertex, 'constraint', constraint)
 
-vertex_index = mesh.vertex_index()
-vertices = mesh.vertices_attributes('xyz')
-edges = [(vertex_index[u], vertex_index[v]) for u, v in mesh.edges_where({'_is_edge': True})]
-loads = mesh.vertices_attributes(['px', 'py', 'pz'])
-forcedensities = mesh.edges_attribute('q')
 fixed = list(mesh.vertices_where({'is_anchor': True}))
-constraints = mesh.vertices_attribute('constraint', keys=fixed)
+constraints = mesh.vertices_attribute('constraint')
 
-fd = partial(fd_numpy, edges=edges, loads=loads, forcedensities=forcedensities, fixed=fixed)
+# solve
+mesh = mesh_fd_constraint_numpy(mesh)
 
-for k in range(100):
-    result = fd(vertices=vertices)
-    residuals = result.residuals
-    vertices = result.vertices
-    for vertex, constraint in zip(fixed, constraints):
-        if not constraint:
-            continue
-        constraint.location = vertices[vertex]
-        constraint.residual = residuals[vertex]
-        vertices[vertex] = constraint.location + constraint.tangent * 0.5
-
-for index, vertex in enumerate(mesh.vertices()):
-    mesh.vertex_attributes(vertex, 'xyz', vertices[index])
-    mesh.vertex_attributes(vertex, ['_rx', '_ry', '_rz'], residuals[index])
 
 # ==============================================================================
 # Viz

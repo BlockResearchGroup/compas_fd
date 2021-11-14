@@ -21,16 +21,16 @@ vertices = mesh.vertices_attributes('xyz')
 fixed = list(mesh.vertices_where({'is_anchor': True}))
 edges = [(vertex_index[u], vertex_index[v]) for
          u, v in mesh.edges_where({'_is_edge': True})]
-forcedensities = mesh.edges_attribute('q')
+force_densities = mesh.edges_attribute('q')
 loads = mesh.vertices_attributes(['px', 'py', 'pz'])
 
 # set up single iteration solver
-numdata = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
+numdata = FDNumericalData(vertices, fixed, edges, force_densities, loads)
 solver = FDSolver(numdata)
 
 # run solver
 result = solver()
-print(solver.iter_count)
+print(solver.kcount)
 
 # update mesh
 for index, vertex in enumerate(mesh.vertices()):
