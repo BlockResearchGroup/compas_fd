@@ -14,12 +14,12 @@ class Solver:
                  ) -> None:
         self.numdata = numdata
         self.kmax = kmax
-        self.iter_count = 0
+        self.kcount = 0
         self.result = None
 
     def __call__(self) -> Result:
-        """Iteratively apply the solver algorithm."""
-        for self.iter_count in range(1, self.kmax + 1):
+        """Iteratively apply the solve algorithm."""
+        for self.kcount in range(1, self.kmax + 1):
             self.solve()
             if self.is_converged:
                 break
@@ -37,5 +37,5 @@ class Solver:
         raise NotImplementedError
 
     def post_process(self) -> None:
-        """Compute dependent variables after ending the solver loop."""
-        raise NotImplementedError
+        """Callable after ending the solver loop."""
+        pass
