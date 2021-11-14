@@ -1,13 +1,10 @@
-from numpy import array, asarray
-from numpy import float64
-
 import compas_fd
 
 from compas_fd.numdata import FDNumericalData
 from compas_fd.solvers import FDConstraintSolver
 
 
-def mesh_fd_iter_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
+def mesh_fd_constraint_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
     """Iteratively find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
@@ -23,19 +20,11 @@ def mesh_fd_iter_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd
         for compatibility with RPCs.
 
     """
-    k_i = mesh.key_index()
-    vertices = array(mesh.vertices_attributes('xyz'), dtype=float64)
-    fixed = [k_i[v] for v in mesh.vertices_where({'is_anchor': True})]
-    edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'_is_edge': True})]
-    forcedensities = asarray([attr['q'] for key, attr in mesh.edges_where({'_is_edge': True}, True)],
-                             dtype=float64).reshape((-1, 1))
-    loads = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
-    constraints = list(mesh.vertices_attribute('constraint'))
-
-    numdata = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
-    solver = FDConstraintSolver(numdata, constraints, kmax=100, tol_res=1E-3, tol_disp=1E-3)
+    numdata = FDNumericalData.from_mesh(mesh)
+    constraints = list(c for c in mesh.vertices_attribute('constraint') if c)
+    solver = FDConstraintSolver(numdata, constraints,
+                                kmax=100, tol_res=1E-3, tol_disp=1E-3)
     result = solver()
-
     _update_mesh(mesh, result)
     return mesh
 
