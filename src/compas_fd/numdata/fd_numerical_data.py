@@ -16,8 +16,8 @@ from scipy.sparse import diags
 
 from compas.numerical import connectivity_matrix
 
+from compas_fd.result import Result
 from .numerical_data import NumericalData
-from ..result import Result
 
 
 @dataclass

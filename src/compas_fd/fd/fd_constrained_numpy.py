@@ -16,8 +16,8 @@ from compas.numerical import normrow
 
 from compas_fd.constraints import Constraint
 
-from .fd_numerical_data import FDNumericalData
-from .result import Result
+from compas_fd.numdata import FDNumericalData
+from compas_fd.result import Result
 
 
 def fd_constrained_numpy(*,

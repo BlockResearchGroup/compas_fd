@@ -1,5 +1,5 @@
-from ..numdata import NumericalData
-from ..result import Result
+from compas_fd.numdata import NumericalData
+from compas_fd.result import Result
 
 
 class Solver:

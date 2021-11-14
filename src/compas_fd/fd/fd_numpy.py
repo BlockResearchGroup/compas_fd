@@ -15,7 +15,7 @@ from scipy.sparse.linalg import spsolve
 from compas.numerical import connectivity_matrix
 from compas.numerical import normrow
 
-from ..result import Result
+from compas_fd.result import Result
 
 
 def fd_numpy(*,

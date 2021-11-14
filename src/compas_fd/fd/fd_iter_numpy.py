@@ -9,10 +9,10 @@ from nptyping import NDArray
 
 from numpy import float64
 
-from ..result import Result
-from ..constraints import Constraint
-from ..numdata import FDNumericalData
-from ..solvers import FDConstraintSolver
+from compas_fd.result import Result
+from compas_fd.constraints import Constraint
+from compas_fd.numdata import FDNumericalData
+from compas_fd.solvers import FDConstraintSolver
 
 
 def fd_iter_numpy(*,

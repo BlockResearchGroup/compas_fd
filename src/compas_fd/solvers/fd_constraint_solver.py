@@ -6,9 +6,9 @@ from scipy.sparse.linalg import spsolve
 
 from compas.numerical import normrow
 
+from compas_fd.numdata import FDNumericalData
+from compas_fd.constraints import Constraint
 from .solver import Solver
-from ..numdata import FDNumericalData
-from ..constraints import Constraint
 
 
 class FDConstraintSolver(Solver):

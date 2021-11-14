@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from dataclasses import astuple
 
-from ..result import Result
+from compas_fd.result import Result
 
 
 @dataclass
