@@ -12,6 +12,9 @@ compas_fd
     compas_fd.datastructures
     compas_fd.fd
     compas_fd.loads
+    compas_fd.numdata
+    compas_fd.results
+    compas_fd.solvers
 
 """
 

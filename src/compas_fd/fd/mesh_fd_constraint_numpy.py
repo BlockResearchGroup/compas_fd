@@ -1,11 +1,11 @@
 import compas_fd
 
 from compas_fd.numdata import FDNumericalData
-from compas_fd.solvers import FDSolver
+from compas_fd.solvers import FDConstraintSolver
 
 
-def mesh_fd_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
-    """Find the equilibrium shape of a mesh for the given force densities.
+def mesh_fd_constraint_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
+    """Iteratively find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
     ----------
@@ -21,7 +21,9 @@ def mesh_fd_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.data
 
     """
     numdata = FDNumericalData.from_mesh(mesh)
-    solver = FDSolver(numdata)
+    constraints = list(c for c in mesh.vertices_attribute('constraint') if c)
+    solver = FDConstraintSolver(numdata, constraints,
+                                kmax=100, tol_res=1E-3, tol_disp=1E-3)
     result = solver()
     _update_mesh(mesh, result)
     return mesh

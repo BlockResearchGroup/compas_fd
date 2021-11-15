@@ -1,11 +1,9 @@
 import compas
-from compas.geometry import Vector, Point, Line
+from compas.geometry import Point, Line, Vector
 from compas_fd.datastructures import CableMesh
 
-from compas.geometry import NurbsSurface
-
-from compas_fd.constraints import Constraint
-from compas_fd.fd import mesh_fd_constraint_numpy
+from compas_fd.numdata import FDNumericalData
+from compas_fd.solvers import FDSolver
 
 from compas_view2.app import App
 from compas_view2.objects import Object, MeshObject
@@ -17,23 +15,28 @@ mesh = CableMesh.from_obj(compas.get('faces.obj'))
 mesh.vertices_attribute('is_anchor', True, keys=list(mesh.vertices_where({'vertex_degree': 2})))
 mesh.vertices_attribute('t', 0.0)
 
-# surface constraint
-vertex = list(mesh.vertices_where({'x': 10, 'y': 10}))[0]
-points = [
-    [Point(0, 0, 10), Point(3, 0, 10), Point(6, 0, 10), Point(9, 0, 10)],
-    [Point(0, 3, 0), Point(3, 3, 6), Point(6, 3, 6), Point(9, 3, 0)],
-    [Point(0, 6, 0), Point(3, 6, 6), Point(6, 6, 6), Point(9, 6, 0)],
-    [Point(0, 9, 10), Point(3, 9, 10), Point(6, 9, 10), Point(9, 9, 10)],
-]
-surface = NurbsSurface.from_points(points=points)
-constraint = Constraint(surface)
-mesh.vertex_attribute(vertex, 'constraint', constraint)
-
+# input parameters
+vertex_index = mesh.vertex_index()
+vertices = mesh.vertices_attributes('xyz')
 fixed = list(mesh.vertices_where({'is_anchor': True}))
-constraints = mesh.vertices_attribute('constraint')
+edges = [(vertex_index[u], vertex_index[v]) for
+         u, v in mesh.edges_where({'_is_edge': True})]
+force_densities = mesh.edges_attribute('q')
+loads = mesh.vertices_attributes(['px', 'py', 'pz'])
 
-# solve
-mesh = mesh_fd_constraint_numpy(mesh)
+# set up single iteration solver
+numdata = FDNumericalData(vertices, fixed, edges, force_densities, loads)
+solver = FDSolver(numdata)
+
+# run solver
+result = solver()
+print(solver.kcount)
+
+# update mesh
+for index, vertex in enumerate(mesh.vertices()):
+    mesh.vertex_attributes(vertex, 'xyz', result.vertices[index])
+    mesh.vertex_attributes(vertex, ['_rx', '_ry', '_rz'], result.residuals[index])
+
 
 # ==============================================================================
 # Viz
@@ -45,10 +48,6 @@ viewer.add(mesh)
 
 for vertex in fixed:
     viewer.add(Point(* mesh.vertex_attributes(vertex, 'xyz')), size=20, color=(0, 0, 0))
-
-for constraint in constraints:
-    if constraint:
-        viewer.add(surface.to_mesh(nu=10))
 
 for vertex in fixed:
     a = Point(* mesh.vertex_attributes(vertex, 'xyz'))
