@@ -8,7 +8,6 @@ from typing_extensions import Annotated
 from nptyping import NDArray
 
 from dataclasses import dataclass
-from dataclasses import astuple
 
 from numpy import asarray
 from numpy import float64
@@ -39,9 +38,6 @@ class FDNumericalData(NumericalData):
     residuals: NDArray[(Any, 3), float64] = None
     tangent_residuals: NDArray[(Any, 3), float64] = None
     normal_residuals: NDArray[(Any, 1), float64] = None
-
-    def __iter__(self):
-        return iter(astuple(self))
 
     @classmethod
     def from_params(cls,
