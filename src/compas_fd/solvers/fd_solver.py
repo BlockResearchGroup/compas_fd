@@ -17,6 +17,7 @@ class FDSolver(Solver):
         nd = self.numdata
         b = nd.p[nd.free] - nd.Df.dot(nd.xyz[nd.fixed])
         nd.xyz[nd.free] = spsolve(nd.Di, b)
+        nd.reset_xyz()
 
     @property
     def is_converged(self) -> bool:
