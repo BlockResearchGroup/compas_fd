@@ -1,7 +1,7 @@
 from typing import Callable
 from functools import wraps
 
-from ..result import Result
+from compas_fd.result import Result
 
 
 class NumericalData:
