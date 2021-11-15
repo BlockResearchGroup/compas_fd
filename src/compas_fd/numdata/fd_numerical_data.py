@@ -31,7 +31,7 @@ class FDNumericalData(NumericalData):
                  ):
         self.xyz = vertices
         self.fixed = fixed
-        self.connectivity_matrix = edges
+        self.edges = edges
         self.force_densities = force_densities
         self.loads = loads
 
@@ -75,14 +75,21 @@ class FDNumericalData(NumericalData):
         return self._free
 
     @property
-    def connectivity_matrix(self):
-        return self._connectivity_matrix
+    def edges(self):
+        return self._edges
 
-    @connectivity_matrix.setter
-    def connectivity_matrix(self, edges):
-        self._connectivity_matrix = connectivity_matrix(edges, 'csr')
+    @edges.setter
+    def edges(self, edges):
+        self._edges = edges
+        self._connectivity_matrix = None
         self._connectivity_matrix_free = None
         self._connectivity_matrix_fixed = None
+
+    @property
+    def connectivity_matrix(self):
+        if self._connectivity_matrix is None:
+            self._connectivity_matrix = connectivity_matrix(self.edges, 'csr')
+        return self._connectivity_matrix
 
     @property
     def connectivity_matrix_free(self):
