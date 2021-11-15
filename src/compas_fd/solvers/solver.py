@@ -18,7 +18,7 @@ class Solver:
         self.result = None
 
     def __call__(self) -> Result:
-        """Iteratively apply the solve algorithm."""
+        """Iteratively apply the solver algorithm."""
         for self.kcount in range(1, self.kmax + 1):
             self.solve()
             if self.is_converged:
@@ -28,12 +28,12 @@ class Solver:
         return self.result
 
     def solve(self) -> None:
-        """Apply solver algorithm for a single iteration."""
+        """Apply the solver algorithm for a single iteration."""
         raise NotImplementedError
 
     @property
     def is_converged(self) -> bool:
-        """Verify if all convergence criteria are met."""
+        """Verify if convergence criteria are met."""
         raise NotImplementedError
 
     def post_process(self) -> None:
