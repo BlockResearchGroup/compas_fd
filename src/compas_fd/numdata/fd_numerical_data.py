@@ -7,16 +7,16 @@ from typing import Optional
 from typing_extensions import Annotated
 from nptyping import NDArray
 
-from dataclasses import dataclass
-
 from numpy import asarray
 from numpy import float64
+from numpy import normrow
 from numpy import zeros_like
 from scipy.sparse import diags
 
 from compas.datastructures import Mesh
 from compas.numerical import connectivity_matrix
 
+from compas_fd.result import Result
 from .numerical_data import NumericalData
 from .face_data import FaceDataMixin
 
