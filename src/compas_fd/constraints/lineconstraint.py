@@ -12,7 +12,6 @@ from .constraint import Constraint
 import compas
 if compas.IPY:  # Tom: is this allowed?
     from compas_rhino.geometry import RhinoLine
-    import Rhino
 
 
 class LineConstraint(Constraint):
@@ -59,7 +58,7 @@ class LineConstraint(Constraint):
     def update_geometry_guid(self):
         self._geometry = RhinoLine.from_guid(self._guid).to_compas()
 
+    @property
     def rhinogeometry(self):
-        start = Rhino.Geometry.Point3d(self._geometry.start.x, self._geometry.start.y, self._geometry.start.z)
-        end = Rhino.Geometry.Point3d(self._geometry.end.x, self._geometry.end.y, self._geometry.end.z)
-        return Rhino.Geometry.Line(start, end)
+        self._rhinogeometry = RhinoLine.from_guid(self._guid).geometry
+        return self._rhinogeometry

@@ -64,3 +64,8 @@ class CurveConstraint(Constraint):
 
     def update_geometry_guid(self):
         self._geometry = RhinoCurve.from_guid(self._guid).to_compas()
+
+    @property
+    def rhinogeometry(self):
+        self._rhinogeometry = RhinoCurve.from_guid(self._guid).geometry
+        return self._rhinogeometry
