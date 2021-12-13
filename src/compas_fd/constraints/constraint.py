@@ -35,9 +35,12 @@ class Constraint(Data):
     def __init__(self, geometry, **kwargs):
         super(Constraint, self).__init__(**kwargs)
         self._geometry = None
+        self._location = None
         self._residual = None
         self._tangent = None
         self._normal = None
+        self._guid = None
+        self._param = None
         self.geometry = geometry
 
     @staticmethod
@@ -54,6 +57,14 @@ class Constraint(Data):
         self._tangent = None
         self._normal = None
         self._geometry = geometry
+
+    @property
+    def guid(self):
+        return self._guid
+
+    @guid.setter
+    def guid(self, guid):
+        self._guid = guid
 
     @property
     def location(self):
@@ -84,7 +95,16 @@ class Constraint(Data):
     def compute_normal(self):
         raise NotImplementedError
 
+    def compute_param(self):
+        raise NotImplementedError
+
     def project(self):
+        raise NotImplementedError
+
+    def update_location_at_param(self):
+        raise NotImplementedError
+
+    def update_geometry_guid(self):
         raise NotImplementedError
 
     @property
@@ -98,3 +118,9 @@ class Constraint(Data):
         if self._normal is None:
             self.compute_normal()
         return self._normal
+
+    @property
+    def param(self):
+        if self._param is None:
+            self.compute_param()
+        return self._param
