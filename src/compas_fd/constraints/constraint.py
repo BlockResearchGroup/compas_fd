@@ -41,6 +41,7 @@ class Constraint(Data):
         self._normal = None
         self._guid = None
         self._param = None
+        self._rhinogeometry = None
         self.geometry = geometry
 
     @staticmethod
@@ -124,3 +125,7 @@ class Constraint(Data):
         if self._param is None:
             self.compute_param()
         return self._param
+
+    @property
+    def rhinogeometry(self):
+        raise NotImplementedError
