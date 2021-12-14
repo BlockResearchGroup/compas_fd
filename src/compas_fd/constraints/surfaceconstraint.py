@@ -8,6 +8,10 @@ from compas.geometry import Point
 from compas.geometry import NurbsSurface
 from .constraint import Constraint
 
+import compas
+if compas.IPY:  # Tom: is this allowed?
+    from compas_rhino.geometry import RhinoSurface
+
 
 class SurfaceConstraint(Constraint):
 
@@ -16,16 +20,19 @@ class SurfaceConstraint(Constraint):
 
     @property
     def data(self):
-        return {'geometry': self.geometry.data}
+        return {'geometry': self.geometry.data, 'guid': str(self.guid)}
 
     @data.setter
     def data(self, data):
         self.geometry = NurbsSurface.from_data(data['geometry'])
+        self.guid = data['guid']
 
     @classmethod
     def from_data(cls, data):
         srf = NurbsSurface.from_data(data['geometry'])
-        return cls(srf)
+        constraint = cls(srf)
+        constraint.guid = data['guid']
+        return constraint
 
     @property
     def location(self):
@@ -48,3 +55,17 @@ class SurfaceConstraint(Constraint):
     def project(self):
         xyz, self._param = self.geometry.closest_point(self._location, return_parameter=True)
         self._location = Point(* xyz)
+
+    def compute_param(self):
+        _, self._param = self.geometry.closest_point(self._location, return_parameter=True)
+
+    def update_location_at_param(self):
+        self._location = self.geometry.point_at(self._param)
+
+    def update_geometry_guid(self):
+        self._geometry = RhinoSurface.from_guid(self._guid).to_compas()
+
+    @property
+    def rhinogeometry(self):
+        self._rhinogeometry = RhinoSurface.from_guid(self._guid).geometry
+        return self._rhinogeometry
