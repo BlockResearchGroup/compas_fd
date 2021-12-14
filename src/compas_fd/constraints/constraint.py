@@ -96,6 +96,9 @@ class Constraint(Data):
     def compute_normal(self):
         raise NotImplementedError
 
+    def update(self):
+        raise NotImplementedError
+
     def compute_param(self):
         raise NotImplementedError
 

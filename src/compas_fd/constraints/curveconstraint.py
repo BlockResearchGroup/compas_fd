@@ -52,6 +52,12 @@ class CurveConstraint(Constraint):
     def compute_normal(self):
         self._normal = self.residual - self.tangent
 
+    def update(self):
+        self._location = self.location + self.tangent * 0.5
+        pt_on_curve = self.geometry.closest_point(self._location, return_parameter=False)
+        if self._location.distance_to_point(pt_on_curve) > 0.001:
+            self.project()
+
     def project(self):
         xyz, self._param = self.geometry.closest_point(self._location, return_parameter=True)
         self._location = Point(* xyz)

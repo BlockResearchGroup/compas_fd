@@ -52,6 +52,12 @@ class SurfaceConstraint(Constraint):
         _, _, _, normal = self.geometry.curvature_at(*self._param)
         self._normal = Vector(*vector_component(self.residual, normal))
 
+    def update(self):
+        self._location = self.location + self.tangent * 0.5
+        pt_on_srf = self.geometry.closest_point(self._location, parameter=False)
+        if self._location.distance_to_point(pt_on_srf) > 0.001:
+            self.project()
+
     def project(self):
         xyz, self._param = self.geometry.closest_point(self._location, return_parameter=True)
         self._location = Point(* xyz)
