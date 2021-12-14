@@ -12,6 +12,7 @@ from .constraint import Constraint
 import compas
 if compas.IPY:  # Tom: is this allowed?
     from compas_rhino.geometry import RhinoLine
+    from compas_rhino.geometry import RhinoCurve
 
 
 class LineConstraint(Constraint):
@@ -60,5 +61,5 @@ class LineConstraint(Constraint):
 
     @property
     def rhinogeometry(self):
-        self._rhinogeometry = RhinoLine.from_guid(self._guid).geometry
+        self._rhinogeometry = RhinoCurve.from_guid(self._guid).geometry
         return self._rhinogeometry
