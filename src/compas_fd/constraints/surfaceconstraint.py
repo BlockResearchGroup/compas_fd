@@ -54,19 +54,19 @@ class SurfaceConstraint(Constraint):
 
     def update(self):
         self._location = self.location + self.tangent * 0.5
-        pt_on_srf = self.geometry.closest_point(self._location, parameter=False)
+        pt_on_srf = self.geometry.closest_point(self._location, return_parameters=False)
         if self._location.distance_to_point(pt_on_srf) > 0.001:
             self.project()
 
     def project(self):
-        xyz, self._param = self.geometry.closest_point(self._location, return_parameter=True)
+        xyz, self._param = self.geometry.closest_point(self._location, return_parameters=True)
         self._location = Point(* xyz)
 
     def compute_param(self):
-        _, self._param = self.geometry.closest_point(self._location, return_parameter=True)
+        _, self._param = self.geometry.closest_point(self._location, return_parameters=True)
 
     def update_location_at_param(self):
-        self._location = self.geometry.point_at(self._param)
+        self._location = self.geometry.point_at(*self._param)
 
     def update_geometry_guid(self):
         self._geometry = RhinoSurface.from_guid(self._guid).to_compas()
