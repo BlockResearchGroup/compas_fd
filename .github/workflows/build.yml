@@ -25,7 +25,7 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - uses: compas-dev/compas-actions.build@main
+      - uses: compas-dev/compas-actions.build@v1.1.1
         with:
           test_lint: true
           test_compas: true
