@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+defaults:
+  run:
+    shell: bash -l {0}
+
 jobs:
   build-package:
     if: "!contains(github.event.pull_request.labels.*.name, 'docs-only')"
