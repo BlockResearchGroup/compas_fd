@@ -80,7 +80,8 @@ def _update_constraints(numdata: FDNumericalData,
             continue
         constraint.location = nd.xyz[vertex]
         constraint.residual = nd.residuals[vertex]
-        nd.xyz[vertex] = constraint.location + constraint.tangent * damping
+        constraint.update()
+        nd.xyz[vertex] = constraint.location
     nd.tangent_residuals = asarray([c.tangent for c in constraints if c])
 
 
