@@ -5,7 +5,13 @@ import compas_fd
 from .fd_constrained_numpy import fd_constrained_numpy
 
 
-def mesh_fd_constrained_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.datastructures.CableMesh':
+def mesh_fd_constrained_numpy(
+        mesh: 'compas_fd.datastructures.CableMesh',
+        kmax: int = 100,
+        damping: float = 0.1,
+        tol_res: float = 1e-3,
+        tol_disp: float = 1e-3
+    ) -> 'compas_fd.datastructures.CableMesh':
     """Iteratively find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
@@ -35,9 +41,10 @@ def mesh_fd_constrained_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'co
                                   forcedensities=forcedensities,
                                   loads=loads,
                                   constraints=constraints,
-                                  kmax=100,
-                                  tol_res=1E-3,
-                                  tol_disp=1E-3)
+                                  kmax=kmax,
+                                  tol_res=tol_res,
+                                  tol_disp=tol_disp,
+                                  damping=damping)
 
     _update_mesh(mesh, result)
 

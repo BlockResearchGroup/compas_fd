@@ -29,7 +29,8 @@ def fd_constrained_numpy(*,
                          constraints: Sequence[Constraint],
                          kmax: int = 100,
                          tol_res: float = 1E-3,
-                         tol_disp: float = 1E-3
+                         tol_disp: float = 1E-3,
+                         damping: float = 0.1
                          ) -> Result:
     """Iteratively compute the equilibrium coordinates of a system of vertices connected by edges.
     Vertex constraints are recomputed at each iteration.
@@ -39,7 +40,7 @@ def fd_constrained_numpy(*,
     for k in range(kmax):
         xyz_prev = nd.xyz
         _solve_fd(nd)
-        _update_constraints(nd, constraints)
+        _update_constraints(nd, constraints, damping)
         if (_is_converged_residuals(nd.tangent_residuals, tol_res) and
            _is_converged_disp(xyz_prev, nd.xyz, tol_disp)):
             break
@@ -68,7 +69,8 @@ def _post_process_fd(numdata: FDNumericalData) -> None:
 
 
 def _update_constraints(numdata: FDNumericalData,
-                        constraints: Sequence[Constraint]) -> None:
+                        constraints: Sequence[Constraint],
+                        damping: float) -> None:
     """Update all vertex constraints by the residuals of the current iteration,
     and store their updated vertex coordinates in the numdata parameter.
     """
@@ -78,7 +80,7 @@ def _update_constraints(numdata: FDNumericalData,
             continue
         constraint.location = nd.xyz[vertex]
         constraint.residual = nd.residuals[vertex]
-        nd.xyz[vertex] = constraint.location + constraint.tangent * 0.5
+        nd.xyz[vertex] = constraint.location + constraint.tangent * damping
     nd.tangent_residuals = asarray([c.tangent for c in constraints if c])
 
 
