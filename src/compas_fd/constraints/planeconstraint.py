@@ -35,8 +35,8 @@ class PlaneConstraint(Constraint):
         normal = self.geometry.normal
         self._normal = Vector(*vector_component(self.residual, normal))
 
-    def update(self):
-        self._location = self.location + self.tangent * 0.5
+    def update(self, damping=0.1):
+        self._location = self.location + self.tangent * damping
 
     def project(self):
         self._location = Point(*project_point_plane(self._location, self.geometry))

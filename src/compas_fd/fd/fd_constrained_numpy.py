@@ -41,8 +41,10 @@ def fd_constrained_numpy(*,
         xyz_prev = nd.xyz
         _solve_fd(nd)
         _update_constraints(nd, constraints, damping)
-        if (_is_converged_residuals(nd.tangent_residuals, tol_res) and
-           _is_converged_disp(xyz_prev, nd.xyz, tol_disp)):
+        if (
+            _is_converged_residuals(nd.tangent_residuals, tol_res) and
+            _is_converged_disp(xyz_prev, nd.xyz, tol_disp)
+        ):
             break
 
     _post_process_fd(nd)
@@ -80,7 +82,7 @@ def _update_constraints(numdata: FDNumericalData,
             continue
         constraint.location = nd.xyz[vertex]
         constraint.residual = nd.residuals[vertex]
-        constraint.update()
+        constraint.update(damping=damping)
         nd.xyz[vertex] = constraint.location
     nd.tangent_residuals = asarray([c.tangent for c in constraints if c])
 

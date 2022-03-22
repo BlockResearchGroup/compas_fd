@@ -31,8 +31,8 @@ class VectorConstraint(Constraint):
     def compute_normal(self):
         self._normal = self.residual - self.tangent
 
-    def update(self):
-        self._location = self.location + self.tangent * 0.5
+    def update(self, damping=0.1):
+        self._location = self.location + self.tangent * damping
 
     def project(self):
         pass
