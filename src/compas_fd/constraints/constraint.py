@@ -59,13 +59,13 @@ class Constraint(Data):
         self._normal = None
         self._geometry = geometry
 
-    @property
-    def guid(self):
-        return self._guid
+    # @property
+    # def guid(self):
+    #     return self._guid
 
-    @guid.setter
-    def guid(self, guid):
-        self._guid = guid
+    # @guid.setter
+    # def guid(self, guid):
+    #     self._guid = guid
 
     @property
     def location(self):
@@ -108,8 +108,8 @@ class Constraint(Data):
     def update_location_at_param(self):
         raise NotImplementedError
 
-    def update_geometry_guid(self):
-        raise NotImplementedError
+    # def update_geometry_guid(self):
+    #     raise NotImplementedError
 
     @property
     def tangent(self):
@@ -129,6 +129,6 @@ class Constraint(Data):
             self.compute_param()
         return self._param
 
-    @property
-    def rhinogeometry(self):
-        raise NotImplementedError
+    # @property
+    # def rhinogeometry(self):
+    #     raise NotImplementedError

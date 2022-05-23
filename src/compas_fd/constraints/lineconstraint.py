@@ -23,18 +23,16 @@ class LineConstraint(Constraint):
 
     @property
     def data(self):
-        return {'geometry': self.geometry.data, 'guid': str(self.guid)}
+        return {'geometry': self.geometry.data}
 
     @data.setter
     def data(self, data):
         self.geometry = Line.from_data(data['geometry'])
-        self.guid = data['guid']
 
     @classmethod
     def from_data(cls, data):
         line = Line.from_data(data['geometry'])
         constraint = cls(line)
-        constraint.guid = data['guid']
         return constraint
 
     def compute_tangent(self):
@@ -64,10 +62,10 @@ class LineConstraint(Constraint):
         d = self._geometry.direction
         self._location = self._geometry.start + d * self._param
 
-    def update_geometry_guid(self):
-        self._geometry = RhinoLine.from_guid(self._guid).to_compas()
+    # def update_geometry_guid(self):
+    #     self._geometry = RhinoLine.from_guid(self._guid).to_compas()
 
-    @property
-    def rhinogeometry(self):
-        self._rhinogeometry = RhinoCurve.from_guid(self._guid).geometry
-        return self._rhinogeometry
+    # @property
+    # def rhinogeometry(self):
+    #     self._rhinogeometry = RhinoCurve.from_guid(self._guid).geometry
+    #     return self._rhinogeometry

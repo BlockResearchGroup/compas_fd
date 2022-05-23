@@ -20,18 +20,18 @@ class SurfaceConstraint(Constraint):
 
     @property
     def data(self):
-        return {'geometry': self.geometry.data, 'guid': str(self.guid)}
+        return {'geometry': self.geometry.data}
 
     @data.setter
     def data(self, data):
         self.geometry = NurbsSurface.from_data(data['geometry'])
-        self.guid = data['guid']
+        # self.guid = data['guid']
 
     @classmethod
     def from_data(cls, data):
         srf = NurbsSurface.from_data(data['geometry'])
         constraint = cls(srf)
-        constraint.guid = data['guid']
+        # constraint.guid = data['guid']
         return constraint
 
     @property
@@ -68,10 +68,10 @@ class SurfaceConstraint(Constraint):
     def update_location_at_param(self):
         self._location = self.geometry.point_at(*self._param)
 
-    def update_geometry_guid(self):
-        self._geometry = RhinoSurface.from_guid(self._guid).to_compas()
+    # def update_geometry_guid(self):
+    #     self._geometry = RhinoSurface.from_guid(self._guid).to_compas()
 
-    @property
-    def rhinogeometry(self):
-        self._rhinogeometry = RhinoSurface.from_guid(self._guid).geometry
-        return self._rhinogeometry
+    # @property
+    # def rhinogeometry(self):
+    #     self._rhinogeometry = RhinoSurface.from_guid(self._guid).geometry
+    #     return self._rhinogeometry
