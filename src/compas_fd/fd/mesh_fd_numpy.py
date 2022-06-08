@@ -2,7 +2,7 @@ from numpy import array
 from numpy import float64
 
 import compas_fd
-from compas_fd.loads import SelfweightCalculator
+from compas_fd.loads import LoadCalculator
 from .fd_numpy import fd_numpy
 
 
@@ -29,9 +29,8 @@ def mesh_fd_numpy(mesh: 'compas_fd.datastructures.CableMesh') -> 'compas_fd.data
     p = array(mesh.vertices_attributes(('px', 'py', 'pz')), dtype=float64)
     edges = [(k_i[u], k_i[v]) for u, v in mesh.edges_where({'_is_edge': True})]
     q = array([attr['q'] for key, attr in mesh.edges_where({'_is_edge': True}, True)], dtype=float64).reshape((-1, 1))
-    density = mesh.attributes['density']
-    calculate_sw = SelfweightCalculator(mesh, density=density)
-    p[:, 2] -= calculate_sw(xyz)[:, 0]
+    lc = LoadCalculator(mesh)
+    p[:, 2] = lc(xyz)[:, 2]
 
     result = fd_numpy(vertices=xyz, fixed=fixed, edges=edges, forcedensities=q, loads=p)
 

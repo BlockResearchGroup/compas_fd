@@ -13,7 +13,7 @@ Classes
     :toctree: generated/
     :nosignatures:
 
-    SelfweightCalculator
+    LoadCalculator
 
 """
 from __future__ import print_function
@@ -23,9 +23,9 @@ from __future__ import division
 import compas
 
 if not compas.IPY:
-    from .selfweight import SelfweightCalculator
+    from .load_calculator import LoadCalculator
 
 __all__ = []
 
 if not compas.IPY:
-    __all__ += ['SelfweightCalculator']
+    __all__ += ['LoadCalculator']
