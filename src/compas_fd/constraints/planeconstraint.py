@@ -11,21 +11,20 @@ from .constraint import Constraint
 
 
 class PlaneConstraint(Constraint):
-
     def __init__(self, plane, **kwargs):
         super(PlaneConstraint, self).__init__(geometry=plane, **kwargs)
 
     @property
     def data(self):
-        return {'geometry': self.geometry.data}
+        return {"geometry": self.geometry.data}
 
     @data.setter
     def data(self, data):
-        self.geometry = Plane.from_data(data['geometry'])
+        self.geometry = Plane.from_data(data["geometry"])
 
     @classmethod
     def from_data(cls, data):
-        plane = Plane.from_data(data['geometry'])
+        plane = Plane.from_data(data["geometry"])
         return cls(plane)
 
     def compute_tangent(self):

@@ -24,7 +24,9 @@ class Constraint(Data):
             if cls is not None:
                 break
         if cls is None:
-            raise GeometryNotRegisteredAsConstraint('No constraint is registered for this geometry type: {}'.format(gtype))
+            raise GeometryNotRegisteredAsConstraint(
+                "No constraint is registered for this geometry type: {}".format(gtype)
+            )
         return cls
 
     def __new__(cls, *args, **kwargs):
@@ -39,9 +41,8 @@ class Constraint(Data):
         self._residual = None
         self._tangent = None
         self._normal = None
-        self._guid = None
+        # self._guid = None
         self._param = None
-        self._rhinogeometry = None
         self.geometry = geometry
 
     @staticmethod
@@ -76,7 +77,7 @@ class Constraint(Data):
         self._tangent = None
         self._normal = None
         self._location = Point(*point)
-        if not getattr(self, 'projected', None):
+        if not getattr(self, "projected", None):
             self.project()
             self.projected = True
 

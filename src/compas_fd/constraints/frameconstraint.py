@@ -9,21 +9,20 @@ from .constraint import Constraint
 
 
 class FrameConstraint(Constraint):
-
     def __init__(self, frame, **kwargs):
         super(FrameConstraint, self).__init__(geometry=frame, **kwargs)
 
     @property
     def data(self):
-        return {'geometry': self.geometry.data}
+        return {"geometry": self.geometry.data}
 
     @data.setter
     def data(self, data):
-        self.geometry = Frame.from_data(data['geometry'])
+        self.geometry = Frame.from_data(data["geometry"])
 
     @classmethod
     def from_data(cls, data):
-        frame = Frame.from_data(data['geometry'])
+        frame = Frame.from_data(data["geometry"])
         return cls(frame)
 
     def compute_tangent(self):
@@ -31,7 +30,7 @@ class FrameConstraint(Constraint):
 
     def compute_normal(self):
         normal = self.geometry.zaxis
-        self._normal = Vector(* vector_component(self.residual, normal))
+        self._normal = Vector(*vector_component(self.residual, normal))
 
     def update(self, damping=0.1):
         self._location = self.location + self.tangent * damping

@@ -10,28 +10,22 @@ from compas.geometry import Point
 from compas.geometry import Line
 from .constraint import Constraint
 
-import compas
-if compas.IPY:  # Tom: is this allowed?
-    from compas_rhino.geometry import RhinoLine
-    from compas_rhino.geometry import RhinoCurve
-
 
 class LineConstraint(Constraint):
-
     def __init__(self, line, **kwargs):
         super(LineConstraint, self).__init__(geometry=line, **kwargs)
 
     @property
     def data(self):
-        return {'geometry': self.geometry.data}
+        return {"geometry": self.geometry.data}
 
     @data.setter
     def data(self, data):
-        self.geometry = Line.from_data(data['geometry'])
+        self.geometry = Line.from_data(data["geometry"])
 
     @classmethod
     def from_data(cls, data):
-        line = Line.from_data(data['geometry'])
+        line = Line.from_data(data["geometry"])
         constraint = cls(line)
         return constraint
 
@@ -55,17 +49,9 @@ class LineConstraint(Constraint):
         u = self._geometry.vector
         d = v.dot(u)
         if not d == 0:
-            d = d/abs(d)
+            d = d / abs(d)
         self._param = v.length * d
 
     def update_location_at_param(self):
         d = self._geometry.direction
         self._location = self._geometry.start + d * self._param
-
-    # def update_geometry_guid(self):
-    #     self._geometry = RhinoLine.from_guid(self._guid).to_compas()
-
-    # @property
-    # def rhinogeometry(self):
-    #     self._rhinogeometry = RhinoCurve.from_guid(self._guid).geometry
-    #     return self._rhinogeometry
