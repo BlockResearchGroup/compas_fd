@@ -17,16 +17,21 @@ class LineConstraint(Constraint):
 
     @property
     def data(self):
-        return {"geometry": self.geometry.data}
+        return {
+            "geometry": self.geometry.data,
+            "rhino_guid": str(self._rhino_guid),
+        }
 
     @data.setter
     def data(self, data):
         self.geometry = Line.from_data(data["geometry"])
+        self._rhino_guid = str(data["rhino_guid"])
 
     @classmethod
     def from_data(cls, data):
         line = Line.from_data(data["geometry"])
         constraint = cls(line)
+        constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     def compute_tangent(self):

@@ -15,16 +15,21 @@ class SurfaceConstraint(Constraint):
 
     @property
     def data(self):
-        return {"geometry": self.geometry.data}
+        return {
+            "geometry": self.geometry.data,
+            "rhino_guid": str(self._rhino_guid),
+        }
 
     @data.setter
     def data(self, data):
         self.geometry = NurbsSurface.from_data(data["geometry"])
+        self._rhino_guid = str(data["rhino_guid"])
 
     @classmethod
     def from_data(cls, data):
         srf = NurbsSurface.from_data(data["geometry"])
         constraint = cls(srf)
+        constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     @property

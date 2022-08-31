@@ -15,16 +15,21 @@ class CurveConstraint(Constraint):
 
     @property
     def data(self):
-        return {"geometry": self.geometry.data}
+        return {
+            "geometry": self.geometry.data,
+            "rhino_guid": str(self._rhino_guid),
+        }
 
     @data.setter
     def data(self, data):
         self.geometry = NurbsCurve.from_data(data["geometry"])
+        self._rhino_guid = str(data["rhino_guid"])
 
     @classmethod
     def from_data(cls, data):
         curve = NurbsCurve.from_data(data["geometry"])
         constraint = cls(curve)
+        constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     @property

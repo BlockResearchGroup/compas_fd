@@ -13,16 +13,22 @@ class VectorConstraint(Constraint):
 
     @property
     def data(self):
-        return {"geometry": self.geometry.data}
+        return {
+            "geometry": self.geometry.data,
+            "rhino_guid": str(self._rhino_guid),
+        }
 
     @data.setter
     def data(self, data):
         self.geometry = Vector.from_data(data["geometry"])
+        self._rhino_guid = str(data["rhino_guid"])
 
     @classmethod
     def from_data(cls, data):
         vector = Vector.from_data(data["geometry"]).unitized()
-        return cls(vector)
+        constraint = cls(vector)
+        constraint._rhino_guid = str(data["rhino_guid"])
+        return constraint
 
     def compute_tangent(self):
         self._tangent = Vector(*vector_component(self.residual, self.geometry))

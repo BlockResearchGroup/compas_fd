@@ -14,16 +14,22 @@ class FrameConstraint(Constraint):
 
     @property
     def data(self):
-        return {"geometry": self.geometry.data}
+        return {
+            "geometry": self.geometry.data,
+            "rhino_guid": str(self._rhino_guid),
+        }
 
     @data.setter
     def data(self, data):
         self.geometry = Frame.from_data(data["geometry"])
+        self._rhino_guid = str(data["rhino_guid"])
 
     @classmethod
     def from_data(cls, data):
         frame = Frame.from_data(data["geometry"])
-        return cls(frame)
+        constraint = cls(frame)
+        constraint._rhino_guid = str(data["rhino_guid"])
+        return constraint
 
     def compute_tangent(self):
         self._tangent = self.residual - self.normal
