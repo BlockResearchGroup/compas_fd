@@ -23,6 +23,7 @@ from .result import Result
 @dataclass
 class FDNumericalData:
     """Stores numerical data used by the force density algorithms."""
+
     free: int
     fixed: int
     xyz: NDArray[(Any, 3), float64]
@@ -43,22 +44,31 @@ class FDNumericalData:
         return iter(astuple(self))
 
     @classmethod
-    def from_params(cls,
-                    vertices: Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]],
-                    fixed: List[int],
-                    edges: List[Tuple[int, int]],
-                    forcedensities: List[float],
-                    loads: Optional[Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]]] = None):
+    def from_params(
+        cls,
+        vertices: Union[
+            Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]
+        ],
+        fixed: List[int],
+        edges: List[Tuple[int, int]],
+        forcedensities: List[float],
+        loads: Optional[
+            Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]]
+        ] = None,
+    ):
         """Construct numerical arrays from force density solver input parameters."""
         free = list(set(range(len(vertices))) - set(fixed))
         xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
-        C = connectivity_matrix(edges, 'csr')
+        C = connectivity_matrix(edges, "csr")
         Ci = C[:, free]
         Cf = C[:, fixed]
         q = asarray(forcedensities, dtype=float64).reshape((-1, 1))
         Q = diags([q.flatten()], [0])
-        p = (zeros_like(xyz) if loads is None else
-             asarray(loads, dtype=float64).reshape((-1, 3)))
+        p = (
+            zeros_like(xyz)
+            if loads is None
+            else asarray(loads, dtype=float64).reshape((-1, 3))
+        )
         A = C.T.dot(Q).dot(C)
         Ai = Ci.T.dot(Q).dot(Ci)
         Af = Ci.T.dot(Q).dot(Cf)
