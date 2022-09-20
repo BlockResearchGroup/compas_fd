@@ -1,4 +1,3 @@
-from typing import Any
 from typing import Tuple
 from typing import List
 from typing import Union
@@ -6,6 +5,9 @@ from typing import Sequence
 from typing import Optional
 from typing_extensions import Annotated
 from nptyping import NDArray
+from nptyping import Shape
+from nptyping import Float64
+from nptyping import Int32
 
 from dataclasses import dataclass
 from dataclasses import astuple
@@ -26,19 +28,19 @@ class FDNumericalData:
 
     free: int
     fixed: int
-    xyz: NDArray[(Any, 3), float64]
-    C: NDArray[(Any, Any), int]
-    q: NDArray[(Any, 1), float64]
-    Q: NDArray[(Any, Any), float64]
-    p: NDArray[(Any, 1), float64]
-    A: NDArray[(Any, Any), float64]
-    Ai: NDArray[(Any, Any), float64]
-    Af: NDArray[(Any, Any), float64]
-    forces: NDArray[(Any, 1), float64] = None
-    lengths: NDArray[(Any, 1), float64] = None
-    residuals: NDArray[(Any, 3), float64] = None
-    tangent_residuals: NDArray[(Any, 3), float64] = None
-    normal_residuals: NDArray[(Any, 1), float64] = None
+    xyz: NDArray[Shape["*, 3"], Float64]
+    C: NDArray[Shape["*, *"], Int32]
+    q: NDArray[Shape["*, 1"], Float64]
+    Q: NDArray[Shape["*, *"], Float64]
+    p: NDArray[Shape["*, 1"], Float64]
+    A: NDArray[Shape["*, *"], Float64]
+    Ai: NDArray[Shape["*, *"], Float64]
+    Af: NDArray[Shape["*, *"], Float64]
+    forces: NDArray[Shape["*, 1"], Float64] = None
+    lengths: NDArray[Shape["*, 1"], Float64] = None
+    residuals: NDArray[Shape["*, 3"], Float64] = None
+    tangent_residuals: NDArray[Shape["*, 3"], Float64] = None
+    normal_residuals: NDArray[Shape["*, 1"], Float64] = None
 
     def __iter__(self):
         return iter(astuple(self))
@@ -47,13 +49,17 @@ class FDNumericalData:
     def from_params(
         cls,
         vertices: Union[
-            Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]
+            Sequence[Annotated[List[float], 3]],
+            NDArray[Shape["*, 3"], Float64],
         ],
         fixed: List[int],
         edges: List[Tuple[int, int]],
         forcedensities: List[float],
         loads: Optional[
-            Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]]
+            Union[
+                Sequence[Annotated[List[float], 3]],
+                NDArray[Shape["*, 3"], Float64],
+            ]
         ] = None,
     ):
         """Construct numerical arrays from force density solver input parameters."""

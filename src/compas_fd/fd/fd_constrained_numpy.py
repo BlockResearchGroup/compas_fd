@@ -1,4 +1,4 @@
-from typing import Any, Callable
+from typing import Callable
 from typing import Tuple
 from typing import List
 from typing import Union
@@ -6,9 +6,10 @@ from typing import Sequence
 from typing import Optional
 from typing_extensions import Annotated
 from nptyping import NDArray
+from nptyping import Shape
+from nptyping import Float64
 
 from numpy import asarray
-from numpy import float64
 from scipy.linalg import norm
 from scipy.sparse.linalg import spsolve
 
@@ -22,12 +23,18 @@ from .result import Result
 
 def fd_constrained_numpy(
     *,
-    vertices: Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]],
+    vertices: Union[
+        Sequence[Annotated[List[float], 3]],
+        NDArray[Shape["*, 3"], Float64],
+    ],
     fixed: List[int],
     edges: List[Tuple[int, int]],
     forcedensities: List[float],
     loads: Optional[
-        Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]]
+        Union[
+            Sequence[Annotated[List[float], 3]],
+            NDArray[Shape["*, 3"], Float64],
+        ]
     ] = None,
     constraints: Sequence[Constraint],
     kmax: int = 100,
@@ -97,7 +104,7 @@ def _update_constraints(
 
 
 def _is_converged_residuals(
-    residuals: NDArray[(Any, 3), float64], tol_res: float
+    residuals: NDArray[Shape["*, 3"], Float64], tol_res: float
 ) -> bool:
     """Verify whether the maximum constraint residual is within tolerance."""
     if residuals is None or not residuals.any():
@@ -107,8 +114,8 @@ def _is_converged_residuals(
 
 
 def _is_converged_disp(
-    old_xyz: NDArray[(Any, 3), float64],
-    new_xyz: NDArray[(Any, 3), float64],
+    old_xyz: NDArray[Shape["*, 3"], Float64],
+    new_xyz: NDArray[Shape["*, 3"], Float64],
     tol_disp: float,
 ) -> bool:
     """Verify whether the maximum coordinate displacement

@@ -1,4 +1,3 @@
-from typing import Any
 from typing import Tuple
 from typing import List
 from typing import Union
@@ -6,8 +5,11 @@ from typing import Sequence
 from typing import Optional
 from typing_extensions import Annotated
 from nptyping import NDArray
+from nptyping import Shape
+from nptyping import Float64
 
-from numpy import asarray, zeros_like
+from numpy import asarray
+from numpy import zeros_like
 from numpy import float64
 from scipy.sparse import diags
 from scipy.sparse.linalg import spsolve
@@ -18,13 +20,22 @@ from compas.numerical import normrow
 from .result import Result
 
 
-def fd_numpy(*,
-             vertices: Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]],
-             fixed: List[int],
-             edges: List[Tuple[int, int]],
-             forcedensities: List[float],
-             loads: Optional[Union[Sequence[Annotated[List[float], 3]], NDArray[(Any, 3), float64]]] = None,
-             ) -> Result:
+def fd_numpy(
+    *,
+    vertices: Union[
+        Sequence[Annotated[List[float], 3]],
+        NDArray[Shape["*, 3"], Float64],
+    ],
+    fixed: List[int],
+    edges: List[Tuple[int, int]],
+    forcedensities: List[float],
+    loads: Optional[
+        Union[
+            Sequence[Annotated[List[float], 3]],
+            NDArray[Shape["*, 3"], Float64],
+        ]
+    ] = None,
+) -> Result:
     """
     Compute the equilibrium coordinates of a system of vertices connected by edges.
     """
@@ -36,7 +47,7 @@ def fd_numpy(*,
         p = zeros_like(xyz)
     else:
         p = asarray(loads, dtype=float64).reshape((-1, 3))
-    C = connectivity_matrix(edges, 'csr')
+    C = connectivity_matrix(edges, "csr")
     Ci = C[:, free]
     Cf = C[:, fixed]
     Ct = C.transpose()
