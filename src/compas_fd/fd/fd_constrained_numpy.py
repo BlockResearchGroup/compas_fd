@@ -4,9 +4,9 @@ from typing import List
 from typing import Union
 from typing import Sequence
 from typing import Optional
+from typing import Literal
 from typing_extensions import Annotated
 from nptyping import NDArray
-from nptyping import Shape
 from nptyping import Float64
 
 from numpy import asarray
@@ -22,7 +22,7 @@ from compas_fd.fd.result import Result
 
 FloatNx3 = Union[
     Sequence[Annotated[List[float], 3]],
-    NDArray[Shape["*, 3"], Float64],
+    NDArray[Literal["*, 3"], Float64],
 ]
 
 
@@ -105,7 +105,7 @@ def _update_constraints(
 
 
 def _is_converged_residuals(
-    residuals: NDArray[Shape["*, 3"], Float64], tol_res: float
+    residuals: NDArray[Literal["*, 3"], Float64], tol_res: float
 ) -> bool:
     """
     Verify whether the maximum constraint residual is within tolerance.
@@ -117,8 +117,8 @@ def _is_converged_residuals(
 
 
 def _is_converged_disp(
-    old_xyz: NDArray[Shape["*, 3"], Float64],
-    new_xyz: NDArray[Shape["*, 3"], Float64],
+    old_xyz: NDArray[Literal["*, 3"], Float64],
+    new_xyz: NDArray[Literal["*, 3"], Float64],
     tol_disp: float,
 ) -> bool:
     """

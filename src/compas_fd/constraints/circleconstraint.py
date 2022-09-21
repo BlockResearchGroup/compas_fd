@@ -6,7 +6,6 @@ from compas.geometry import vector_component
 from compas.geometry import Vector
 from compas.geometry import Point
 from compas.geometry import Circle
-from compas.geometry import Line
 
 from .constraint import Constraint
 

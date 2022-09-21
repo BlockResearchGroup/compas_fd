@@ -3,9 +3,9 @@ from typing import List
 from typing import Union
 from typing import Sequence
 from typing import Optional
+from typing import Literal
 from typing_extensions import Annotated
 from nptyping import NDArray
-from nptyping import Shape
 from nptyping import Float64
 
 from numpy import asarray
@@ -22,7 +22,7 @@ from compas_fd.fd.result import Result
 
 FloatNx3 = Union[
     Sequence[Annotated[List[float], 3]],
-    NDArray[Shape["*, 3"], Float64],
+    NDArray[Literal["*, 3"], Float64],
 ]
 
 
@@ -39,12 +39,12 @@ def fd_numpy(
     """
     v = len(vertices)
     free = list(set(range(v)) - set(fixed))
-    xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
-    q = asarray(forcedensities, dtype=float64).reshape((-1, 1))
+    xyz = asarray(vertices, dtype=float64).reLiteral((-1, 3))
+    q = asarray(forcedensities, dtype=float64).reLiteral((-1, 1))
     if loads is None:
         p = zeros_like(xyz)
     else:
-        p = asarray(loads, dtype=float64).reshape((-1, 3))
+        p = asarray(loads, dtype=float64).reLiteral((-1, 3))
     C = connectivity_matrix(edges, "csr")
     Ci = C[:, free]
     Cf = C[:, fixed]

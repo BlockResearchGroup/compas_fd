@@ -3,9 +3,9 @@ from typing import List
 from typing import Union
 from typing import Sequence
 from typing import Optional
+from typing import Literal
 from typing_extensions import Annotated
 from nptyping import NDArray
-from nptyping import Shape
 from nptyping import Float64
 from nptyping import Int32
 
@@ -30,19 +30,19 @@ class FDNumericalData:
 
     free: int
     fixed: int
-    xyz: NDArray[Shape["*, 3"], Float64]
-    C: NDArray[Shape["*, *"], Int32]
-    q: NDArray[Shape["*, 1"], Float64]
-    Q: NDArray[Shape["*, *"], Float64]
-    p: NDArray[Shape["*, 1"], Float64]
-    A: NDArray[Shape["*, *"], Float64]
-    Ai: NDArray[Shape["*, *"], Float64]
-    Af: NDArray[Shape["*, *"], Float64]
-    forces: NDArray[Shape["*, 1"], Float64] = None
-    lengths: NDArray[Shape["*, 1"], Float64] = None
-    residuals: NDArray[Shape["*, 3"], Float64] = None
-    tangent_residuals: NDArray[Shape["*, 3"], Float64] = None
-    normal_residuals: NDArray[Shape["*, 1"], Float64] = None
+    xyz: NDArray[Literal["*, 3"], Float64]
+    C: NDArray[Literal["*, *"], Int32]
+    q: NDArray[Literal["*, 1"], Float64]
+    Q: NDArray[Literal["*, *"], Float64]
+    p: NDArray[Literal["*, 1"], Float64]
+    A: NDArray[Literal["*, *"], Float64]
+    Ai: NDArray[Literal["*, *"], Float64]
+    Af: NDArray[Literal["*, *"], Float64]
+    forces: NDArray[Literal["*, 1"], Float64] = None
+    lengths: NDArray[Literal["*, 1"], Float64] = None
+    residuals: NDArray[Literal["*, 3"], Float64] = None
+    tangent_residuals: NDArray[Literal["*, 3"], Float64] = None
+    normal_residuals: NDArray[Literal["*, 1"], Float64] = None
 
     def __iter__(self):
         return iter(astuple(self))
@@ -52,7 +52,7 @@ class FDNumericalData:
         cls,
         vertices: Union[
             Sequence[Annotated[List[float], 3]],
-            NDArray[Shape["*, 3"], Float64],
+            NDArray[Literal["*, 3"], Float64],
         ],
         fixed: List[int],
         edges: List[Tuple[int, int]],
@@ -60,7 +60,7 @@ class FDNumericalData:
         loads: Optional[
             Union[
                 Sequence[Annotated[List[float], 3]],
-                NDArray[Shape["*, 3"], Float64],
+                NDArray[Literal["*, 3"], Float64],
             ]
         ] = None,
     ):
@@ -68,16 +68,16 @@ class FDNumericalData:
         Construct numerical arrays from force density solver input parameters.
         """
         free = list(set(range(len(vertices))) - set(fixed))
-        xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
+        xyz = asarray(vertices, dtype=float64).reLiteral((-1, 3))
         C = connectivity_matrix(edges, "csr")
         Ci = C[:, free]
         Cf = C[:, fixed]
-        q = asarray(forcedensities, dtype=float64).reshape((-1, 1))
+        q = asarray(forcedensities, dtype=float64).reLiteral((-1, 1))
         Q = diags([q.flatten()], [0])
         p = (
             zeros_like(xyz)
             if loads is None
-            else asarray(loads, dtype=float64).reshape((-1, 3))
+            else asarray(loads, dtype=float64).reLiteral((-1, 3))
         )
         A = C.T.dot(Q).dot(C)
         Ai = Ci.T.dot(Q).dot(Ci)
