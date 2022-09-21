@@ -1,5 +1,5 @@
 compas >=1.8.1
 compas_cloud >=0.3.2
-nptyping >=2.3
+nptyping >=2.3.1
 pint
 typing_extensions

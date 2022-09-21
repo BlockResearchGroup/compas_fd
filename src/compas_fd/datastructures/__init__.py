@@ -1,10 +1,9 @@
 """
 ***************************
-compas_fd.datastructures
+datastructures
 ***************************
 
 .. currentmodule:: compas_fd.datastructures
-
 
 Classes
 =======
@@ -22,6 +21,4 @@ from __future__ import division
 
 from .cablemesh import CableMesh
 
-__all__ = [
-    'CableMesh'
-]
+__all__ = ["CableMesh"]

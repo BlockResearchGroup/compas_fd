@@ -12,6 +12,9 @@ from .exceptions import GeometryNotRegisteredAsConstraint
 
 
 class Constraint(Data):
+    """
+    Base class for all constraints.
+    """
 
     GEOMETRY_CONSTRAINT = {}
 

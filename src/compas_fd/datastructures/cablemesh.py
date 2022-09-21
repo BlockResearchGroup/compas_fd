@@ -6,8 +6,8 @@ from compas.datastructures import Mesh
 
 
 class CableMesh(Mesh):
-    """:class:`CableMesh` extends the mesh datastructure
-    with attributes and methods related to form finding of tensile surface structures.
+    """
+    Extension of the mesh datastructure with attributes and methods related to form finding of tensile surface structures.
     """
 
     def __init__(self):

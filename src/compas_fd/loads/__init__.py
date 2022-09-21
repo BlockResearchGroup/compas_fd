@@ -1,10 +1,9 @@
 """
 ***************
-compas_fd.loads
+loads
 ***************
 
 .. currentmodule:: compas_fd.loads
-
 
 Classes
 =======
