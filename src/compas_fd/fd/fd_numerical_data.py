@@ -3,7 +3,7 @@ from typing import List
 from typing import Union
 from typing import Sequence
 from typing import Optional
-from typing import Literal
+from typing_extensions import Literal
 from typing_extensions import Annotated
 from nptyping import NDArray
 from nptyping import Float64
@@ -68,16 +68,16 @@ class FDNumericalData:
         Construct numerical arrays from force density solver input parameters.
         """
         free = list(set(range(len(vertices))) - set(fixed))
-        xyz = asarray(vertices, dtype=float64).reLiteral((-1, 3))
+        xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
         C = connectivity_matrix(edges, "csr")
         Ci = C[:, free]
         Cf = C[:, fixed]
-        q = asarray(forcedensities, dtype=float64).reLiteral((-1, 1))
+        q = asarray(forcedensities, dtype=float64).reshape((-1, 1))
         Q = diags([q.flatten()], [0])
         p = (
             zeros_like(xyz)
             if loads is None
-            else asarray(loads, dtype=float64).reLiteral((-1, 3))
+            else asarray(loads, dtype=float64).reshape((-1, 3))
         )
         A = C.T.dot(Q).dot(C)
         Ai = Ci.T.dot(Q).dot(Ci)
