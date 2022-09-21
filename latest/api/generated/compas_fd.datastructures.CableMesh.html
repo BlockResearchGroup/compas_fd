@@ -20,11 +20,11 @@
   <link rel="stylesheet" type="text/css" href="../../_static/css/compas-reference.css" />
 
   
-  <link rel="next" title="CableMesh.fd_constrained_numpy" href="compas_fd.datastructures.CableMesh.fd_constrained_numpy.html" />
+  <link rel="next" title="CableMesh.ToString" href="compas_fd.datastructures.CableMesh.ToString.html" />
   
 
   
-  <link rel="prev" title="compas_fd.datastructures" href="../compas_fd.datastructures.html" />
+  <link rel="prev" title="datastructures" href="../compas_fd.datastructures.html" />
   
 
   <script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML"></script>
@@ -86,7 +86,7 @@
             
             <li class="breadcrumb-item"><a href="../compas_fd.html">compas_fd</a></li>
             
-            <li class="breadcrumb-item"><a href="../compas_fd.datastructures.html">compas_fd.datastructures</a></li>
+            <li class="breadcrumb-item"><a href="../compas_fd.datastructures.html">datastructures</a></li>
             
             <!-- <li class="breadcrumb-item active" aria-current="page">CableMesh</li> -->
           </ol>
@@ -99,427 +99,411 @@
 <h1>CableMesh</h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="compas_fd.datastructures.CableMesh">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">compas_fd.datastructures.</span></span><span class="sig-name descname"><span class="pre">CableMesh</span></span><a class="reference external" href="https://github.com/blockresearchgroup/compas_fd/blob/master/src/compas_fd/datastructures/cablemesh.py#L9"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
-<dd><p>Bases: <a class="reference external" href="https://compas.dev/compas/latest/api/generated/compas.datastructures.Mesh.html#compas.datastructures.Mesh" title="(in COMPAS v1.15)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.datastructures.mesh.mesh.Mesh</span></code></a></p>
-<p><a class="reference internal" href="#compas_fd.datastructures.CableMesh" title="compas_fd.datastructures.CableMesh"><code class="xref py py-class docutils literal notranslate"><span class="pre">CableMesh</span></code></a> extends the mesh datastructure
-with attributes and methods related to form finding of tensile surface structures.</p>
-<p class="rubric">Methods</p>
-<table class="longtable docutils align-default">
-<colgroup>
-<col style="width: 10%" />
-<col style="width: 90%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.fd_constrained_numpy.html#compas_fd.datastructures.CableMesh.fd_constrained_numpy" title="compas_fd.datastructures.CableMesh.fd_constrained_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fd_constrained_numpy</span></code></a></p></td>
-<td><p>Iteratively find the equilibrium shape of a mesh for the given force densities.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.fd_numpy.html#compas_fd.datastructures.CableMesh.fd_numpy" title="compas_fd.datastructures.CableMesh.fd_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fd_numpy</span></code></a></p></td>
-<td><p>Find the equilibrium shape of a mesh for the given force densities.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.mesh_fd_constrained_numpy.html#compas_fd.datastructures.CableMesh.mesh_fd_constrained_numpy" title="compas_fd.datastructures.CableMesh.mesh_fd_constrained_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mesh_fd_constrained_numpy</span></code></a></p></td>
-<td><p>Iteratively find the equilibrium shape of a mesh for the given force densities.</p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.mesh_fd_numpy.html#compas_fd.datastructures.CableMesh.mesh_fd_numpy" title="compas_fd.datastructures.CableMesh.mesh_fd_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mesh_fd_numpy</span></code></a></p></td>
-<td><p>Find the equilibrium shape of a mesh for the given force densities.</p></td>
-</tr>
-</tbody>
-</table>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">compas_fd.datastructures.</span></span><span class="sig-name descname"><span class="pre">CableMesh</span></span><a class="reference external" href="https://github.com/blockresearchgroup/compas_fd/blob/master/src/compas_fd/datastructures/cablemesh.py#L8"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://compas.dev/compas/latest/api/generated/compas.datastructures.Mesh.html#compas.datastructures.Mesh" title="(in COMPAS v1.16)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.datastructures.mesh.mesh.Mesh</span></code></a></p>
+<p>Extension of the mesh datastructure with attributes and methods related to form finding of tensile surface structures.</p>
 <p class="rubric">Inherited Methods</p>
-<table class="longtable docutils align-default">
+<table class="autosummary longtable docutils align-default">
 <colgroup>
 <col style="width: 10%" />
 <col style="width: 90%" />
 </colgroup>
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.add_face.html#compas_fd.datastructures.CableMesh.add_face" title="compas_fd.datastructures.CableMesh.add_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_face</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.ToString.html#compas_fd.datastructures.CableMesh.ToString" title="compas_fd.datastructures.CableMesh.ToString"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ToString</span></code></a></p></td>
+<td><p>Converts the instance to a string.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.add_face.html#compas_fd.datastructures.CableMesh.add_face" title="compas_fd.datastructures.CableMesh.add_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_face</span></code></a></p></td>
 <td><p>Add a face to the mesh object.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.add_vertex.html#compas_fd.datastructures.CableMesh.add_vertex" title="compas_fd.datastructures.CableMesh.add_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_vertex</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.add_vertex.html#compas_fd.datastructures.CableMesh.add_vertex" title="compas_fd.datastructures.CableMesh.add_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">add_vertex</span></code></a></p></td>
 <td><p>Add a vertex to the mesh object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.area.html#compas_fd.datastructures.CableMesh.area" title="compas_fd.datastructures.CableMesh.area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">area</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.area.html#compas_fd.datastructures.CableMesh.area" title="compas_fd.datastructures.CableMesh.area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">area</span></code></a></p></td>
 <td><p>Calculate the total mesh area.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.bounding_box.html#compas_fd.datastructures.CableMesh.bounding_box" title="compas_fd.datastructures.CableMesh.bounding_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bounding_box</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.bounding_box.html#compas_fd.datastructures.CableMesh.bounding_box" title="compas_fd.datastructures.CableMesh.bounding_box"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bounding_box</span></code></a></p></td>
 <td><p>Compute the (axis aligned) bounding box of a mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.bounding_box_xy.html#compas_fd.datastructures.CableMesh.bounding_box_xy" title="compas_fd.datastructures.CableMesh.bounding_box_xy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bounding_box_xy</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.bounding_box_xy.html#compas_fd.datastructures.CableMesh.bounding_box_xy" title="compas_fd.datastructures.CableMesh.bounding_box_xy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bounding_box_xy</span></code></a></p></td>
 <td><p>Compute the (axis aligned) bounding box of a projection of the mesh in the XY plane.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.centroid.html#compas_fd.datastructures.CableMesh.centroid" title="compas_fd.datastructures.CableMesh.centroid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">centroid</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.centroid.html#compas_fd.datastructures.CableMesh.centroid" title="compas_fd.datastructures.CableMesh.centroid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">centroid</span></code></a></p></td>
 <td><p>Calculate the mesh centroid.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.clear.html#compas_fd.datastructures.CableMesh.clear" title="compas_fd.datastructures.CableMesh.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.clear.html#compas_fd.datastructures.CableMesh.clear" title="compas_fd.datastructures.CableMesh.clear"><code class="xref py py-obj docutils literal notranslate"><span class="pre">clear</span></code></a></p></td>
 <td><p>Clear all the mesh data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.collapse_edge.html#compas_fd.datastructures.CableMesh.collapse_edge" title="compas_fd.datastructures.CableMesh.collapse_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collapse_edge</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.collapse_edge.html#compas_fd.datastructures.CableMesh.collapse_edge" title="compas_fd.datastructures.CableMesh.collapse_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">collapse_edge</span></code></a></p></td>
 <td><p>Collapse an edge to its first or second vertex, or to an intermediate point.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.connected_components.html#compas_fd.datastructures.CableMesh.connected_components" title="compas_fd.datastructures.CableMesh.connected_components"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connected_components</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.connected_components.html#compas_fd.datastructures.CableMesh.connected_components" title="compas_fd.datastructures.CableMesh.connected_components"><code class="xref py py-obj docutils literal notranslate"><span class="pre">connected_components</span></code></a></p></td>
 <td><p>Find the connected components of the mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.copy.html#compas_fd.datastructures.CableMesh.copy" title="compas_fd.datastructures.CableMesh.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.copy.html#compas_fd.datastructures.CableMesh.copy" title="compas_fd.datastructures.CableMesh.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></p></td>
 <td><p>Make an independent copy of the data object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.cull_vertices.html#compas_fd.datastructures.CableMesh.cull_vertices" title="compas_fd.datastructures.CableMesh.cull_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cull_vertices</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.cull_vertices.html#compas_fd.datastructures.CableMesh.cull_vertices" title="compas_fd.datastructures.CableMesh.cull_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cull_vertices</span></code></a></p></td>
 <td><p>Remove all unused vertices from the mesh object.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.delete_face.html#compas_fd.datastructures.CableMesh.delete_face" title="compas_fd.datastructures.CableMesh.delete_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete_face</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.delete_face.html#compas_fd.datastructures.CableMesh.delete_face" title="compas_fd.datastructures.CableMesh.delete_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete_face</span></code></a></p></td>
 <td><p>Delete a face from the mesh object.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.delete_vertex.html#compas_fd.datastructures.CableMesh.delete_vertex" title="compas_fd.datastructures.CableMesh.delete_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete_vertex</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.delete_vertex.html#compas_fd.datastructures.CableMesh.delete_vertex" title="compas_fd.datastructures.CableMesh.delete_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">delete_vertex</span></code></a></p></td>
 <td><p>Delete a vertex from the mesh and everything that is attached to it.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.dual.html#compas_fd.datastructures.CableMesh.dual" title="compas_fd.datastructures.CableMesh.dual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dual</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.dual.html#compas_fd.datastructures.CableMesh.dual" title="compas_fd.datastructures.CableMesh.dual"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dual</span></code></a></p></td>
 <td><p>Construct the dual of a mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_attribute.html#compas_fd.datastructures.CableMesh.edge_attribute" title="compas_fd.datastructures.CableMesh.edge_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_attribute</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_attribute.html#compas_fd.datastructures.CableMesh.edge_attribute" title="compas_fd.datastructures.CableMesh.edge_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_attribute</span></code></a></p></td>
 <td><p>Get or set an attribute of an edge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_attributes.html#compas_fd.datastructures.CableMesh.edge_attributes" title="compas_fd.datastructures.CableMesh.edge_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_attributes</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_attributes.html#compas_fd.datastructures.CableMesh.edge_attributes" title="compas_fd.datastructures.CableMesh.edge_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_attributes</span></code></a></p></td>
 <td><p>Get or set multiple attributes of an edge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_coordinates.html#compas_fd.datastructures.CableMesh.edge_coordinates" title="compas_fd.datastructures.CableMesh.edge_coordinates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_coordinates</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_coordinates.html#compas_fd.datastructures.CableMesh.edge_coordinates" title="compas_fd.datastructures.CableMesh.edge_coordinates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_coordinates</span></code></a></p></td>
 <td><p>Return the coordinates of the start and end point of an edge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_direction.html#compas_fd.datastructures.CableMesh.edge_direction" title="compas_fd.datastructures.CableMesh.edge_direction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_direction</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_direction.html#compas_fd.datastructures.CableMesh.edge_direction" title="compas_fd.datastructures.CableMesh.edge_direction"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_direction</span></code></a></p></td>
 <td><p>Return the direction vector of an edge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_faces.html#compas_fd.datastructures.CableMesh.edge_faces" title="compas_fd.datastructures.CableMesh.edge_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_faces</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_faces.html#compas_fd.datastructures.CableMesh.edge_faces" title="compas_fd.datastructures.CableMesh.edge_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_faces</span></code></a></p></td>
 <td><p>Find the two faces adjacent to an edge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_length.html#compas_fd.datastructures.CableMesh.edge_length" title="compas_fd.datastructures.CableMesh.edge_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_length</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_length.html#compas_fd.datastructures.CableMesh.edge_length" title="compas_fd.datastructures.CableMesh.edge_length"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_length</span></code></a></p></td>
 <td><p>Return the length of an edge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_loop.html#compas_fd.datastructures.CableMesh.edge_loop" title="compas_fd.datastructures.CableMesh.edge_loop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_loop</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_loop.html#compas_fd.datastructures.CableMesh.edge_loop" title="compas_fd.datastructures.CableMesh.edge_loop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_loop</span></code></a></p></td>
 <td><p>Find all edges on the same loop as a given edge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_midpoint.html#compas_fd.datastructures.CableMesh.edge_midpoint" title="compas_fd.datastructures.CableMesh.edge_midpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_midpoint</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_midpoint.html#compas_fd.datastructures.CableMesh.edge_midpoint" title="compas_fd.datastructures.CableMesh.edge_midpoint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_midpoint</span></code></a></p></td>
 <td><p>Return the location of the midpoint of an edge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_point.html#compas_fd.datastructures.CableMesh.edge_point" title="compas_fd.datastructures.CableMesh.edge_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_point</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_point.html#compas_fd.datastructures.CableMesh.edge_point" title="compas_fd.datastructures.CableMesh.edge_point"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_point</span></code></a></p></td>
 <td><p>Return the location of a point along an edge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_sample.html#compas_fd.datastructures.CableMesh.edge_sample" title="compas_fd.datastructures.CableMesh.edge_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_sample</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_sample.html#compas_fd.datastructures.CableMesh.edge_sample" title="compas_fd.datastructures.CableMesh.edge_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_sample</span></code></a></p></td>
 <td><p>A random sample of the edges.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_strip.html#compas_fd.datastructures.CableMesh.edge_strip" title="compas_fd.datastructures.CableMesh.edge_strip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_strip</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_strip.html#compas_fd.datastructures.CableMesh.edge_strip" title="compas_fd.datastructures.CableMesh.edge_strip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_strip</span></code></a></p></td>
 <td><p>Find all edges on the same strip as a given edge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_vector.html#compas_fd.datastructures.CableMesh.edge_vector" title="compas_fd.datastructures.CableMesh.edge_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_vector</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edge_vector.html#compas_fd.datastructures.CableMesh.edge_vector" title="compas_fd.datastructures.CableMesh.edge_vector"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edge_vector</span></code></a></p></td>
 <td><p>Return the vector of an edge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges.html#compas_fd.datastructures.CableMesh.edges" title="compas_fd.datastructures.CableMesh.edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges.html#compas_fd.datastructures.CableMesh.edges" title="compas_fd.datastructures.CableMesh.edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges</span></code></a></p></td>
 <td><p>Iterate over the edges of the mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_attribute.html#compas_fd.datastructures.CableMesh.edges_attribute" title="compas_fd.datastructures.CableMesh.edges_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_attribute</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_attribute.html#compas_fd.datastructures.CableMesh.edges_attribute" title="compas_fd.datastructures.CableMesh.edges_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_attribute</span></code></a></p></td>
 <td><p>Get or set an attribute of multiple edges.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_attributes.html#compas_fd.datastructures.CableMesh.edges_attributes" title="compas_fd.datastructures.CableMesh.edges_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_attributes</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_attributes.html#compas_fd.datastructures.CableMesh.edges_attributes" title="compas_fd.datastructures.CableMesh.edges_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_attributes</span></code></a></p></td>
 <td><p>Get or set multiple attributes of multiple edges.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_on_boundaries.html#compas_fd.datastructures.CableMesh.edges_on_boundaries" title="compas_fd.datastructures.CableMesh.edges_on_boundaries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_on_boundaries</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_on_boundaries.html#compas_fd.datastructures.CableMesh.edges_on_boundaries" title="compas_fd.datastructures.CableMesh.edges_on_boundaries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_on_boundaries</span></code></a></p></td>
 <td><p>Find the edges on all boundaries of the mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_on_boundary.html#compas_fd.datastructures.CableMesh.edges_on_boundary" title="compas_fd.datastructures.CableMesh.edges_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_on_boundary</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_on_boundary.html#compas_fd.datastructures.CableMesh.edges_on_boundary" title="compas_fd.datastructures.CableMesh.edges_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_on_boundary</span></code></a></p></td>
 <td><p>Find the edges on the longest boundary.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_where.html#compas_fd.datastructures.CableMesh.edges_where" title="compas_fd.datastructures.CableMesh.edges_where"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_where</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_where.html#compas_fd.datastructures.CableMesh.edges_where" title="compas_fd.datastructures.CableMesh.edges_where"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_where</span></code></a></p></td>
 <td><p>Get edges for which a certain condition or set of conditions is true.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_where_predicate.html#compas_fd.datastructures.CableMesh.edges_where_predicate" title="compas_fd.datastructures.CableMesh.edges_where_predicate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_where_predicate</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.edges_where_predicate.html#compas_fd.datastructures.CableMesh.edges_where_predicate" title="compas_fd.datastructures.CableMesh.edges_where_predicate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">edges_where_predicate</span></code></a></p></td>
 <td><p>Get edges for which a certain condition or set of conditions is true using a lambda function.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.euler.html#compas_fd.datastructures.CableMesh.euler" title="compas_fd.datastructures.CableMesh.euler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.euler.html#compas_fd.datastructures.CableMesh.euler" title="compas_fd.datastructures.CableMesh.euler"><code class="xref py py-obj docutils literal notranslate"><span class="pre">euler</span></code></a></p></td>
 <td><p>Calculate the Euler characteristic.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_adjacency.html#compas_fd.datastructures.CableMesh.face_adjacency" title="compas_fd.datastructures.CableMesh.face_adjacency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_adjacency</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_adjacency.html#compas_fd.datastructures.CableMesh.face_adjacency" title="compas_fd.datastructures.CableMesh.face_adjacency"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_adjacency</span></code></a></p></td>
 <td><p>Build a face adjacency dict.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_adjacency_halfedge.html#compas_fd.datastructures.CableMesh.face_adjacency_halfedge" title="compas_fd.datastructures.CableMesh.face_adjacency_halfedge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_adjacency_halfedge</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_adjacency_halfedge.html#compas_fd.datastructures.CableMesh.face_adjacency_halfedge" title="compas_fd.datastructures.CableMesh.face_adjacency_halfedge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_adjacency_halfedge</span></code></a></p></td>
 <td><p>Find one half-edge over which two faces are adjacent.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_adjacency_vertices.html#compas_fd.datastructures.CableMesh.face_adjacency_vertices" title="compas_fd.datastructures.CableMesh.face_adjacency_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_adjacency_vertices</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_adjacency_vertices.html#compas_fd.datastructures.CableMesh.face_adjacency_vertices" title="compas_fd.datastructures.CableMesh.face_adjacency_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_adjacency_vertices</span></code></a></p></td>
 <td><p>Find all vertices over which two faces are adjacent.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_area.html#compas_fd.datastructures.CableMesh.face_area" title="compas_fd.datastructures.CableMesh.face_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_area</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_area.html#compas_fd.datastructures.CableMesh.face_area" title="compas_fd.datastructures.CableMesh.face_area"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_area</span></code></a></p></td>
 <td><p>Compute the area of a face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_aspect_ratio.html#compas_fd.datastructures.CableMesh.face_aspect_ratio" title="compas_fd.datastructures.CableMesh.face_aspect_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_aspect_ratio</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_aspect_ratio.html#compas_fd.datastructures.CableMesh.face_aspect_ratio" title="compas_fd.datastructures.CableMesh.face_aspect_ratio"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_aspect_ratio</span></code></a></p></td>
 <td><p>Face aspect ratio as the ratio between the lengths of the maximum and minimum face edges.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_attribute.html#compas_fd.datastructures.CableMesh.face_attribute" title="compas_fd.datastructures.CableMesh.face_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_attribute</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_attribute.html#compas_fd.datastructures.CableMesh.face_attribute" title="compas_fd.datastructures.CableMesh.face_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_attribute</span></code></a></p></td>
 <td><p>Get or set an attribute of a face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_attributes.html#compas_fd.datastructures.CableMesh.face_attributes" title="compas_fd.datastructures.CableMesh.face_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_attributes</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_attributes.html#compas_fd.datastructures.CableMesh.face_attributes" title="compas_fd.datastructures.CableMesh.face_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_attributes</span></code></a></p></td>
 <td><p>Get or set multiple attributes of a face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_center.html#compas_fd.datastructures.CableMesh.face_center" title="compas_fd.datastructures.CableMesh.face_center"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_center</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_center.html#compas_fd.datastructures.CableMesh.face_center" title="compas_fd.datastructures.CableMesh.face_center"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_center</span></code></a></p></td>
 <td><p>Compute the location of the center of mass of a face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_centroid.html#compas_fd.datastructures.CableMesh.face_centroid" title="compas_fd.datastructures.CableMesh.face_centroid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_centroid</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_centroid.html#compas_fd.datastructures.CableMesh.face_centroid" title="compas_fd.datastructures.CableMesh.face_centroid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_centroid</span></code></a></p></td>
 <td><p>Compute the location of the centroid of a face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_coordinates.html#compas_fd.datastructures.CableMesh.face_coordinates" title="compas_fd.datastructures.CableMesh.face_coordinates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_coordinates</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_coordinates.html#compas_fd.datastructures.CableMesh.face_coordinates" title="compas_fd.datastructures.CableMesh.face_coordinates"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_coordinates</span></code></a></p></td>
 <td><p>Compute the coordinates of the vertices of a face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_corners.html#compas_fd.datastructures.CableMesh.face_corners" title="compas_fd.datastructures.CableMesh.face_corners"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_corners</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_corners.html#compas_fd.datastructures.CableMesh.face_corners" title="compas_fd.datastructures.CableMesh.face_corners"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_corners</span></code></a></p></td>
 <td><p>Return triplets of face vertices forming the corners of the face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_curvature.html#compas_fd.datastructures.CableMesh.face_curvature" title="compas_fd.datastructures.CableMesh.face_curvature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_curvature</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_curvature.html#compas_fd.datastructures.CableMesh.face_curvature" title="compas_fd.datastructures.CableMesh.face_curvature"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_curvature</span></code></a></p></td>
 <td><p>Dimensionless face curvature.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_degree.html#compas_fd.datastructures.CableMesh.face_degree" title="compas_fd.datastructures.CableMesh.face_degree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_degree</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_degree.html#compas_fd.datastructures.CableMesh.face_degree" title="compas_fd.datastructures.CableMesh.face_degree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_degree</span></code></a></p></td>
 <td><p>Count the neighbors of a face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_flatness.html#compas_fd.datastructures.CableMesh.face_flatness" title="compas_fd.datastructures.CableMesh.face_flatness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_flatness</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_flatness.html#compas_fd.datastructures.CableMesh.face_flatness" title="compas_fd.datastructures.CableMesh.face_flatness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_flatness</span></code></a></p></td>
 <td><p>Compute the flatness of the mesh face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_halfedges.html#compas_fd.datastructures.CableMesh.face_halfedges" title="compas_fd.datastructures.CableMesh.face_halfedges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_halfedges</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_halfedges.html#compas_fd.datastructures.CableMesh.face_halfedges" title="compas_fd.datastructures.CableMesh.face_halfedges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_halfedges</span></code></a></p></td>
 <td><p>The halfedges of a face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_max_degree.html#compas_fd.datastructures.CableMesh.face_max_degree" title="compas_fd.datastructures.CableMesh.face_max_degree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_max_degree</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_max_degree.html#compas_fd.datastructures.CableMesh.face_max_degree" title="compas_fd.datastructures.CableMesh.face_max_degree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_max_degree</span></code></a></p></td>
 <td><p>Compute the maximum degree of all faces.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_min_degree.html#compas_fd.datastructures.CableMesh.face_min_degree" title="compas_fd.datastructures.CableMesh.face_min_degree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_min_degree</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_min_degree.html#compas_fd.datastructures.CableMesh.face_min_degree" title="compas_fd.datastructures.CableMesh.face_min_degree"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_min_degree</span></code></a></p></td>
 <td><p>Compute the minimum degree of all faces.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_neighborhood.html#compas_fd.datastructures.CableMesh.face_neighborhood" title="compas_fd.datastructures.CableMesh.face_neighborhood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_neighborhood</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_neighborhood.html#compas_fd.datastructures.CableMesh.face_neighborhood" title="compas_fd.datastructures.CableMesh.face_neighborhood"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_neighborhood</span></code></a></p></td>
 <td><p>Return the faces in the neighborhood of a face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_neighbors.html#compas_fd.datastructures.CableMesh.face_neighbors" title="compas_fd.datastructures.CableMesh.face_neighbors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_neighbors</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_neighbors.html#compas_fd.datastructures.CableMesh.face_neighbors" title="compas_fd.datastructures.CableMesh.face_neighbors"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_neighbors</span></code></a></p></td>
 <td><p>Return the neighbors of a face across its edges.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_normal.html#compas_fd.datastructures.CableMesh.face_normal" title="compas_fd.datastructures.CableMesh.face_normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_normal</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_normal.html#compas_fd.datastructures.CableMesh.face_normal" title="compas_fd.datastructures.CableMesh.face_normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_normal</span></code></a></p></td>
 <td><p>Compute the normal of a face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_plane.html#compas_fd.datastructures.CableMesh.face_plane" title="compas_fd.datastructures.CableMesh.face_plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_plane</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_plane.html#compas_fd.datastructures.CableMesh.face_plane" title="compas_fd.datastructures.CableMesh.face_plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_plane</span></code></a></p></td>
 <td><p>A plane defined by the centroid and the normal of the face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_sample.html#compas_fd.datastructures.CableMesh.face_sample" title="compas_fd.datastructures.CableMesh.face_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_sample</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_sample.html#compas_fd.datastructures.CableMesh.face_sample" title="compas_fd.datastructures.CableMesh.face_sample"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_sample</span></code></a></p></td>
 <td><p>A random sample of the faces.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_skewness.html#compas_fd.datastructures.CableMesh.face_skewness" title="compas_fd.datastructures.CableMesh.face_skewness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_skewness</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_skewness.html#compas_fd.datastructures.CableMesh.face_skewness" title="compas_fd.datastructures.CableMesh.face_skewness"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_skewness</span></code></a></p></td>
 <td><p>Face skewness as the maximum absolute angular deviation from the ideal polygon angle.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertex_after.html#compas_fd.datastructures.CableMesh.face_vertex_after" title="compas_fd.datastructures.CableMesh.face_vertex_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertex_after</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertex_after.html#compas_fd.datastructures.CableMesh.face_vertex_after" title="compas_fd.datastructures.CableMesh.face_vertex_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertex_after</span></code></a></p></td>
 <td><p>Return the n-th vertex after the specified vertex in a specific face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertex_ancestor.html#compas_fd.datastructures.CableMesh.face_vertex_ancestor" title="compas_fd.datastructures.CableMesh.face_vertex_ancestor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertex_ancestor</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertex_ancestor.html#compas_fd.datastructures.CableMesh.face_vertex_ancestor" title="compas_fd.datastructures.CableMesh.face_vertex_ancestor"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertex_ancestor</span></code></a></p></td>
 <td><p>Return the n-th vertex before the specified vertex in a specific face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertex_before.html#compas_fd.datastructures.CableMesh.face_vertex_before" title="compas_fd.datastructures.CableMesh.face_vertex_before"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertex_before</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertex_before.html#compas_fd.datastructures.CableMesh.face_vertex_before" title="compas_fd.datastructures.CableMesh.face_vertex_before"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertex_before</span></code></a></p></td>
 <td><p>Return the n-th vertex before the specified vertex in a specific face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertex_descendant.html#compas_fd.datastructures.CableMesh.face_vertex_descendant" title="compas_fd.datastructures.CableMesh.face_vertex_descendant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertex_descendant</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertex_descendant.html#compas_fd.datastructures.CableMesh.face_vertex_descendant" title="compas_fd.datastructures.CableMesh.face_vertex_descendant"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertex_descendant</span></code></a></p></td>
 <td><p>Return the n-th vertex after the specified vertex in a specific face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertices.html#compas_fd.datastructures.CableMesh.face_vertices" title="compas_fd.datastructures.CableMesh.face_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertices</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.face_vertices.html#compas_fd.datastructures.CableMesh.face_vertices" title="compas_fd.datastructures.CableMesh.face_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_vertices</span></code></a></p></td>
 <td><p>The vertices of a face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces.html#compas_fd.datastructures.CableMesh.faces" title="compas_fd.datastructures.CableMesh.faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces.html#compas_fd.datastructures.CableMesh.faces" title="compas_fd.datastructures.CableMesh.faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces</span></code></a></p></td>
 <td><p>Iterate over the faces of the mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_attribute.html#compas_fd.datastructures.CableMesh.faces_attribute" title="compas_fd.datastructures.CableMesh.faces_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_attribute</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_attribute.html#compas_fd.datastructures.CableMesh.faces_attribute" title="compas_fd.datastructures.CableMesh.faces_attribute"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_attribute</span></code></a></p></td>
 <td><p>Get or set an attribute of multiple faces.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_attributes.html#compas_fd.datastructures.CableMesh.faces_attributes" title="compas_fd.datastructures.CableMesh.faces_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_attributes</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_attributes.html#compas_fd.datastructures.CableMesh.faces_attributes" title="compas_fd.datastructures.CableMesh.faces_attributes"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_attributes</span></code></a></p></td>
 <td><p>Get or set multiple attributes of multiple faces.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_on_boundaries.html#compas_fd.datastructures.CableMesh.faces_on_boundaries" title="compas_fd.datastructures.CableMesh.faces_on_boundaries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_on_boundaries</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_on_boundaries.html#compas_fd.datastructures.CableMesh.faces_on_boundaries" title="compas_fd.datastructures.CableMesh.faces_on_boundaries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_on_boundaries</span></code></a></p></td>
 <td><p>Find the faces on all boundaries of the mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_on_boundary.html#compas_fd.datastructures.CableMesh.faces_on_boundary" title="compas_fd.datastructures.CableMesh.faces_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_on_boundary</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_on_boundary.html#compas_fd.datastructures.CableMesh.faces_on_boundary" title="compas_fd.datastructures.CableMesh.faces_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_on_boundary</span></code></a></p></td>
 <td><p>Find the faces on the longest boundary.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_where.html#compas_fd.datastructures.CableMesh.faces_where" title="compas_fd.datastructures.CableMesh.faces_where"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_where</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_where.html#compas_fd.datastructures.CableMesh.faces_where" title="compas_fd.datastructures.CableMesh.faces_where"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_where</span></code></a></p></td>
 <td><p>Get faces for which a certain condition or set of conditions is true.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_where_predicate.html#compas_fd.datastructures.CableMesh.faces_where_predicate" title="compas_fd.datastructures.CableMesh.faces_where_predicate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_where_predicate</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.faces_where_predicate.html#compas_fd.datastructures.CableMesh.faces_where_predicate" title="compas_fd.datastructures.CableMesh.faces_where_predicate"><code class="xref py py-obj docutils literal notranslate"><span class="pre">faces_where_predicate</span></code></a></p></td>
 <td><p>Get faces for which a certain condition or set of conditions is true using a lambda function.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.flip_cycles.html#compas_fd.datastructures.CableMesh.flip_cycles" title="compas_fd.datastructures.CableMesh.flip_cycles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flip_cycles</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.flip_cycles.html#compas_fd.datastructures.CableMesh.flip_cycles" title="compas_fd.datastructures.CableMesh.flip_cycles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">flip_cycles</span></code></a></p></td>
 <td><p>Flip the cycle directions of all faces.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_data.html#compas_fd.datastructures.CableMesh.from_data" title="compas_fd.datastructures.CableMesh.from_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_data</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_data.html#compas_fd.datastructures.CableMesh.from_data" title="compas_fd.datastructures.CableMesh.from_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_data</span></code></a></p></td>
 <td><p>Construct an object of this type from the provided data.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_json.html#compas_fd.datastructures.CableMesh.from_json" title="compas_fd.datastructures.CableMesh.from_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_json</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_json.html#compas_fd.datastructures.CableMesh.from_json" title="compas_fd.datastructures.CableMesh.from_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_json</span></code></a></p></td>
 <td><p>Construct an object from serialized data contained in a JSON file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_jsonstring.html#compas_fd.datastructures.CableMesh.from_jsonstring" title="compas_fd.datastructures.CableMesh.from_jsonstring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_jsonstring</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_jsonstring.html#compas_fd.datastructures.CableMesh.from_jsonstring" title="compas_fd.datastructures.CableMesh.from_jsonstring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_jsonstring</span></code></a></p></td>
 <td><p>Construct an object from serialized data contained in a JSON string.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_lines.html#compas_fd.datastructures.CableMesh.from_lines" title="compas_fd.datastructures.CableMesh.from_lines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_lines</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_lines.html#compas_fd.datastructures.CableMesh.from_lines" title="compas_fd.datastructures.CableMesh.from_lines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_lines</span></code></a></p></td>
 <td><p>Construct a mesh object from a list of lines described by start and end point coordinates.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_meshgrid.html#compas_fd.datastructures.CableMesh.from_meshgrid" title="compas_fd.datastructures.CableMesh.from_meshgrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_meshgrid</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_meshgrid.html#compas_fd.datastructures.CableMesh.from_meshgrid" title="compas_fd.datastructures.CableMesh.from_meshgrid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_meshgrid</span></code></a></p></td>
 <td><p>Create a mesh from faces and vertices on a regular grid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_obj.html#compas_fd.datastructures.CableMesh.from_obj" title="compas_fd.datastructures.CableMesh.from_obj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_obj</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_obj.html#compas_fd.datastructures.CableMesh.from_obj" title="compas_fd.datastructures.CableMesh.from_obj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_obj</span></code></a></p></td>
 <td><p>Construct a mesh object from the data described in an OBJ file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_off.html#compas_fd.datastructures.CableMesh.from_off" title="compas_fd.datastructures.CableMesh.from_off"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_off</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_off.html#compas_fd.datastructures.CableMesh.from_off" title="compas_fd.datastructures.CableMesh.from_off"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_off</span></code></a></p></td>
 <td><p>Construct a mesh object from the data described in a OFF file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_ply.html#compas_fd.datastructures.CableMesh.from_ply" title="compas_fd.datastructures.CableMesh.from_ply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_ply</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_ply.html#compas_fd.datastructures.CableMesh.from_ply" title="compas_fd.datastructures.CableMesh.from_ply"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_ply</span></code></a></p></td>
 <td><p>Construct a mesh object from the data described in a PLY file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_points.html#compas_fd.datastructures.CableMesh.from_points" title="compas_fd.datastructures.CableMesh.from_points"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_points</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_points.html#compas_fd.datastructures.CableMesh.from_points" title="compas_fd.datastructures.CableMesh.from_points"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_points</span></code></a></p></td>
 <td><p>Construct a mesh from a delaunay triangulation of a set of points.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_polygons.html#compas_fd.datastructures.CableMesh.from_polygons" title="compas_fd.datastructures.CableMesh.from_polygons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_polygons</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_polygons.html#compas_fd.datastructures.CableMesh.from_polygons" title="compas_fd.datastructures.CableMesh.from_polygons"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_polygons</span></code></a></p></td>
 <td><p>Construct a mesh from a series of polygons.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_polyhedron.html#compas_fd.datastructures.CableMesh.from_polyhedron" title="compas_fd.datastructures.CableMesh.from_polyhedron"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_polyhedron</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_polyhedron.html#compas_fd.datastructures.CableMesh.from_polyhedron" title="compas_fd.datastructures.CableMesh.from_polyhedron"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_polyhedron</span></code></a></p></td>
 <td><p>Construct a mesh from a platonic solid.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_polylines.html#compas_fd.datastructures.CableMesh.from_polylines" title="compas_fd.datastructures.CableMesh.from_polylines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_polylines</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_polylines.html#compas_fd.datastructures.CableMesh.from_polylines" title="compas_fd.datastructures.CableMesh.from_polylines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_polylines</span></code></a></p></td>
 <td><p>Construct mesh from polylines.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_shape.html#compas_fd.datastructures.CableMesh.from_shape" title="compas_fd.datastructures.CableMesh.from_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_shape</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_shape.html#compas_fd.datastructures.CableMesh.from_shape" title="compas_fd.datastructures.CableMesh.from_shape"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_shape</span></code></a></p></td>
 <td><p>Construct a mesh from a primitive shape.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_stl.html#compas_fd.datastructures.CableMesh.from_stl" title="compas_fd.datastructures.CableMesh.from_stl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_stl</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_stl.html#compas_fd.datastructures.CableMesh.from_stl" title="compas_fd.datastructures.CableMesh.from_stl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_stl</span></code></a></p></td>
 <td><p>Construct a mesh object from the data described in a STL file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_vertices_and_faces.html#compas_fd.datastructures.CableMesh.from_vertices_and_faces" title="compas_fd.datastructures.CableMesh.from_vertices_and_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_vertices_and_faces</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.from_vertices_and_faces.html#compas_fd.datastructures.CableMesh.from_vertices_and_faces" title="compas_fd.datastructures.CableMesh.from_vertices_and_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_vertices_and_faces</span></code></a></p></td>
 <td><p>Construct a mesh object from a list of vertices and faces.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.genus.html#compas_fd.datastructures.CableMesh.genus" title="compas_fd.datastructures.CableMesh.genus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genus</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.genus.html#compas_fd.datastructures.CableMesh.genus" title="compas_fd.datastructures.CableMesh.genus"><code class="xref py py-obj docutils literal notranslate"><span class="pre">genus</span></code></a></p></td>
 <td><p>Calculate the genus.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.get_any_face.html#compas_fd.datastructures.CableMesh.get_any_face" title="compas_fd.datastructures.CableMesh.get_any_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_any_face</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.get_any_face.html#compas_fd.datastructures.CableMesh.get_any_face" title="compas_fd.datastructures.CableMesh.get_any_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_any_face</span></code></a></p></td>
 <td><p>Get the identifier of a random face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.get_any_vertex.html#compas_fd.datastructures.CableMesh.get_any_vertex" title="compas_fd.datastructures.CableMesh.get_any_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_any_vertex</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.get_any_vertex.html#compas_fd.datastructures.CableMesh.get_any_vertex" title="compas_fd.datastructures.CableMesh.get_any_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_any_vertex</span></code></a></p></td>
 <td><p>Get the identifier of a random vertex.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.get_any_vertices.html#compas_fd.datastructures.CableMesh.get_any_vertices" title="compas_fd.datastructures.CableMesh.get_any_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_any_vertices</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.get_any_vertices.html#compas_fd.datastructures.CableMesh.get_any_vertices" title="compas_fd.datastructures.CableMesh.get_any_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_any_vertices</span></code></a></p></td>
 <td><p>Get a list of identifiers of a random set of n vertices.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.gkey_key.html#compas_fd.datastructures.CableMesh.gkey_key" title="compas_fd.datastructures.CableMesh.gkey_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gkey_key</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.gkey_key.html#compas_fd.datastructures.CableMesh.gkey_key" title="compas_fd.datastructures.CableMesh.gkey_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gkey_key</span></code></a></p></td>
 <td><p>Returns a dictionary that maps <em>geometric keys</em> of a certain precision to the keys of the corresponding vertices.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.gkey_vertex.html#compas_fd.datastructures.CableMesh.gkey_vertex" title="compas_fd.datastructures.CableMesh.gkey_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gkey_vertex</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.gkey_vertex.html#compas_fd.datastructures.CableMesh.gkey_vertex" title="compas_fd.datastructures.CableMesh.gkey_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gkey_vertex</span></code></a></p></td>
 <td><p>Returns a dictionary that maps <em>geometric keys</em> of a certain precision to the keys of the corresponding vertices.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_after.html#compas_fd.datastructures.CableMesh.halfedge_after" title="compas_fd.datastructures.CableMesh.halfedge_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_after</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_after.html#compas_fd.datastructures.CableMesh.halfedge_after" title="compas_fd.datastructures.CableMesh.halfedge_after"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_after</span></code></a></p></td>
 <td><p>Find the halfedge after the given halfedge in the same face.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_before.html#compas_fd.datastructures.CableMesh.halfedge_before" title="compas_fd.datastructures.CableMesh.halfedge_before"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_before</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_before.html#compas_fd.datastructures.CableMesh.halfedge_before" title="compas_fd.datastructures.CableMesh.halfedge_before"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_before</span></code></a></p></td>
 <td><p>Find the halfedge before the given halfedge in the same face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_face.html#compas_fd.datastructures.CableMesh.halfedge_face" title="compas_fd.datastructures.CableMesh.halfedge_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_face</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_face.html#compas_fd.datastructures.CableMesh.halfedge_face" title="compas_fd.datastructures.CableMesh.halfedge_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_face</span></code></a></p></td>
 <td><p>Find the face corresponding to a halfedge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_loop.html#compas_fd.datastructures.CableMesh.halfedge_loop" title="compas_fd.datastructures.CableMesh.halfedge_loop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_loop</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_loop.html#compas_fd.datastructures.CableMesh.halfedge_loop" title="compas_fd.datastructures.CableMesh.halfedge_loop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_loop</span></code></a></p></td>
 <td><p>Find all edges on the same loop as the halfedge, in the direction of the halfedge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_strip.html#compas_fd.datastructures.CableMesh.halfedge_strip" title="compas_fd.datastructures.CableMesh.halfedge_strip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_strip</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.halfedge_strip.html#compas_fd.datastructures.CableMesh.halfedge_strip" title="compas_fd.datastructures.CableMesh.halfedge_strip"><code class="xref py py-obj docutils literal notranslate"><span class="pre">halfedge_strip</span></code></a></p></td>
 <td><p>Find all edges on the same strip as a given halfedge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.has_edge.html#compas_fd.datastructures.CableMesh.has_edge" title="compas_fd.datastructures.CableMesh.has_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_edge</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.has_edge.html#compas_fd.datastructures.CableMesh.has_edge" title="compas_fd.datastructures.CableMesh.has_edge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_edge</span></code></a></p></td>
 <td><p>Verify that the mesh contains a specific edge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.has_face.html#compas_fd.datastructures.CableMesh.has_face" title="compas_fd.datastructures.CableMesh.has_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_face</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.has_face.html#compas_fd.datastructures.CableMesh.has_face" title="compas_fd.datastructures.CableMesh.has_face"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_face</span></code></a></p></td>
 <td><p>Verify that a face is part of the mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.has_halfedge.html#compas_fd.datastructures.CableMesh.has_halfedge" title="compas_fd.datastructures.CableMesh.has_halfedge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_halfedge</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.has_halfedge.html#compas_fd.datastructures.CableMesh.has_halfedge" title="compas_fd.datastructures.CableMesh.has_halfedge"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_halfedge</span></code></a></p></td>
 <td><p>Verify that a halfedge is part of the mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.has_vertex.html#compas_fd.datastructures.CableMesh.has_vertex" title="compas_fd.datastructures.CableMesh.has_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_vertex</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.has_vertex.html#compas_fd.datastructures.CableMesh.has_vertex" title="compas_fd.datastructures.CableMesh.has_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">has_vertex</span></code></a></p></td>
 <td><p>Verify that a vertex is in the mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.index_key.html#compas_fd.datastructures.CableMesh.index_key" title="compas_fd.datastructures.CableMesh.index_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_key</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.index_key.html#compas_fd.datastructures.CableMesh.index_key" title="compas_fd.datastructures.CableMesh.index_key"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_key</span></code></a></p></td>
 <td><p>Returns a dictionary that maps the indices of a vertex list to keys in a vertex dictionary.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.index_vertex.html#compas_fd.datastructures.CableMesh.index_vertex" title="compas_fd.datastructures.CableMesh.index_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_vertex</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.index_vertex.html#compas_fd.datastructures.CableMesh.index_vertex" title="compas_fd.datastructures.CableMesh.index_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">index_vertex</span></code></a></p></td>
 <td><p>Returns a dictionary that maps the indices of a vertex list to keys in a vertex dictionary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.insert_vertex.html#compas_fd.datastructures.CableMesh.insert_vertex" title="compas_fd.datastructures.CableMesh.insert_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_vertex</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.insert_vertex.html#compas_fd.datastructures.CableMesh.insert_vertex" title="compas_fd.datastructures.CableMesh.insert_vertex"><code class="xref py py-obj docutils literal notranslate"><span class="pre">insert_vertex</span></code></a></p></td>
 <td><p>Insert a vertex in the specified face.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_closed.html#compas_fd.datastructures.CableMesh.is_closed" title="compas_fd.datastructures.CableMesh.is_closed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_closed</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_closed.html#compas_fd.datastructures.CableMesh.is_closed" title="compas_fd.datastructures.CableMesh.is_closed"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_closed</span></code></a></p></td>
 <td><p>Verify that the mesh is closed.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_connected.html#compas_fd.datastructures.CableMesh.is_connected" title="compas_fd.datastructures.CableMesh.is_connected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_connected</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_connected.html#compas_fd.datastructures.CableMesh.is_connected" title="compas_fd.datastructures.CableMesh.is_connected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_connected</span></code></a></p></td>
 <td><p>Verify that the mesh is connected.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_edge_on_boundary.html#compas_fd.datastructures.CableMesh.is_edge_on_boundary" title="compas_fd.datastructures.CableMesh.is_edge_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_edge_on_boundary</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_edge_on_boundary.html#compas_fd.datastructures.CableMesh.is_edge_on_boundary" title="compas_fd.datastructures.CableMesh.is_edge_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_edge_on_boundary</span></code></a></p></td>
 <td><p>Verify that an edge is on the boundary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_empty.html#compas_fd.datastructures.CableMesh.is_empty" title="compas_fd.datastructures.CableMesh.is_empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_empty</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_empty.html#compas_fd.datastructures.CableMesh.is_empty" title="compas_fd.datastructures.CableMesh.is_empty"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_empty</span></code></a></p></td>
 <td><p>Verify that the mesh is empty.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_face_on_boundary.html#compas_fd.datastructures.CableMesh.is_face_on_boundary" title="compas_fd.datastructures.CableMesh.is_face_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_face_on_boundary</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_face_on_boundary.html#compas_fd.datastructures.CableMesh.is_face_on_boundary" title="compas_fd.datastructures.CableMesh.is_face_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_face_on_boundary</span></code></a></p></td>
 <td><p>Verify that a face is on a boundary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_manifold.html#compas_fd.datastructures.CableMesh.is_manifold" title="compas_fd.datastructures.CableMesh.is_manifold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_manifold</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_manifold.html#compas_fd.datastructures.CableMesh.is_manifold" title="compas_fd.datastructures.CableMesh.is_manifold"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_manifold</span></code></a></p></td>
 <td><p>Verify that the mesh is manifold.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_orientable.html#compas_fd.datastructures.CableMesh.is_orientable" title="compas_fd.datastructures.CableMesh.is_orientable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_orientable</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_orientable.html#compas_fd.datastructures.CableMesh.is_orientable" title="compas_fd.datastructures.CableMesh.is_orientable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_orientable</span></code></a></p></td>
 <td><p>Verify that the mesh is orientable.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_quadmesh.html#compas_fd.datastructures.CableMesh.is_quadmesh" title="compas_fd.datastructures.CableMesh.is_quadmesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_quadmesh</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_quadmesh.html#compas_fd.datastructures.CableMesh.is_quadmesh" title="compas_fd.datastructures.CableMesh.is_quadmesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_quadmesh</span></code></a></p></td>
 <td><p>Verify that the mesh consists of only quads.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_regular.html#compas_fd.datastructures.CableMesh.is_regular" title="compas_fd.datastructures.CableMesh.is_regular"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_regular</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_regular.html#compas_fd.datastructures.CableMesh.is_regular" title="compas_fd.datastructures.CableMesh.is_regular"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_regular</span></code></a></p></td>
 <td><p>Verify that the mesh is regular.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_trimesh.html#compas_fd.datastructures.CableMesh.is_trimesh" title="compas_fd.datastructures.CableMesh.is_trimesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_trimesh</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_trimesh.html#compas_fd.datastructures.CableMesh.is_trimesh" title="compas_fd.datastructures.CableMesh.is_trimesh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_trimesh</span></code></a></p></td>
 <td><p>Verify that the mesh consists of only triangles.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_valid.html#compas_fd.datastructures.CableMesh.is_valid" title="compas_fd.datastructures.CableMesh.is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_valid.html#compas_fd.datastructures.CableMesh.is_valid" title="compas_fd.datastructures.CableMesh.is_valid"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_valid</span></code></a></p></td>
 <td><p>Verify that the mesh is valid.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_vertex_connected.html#compas_fd.datastructures.CableMesh.is_vertex_connected" title="compas_fd.datastructures.CableMesh.is_vertex_connected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_vertex_connected</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_vertex_connected.html#compas_fd.datastructures.CableMesh.is_vertex_connected" title="compas_fd.datastructures.CableMesh.is_vertex_connected"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_vertex_connected</span></code></a></p></td>
 <td><p>Verify that a vertex is connected.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_vertex_on_boundary.html#compas_fd.datastructures.CableMesh.is_vertex_on_boundary" title="compas_fd.datastructures.CableMesh.is_vertex_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_vertex_on_boundary</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.is_vertex_on_boundary.html#compas_fd.datastructures.CableMesh.is_vertex_on_boundary" title="compas_fd.datastructures.CableMesh.is_vertex_on_boundary"><code class="xref py py-obj docutils literal notranslate"><span class="pre">is_vertex_on_boundary</span></code></a></p></td>
 <td><p>Verify that a vertex is on a boundary.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.join.html#compas_fd.datastructures.CableMesh.join" title="compas_fd.datastructures.CableMesh.join"><code class="xref py py-obj docutils literal notranslate"><span class="pre">join</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.join.html#compas_fd.datastructures.CableMesh.join" title="compas_fd.datastructures.CableMesh.join"><code class="xref py py-obj docutils literal notranslate"><span class="pre">join</span></code></a></p></td>
 <td><p>Add the vertices and faces of another mesh to the current mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.key_gkey.html#compas_fd.datastructures.CableMesh.key_gkey" title="compas_fd.datastructures.CableMesh.key_gkey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key_gkey</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.key_gkey.html#compas_fd.datastructures.CableMesh.key_gkey" title="compas_fd.datastructures.CableMesh.key_gkey"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key_gkey</span></code></a></p></td>
 <td><p>Returns a dictionary that maps vertex dictionary keys to the corresponding <em>geometric key</em> up to a certain precision.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.key_index.html#compas_fd.datastructures.CableMesh.key_index" title="compas_fd.datastructures.CableMesh.key_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key_index</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.key_index.html#compas_fd.datastructures.CableMesh.key_index" title="compas_fd.datastructures.CableMesh.key_index"><code class="xref py py-obj docutils literal notranslate"><span class="pre">key_index</span></code></a></p></td>
 <td><p>Returns a dictionary that maps vertex dictionary keys to the corresponding index in a vertex list or array.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.merge_faces.html#compas_fd.datastructures.CableMesh.merge_faces" title="compas_fd.datastructures.CableMesh.merge_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_faces</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.merge_faces.html#compas_fd.datastructures.CableMesh.merge_faces" title="compas_fd.datastructures.CableMesh.merge_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">merge_faces</span></code></a></p></td>
 <td><p>Merge two faces of a mesh over their shared edge.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_numpy.html#compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_numpy" title="compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mesh_oriented_bounding_box_numpy</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_numpy.html#compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_numpy" title="compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mesh_oriented_bounding_box_numpy</span></code></a></p></td>
 <td><p>Compute the (axis aligned) bounding box of a mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_xy_numpy.html#compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_xy_numpy" title="compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_xy_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mesh_oriented_bounding_box_xy_numpy</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_xy_numpy.html#compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_xy_numpy" title="compas_fd.datastructures.CableMesh.mesh_oriented_bounding_box_xy_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mesh_oriented_bounding_box_xy_numpy</span></code></a></p></td>
 <td><p>Compute the (axis aligned) bounding box of a projection of the mesh in the XY plane.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.normal.html#compas_fd.datastructures.CableMesh.normal" title="compas_fd.datastructures.CableMesh.normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normal</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.normal.html#compas_fd.datastructures.CableMesh.normal" title="compas_fd.datastructures.CableMesh.normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">normal</span></code></a></p></td>
 <td><p>Calculate the average mesh normal.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.number_of_edges.html#compas_fd.datastructures.CableMesh.number_of_edges" title="compas_fd.datastructures.CableMesh.number_of_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_edges</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.number_of_edges.html#compas_fd.datastructures.CableMesh.number_of_edges" title="compas_fd.datastructures.CableMesh.number_of_edges"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_edges</span></code></a></p></td>
 <td><p>Count the number of edges in the mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.number_of_faces.html#compas_fd.datastructures.CableMesh.number_of_faces" title="compas_fd.datastructures.CableMesh.number_of_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_faces</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.number_of_faces.html#compas_fd.datastructures.CableMesh.number_of_faces" title="compas_fd.datastructures.CableMesh.number_of_faces"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_faces</span></code></a></p></td>
 <td><p>Count the number of faces in the mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.number_of_vertices.html#compas_fd.datastructures.CableMesh.number_of_vertices" title="compas_fd.datastructures.CableMesh.number_of_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_vertices</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.number_of_vertices.html#compas_fd.datastructures.CableMesh.number_of_vertices" title="compas_fd.datastructures.CableMesh.number_of_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">number_of_vertices</span></code></a></p></td>
 <td><p>Count the number of vertices in the mesh.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.obb_numpy.html#compas_fd.datastructures.CableMesh.obb_numpy" title="compas_fd.datastructures.CableMesh.obb_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">obb_numpy</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.obb_numpy.html#compas_fd.datastructures.CableMesh.obb_numpy" title="compas_fd.datastructures.CableMesh.obb_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">obb_numpy</span></code></a></p></td>
 <td><p>Compute the (axis aligned) bounding box of a mesh.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.obb_xy_numpy.html#compas_fd.datastructures.CableMesh.obb_xy_numpy" title="compas_fd.datastructures.CableMesh.obb_xy_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">obb_xy_numpy</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.obb_xy_numpy.html#compas_fd.datastructures.CableMesh.obb_xy_numpy" title="compas_fd.datastructures.CableMesh.obb_xy_numpy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">obb_xy_numpy</span></code></a></p></td>
 <td><p>Compute the (axis aligned) bounding box of a projection of the mesh in the XY plane.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.quads_to_triangles.html#compas_fd.datastructures.CableMesh.quads_to_triangles" title="compas_fd.datastructures.CableMesh.quads_to_triangles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quads_to_triangles</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.quads_to_triangles.html#compas_fd.datastructures.CableMesh.quads_to_triangles" title="compas_fd.datastructures.CableMesh.quads_to_triangles"><code class="xref py py-obj docutils literal notranslate"><span class="pre">quads_to_triangles</span></code></a></p></td>
 <td><p>Convert all quadrilateral faces of a mesh to triangles by adding a diagonal edge.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.remove_unused_vertices.html#compas_fd.datastructures.CableMesh.remove_unused_vertices" title="compas_fd.datastructures.CableMesh.remove_unused_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_unused_vertices</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.remove_unused_vertices.html#compas_fd.datastructures.CableMesh.remove_unused_vertices" title="compas_fd.datastructures.CableMesh.remove_unused_vertices"><code class="xref py py-obj docutils literal notranslate"><span class="pre">remove_unused_vertices</span></code></a></p></td>
 <td><p>Remove all unused vertices from the mesh object.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.sha256.html#compas_fd.datastructures.CableMesh.sha256" title="compas_fd.datastructures.CableMesh.sha256"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sha256</span></code></a></p></td>
+<td><p>Compute a hash of the data for comparison during version control using the sha256 algorithm.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.slice_plane.html#compas_fd.datastructures.CableMesh.slice_plane" title="compas_fd.datastructures.CableMesh.slice_plane"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slice_plane</span></code></a></p></td>
 <td><p>Slice a mesh with a plane and construct the resulting submeshes.</p></td>
@@ -555,7 +539,7 @@ with attributes and methods related to form finding of tensile surface structure
 <td><p>Serialize the data representation of an object to a JSON string.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.to_lines.html#compas_fd.datastructures.CableMesh.to_lines" title="compas_fd.datastructures.CableMesh.to_lines"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_lines</span></code></a></p></td>
-<td><p>Convert the mesh to a collection of lines.</p></td>
+<td><p>Return the lines of the mesh as pairs of start and end point coordinates.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.datastructures.CableMesh.to_obj.html#compas_fd.datastructures.CableMesh.to_obj" title="compas_fd.datastructures.CableMesh.to_obj"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_obj</span></code></a></p></td>
 <td><p>Write the mesh to an OBJ file.</p></td>
@@ -722,9 +706,10 @@ with attributes and methods related to form finding of tensile surface structure
 </li>
 <li class="toctree-l1 nav-item active"><a class="nav-link reference internal" href="../../api.html">API Reference</a><ul class="nav flex-column collapse show active">
 <li class="toctree-l2 nav-item active"><a class="nav-link reference internal" href="../compas_fd.html">compas_fd</a><ul class="nav flex-column collapse show active">
-<li class="toctree-l3 nav-item active"><a class="nav-link reference internal" href="../compas_fd.datastructures.html">compas_fd.datastructures</a></li>
-<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.fd.html">compas_fd.fd</a></li>
-<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.loads.html">compas_fd.loads</a></li>
+<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.constraints.html">constraints</a></li>
+<li class="toctree-l3 nav-item active"><a class="nav-link reference internal" href="../compas_fd.datastructures.html">datastructures</a></li>
+<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.fd.html">fd</a></li>
+<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.loads.html">loads</a></li>
 </ul>
 </li>
 </ul>
@@ -740,9 +725,7 @@ with attributes and methods related to form finding of tensile surface structure
       <div class="d-none d-xl-block col-xl-2 compas-toc" role="toc">
         
         <ul class="nav flex-column" id="compas-toc">
-<li class="nav-item"><a class="nav-link reference internal" href="#">CableMesh</a><ul class="nav flex-column">
-</ul>
-</li>
+<li class="nav-item"><a class="nav-link reference internal" href="#">CableMesh</a></li>
 </ul>
 
       </div>
@@ -754,20 +737,20 @@ with attributes and methods related to form finding of tensile surface structure
   <footer class="compas-footer">
     <nav class="nav p-2">
       
-      <a href="../compas_fd.datastructures.html" title="compas_fd.datastructures" class="nav-link footer-link float-start text-left d-flex w-50" rel="prev">
+      <a href="../compas_fd.datastructures.html" title="datastructures" class="nav-link footer-link float-start text-left d-flex w-50" rel="prev">
         <div class="nav-button p-2 m-2"><i class="fas fa-arrow-left"></i></div>
         <div class="nav-title flex-grow-1 align-self-center">
           <div class="nav-direction small font-weight-light">Previous</div>
-          compas_fd.datastructures
+          datastructures
         </div>
       </a>
       
 
       
-      <a href="compas_fd.datastructures.CableMesh.fd_constrained_numpy.html" title="CableMesh.fd_constrained_numpy" class="nav-link footer-link float-end text-right d-flex w-50" rel="next">
+      <a href="compas_fd.datastructures.CableMesh.ToString.html" title="CableMesh.ToString" class="nav-link footer-link float-end text-right d-flex w-50" rel="next">
         <div class="nav-title footer-link flex-grow-1 align-self-center">
           <div class="nav-direction small font-weight-light">Next</div>
-          CableMesh.fd_constrained_numpy
+          CableMesh.ToString
         </div>
         <div class="nav-button p-2 m-2"><i class="fas fa-arrow-right"></i></div>
       </a>
