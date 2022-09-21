@@ -2,19 +2,20 @@ from numpy import array
 from numpy import asarray
 from numpy import float64
 
-import compas_fd
 from compas_fd.loads import SelfweightCalculator
-from .fd_constrained_numpy import fd_constrained_numpy
+from compas_fd.fd.fd_constrained_numpy import fd_constrained_numpy
+from compas_fd.datastructures import CableMesh
 
 
 def mesh_fd_constrained_numpy(
-    mesh: "compas_fd.datastructures.CableMesh",
+    mesh: CableMesh,
     kmax: int = 100,
     damping: float = 0.1,
     tol_res: float = 1e-3,
     tol_disp: float = 1e-3,
-) -> "compas_fd.datastructures.CableMesh":
-    """Iteratively find the equilibrium shape of a mesh for the given force densities.
+) -> CableMesh:
+    """
+    Iteratively find the equilibrium shape of a mesh for the given force densities.
 
     Parameters
     ----------

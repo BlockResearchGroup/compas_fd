@@ -16,26 +16,23 @@ from scipy.sparse.linalg import spsolve
 from compas.numerical import normrow
 
 from compas_fd.constraints import Constraint
+from compas_fd.fd.fd_numerical_data import FDNumericalData
+from compas_fd.fd.result import Result
 
-from .fd_numerical_data import FDNumericalData
-from .result import Result
+
+FloatNx3 = Union[
+    Sequence[Annotated[List[float], 3]],
+    NDArray[Shape["*, 3"], Float64],
+]
 
 
 def fd_constrained_numpy(
     *,
-    vertices: Union[
-        Sequence[Annotated[List[float], 3]],
-        NDArray[Shape["*, 3"], Float64],
-    ],
+    vertices: FloatNx3,
     fixed: List[int],
     edges: List[Tuple[int, int]],
     forcedensities: List[float],
-    loads: Optional[
-        Union[
-            Sequence[Annotated[List[float], 3]],
-            NDArray[Shape["*, 3"], Float64],
-        ]
-    ] = None,
+    loads: Optional[FloatNx3] = None,
     constraints: Sequence[Constraint],
     kmax: int = 100,
     tol_res: float = 1e-3,
@@ -43,7 +40,8 @@ def fd_constrained_numpy(
     damping: float = 0.1,
     selfweight=None,
 ) -> Result:
-    """Iteratively compute the equilibrium coordinates of a system of vertices connected by edges.
+    """
+    Iteratively compute the equilibrium coordinates of a system of vertices connected by edges.
     Vertex constraints are recomputed at each iteration.
     """
     nd = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
@@ -62,7 +60,8 @@ def fd_constrained_numpy(
 
 
 def _solve_fd(numdata: FDNumericalData, selfweight: Callable = None) -> None:
-    """Solve a single iteration for the equilibrium coordinates of a system.
+    """
+    Solve a single iteration for the equilibrium coordinates of a system.
     All updated numerical arrays are stored in the numdata parameter.
     """
     nd = numdata
@@ -78,7 +77,8 @@ def _solve_fd(numdata: FDNumericalData, selfweight: Callable = None) -> None:
 
 
 def _post_process_fd(numdata: FDNumericalData) -> None:
-    """Compute dependent numerical arrays from the numerical data after running solver.
+    """
+    Compute dependent numerical arrays from the numerical data after running solver.
     All updated numerical arrays are stored in the numdata parameter.
     """
     nd = numdata
@@ -89,7 +89,8 @@ def _post_process_fd(numdata: FDNumericalData) -> None:
 def _update_constraints(
     numdata: FDNumericalData, constraints: Sequence[Constraint], damping: float
 ) -> None:
-    """Update all vertex constraints by the residuals of the current iteration,
+    """
+    Update all vertex constraints by the residuals of the current iteration,
     and store their updated vertex coordinates in the numdata parameter.
     """
     nd = numdata
@@ -106,7 +107,9 @@ def _update_constraints(
 def _is_converged_residuals(
     residuals: NDArray[Shape["*, 3"], Float64], tol_res: float
 ) -> bool:
-    """Verify whether the maximum constraint residual is within tolerance."""
+    """
+    Verify whether the maximum constraint residual is within tolerance.
+    """
     if residuals is None or not residuals.any():
         return True
     max_res = max(norm(residuals, axis=1))
@@ -118,7 +121,8 @@ def _is_converged_disp(
     new_xyz: NDArray[Shape["*, 3"], Float64],
     tol_disp: float,
 ) -> bool:
-    """Verify whether the maximum coordinate displacement
+    """
+    Verify whether the maximum coordinate displacement
     between consecutive iterations is within tolerance.
     """
     max_dxyz = max(norm(new_xyz - old_xyz, axis=1))

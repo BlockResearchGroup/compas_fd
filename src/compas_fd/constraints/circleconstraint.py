@@ -3,7 +3,6 @@ from __future__ import absolute_import
 from __future__ import division
 
 from compas.geometry import vector_component
-from compas.geometry import project_point_plane
 from compas.geometry import Vector
 from compas.geometry import Point
 from compas.geometry import Circle

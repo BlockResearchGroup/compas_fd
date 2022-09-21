@@ -17,24 +17,22 @@ from scipy.sparse.linalg import spsolve
 from compas.numerical import connectivity_matrix
 from compas.numerical import normrow
 
-from .result import Result
+from compas_fd.fd.result import Result
+
+
+FloatNx3 = Union[
+    Sequence[Annotated[List[float], 3]],
+    NDArray[Shape["*, 3"], Float64],
+]
 
 
 def fd_numpy(
     *,
-    vertices: Union[
-        Sequence[Annotated[List[float], 3]],
-        NDArray[Shape["*, 3"], Float64],
-    ],
+    vertices: FloatNx3,
     fixed: List[int],
     edges: List[Tuple[int, int]],
     forcedensities: List[float],
-    loads: Optional[
-        Union[
-            Sequence[Annotated[List[float], 3]],
-            NDArray[Shape["*, 3"], Float64],
-        ]
-    ] = None,
+    loads: Optional[FloatNx3] = None,
 ) -> Result:
     """
     Compute the equilibrium coordinates of a system of vertices connected by edges.

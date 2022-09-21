@@ -7,10 +7,11 @@ from compas.numerical import face_matrix
 
 
 class SelfweightCalculator:
-
-    def __init__(self, mesh, density=1.0, thickness_attr_name='t'):
+    def __init__(self, mesh, density=1.0, thickness_attr_name="t"):
         self.mesh = mesh
-        self.rho = array([t * density for t in mesh.vertices_attribute(thickness_attr_name)]).reshape((-1, 1))
+        self.rho = array(
+            [t * density for t in mesh.vertices_attribute(thickness_attr_name)]
+        ).reshape((-1, 1))
         self.key_index = mesh.key_index()
         self.fkey_index = {fkey: index for index, fkey in enumerate(mesh.faces())}
         self.is_loaded = {fkey: True for fkey in mesh.faces()}
@@ -23,8 +24,10 @@ class SelfweightCalculator:
     def face_matrix(self):
         face_vertices = [None] * self.mesh.number_of_faces()
         for fkey in self.mesh.faces():
-            face_vertices[self.fkey_index[fkey]] = [self.key_index[key] for key in self.mesh.face_vertices(fkey)]
-        return face_matrix(face_vertices, rtype='csr', normalize=True)
+            face_vertices[self.fkey_index[fkey]] = [
+                self.key_index[key] for key in self.mesh.face_vertices(fkey)
+            ]
+        return face_matrix(face_vertices, rtype="csr", normalize=True)
 
     def _tributary_areas(self, xyz):
         mesh = self.mesh

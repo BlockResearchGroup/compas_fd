@@ -19,12 +19,14 @@ from scipy.sparse import diags
 
 from compas.numerical import connectivity_matrix
 
-from .result import Result
+from compas_fd.fd.result import Result
 
 
 @dataclass
 class FDNumericalData:
-    """Stores numerical data used by the force density algorithms."""
+    """
+    Stores numerical data used by the force density algorithms.
+    """
 
     free: int
     fixed: int
@@ -62,7 +64,9 @@ class FDNumericalData:
             ]
         ] = None,
     ):
-        """Construct numerical arrays from force density solver input parameters."""
+        """
+        Construct numerical arrays from force density solver input parameters.
+        """
         free = list(set(range(len(vertices))) - set(fixed))
         xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
         C = connectivity_matrix(edges, "csr")
@@ -82,9 +86,13 @@ class FDNumericalData:
 
     @classmethod
     def from_mesh(cls, mesh):
-        """Construct numerical arrays from input mesh."""
+        """
+        Construct numerical arrays from input mesh.
+        """
         raise NotImplementedError
 
     def to_result(self) -> Result:
-        """Parse relevant numerical data into a Result object."""
+        """
+        Parse relevant numerical data into a Result object.
+        """
         return Result(self.xyz, self.residuals, self.forces, self.lengths)

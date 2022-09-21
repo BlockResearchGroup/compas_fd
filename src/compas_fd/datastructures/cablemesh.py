@@ -2,7 +2,6 @@ from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
 
-import compas
 from compas.datastructures import Mesh
 
 
@@ -10,13 +9,6 @@ class CableMesh(Mesh):
     """:class:`CableMesh` extends the mesh datastructure
     with attributes and methods related to form finding of tensile surface structures.
     """
-
-    if not compas.IPY:
-        from compas_fd.fd import mesh_fd_numpy
-        from compas_fd.fd import mesh_fd_constrained_numpy
-
-        fd_numpy = mesh_fd_numpy
-        fd_constrained_numpy = mesh_fd_constrained_numpy
 
     def __init__(self):
         super(CableMesh, self).__init__()
