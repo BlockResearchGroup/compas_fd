@@ -50,7 +50,7 @@
         <meta id="doc_versions" data-url="https://github.com/blockresearchgroup/compas_fd/doc_versions.txt" data-docs="https://blockresearchgroup.github.io/compas_fd">
         <li class="nav-item nav-versions dropdown">
           <a class="nav-item nav-link dropdown-toggle mr-md-2" href="#" id="bd-versions" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            0.3.1
+            0.4.0
           </a>
           <div id="doc_version_list" class="dropdown-menu dropdown-menu-md-right" aria-labelledby="bd-versions"></div>
         </li>
@@ -86,7 +86,7 @@
             
             <li class="breadcrumb-item"><a href="../compas_fd.html">compas_fd</a></li>
             
-            <li class="breadcrumb-item"><a href="../compas_fd.datastructures.html">compas_fd.datastructures</a></li>
+            <li class="breadcrumb-item"><a href="../compas_fd.datastructures.html">datastructures</a></li>
             
             <li class="breadcrumb-item"><a href="compas_fd.datastructures.CableMesh.html">CableMesh</a></li>
             
@@ -104,7 +104,7 @@
 <span class="sig-prename descclassname"><span class="pre">CableMesh.</span></span><span class="sig-name descname"><span class="pre">face_vertex_descendant</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fkey</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference external" href="https://github.com/blockresearchgroup/compas_fd/blob/master/src/compas_fd/datastructures/cablemesh.py#L2472"><span class="viewcode-link"><span class="pre">[source]</span></span></a></dt>
 <dd><p>Return the n-th vertex after the specified vertex in a specific face.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>fkey</strong> (<em>int</em>) – Identifier of the face.</p></li>
 <li><p><strong>key</strong> (<em>int</em>) – The identifier of the vertex.</p></li>
@@ -112,10 +112,10 @@
 Default is 1, meaning the next vertex.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><em>int</em> – The identifier of the vertex after the given vertex in the face cycle.</p>
 </dd>
-<dt class="field-odd">Raises</dt>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.10)"><strong>ValueError</strong></a> – If the vertex is not part of the face.</p>
 </dd>
 </dl>
@@ -150,9 +150,10 @@ Default is 1, meaning the next vertex.</p></li>
 </li>
 <li class="toctree-l1 nav-item active"><a class="nav-link reference internal" href="../../api.html">API Reference</a><ul class="nav flex-column collapse show active">
 <li class="toctree-l2 nav-item active"><a class="nav-link reference internal" href="../compas_fd.html">compas_fd</a><ul class="nav flex-column collapse show active">
-<li class="toctree-l3 nav-item active"><a class="nav-link reference internal" href="../compas_fd.datastructures.html">compas_fd.datastructures</a></li>
-<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.fd.html">compas_fd.fd</a></li>
-<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.loads.html">compas_fd.loads</a></li>
+<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.constraints.html">constraints</a></li>
+<li class="toctree-l3 nav-item active"><a class="nav-link reference internal" href="../compas_fd.datastructures.html">datastructures</a></li>
+<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.fd.html">fd</a></li>
+<li class="toctree-l3 nav-item"><a class="nav-link reference internal" href="../compas_fd.loads.html">loads</a></li>
 </ul>
 </li>
 </ul>
