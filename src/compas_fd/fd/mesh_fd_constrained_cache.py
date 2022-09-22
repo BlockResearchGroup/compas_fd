@@ -36,8 +36,6 @@ def mesh_fd_constrained_cache_create(
     tol_disp: float = 1e-3,
 ) -> None:
 
-    global CACHE
-
     v_i = mesh.vertex_index()
     vertices = array(mesh.vertices_attributes("xyz"), dtype=float64)
     fixed = [v_i[v] for v in mesh.vertices_where(is_anchor=True)]
@@ -67,26 +65,24 @@ def mesh_fd_constrained_cache_create(
         "tol_res": tol_res,
         "tol_disp": tol_disp,
     }
-    CACHE = cache_data
+    return cache_data
 
 
 def mesh_fd_constrained_cache_delete() -> None:
-    global CACHE
-    CACHE = None
+    pass
 
 
-def mesh_fd_constrained_cache_call(scale: float) -> List[List[float]]:
-    global CACHE
+def mesh_fd_constrained_cache_call(scale: float, cached_data: dict) -> List[List[float]]:
 
-    numdata: FDNumericalData = CACHE["numdata"]
-    edgeset: List[int] = CACHE["edgeset"]
-    qs: NDArray[Literal["*, 1"], Float64] = CACHE["qs"]
-    kmax: int = CACHE["kmax"]
-    damping: float = CACHE["damping"]
-    selfweight: Callable = CACHE["selfweight"]
-    constraints = CACHE["constraints"]
-    tol_res: float = CACHE["tol_res"]
-    tol_disp: float = CACHE["tol_disp"]
+    numdata: FDNumericalData = cached_data["numdata"]
+    edgeset: List[int] = cached_data["edgeset"]
+    qs: NDArray[Literal["*, 1"], Float64] = cached_data["qs"]
+    kmax: int = cached_data["kmax"]
+    damping: float = cached_data["damping"]
+    selfweight: Callable = cached_data["selfweight"]
+    constraints = cached_data["constraints"]
+    tol_res: float = cached_data["tol_res"]
+    tol_disp: float = cached_data["tol_disp"]
 
     numdata.update_forcedensities(edgeset, scale * qs[edgeset])
 
