@@ -92,3 +92,13 @@ class FDNumericalData:
         Parse relevant numerical data into a Result object.
         """
         return Result(self.xyz, self.residuals, self.forces, self.lengths)
+
+    def update_forcedensities(self, edges, newqs):
+        C = self.C
+        Ci = C[:, self.free]
+        Cf = C[:, self.fixed]
+        self.q[edges] = newqs
+        self.Q = diags([self.q.flatten()], [0])
+        self.A = C.T.dot(self.Q).dot(C)
+        self.Ai = Ci.T.dot(self.Q).dot(Ci)
+        self.Af = Ci.T.dot(self.Q).dot(Cf)

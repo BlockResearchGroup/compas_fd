@@ -1,3 +1,6 @@
+from typing import List
+from typing import Tuple
+
 from numpy import array
 from numpy import asarray
 from numpy import float64
@@ -60,7 +63,6 @@ def mesh_fd_constrained_numpy(
     )
 
     _update_mesh(mesh, result)
-
     return mesh
 
 
@@ -75,6 +77,6 @@ def _update_mesh(mesh, result):
         attr["_ry"] = result.residuals[index, 1]
         attr["_rz"] = result.residuals[index, 2]
 
-    for index, (vertex, attr) in enumerate(mesh.edges_where({"_is_edge": True}, True)):
+    for index, (edge, attr) in enumerate(mesh.edges_where({"_is_edge": True}, True)):
         attr["_f"] = result.forces[index, 0]
         attr["_l"] = result.lenghts[index, 0]
