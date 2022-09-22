@@ -18,8 +18,12 @@ from numpy import zeros_like
 from scipy.sparse import diags
 
 from compas.numerical import connectivity_matrix
-
 from compas_fd.fd.result import Result
+
+FloatNx3 = Union[
+    Sequence[Annotated[List[float], 3]],
+    NDArray[Literal["*, 3"], Float64],
+]
 
 
 @dataclass
@@ -50,19 +54,11 @@ class FDNumericalData:
     @classmethod
     def from_params(
         cls,
-        vertices: Union[
-            Sequence[Annotated[List[float], 3]],
-            NDArray[Literal["*, 3"], Float64],
-        ],
+        vertices: FloatNx3,
         fixed: List[int],
         edges: List[Tuple[int, int]],
         forcedensities: List[float],
-        loads: Optional[
-            Union[
-                Sequence[Annotated[List[float], 3]],
-                NDArray[Literal["*, 3"], Float64],
-            ]
-        ] = None,
+        loads: Optional[FloatNx3] = None,
     ):
         """
         Construct numerical arrays from force density solver input parameters.
@@ -96,3 +92,13 @@ class FDNumericalData:
         Parse relevant numerical data into a Result object.
         """
         return Result(self.xyz, self.residuals, self.forces, self.lengths)
+
+    def update_forcedensities(self, edges, newqs):
+        C = self.C
+        Ci = C[:, self.free]
+        Cf = C[:, self.fixed]
+        self.q[edges] = newqs
+        self.Q = diags([self.q.flatten()], [0])
+        self.A = C.T.dot(self.Q).dot(C)
+        self.Ai = Ci.T.dot(self.Q).dot(Ci)
+        self.Af = Ci.T.dot(self.Q).dot(Cf)
