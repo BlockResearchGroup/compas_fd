@@ -17,7 +17,6 @@ from compas_fd.fd.fd_constrained_numpy import _solve_fd
 from compas_fd.fd.fd_constrained_numpy import _update_constraints
 from compas_fd.fd.fd_constrained_numpy import _is_converged_residuals
 from compas_fd.fd.fd_constrained_numpy import _is_converged_disp
-from compas_fd.fd.fd_constrained_numpy import _post_process_fd
 
 
 CACHE = None
