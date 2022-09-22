@@ -26,7 +26,7 @@ __author__ = ['tom van mele <van.mele@arch.ethz.ch>']
 __copyright__ = 'Block Research Group - ETH Zurich'
 __license__ = 'MIT License'
 __email__ = 'van.mele@arch.ethz.ch'
-__version__ = '0.4.0'
+__version__ = '0.4.1'
 
 
 get = compas.get
