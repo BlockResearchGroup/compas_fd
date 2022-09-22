@@ -50,14 +50,17 @@ def mesh_fd_constrained_cache_create(
     )
 
     uv_index = {(u, v): index for index, (u, v) in enumerate(edges)}
+    uv_index.update({(v, u): index for index, (u, v) in enumerate(edges)})
+
+    edgeset = [uv_index[u, v] for u, v in edgeset]
+
     ij = [(v_i[u], v_i[v]) for u, v in edges]
     numdata = FDNumericalData.from_params(vertices, fixed, ij, qs, loads)
-    edgeset = [uv_index[u, v] for u, v in edgeset]
 
     cache_data = {
         "numdata": numdata,
         "edgeset": edgeset,
-        "qs": qs,
+        "qs": qs.copy(),
         "constraints": constraints,
         "selfweight": selfweight,
         "kmax": kmax,
@@ -72,7 +75,9 @@ def mesh_fd_constrained_cache_delete() -> None:
     pass
 
 
-def mesh_fd_constrained_cache_call(scale: float, cached_data: dict) -> List[List[float]]:
+def mesh_fd_constrained_cache_call(
+    scale: float, cached_data: dict
+) -> List[List[float]]:
 
     numdata: FDNumericalData = cached_data["numdata"]
     edgeset: List[int] = cached_data["edgeset"]
