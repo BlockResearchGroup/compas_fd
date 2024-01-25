@@ -1,6 +1,15 @@
 ********************************************************************************
-compas_fd
+COMPAS Constrained Force Density Method
 ********************************************************************************
+
+.. rst-class:: lead
+
+:mod:`compas_fd` is a Python package for computing the equilibrium of form active structures
+such as cable-nets and tensile surfaces, subject to geometrical constraints, using the force density method.
+
+
+Table of Contents
+=================
 
 .. toctree::
    :maxdepth: 3
@@ -12,3 +21,10 @@ compas_fd
    examples
    api
    license
+
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
