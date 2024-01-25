@@ -15,19 +15,14 @@ class PlaneConstraint(Constraint):
         super(PlaneConstraint, self).__init__(geometry=plane, **kwargs)
 
     @property
-    def data(self):
+    def __data__(self):
         return {
             "geometry": self.geometry.data,
             "rhino_guid": str(self._rhino_guid),
         }
 
-    @data.setter
-    def data(self, data):
-        self.geometry = Plane.from_data(data["geometry"])
-        self._rhino_guid = str(data["rhino_guid"])
-
     @classmethod
-    def from_data(cls, data):
+    def __from_data__(cls, data):
         plane = Plane.from_data(data["geometry"])
         constraint = cls(plane)
         constraint._rhino_guid = str(data["rhino_guid"])

@@ -19,6 +19,10 @@ class Constraint(Data):
     GEOMETRY_CONSTRAINT = {}
 
     @staticmethod
+    def register(gtype, ctype):
+        Constraint.GEOMETRY_CONSTRAINT[gtype] = ctype
+
+    @staticmethod
     def get_constraint_cls(geometry, **kwargs):
         gtype = type(geometry)
         cls = None
@@ -37,8 +41,8 @@ class Constraint(Data):
         cls = Constraint.get_constraint_cls(geometry)
         return super(Constraint, cls).__new__(cls)
 
-    def __init__(self, geometry, **kwargs):
-        super(Constraint, self).__init__(**kwargs)
+    def __init__(self, geometry, name=None):
+        super(Constraint, self).__init__(name=name)
         self._geometry = None
         self._location = None
         self._residual = None
@@ -47,10 +51,6 @@ class Constraint(Data):
         self._rhino_guid = None
         self._param = None
         self.geometry = geometry
-
-    @staticmethod
-    def register(gtype, ctype):
-        Constraint.GEOMETRY_CONSTRAINT[gtype] = ctype
 
     @property
     def geometry(self):

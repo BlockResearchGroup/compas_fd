@@ -15,19 +15,14 @@ class CircleConstraint(Constraint):
         super(CircleConstraint, self).__init__(geometry=curve, **kwargs)
 
     @property
-    def data(self):
+    def __data__(self):
         return {
             "geometry": self.geometry.data,
             "rhino_guid": str(self._rhino_guid),
         }
 
-    @data.setter
-    def data(self, data):
-        self.geometry = Circle.from_data(data["geometry"])
-        self._rhino_guid = str(data["rhino_guid"])
-
     @classmethod
-    def from_data(cls, data):
+    def __from_data__(cls, data):
         curve = Circle.from_data(data["geometry"])
         constraint = cls(curve)
         constraint._rhino_guid = str(data["rhino_guid"])

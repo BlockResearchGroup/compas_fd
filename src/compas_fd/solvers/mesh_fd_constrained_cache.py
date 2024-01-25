@@ -10,13 +10,13 @@ from numpy import asarray
 from numpy import float64
 
 from compas_fd.loads import SelfweightCalculator
-from compas_fd.fd.fd_numerical_data import FDNumericalData
 from compas_fd.datastructures import CableMesh
 
-from compas_fd.fd.fd_constrained_numpy import _solve_fd
-from compas_fd.fd.fd_constrained_numpy import _update_constraints
-from compas_fd.fd.fd_constrained_numpy import _is_converged_residuals
-from compas_fd.fd.fd_constrained_numpy import _is_converged_disp
+from .fd_constrained_numpy import _solve_fd
+from .fd_constrained_numpy import _update_constraints
+from .fd_constrained_numpy import _is_converged_residuals
+from .fd_constrained_numpy import _is_converged_disp
+from .fd_numerical_data import FDNumericalData
 
 
 CACHE = None
@@ -34,7 +34,6 @@ def mesh_fd_constrained_cache_create(
     tol_res: float = 1e-3,
     tol_disp: float = 1e-3,
 ) -> None:
-
     v_i = mesh.vertex_index()
     vertices = array(mesh.vertices_attributes("xyz"), dtype=float64)
     fixed = [v_i[v] for v in mesh.vertices_where(is_anchor=True)]
@@ -77,7 +76,6 @@ def mesh_fd_constrained_cache_delete() -> None:
 def mesh_fd_constrained_cache_call(
     scale: float, cached_data: dict
 ) -> List[List[float]]:
-
     numdata: FDNumericalData = cached_data["numdata"]
     edgeset: List[int] = cached_data["edgeset"]
     qs: NDArray[Literal["*, 1"], Float64] = cached_data["qs"]

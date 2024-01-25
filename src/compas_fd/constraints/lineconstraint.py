@@ -16,19 +16,14 @@ class LineConstraint(Constraint):
         super(LineConstraint, self).__init__(geometry=line, **kwargs)
 
     @property
-    def data(self):
+    def __data__(self):
         return {
             "geometry": self.geometry.data,
             "rhino_guid": str(self._rhino_guid),
         }
 
-    @data.setter
-    def data(self, data):
-        self.geometry = Line.from_data(data["geometry"])
-        self._rhino_guid = str(data["rhino_guid"])
-
     @classmethod
-    def from_data(cls, data):
+    def __from_data__(cls, data):
         line = Line.from_data(data["geometry"])
         constraint = cls(line)
         constraint._rhino_guid = str(data["rhino_guid"])

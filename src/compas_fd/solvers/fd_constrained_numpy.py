@@ -1,11 +1,9 @@
 from typing import Callable
 from typing import Tuple
 from typing import List
-from typing import Union
 from typing import Sequence
 from typing import Optional
 from typing_extensions import Literal
-from typing_extensions import Annotated
 from nptyping import NDArray
 from nptyping import Float64
 
@@ -13,17 +11,13 @@ from numpy import asarray
 from scipy.linalg import norm
 from scipy.sparse.linalg import spsolve
 
-from compas.numerical import normrow
+from compas.geometry.linalg import normrow
 
 from compas_fd.constraints import Constraint
-from compas_fd.fd.fd_numerical_data import FDNumericalData
-from compas_fd.fd.result import Result
+from compas_fd.types import FloatNx3
 
-
-FloatNx3 = Union[
-    Sequence[Annotated[List[float], 3]],
-    NDArray[Literal["*, 3"], Float64],
-]
+from .fd_numerical_data import FDNumericalData
+from .result import Result
 
 
 def fd_constrained_numpy(
@@ -43,6 +37,45 @@ def fd_constrained_numpy(
     """
     Iteratively compute the equilibrium coordinates of a system of vertices connected by edges.
     Vertex constraints are recomputed at each iteration.
+
+    Parameters
+    ----------
+    vertices : FloatNx3
+        Vertex coordinates.
+    fixed : list[int]
+        Indices of fixed vertices.
+    edges : list[tuple[int, int]]
+        Edges as pairs of vertex indices.
+    forcedensities : list[float]
+        Forcedensities of the edges.
+    loads : FloatNx3, optional
+        Loads on the vertices.
+    constraints : list[:class:`~compas_fd.constraints.Constraint`]
+        Vertex constraints.
+    kmax : int, optional
+        Maximum number of iterations.
+    tol_res : float, optional
+        Tolerance for the maximum residual force at the non-fixed vertices.
+    tol_disp : float, optional
+        Tolerance for the maximum displacement of the non-fixed vertices between two iterations.
+    damping : float, optional
+        Damping factor for the geometry update of constrained vertices between two iterations.
+    selfweight : callable, optional
+        Function that computes the selfweight of the vertices.
+
+    Returns
+    -------
+    :class:`~compas_fd.solvers.result.Result`
+        Result of the solver.
+
+    See Also
+    --------
+    :func:`compas_fd.solvers.fd_numpy`
+
+    Examples
+    --------
+    >>>
+
     """
     nd = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
 

@@ -17,8 +17,9 @@ from numpy import float64
 from numpy import zeros_like
 from scipy.sparse import diags
 
-from compas.numerical import connectivity_matrix
-from compas_fd.fd.result import Result
+from compas.topology import connectivity_matrix
+
+from .result import Result
 
 FloatNx3 = Union[
     Sequence[Annotated[List[float], 3]],
@@ -28,9 +29,7 @@ FloatNx3 = Union[
 
 @dataclass
 class FDNumericalData:
-    """
-    Stores numerical data used by the force density algorithms.
-    """
+    """Stores numerical data used by the force density algorithms."""
 
     free: int
     fixed: int

@@ -14,19 +14,14 @@ class SurfaceConstraint(Constraint):
         super(SurfaceConstraint, self).__init__(geometry=surface, **kwargs)
 
     @property
-    def data(self):
+    def __data__(self):
         return {
             "geometry": self.geometry.data,
             "rhino_guid": str(self._rhino_guid),
         }
 
-    @data.setter
-    def data(self, data):
-        self.geometry = NurbsSurface.from_data(data["geometry"])
-        self._rhino_guid = str(data["rhino_guid"])
-
     @classmethod
-    def from_data(cls, data):
+    def __from_data__(cls, data):
         srf = NurbsSurface.from_data(data["geometry"])
         constraint = cls(srf)
         constraint._rhino_guid = str(data["rhino_guid"])

@@ -13,19 +13,14 @@ class FrameConstraint(Constraint):
         super(FrameConstraint, self).__init__(geometry=frame, **kwargs)
 
     @property
-    def data(self):
+    def __data__(self):
         return {
             "geometry": self.geometry.data,
             "rhino_guid": str(self._rhino_guid),
         }
 
-    @data.setter
-    def data(self, data):
-        self.geometry = Frame.from_data(data["geometry"])
-        self._rhino_guid = str(data["rhino_guid"])
-
     @classmethod
-    def from_data(cls, data):
+    def __from_data__(cls, data):
         frame = Frame.from_data(data["geometry"])
         constraint = cls(frame)
         constraint._rhino_guid = str(data["rhino_guid"])
