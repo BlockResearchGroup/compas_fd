@@ -2,7 +2,7 @@
 
 ## Project Lead
 
-* tom van mele <<van.mele@arch.ethz.ch>>
+* Tom Van Mele <<tom.v.mele@gmail.com>> [@brgcode](https://github.com/brgcode), [@tomvanmele](https://github.com/tomvanmele)
 
 ## Contributors
 
