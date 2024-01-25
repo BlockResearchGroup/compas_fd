@@ -1,5 +1,5 @@
 import numpy as np
-from compas_fd.fd import fd_numpy
+from compas_fd.solvers import fd_numpy
 
 
 def test_hypar():
@@ -11,5 +11,10 @@ def test_hypar():
     vertices = [o, a, b, c, d]
     edges = [(0, 1), (0, 2), (0, 3), (0, 4)]
     forcedensities = [1, 1, 1, 1]
-    result = fd_numpy(vertices=vertices, fixed=[1, 2, 3, 4], edges=edges, forcedensities=forcedensities)
+    result = fd_numpy(
+        vertices=vertices,
+        fixed=[1, 2, 3, 4],
+        edges=edges,
+        forcedensities=forcedensities,
+    )
     assert np.allclose(result.vertices[0], [0.5, 0.5, 0.5])
