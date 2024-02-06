@@ -1,5 +1,5 @@
 ********************************************************************************
-COMPAS Constrained Force Density Method
+Constrained Form Finding with Iterative Force Density
 ********************************************************************************
 
 .. rst-class:: lead

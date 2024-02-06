@@ -13,5 +13,3 @@ Functions
 
     fd_numpy
     fd_constrained_numpy
-    mesh_fd_numpy
-    mesh_fd_constrained_numpy
