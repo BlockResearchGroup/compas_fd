@@ -9,21 +9,23 @@ from .constraint import Constraint
 
 
 class FrameConstraint(Constraint):
-    def __init__(self, frame, **kwargs):
-        super(FrameConstraint, self).__init__(geometry=frame, **kwargs)
+    """Constraint for limiting the movement of a vertex to a frame."""
 
-    @property
-    def __data__(self):
-        return {
-            "geometry": self.geometry.data,
-            "rhino_guid": str(self._rhino_guid),
-        }
+    DATASCHEMA = {
+        "type": "object",
+        "properties": {
+            "geometry": Frame.DATASCHEMA,
+            "rhino_guid": {"type": "string"},
+        },
+        "required": ["geometry"],
+    }
 
     @classmethod
     def __from_data__(cls, data):
-        frame = Frame.from_data(data["geometry"])
+        frame = Frame.__from_data__(data["geometry"])
         constraint = cls(frame)
-        constraint._rhino_guid = str(data["rhino_guid"])
+        if "rhino_guid" in data:
+            constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     def compute_tangent(self):

@@ -12,21 +12,23 @@ from .constraint import Constraint
 
 
 class LineConstraint(Constraint):
-    def __init__(self, line, **kwargs):
-        super(LineConstraint, self).__init__(geometry=line, **kwargs)
+    """Constraint for limiting the movement of a vertex to a line."""
 
-    @property
-    def __data__(self):
-        return {
-            "geometry": self.geometry.data,
-            "rhino_guid": str(self._rhino_guid),
-        }
+    DATASCHEMA = {
+        "type": "object",
+        "properties": {
+            "geometry": Line.DATASCHEMA,
+            "rhino_guid": {"type": "string"},
+        },
+        "required": ["geometry"],
+    }
 
     @classmethod
     def __from_data__(cls, data):
-        line = Line.from_data(data["geometry"])
+        line = Line.__from_data__(data["geometry"])
         constraint = cls(line)
-        constraint._rhino_guid = str(data["rhino_guid"])
+        if "rhino_guid" in data:
+            constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     def compute_tangent(self):

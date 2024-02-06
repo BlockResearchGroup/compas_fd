@@ -6,26 +6,30 @@ from compas.geometry import vector_component
 from compas.geometry import Vector
 from compas.geometry import Point
 from compas.geometry import Circle
+from compas.geometry import NurbsCurve
 
 from .constraint import Constraint
 
 
 class CircleConstraint(Constraint):
-    def __init__(self, curve, **kwargs):
-        super(CircleConstraint, self).__init__(geometry=curve, **kwargs)
+    """Constraint for limiting the movement of a vertex to a circle."""
 
-    @property
-    def __data__(self):
-        return {
-            "geometry": self.geometry.data,
-            "rhino_guid": str(self._rhino_guid),
-        }
+    DATASCHEMA = {
+        "type": "object",
+        "properties": {
+            "geometry": Circle.DATASCHEMA,
+            "rhino_guid": {"type": "string"},
+        },
+        "required": ["geometry"],
+    }
 
     @classmethod
     def __from_data__(cls, data):
-        curve = Circle.from_data(data["geometry"])
+        circle = Circle.__from_data__(data["geometry"])
+        curve = NurbsCurve.from_circle(circle)
         constraint = cls(curve)
-        constraint._rhino_guid = str(data["rhino_guid"])
+        if "rhino_guid" in data:
+            constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     @property
@@ -40,7 +44,7 @@ class CircleConstraint(Constraint):
         self.project()
 
     def compute_tangent(self):
-        direction = self.geometry.tangent_at(self.location)
+        direction = self.geometry.tangent_at(self._param)
         self._tangent = Vector(*vector_component(self.residual, direction))
 
     def compute_normal(self):
@@ -48,10 +52,22 @@ class CircleConstraint(Constraint):
 
     def update(self, damping=0.1):
         self._location = self.location + self.tangent * damping
-        point = self.geometry.closest_point(self.location)
-        if self._location.distance_to_point(point) > 0.001:
+        pt_on_curve = self.geometry.closest_point(
+            self._location, return_parameter=False
+        )
+        if self._location.distance_to_point(pt_on_curve) > 0.001:
             self.project()
 
     def project(self):
-        point = self.geometry.closest_point(self.location)
-        self._location = point
+        xyz, self._param = self.geometry.closest_point(
+            self._location, return_parameter=True
+        )
+        self._location = Point(*xyz)
+
+    def compute_param(self):
+        _, self._param = self.geometry.closest_point(
+            self._location, return_parameter=True
+        )
+
+    def update_location_at_param(self):
+        self._location = self.geometry.point_at(self._param)

@@ -10,21 +10,23 @@ from .constraint import Constraint
 
 
 class CurveConstraint(Constraint):
-    def __init__(self, curve, **kwargs):
-        super(CurveConstraint, self).__init__(geometry=curve, **kwargs)
+    """Constraint for limiting the movement of a vertex to a Nurbs curve."""
 
-    @property
-    def __data__(self):
-        return {
-            "geometry": self.geometry.data,
-            "rhino_guid": str(self._rhino_guid),
-        }
+    DATASCHEMA = {
+        "type": "object",
+        "properties": {
+            "geometry": NurbsCurve.DATASCHEMA,
+            "rhino_guid": {"type": "string"},
+        },
+        "required": ["geometry"],
+    }
 
     @classmethod
     def __from_data__(cls, data):
-        curve = NurbsCurve.from_data(data["geometry"])
+        curve = NurbsCurve.__from_data__(data["geometry"])
         constraint = cls(curve)
-        constraint._rhino_guid = str(data["rhino_guid"])
+        if "rhino_guid" in data:
+            constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     @property

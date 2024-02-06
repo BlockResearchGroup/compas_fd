@@ -11,21 +11,23 @@ from .constraint import Constraint
 
 
 class PlaneConstraint(Constraint):
-    def __init__(self, plane, **kwargs):
-        super(PlaneConstraint, self).__init__(geometry=plane, **kwargs)
+    """Constraint for limiting the movement of a vertex to a plane."""
 
-    @property
-    def __data__(self):
-        return {
-            "geometry": self.geometry.data,
-            "rhino_guid": str(self._rhino_guid),
-        }
+    DATASCHEMA = {
+        "type": "object",
+        "properties": {
+            "geometry": Plane.DATASCHEMA,
+            "rhino_guid": {"type": "string"},
+        },
+        "required": ["geometry"],
+    }
 
     @classmethod
     def __from_data__(cls, data):
-        plane = Plane.from_data(data["geometry"])
+        plane = Plane.__from_data__(data["geometry"])
         constraint = cls(plane)
-        constraint._rhino_guid = str(data["rhino_guid"])
+        if "rhino_guid" in data:
+            constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     def compute_tangent(self):

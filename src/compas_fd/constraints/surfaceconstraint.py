@@ -10,21 +10,23 @@ from .constraint import Constraint
 
 
 class SurfaceConstraint(Constraint):
-    def __init__(self, surface, **kwargs):
-        super(SurfaceConstraint, self).__init__(geometry=surface, **kwargs)
+    """Constraint for limiting the movement of a vertex to a surface."""
 
-    @property
-    def __data__(self):
-        return {
-            "geometry": self.geometry.data,
-            "rhino_guid": str(self._rhino_guid),
-        }
+    DATASCHEMA = {
+        "type": "object",
+        "properties": {
+            "geometry": NurbsSurface.DATASCHEMA,
+            "rhino_guid": {"type": "string"},
+        },
+        "required": ["geometry"],
+    }
 
     @classmethod
     def __from_data__(cls, data):
-        srf = NurbsSurface.from_data(data["geometry"])
+        srf = NurbsSurface.__from_data__(data["geometry"])
         constraint = cls(srf)
-        constraint._rhino_guid = str(data["rhino_guid"])
+        if "rhino_guid" in data:
+            constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     @property

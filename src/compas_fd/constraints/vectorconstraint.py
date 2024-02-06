@@ -8,21 +8,23 @@ from .constraint import Constraint
 
 
 class VectorConstraint(Constraint):
-    def __init__(self, vector, **kwargs):
-        super(VectorConstraint, self).__init__(geometry=vector, **kwargs)
+    """Constraint for limiting the movement of a vertex to a vector."""
 
-    @property
-    def __data__(self):
-        return {
-            "geometry": self.geometry.data,
-            "rhino_guid": str(self._rhino_guid),
-        }
+    DATASCHEMA = {
+        "type": "object",
+        "properties": {
+            "geometry": Vector.DATASCHEMA,
+            "rhino_guid": {"type": "string"},
+        },
+        "required": ["geometry"],
+    }
 
     @classmethod
     def __from_data__(cls, data):
-        vector = Vector.from_data(data["geometry"]).unitized()
+        vector = Vector.__from_data__(data["geometry"]).unitized()
         constraint = cls(vector)
-        constraint._rhino_guid = str(data["rhino_guid"])
+        if "rhino_guid" in data:
+            constraint._rhino_guid = str(data["rhino_guid"])
         return constraint
 
     def compute_tangent(self):
