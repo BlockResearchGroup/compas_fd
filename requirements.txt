@@ -1,5 +1,4 @@
-compas >=2.0.0b2
-compas_cloud >=0.3.2
+compas >=2.0.1
 nptyping >=2.3.1
-pint
 typing_extensions
+compas_notebook
