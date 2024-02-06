@@ -470,7 +470,6 @@ document.write(`
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../../api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../compas_fd.html">compas_fd</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3 current active"><a class="reference internal" href="../compas_fd.constraints.html">constraints</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../compas_fd.datastructures.html">datastructures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../compas_fd.solvers.html">solvers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../compas_fd.loads.html">loads</a></li>
 </ul>
@@ -555,19 +554,26 @@ document.write(`
 <dt class="sig sig-object py" id="compas_fd.constraints.CircleConstraint">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">compas_fd.constraints.</span></span><span class="sig-name descname"><span class="pre">CircleConstraint</span></span></dt>
 <dd><p>Bases: <a class="reference internal" href="compas_fd.constraints.Constraint.html#compas_fd.constraints.Constraint" title="compas_fd.constraints.constraint.Constraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">Constraint</span></code></a></p>
+<p>Constraint for limiting the movement of a vertex to a circle.</p>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.compute_normal.html#compas_fd.constraints.CircleConstraint.compute_normal" title="compas_fd.constraints.CircleConstraint.compute_normal"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_normal</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.compute_tangent.html#compas_fd.constraints.CircleConstraint.compute_tangent" title="compas_fd.constraints.CircleConstraint.compute_tangent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_tangent</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.compute_param.html#compas_fd.constraints.CircleConstraint.compute_param" title="compas_fd.constraints.CircleConstraint.compute_param"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_param</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.project.html#compas_fd.constraints.CircleConstraint.project" title="compas_fd.constraints.CircleConstraint.project"><code class="xref py py-obj docutils literal notranslate"><span class="pre">project</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.compute_tangent.html#compas_fd.constraints.CircleConstraint.compute_tangent" title="compas_fd.constraints.CircleConstraint.compute_tangent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_tangent</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.update.html#compas_fd.constraints.CircleConstraint.update" title="compas_fd.constraints.CircleConstraint.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.project.html#compas_fd.constraints.CircleConstraint.project" title="compas_fd.constraints.CircleConstraint.project"><code class="xref py py-obj docutils literal notranslate"><span class="pre">project</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.update.html#compas_fd.constraints.CircleConstraint.update" title="compas_fd.constraints.CircleConstraint.update"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.update_location_at_param.html#compas_fd.constraints.CircleConstraint.update_location_at_param" title="compas_fd.constraints.CircleConstraint.update_location_at_param"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_location_at_param</span></code></a></p></td>
 <td><p></p></td>
 </tr>
 </tbody>
@@ -578,35 +584,29 @@ document.write(`
 <tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.ToString.html#compas_fd.constraints.CircleConstraint.ToString" title="compas_fd.constraints.CircleConstraint.ToString"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ToString</span></code></a></p></td>
 <td><p>Converts the instance to a string.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.compute_param.html#compas_fd.constraints.CircleConstraint.compute_param" title="compas_fd.constraints.CircleConstraint.compute_param"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_param</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.copy.html#compas_fd.constraints.CircleConstraint.copy" title="compas_fd.constraints.CircleConstraint.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.copy.html#compas_fd.constraints.CircleConstraint.copy" title="compas_fd.constraints.CircleConstraint.copy"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copy</span></code></a></p></td>
 <td><p>Make an independent copy of the data object.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.from_json.html#compas_fd.constraints.CircleConstraint.from_json" title="compas_fd.constraints.CircleConstraint.from_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_json</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.from_json.html#compas_fd.constraints.CircleConstraint.from_json" title="compas_fd.constraints.CircleConstraint.from_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_json</span></code></a></p></td>
 <td><p>Construct an object of this type from a JSON file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.from_jsonstring.html#compas_fd.constraints.CircleConstraint.from_jsonstring" title="compas_fd.constraints.CircleConstraint.from_jsonstring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_jsonstring</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.from_jsonstring.html#compas_fd.constraints.CircleConstraint.from_jsonstring" title="compas_fd.constraints.CircleConstraint.from_jsonstring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">from_jsonstring</span></code></a></p></td>
 <td><p>Construct an object of this type from a JSON string.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.get_constraint_cls.html#compas_fd.constraints.CircleConstraint.get_constraint_cls" title="compas_fd.constraints.CircleConstraint.get_constraint_cls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_constraint_cls</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.get_constraint_cls.html#compas_fd.constraints.CircleConstraint.get_constraint_cls" title="compas_fd.constraints.CircleConstraint.get_constraint_cls"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_constraint_cls</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.register.html#compas_fd.constraints.CircleConstraint.register" title="compas_fd.constraints.CircleConstraint.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.register.html#compas_fd.constraints.CircleConstraint.register" title="compas_fd.constraints.CircleConstraint.register"><code class="xref py py-obj docutils literal notranslate"><span class="pre">register</span></code></a></p></td>
 <td><p></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.sha256.html#compas_fd.constraints.CircleConstraint.sha256" title="compas_fd.constraints.CircleConstraint.sha256"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sha256</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.sha256.html#compas_fd.constraints.CircleConstraint.sha256" title="compas_fd.constraints.CircleConstraint.sha256"><code class="xref py py-obj docutils literal notranslate"><span class="pre">sha256</span></code></a></p></td>
 <td><p>Compute a hash of the data for comparison during version control using the sha256 algorithm.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.to_json.html#compas_fd.constraints.CircleConstraint.to_json" title="compas_fd.constraints.CircleConstraint.to_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_json</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.to_json.html#compas_fd.constraints.CircleConstraint.to_json" title="compas_fd.constraints.CircleConstraint.to_json"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_json</span></code></a></p></td>
 <td><p>Convert an object to its native data representation and save it to a JSON file.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.to_jsonstring.html#compas_fd.constraints.CircleConstraint.to_jsonstring" title="compas_fd.constraints.CircleConstraint.to_jsonstring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_jsonstring</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.to_jsonstring.html#compas_fd.constraints.CircleConstraint.to_jsonstring" title="compas_fd.constraints.CircleConstraint.to_jsonstring"><code class="xref py py-obj docutils literal notranslate"><span class="pre">to_jsonstring</span></code></a></p></td>
 <td><p>Convert an object to its native data representation and save it to a JSON string.</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.update_location_at_param.html#compas_fd.constraints.CircleConstraint.update_location_at_param" title="compas_fd.constraints.CircleConstraint.update_location_at_param"><code class="xref py py-obj docutils literal notranslate"><span class="pre">update_location_at_param</span></code></a></p></td>
-<td><p></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="compas_fd.constraints.CircleConstraint.validate_data.html#compas_fd.constraints.CircleConstraint.validate_data" title="compas_fd.constraints.CircleConstraint.validate_data"><code class="xref py py-obj docutils literal notranslate"><span class="pre">validate_data</span></code></a></p></td>
 <td><p>Validate the data against the object's data schema.</p></td>

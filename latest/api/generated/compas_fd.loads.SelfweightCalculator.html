@@ -59,7 +59,7 @@
         </script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="SelfweightCalculator.face_matrix" href="compas_fd.loads.SelfweightCalculator.face_matrix.html" />
+    <link rel="next" title="SelfweightCalculator.compute_face_matrix" href="compas_fd.loads.SelfweightCalculator.compute_face_matrix.html" />
     <link rel="prev" title="loads" href="../compas_fd.loads.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -470,7 +470,6 @@ document.write(`
 <li class="toctree-l1 current active has-children"><a class="reference internal" href="../../api.html">API Reference</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l2 current active has-children"><a class="reference internal" href="../compas_fd.html">compas_fd</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="../compas_fd.constraints.html">constraints</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../compas_fd.datastructures.html">datastructures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../compas_fd.solvers.html">solvers</a></li>
 <li class="toctree-l3 current active"><a class="reference internal" href="../compas_fd.loads.html">loads</a></li>
 </ul>
@@ -555,11 +554,45 @@ document.write(`
 <dt class="sig sig-object py" id="compas_fd.loads.SelfweightCalculator">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">compas_fd.loads.</span></span><span class="sig-name descname"><span class="pre">SelfweightCalculator</span></span></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for computing the selfweight of a mesh representing a surface structure
+with a specific density and thickness.</p>
+<p>After construction, the calculator provides a callable that can be used
+to compute the selfweight for the current mesh coordinates.</p>
+<dl class="field-list">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><dl>
+<dt><strong>mesh</strong><span class="classifier"><a class="reference external" href="https://compas.dev/compas/latest/api/compas.datastructures.Mesh.html#compas.datastructures.Mesh" title="(in COMPAS vlatest)"><code class="xref py py-class docutils literal notranslate"><span class="pre">compas.datastructures.Mesh</span></code></a></span></dt><dd><p>The mesh representing a surface structure.</p>
+</dd>
+<dt><strong>density</strong><span class="classifier">float, optional</span></dt><dd><p>The density of the surface material.</p>
+</dd>
+<dt><strong>thickness_attr_name</strong><span class="classifier">str, optional</span></dt><dd><p>The name of the vertex attribute storing the surface thickness.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">compas.datastructures</span> <span class="kn">import</span> <span class="n">Mesh</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">compas_fd.loads</span> <span class="kn">import</span> <span class="n">SelfWeightCalculator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mesh</span> <span class="o">=</span> <span class="n">Mesh</span><span class="o">.</span><span class="n">from_meshgrid</span><span class="p">(</span><span class="n">dx</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">nx</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mesh</span><span class="o">.</span><span class="n">update_default_vertex_attributes</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mf">0.10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">density</span> <span class="o">=</span> <span class="mi">22</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span> <span class="o">=</span> <span class="n">SelfweightCalculator</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">vertices_attributes</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selfweight</span> <span class="o">=</span> <span class="n">calculator</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">selfweight</span><span class="p">)</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">number_of_vertices</span><span class="p">()</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">selfweight</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">density</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 <p class="rubric">Methods</p>
 <table class="autosummary longtable table autosummary">
 <tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.loads.SelfweightCalculator.face_matrix.html#compas_fd.loads.SelfweightCalculator.face_matrix" title="compas_fd.loads.SelfweightCalculator.face_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">face_matrix</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="compas_fd.loads.SelfweightCalculator.compute_face_matrix.html#compas_fd.loads.SelfweightCalculator.compute_face_matrix" title="compas_fd.loads.SelfweightCalculator.compute_face_matrix"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_face_matrix</span></code></a></p></td>
+<td><p>Compute the face matrix of the mesh.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="compas_fd.loads.SelfweightCalculator.compute_tributary_areas.html#compas_fd.loads.SelfweightCalculator.compute_tributary_areas" title="compas_fd.loads.SelfweightCalculator.compute_tributary_areas"><code class="xref py py-obj docutils literal notranslate"><span class="pre">compute_tributary_areas</span></code></a></p></td>
+<td><p>Compute the tributary are of every vertex for the current coordinates.</p></td>
 </tr>
 </tbody>
 </table>
