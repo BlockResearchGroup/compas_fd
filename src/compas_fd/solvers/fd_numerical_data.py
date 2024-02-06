@@ -17,6 +17,7 @@ from numpy import float64
 from numpy import zeros_like
 from scipy.sparse import diags
 
+from compas.datastructures import Mesh
 from compas.topology import connectivity_matrix
 
 from .result import Result
@@ -29,7 +30,7 @@ FloatNx3 = Union[
 
 @dataclass
 class FDNumericalData:
-    """Stores numerical data used by the force density algorithms."""
+    """Data Class for for storing numerical data used by the force density algorithms."""
 
     free: int
     fixed: int
@@ -58,9 +59,21 @@ class FDNumericalData:
         edges: List[Tuple[int, int]],
         forcedensities: List[float],
         loads: Optional[FloatNx3] = None,
-    ):
-        """
-        Construct numerical arrays from force density solver input parameters.
+    ) -> "FDNumericalData":
+        """Construct numerical arrays from force density solver input parameters.
+
+        Parameters
+        ----------
+        vertices : FloatNx3
+        fixed : list[int]
+        edges : list[tuple[int, int]]
+        forcedensities : list[float]
+        loads : FloatNx3, optional
+
+        Returns
+        -------
+        FDNumericalData
+
         """
         free = list(set(range(len(vertices))) - set(fixed))
         xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
@@ -80,19 +93,39 @@ class FDNumericalData:
         return cls(free, fixed, xyz, C, q, Q, p, A, Ai, Af)
 
     @classmethod
-    def from_mesh(cls, mesh):
-        """
-        Construct numerical arrays from input mesh.
+    def from_mesh(cls, mesh: Mesh) -> "FDNumericalData":
+        """Construct numerical arrays from input mesh.
+
+        Parameters
+        ----------
+        mesh : :class:`compas.datastructures.Mesh`
+
+        Returns
+        -------
+        FDNumericalData
+
         """
         raise NotImplementedError
 
     def to_result(self) -> Result:
-        """
-        Parse relevant numerical data into a Result object.
-        """
+        """Parse relevant numerical data into a Result object."""
         return Result(self.xyz, self.residuals, self.forces, self.lengths)
 
     def update_forcedensities(self, edges, newqs):
+        """Update the force densities and update the associated matrices.
+
+        Parameters
+        ----------
+        edges : list[int]
+            A list of indices in the force density array.
+        newqs : list[float]
+            The new force densities corresponding to the edge indices.
+
+        Returns
+        -------
+        None
+
+        """
         C = self.C
         Ci = C[:, self.free]
         Cf = C[:, self.fixed]

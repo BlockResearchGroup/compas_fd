@@ -9,4 +9,13 @@ class Result(NamedTuple):
     vertices: NDArray[Literal["*, 3"], Float64]
     residuals: NDArray[Literal["*, 3"], Float64]
     forces: List[float]
-    lenghts: List[float]
+    lengths: List[float]
+
+    @classmethod
+    def from_dict(cls, data):
+        return cls(
+            data["vertices"],
+            data["residuals"],
+            data["forces"],
+            data["lengths"],
+        )

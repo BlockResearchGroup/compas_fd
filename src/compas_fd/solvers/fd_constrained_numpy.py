@@ -77,19 +77,19 @@ def fd_constrained_numpy(
     >>>
 
     """
-    nd = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
+    numdata = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
 
     for k in range(kmax):
-        xyz_prev = nd.xyz
-        _solve_fd(nd, selfweight)
-        _update_constraints(nd, constraints, damping)
+        xyz_prev = numdata.xyz
+        _solve_fd(numdata, selfweight)
+        _update_constraints(numdata, constraints, damping)
         if _is_converged_residuals(
-            nd.tangent_residuals, tol_res
-        ) and _is_converged_disp(xyz_prev, nd.xyz, tol_disp):
+            numdata.tangent_residuals, tol_res
+        ) and _is_converged_disp(xyz_prev, numdata.xyz, tol_disp):
             break
 
-    _post_process_fd(nd)
-    return nd.to_result()
+    _post_process_fd(numdata)
+    return numdata.to_result()
 
 
 def _solve_fd(numdata: FDNumericalData, selfweight: Callable = None) -> None:
@@ -97,16 +97,14 @@ def _solve_fd(numdata: FDNumericalData, selfweight: Callable = None) -> None:
     Solve a single iteration for the equilibrium coordinates of a system.
     All updated numerical arrays are stored in the numdata parameter.
     """
-    nd = numdata
-
-    p = nd.p.copy()
+    p = numdata.p.copy()
     if selfweight:
-        p[:, 2] -= selfweight(nd.xyz)[:, 0]
+        p[:, 2] -= selfweight(numdata.xyz)[:, 0]
 
-    p = p[nd.free]
-    b = p - nd.Af.dot(nd.xyz[nd.fixed])
-    nd.xyz[nd.free] = spsolve(nd.Ai, b)
-    numdata.residuals = nd.p - nd.A.dot(nd.xyz)
+    p = p[numdata.free]
+    b = p - numdata.Af.dot(numdata.xyz[numdata.fixed])
+    numdata.xyz[numdata.free] = spsolve(numdata.Ai, b)
+    numdata.residuals = numdata.p - numdata.A.dot(numdata.xyz)
 
 
 def _post_process_fd(numdata: FDNumericalData) -> None:
@@ -114,9 +112,8 @@ def _post_process_fd(numdata: FDNumericalData) -> None:
     Compute dependent numerical arrays from the numerical data after running solver.
     All updated numerical arrays are stored in the numdata parameter.
     """
-    nd = numdata
-    nd.lengths = normrow(nd.C.dot(nd.xyz))
-    numdata.forces = nd.q * nd.lengths
+    numdata.lengths = normrow(numdata.C.dot(numdata.xyz))
+    numdata.forces = numdata.q * numdata.lengths
 
 
 def _update_constraints(
@@ -126,15 +123,14 @@ def _update_constraints(
     Update all vertex constraints by the residuals of the current iteration,
     and store their updated vertex coordinates in the numdata parameter.
     """
-    nd = numdata
     for vertex, constraint in enumerate(constraints):
         if not constraint:
             continue
-        constraint.location = nd.xyz[vertex]
-        constraint.residual = nd.residuals[vertex]
+        constraint.location = numdata.xyz[vertex]
+        constraint.residual = numdata.residuals[vertex]
         constraint.update(damping=damping)
-        nd.xyz[vertex] = constraint.location
-    nd.tangent_residuals = asarray([c.tangent for c in constraints if c])
+        numdata.xyz[vertex] = constraint.location
+    numdata.tangent_residuals = asarray([c.tangent for c in constraints if c])
 
 
 def _is_converged_residuals(

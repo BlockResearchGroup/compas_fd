@@ -2,16 +2,11 @@ from typing import Tuple
 from typing import List
 from typing import Optional
 
-from numpy import asarray
-from numpy import zeros_like
-from numpy import float64
-from scipy.sparse import diags
 from scipy.sparse.linalg import spsolve
-
-from compas.topology import connectivity_matrix
 from compas.geometry.linalg import normrow
 
 from compas_fd.types import FloatNx3
+from .fd_numerical_data import FDNumericalData
 from .result import Result
 
 
@@ -67,28 +62,13 @@ def fd_numpy(
     True
 
     """
-    v = len(vertices)
-    free = list(set(range(v)) - set(fixed))
-    xyz = asarray(vertices, dtype=float64).reshape((-1, 3))
-    q = asarray(forcedensities, dtype=float64).reshape((-1, 1))
+    numdata = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
 
-    if loads is None:
-        p = zeros_like(xyz)
-    else:
-        p = asarray(loads, dtype=float64).reshape((-1, 3))
+    b = numdata.p[numdata.free] - numdata.Af.dot(numdata.xyz[numdata.fixed])
 
-    C = connectivity_matrix(edges, "csr")
-    Ci = C[:, free]
-    Cf = C[:, fixed]
-    Ct = C.transpose()
-    Cit = Ci.transpose()
-    Q = diags([q.flatten()], [0])
-    A = Cit.dot(Q).dot(Ci)
-    b = p[free] - Cit.dot(Q).dot(Cf).dot(xyz[fixed])
+    numdata.xyz[numdata.free] = spsolve(numdata.Ai, b)
+    lengths = normrow(numdata.C.dot(numdata.xyz))
+    forces = numdata.q * lengths
+    residuals = numdata.p - numdata.A.dot(numdata.xyz)
 
-    xyz[free] = spsolve(A, b)
-    lengths = normrow(C.dot(xyz))
-    forces = q * lengths
-    residuals = p - Ct.dot(Q).dot(C).dot(xyz)
-
-    return Result(xyz, residuals, forces, lengths)
+    return Result(numdata.xyz, residuals, forces, lengths)

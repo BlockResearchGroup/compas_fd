@@ -11,3 +11,9 @@ FloatNx3 = Union[
     NDArray[Literal["*, 3"], Float64],
 ]
 """A sequence of lists with each list containing three floats."""
+
+FloatNx1 = Union[
+    Sequence[Annotated[List[float], 1]],
+    NDArray[Literal["*, 1"], Float64],
+]
+"""A sequence of lists with each list containing one float."""
