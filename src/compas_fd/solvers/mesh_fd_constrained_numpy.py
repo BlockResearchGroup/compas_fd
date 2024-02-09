@@ -76,4 +76,4 @@ def _update_mesh(mesh, result):
 
     for index, (edge, attr) in enumerate(mesh.edges_where({"_is_edge": True}, True)):
         attr["_f"] = result.forces[index, 0]
-        attr["_l"] = result.lenghts[index, 0]
+        attr["_l"] = result.lengths[index, 0]
