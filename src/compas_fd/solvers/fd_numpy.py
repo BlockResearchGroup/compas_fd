@@ -3,7 +3,7 @@ from typing import List
 from typing import Optional
 
 from scipy.sparse.linalg import spsolve
-from compas.geometry.linalg import normrow
+from compas.linalg import normrow
 
 from compas_fd.types import FloatNx3
 from .fd_numerical_data import FDNumericalData

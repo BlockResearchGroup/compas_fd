@@ -11,7 +11,7 @@ from numpy import asarray
 from scipy.linalg import norm
 from scipy.sparse.linalg import spsolve
 
-from compas.geometry.linalg import normrow
+from compas.linalg import normrow
 
 from compas_fd.constraints import Constraint
 from compas_fd.types import FloatNx3

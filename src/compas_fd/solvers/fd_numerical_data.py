@@ -18,7 +18,7 @@ from numpy import zeros_like
 from scipy.sparse import diags
 
 from compas.datastructures import Mesh
-from compas.topology import connectivity_matrix
+from compas.matrices import connectivity_matrix
 
 from .result import Result
 
