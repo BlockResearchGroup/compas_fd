@@ -5,7 +5,7 @@ import scipy.sparse
 
 from compas.geometry import cross_vectors
 from compas.geometry import length_vector
-from compas.topology import face_matrix
+from compas.matrices import face_matrix
 from compas.datastructures import Mesh
 
 

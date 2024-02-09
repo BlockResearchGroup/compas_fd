@@ -51,6 +51,6 @@ def mesh_fd_numpy(mesh: CableMesh) -> CableMesh:
 
     for index, (key, attr) in enumerate(mesh.edges_where(_is_edge=True, data=True)):
         attr["_f"] = result.forces[index, 0]
-        attr["_l"] = result.lenghts[index, 0]
+        attr["_l"] = result.lengths[index, 0]
 
     return mesh
