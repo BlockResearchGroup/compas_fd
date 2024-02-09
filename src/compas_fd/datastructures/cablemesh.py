@@ -15,17 +15,27 @@ class CableMesh(Mesh):
 
     Attributes
     ----------
+    constraints : dict[str(guid), :class:`compas_fd.constraints.Constraint`]
+        The constraints of the mesh.
     density : float
+        The density used when computing the self-weight of the mesh.
 
     """
 
+    DATASCHEMA = {}
+
+    @property
+    def __data__(self):
+        raise NotImplementedError
+
+    @classmethod
+    def __from_data__(cls, data):
+        raise NotImplementedError
+
     def __init__(self, name=None):
         super(CableMesh, self).__init__(name=name)
-        self.attributes.update(
-            {
-                "density": 22.0,
-            }
-        )
+        self.attributes.update({"density": 1.0})
+        self.constraints = {}
         self.default_vertex_attributes.update(
             {
                 "x": 0.0,
@@ -166,4 +176,23 @@ class CableMesh(Mesh):
         """
         for index, edge in enumerate(self.edges()):
             self.edge_attribute(edge, "_f", result.forces[index, 0])
-            self.edge_attribute(edge, "_l", result.lenghts[index, 0])
+            self.edge_attribute(edge, "_l", result.lengths[index, 0])
+
+    def set_vertex_constraint(self, vertex, constraint):
+        """Set a constraint for a specific vertex.
+
+        Parameters
+        ----------
+        vertex : int
+            The vertex to set the constraint for.
+        constraint : :class:`compas_fd.constraints.Constraint`
+            The constraint.
+
+        Returns
+        -------
+        None
+
+        """
+        self.vertex_attribute(vertex, "constraint", str(constraint.guid))
+        self.vertex_attribute(vertex, "is_fixed", True)
+        self.constraints[str(constraint.guid)] = constraint
