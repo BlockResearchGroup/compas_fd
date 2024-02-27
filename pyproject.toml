@@ -77,8 +77,8 @@ doctest_optionflags = [
 [tool.bumpversion]
 current_version = "0.4.2"
 message = "Bump version to {new_version}"
-commit = "True"
-tag = "True"
+commit = true
+tag = true
 
 [[tool.bumpversion.files]]
 filename = "compas_fd/__init__.py"
@@ -94,6 +94,11 @@ replace = "[{new_version}] {now:%Y-%m-%d}"
 # replace setup.cfg
 # ============================================================================
 
+[tool.isort]
+force_single_line = true
+known_first_party = ["compas_fd"]
+skip = ["__init__.py"]
+
 [tool.black]
 line-length = 119
 
@@ -103,11 +108,15 @@ indent-width = 4
 target-version = "py39"
 
 [tool.ruff.lint]
-select = ["E", "F", "B"]
-
-[tool.ruff.lint.isort]
-force-single-line = true
-known-first-party = ["compas_dr"]
+select = ["E", "F"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
+
+[tool.ruff.lint.pycodestyle]
+# max-line-length = 119
+max-doc-length = 179
+
+[tool.ruff.format]
+docstring-code-format = true
+docstring-code-line-length = "dynamic"
