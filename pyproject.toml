@@ -99,6 +99,11 @@ line-length = 119
 
 [tool.ruff]
 line-length = 119
+indent-width = 4
+target-version = "py39"
+
+[tool.ruff.lint]
+select = ["E", "F", "B"]
 
 [tool.ruff.lint.isort]
 force-single-line = true
