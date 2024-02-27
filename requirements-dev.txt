@@ -1,7 +1,6 @@
 attrs >=17.4
 black >=22.12.0
 bump-my-version
-check-manifest >=0.36
 compas_invocations
 compas_notebook
 invoke >=0.14
