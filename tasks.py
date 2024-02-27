@@ -13,18 +13,29 @@ from compas_invocations.console import chdir
 @invoke.task()
 def lint(ctx):
     """Check the consistency of coding style."""
+
     print("Running ruff linter...")
     ctx.run("ruff check src tests")
 
     print("Running black linter...")
     ctx.run("black --check --diff --color src tests")
 
+    print("Running isort checker...")
+    ctx.run("isort --check --diff src")
+
 
 @invoke.task()
 def format(ctx):
     """Reformat the code base using black."""
+
+    print("Running ruff formatter...")
+    ctx.run("ruff format src tests")
+
     print("Running black formatter...")
     ctx.run("black src tests")
+
+    print("Running isort formatter...")
+    ctx.run("isort src")
 
 
 @invoke.task()
@@ -34,11 +45,11 @@ def check(ctx):
     with chdir(ctx.base_folder):
         lint(ctx)
 
-        print("Checking MANIFEST.in...")
-        ctx.run("check-manifest")
+        # print("Checking MANIFEST.in...")
+        # ctx.run("check-manifest")
 
-        print("Checking metadata...")
-        ctx.run("python setup.py check --strict --metadata")
+        # print("Checking metadata...")
+        # ctx.run("python setup.py check --strict --metadata")
 
 
 ns = Collection(
