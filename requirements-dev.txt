@@ -4,10 +4,7 @@ bump-my-version
 check-manifest >=0.36
 compas_invocations
 compas_notebook
-doc8
-flake8
 invoke >=0.14
-isort
 ruff
 sphinx_compas2_theme
 twine
