@@ -6,14 +6,12 @@ from typing import Optional
 from typing_extensions import Literal
 from typing_extensions import Annotated
 from nptyping import NDArray
-from nptyping import Float64
-from nptyping import Int32
 
 from dataclasses import dataclass
 from dataclasses import astuple
 
 from numpy import asarray
-from numpy import float64
+from numpy import float64, int32
 from numpy import zeros_like
 from scipy.sparse import diags
 
@@ -24,7 +22,7 @@ from .result import Result
 
 FloatNx3 = Union[
     Sequence[Annotated[List[float], 3]],
-    NDArray[Literal["*, 3"], Float64],
+    NDArray[Literal["*, 3"], float64],
 ]
 
 
@@ -34,19 +32,19 @@ class FDNumericalData:
 
     free: int
     fixed: int
-    xyz: NDArray[Literal["*, 3"], Float64]
-    C: NDArray[Literal["*, *"], Int32]
-    q: NDArray[Literal["*, 1"], Float64]
-    Q: NDArray[Literal["*, *"], Float64]
-    p: NDArray[Literal["*, 1"], Float64]
-    A: NDArray[Literal["*, *"], Float64]
-    Ai: NDArray[Literal["*, *"], Float64]
-    Af: NDArray[Literal["*, *"], Float64]
-    forces: NDArray[Literal["*, 1"], Float64] = None
-    lengths: NDArray[Literal["*, 1"], Float64] = None
-    residuals: NDArray[Literal["*, 3"], Float64] = None
-    tangent_residuals: NDArray[Literal["*, 3"], Float64] = None
-    normal_residuals: NDArray[Literal["*, 1"], Float64] = None
+    xyz: NDArray[Literal["*, 3"], float64]
+    C: NDArray[Literal["*, *"], int32]
+    q: NDArray[Literal["*, 1"], float64]
+    Q: NDArray[Literal["*, *"], float64]
+    p: NDArray[Literal["*, 1"], float64]
+    A: NDArray[Literal["*, *"], float64]
+    Ai: NDArray[Literal["*, *"], float64]
+    Af: NDArray[Literal["*, *"], float64]
+    forces: NDArray[Literal["*, 1"], float64] = None
+    lengths: NDArray[Literal["*, 1"], float64] = None
+    residuals: NDArray[Literal["*, 3"], float64] = None
+    tangent_residuals: NDArray[Literal["*, 3"], float64] = None
+    normal_residuals: NDArray[Literal["*, 1"], float64] = None
 
     def __iter__(self):
         return iter(astuple(self))

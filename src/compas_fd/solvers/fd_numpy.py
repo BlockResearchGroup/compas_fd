@@ -64,11 +64,20 @@ def fd_numpy(
     """
     numdata = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
 
-    b = numdata.p[numdata.free] - numdata.Af.dot(numdata.xyz[numdata.fixed])
+    xyz = numdata.xyz
+    free = numdata.free
+    fixed = numdata.fixed
+    q = numdata.q
+    p = numdata.p
+    C = numdata.C
+    A = numdata.A
+    Ai = numdata.Ai
+    Af = numdata.Af
 
-    numdata.xyz[numdata.free] = spsolve(numdata.Ai, b)
-    lengths = normrow(numdata.C.dot(numdata.xyz))
-    forces = numdata.q * lengths
-    residuals = numdata.p - numdata.A.dot(numdata.xyz)
+    b = p[free] - Af.dot(xyz[fixed])
+    xyz[free] = spsolve(Ai, b)
+    lengths = normrow(C.dot(xyz))
+    forces = q * lengths
+    residuals = p - A.dot(xyz)
 
-    return Result(numdata.xyz, residuals, forces, lengths)
+    return Result(xyz, residuals, forces, lengths)

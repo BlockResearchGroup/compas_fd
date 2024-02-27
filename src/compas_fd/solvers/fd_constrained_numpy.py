@@ -82,6 +82,11 @@ def fd_constrained_numpy(
     for k in range(kmax):
         xyz_prev = numdata.xyz
         _solve_fd(numdata, selfweight)
+        # this needs to be turned inside out
+        # - associate vertices with constraint
+        # - compute all projections in one step
+        # - vectorize the computation of residuals
+        # -
         _update_constraints(numdata, constraints, damping)
         if _is_converged_residuals(
             numdata.tangent_residuals, tol_res
