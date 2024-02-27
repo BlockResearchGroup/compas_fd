@@ -15,13 +15,10 @@ def lint(ctx):
     """Check the consistency of coding style."""
 
     print("Running ruff linter...")
-    ctx.run("ruff check src tests")
+    ctx.run("ruff check --fix src tests")
 
     print("Running black linter...")
     ctx.run("black --check --diff --color src tests")
-
-    print("Running isort checker...")
-    ctx.run("isort --check --diff src")
 
 
 @invoke.task()
@@ -33,9 +30,6 @@ def format(ctx):
 
     print("Running black formatter...")
     ctx.run("black src tests")
-
-    print("Running isort formatter...")
-    ctx.run("isort src")
 
 
 @invoke.task()

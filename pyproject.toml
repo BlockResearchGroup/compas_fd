@@ -94,11 +94,6 @@ replace = "[{new_version}] {now:%Y-%m-%d}"
 # replace setup.cfg
 # ============================================================================
 
-[tool.isort]
-force_single_line = true
-known_first_party = ["compas_fd"]
-skip = ["__init__.py"]
-
 [tool.black]
 line-length = 119
 
@@ -108,7 +103,12 @@ indent-width = 4
 target-version = "py39"
 
 [tool.ruff.lint]
-select = ["E", "F"]
+select = ["E", "F", "I"]
+per-file-ignores = { "__init__.py" = ["I001"], "tests/*" = ["I001"] }
+
+[tool.ruff.lint.isort]
+force-single-line = true
+known-first-party = ["compas_fd"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
