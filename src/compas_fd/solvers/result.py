@@ -1,8 +1,9 @@
 from typing import List
 from typing import NamedTuple
-from typing_extensions import Literal
-from nptyping import NDArray
+
 from nptyping import Float64
+from nptyping import NDArray
+from typing_extensions import Literal
 
 
 class Result(NamedTuple):

@@ -1,17 +1,16 @@
 from typing import Callable
-from typing import Tuple
 from typing import List
-from typing import Sequence
 from typing import Optional
-from typing_extensions import Literal
-from nptyping import NDArray
-from nptyping import Float64
+from typing import Sequence
+from typing import Tuple
 
+from compas.linalg import normrow
+from nptyping import Float64
+from nptyping import NDArray
 from numpy import asarray
 from scipy.linalg import norm
 from scipy.sparse.linalg import spsolve
-
-from compas.linalg import normrow
+from typing_extensions import Literal
 
 from compas_fd.constraints import Constraint
 from compas_fd.types import FloatNx3

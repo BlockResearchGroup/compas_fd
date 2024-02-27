@@ -1,12 +1,12 @@
-from __future__ import print_function
 from __future__ import absolute_import
 from __future__ import division
+from __future__ import print_function
 
 import inspect
 
 from compas.data import Data
-from compas.geometry import Vector
 from compas.geometry import Point
+from compas.geometry import Vector
 
 from .exceptions import GeometryNotRegisteredAsConstraint
 
@@ -38,7 +38,8 @@ class Constraint(Data):
 
     Notes
     -----
-    The constraint class using a registration mechanism to determine the type of constraint object for a given constraint geometry.
+    The constraint class using a registration mechanism to
+    determine the type of constraint object for a given constraint geometry.
     Therefore, this class is the main entry point for creating constraints.
 
     Examples

@@ -1,11 +1,12 @@
-from typing import Tuple
 from typing import List
 from typing import Optional
+from typing import Tuple
 
-from scipy.sparse.linalg import spsolve
 from compas.linalg import normrow
+from scipy.sparse.linalg import spsolve
 
 from compas_fd.types import FloatNx3
+
 from .fd_numerical_data import FDNumericalData
 from .result import Result
 

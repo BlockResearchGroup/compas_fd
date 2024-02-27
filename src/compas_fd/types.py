@@ -1,10 +1,11 @@
 from typing import List
-from typing import Union
 from typing import Sequence
-from typing_extensions import Literal
-from typing_extensions import Annotated
-from nptyping import NDArray
+from typing import Union
+
 from nptyping import Float64
+from nptyping import NDArray
+from typing_extensions import Annotated
+from typing_extensions import Literal
 
 FloatNx3 = Union[
     Sequence[Annotated[List[float], 3]],

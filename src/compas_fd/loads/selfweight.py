@@ -1,12 +1,12 @@
-from compas_fd.types import FloatNx3, FloatNx1
-
 import numpy
 import scipy.sparse
-
+from compas.datastructures import Mesh
 from compas.geometry import cross_vectors
 from compas.geometry import length_vector
 from compas.matrices import face_matrix
-from compas.datastructures import Mesh
+
+from compas_fd.types import FloatNx1
+from compas_fd.types import FloatNx3
 
 
 class SelfweightCalculator:
@@ -33,7 +33,7 @@ class SelfweightCalculator:
     >>> mesh.update_default_vertex_attributes(t=0.10)
     >>> density = 22
     >>> calculator = SelfweightCalculator(mesh, density=density)
-    >>> xyz = mesh.vertices_attributes('xyz')
+    >>> xyz = mesh.vertices_attributes("xyz")
     >>> selfweight = calculator(xyz)
     >>> len(selfweight) == mesh.number_of_vertices()
     True

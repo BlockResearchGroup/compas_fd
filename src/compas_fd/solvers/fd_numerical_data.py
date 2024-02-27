@@ -1,22 +1,21 @@
-from typing import Tuple
-from typing import List
-from typing import Union
-from typing import Sequence
-from typing import Optional
-from typing_extensions import Literal
-from typing_extensions import Annotated
-from nptyping import NDArray
-
-from dataclasses import dataclass
 from dataclasses import astuple
-
-from numpy import asarray
-from numpy import float64, int32
-from numpy import zeros_like
-from scipy.sparse import diags
+from dataclasses import dataclass
+from typing import List
+from typing import Optional
+from typing import Sequence
+from typing import Tuple
+from typing import Union
 
 from compas.datastructures import Mesh
 from compas.matrices import connectivity_matrix
+from nptyping import NDArray
+from numpy import asarray
+from numpy import float64
+from numpy import int32
+from numpy import zeros_like
+from scipy.sparse import diags
+from typing_extensions import Annotated
+from typing_extensions import Literal
 
 from .result import Result
 

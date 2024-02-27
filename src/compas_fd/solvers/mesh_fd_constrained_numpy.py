@@ -2,8 +2,9 @@ from numpy import array
 from numpy import asarray
 from numpy import float64
 
-from compas_fd.loads import SelfweightCalculator
 from compas_fd.datastructures import CableMesh
+from compas_fd.loads import SelfweightCalculator
+
 from .fd_constrained_numpy import fd_constrained_numpy
 
 

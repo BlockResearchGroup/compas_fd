@@ -1,23 +1,22 @@
 from typing import Callable
 from typing import List
 from typing import Tuple
-from typing_extensions import Literal
-from nptyping import NDArray
-from nptyping import Float64
 
+from nptyping import Float64
+from nptyping import NDArray
 from numpy import array
 from numpy import asarray
 from numpy import float64
+from typing_extensions import Literal
 
-from compas_fd.loads import SelfweightCalculator
 from compas_fd.datastructures import CableMesh
+from compas_fd.loads import SelfweightCalculator
 
+from .fd_constrained_numpy import _is_converged_disp
+from .fd_constrained_numpy import _is_converged_residuals
 from .fd_constrained_numpy import _solve_fd
 from .fd_constrained_numpy import _update_constraints
-from .fd_constrained_numpy import _is_converged_residuals
-from .fd_constrained_numpy import _is_converged_disp
 from .fd_numerical_data import FDNumericalData
-
 
 CACHE = None
 
