@@ -1,3 +1,2 @@
-# COMPAS FD
+# Constrained form finding using the Force Density Method
 
-Form Finding of cable meshes using the Force Density Method.

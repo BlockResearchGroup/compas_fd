@@ -6,7 +6,7 @@ import sphinx_compas2_theme
 
 # -- General configuration ------------------------------------------------
 
-project = "COMPAS Force Density"
+project = "COMPAS FD"
 copyright = "Block Research Group - ETH Zurich"
 author = "Tom Van Mele"
 package = "compas_fd"
