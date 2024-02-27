@@ -80,11 +80,7 @@ class FDNumericalData:
         Cf = C[:, fixed]
         q = asarray(forcedensities, dtype=float64).reshape((-1, 1))
         Q = diags([q.flatten()], [0])
-        p = (
-            zeros_like(xyz)
-            if loads is None
-            else asarray(loads, dtype=float64).reshape((-1, 3))
-        )
+        p = zeros_like(xyz) if loads is None else asarray(loads, dtype=float64).reshape((-1, 3))
         A = C.T.dot(Q).dot(C)
         Ai = Ci.T.dot(Q).dot(Ci)
         Af = Ci.T.dot(Q).dot(Cf)

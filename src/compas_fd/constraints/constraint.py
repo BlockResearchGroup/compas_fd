@@ -96,9 +96,7 @@ class Constraint(Data):
         self.geometry = geometry
 
     def __repr__(self):
-        return "{}({}, name={})".format(
-            self.__class__.__name__, repr(self.geometry), self._name
-        )
+        return "{}({}, name={})".format(self.__class__.__name__, repr(self.geometry), self._name)
 
     # =============================================================================
     # Managed attributes

@@ -88,9 +88,9 @@ def fd_constrained_numpy(
         # - vectorize the computation of residuals
         # -
         _update_constraints(numdata, constraints, damping)
-        if _is_converged_residuals(
-            numdata.tangent_residuals, tol_res
-        ) and _is_converged_disp(xyz_prev, numdata.xyz, tol_disp):
+        if _is_converged_residuals(numdata.tangent_residuals, tol_res) and _is_converged_disp(
+            xyz_prev, numdata.xyz, tol_disp
+        ):
             break
 
     _post_process_fd(numdata)
@@ -121,9 +121,7 @@ def _post_process_fd(numdata: FDNumericalData) -> None:
     numdata.forces = numdata.q * numdata.lengths
 
 
-def _update_constraints(
-    numdata: FDNumericalData, constraints: Sequence[Constraint], damping: float
-) -> None:
+def _update_constraints(numdata: FDNumericalData, constraints: Sequence[Constraint], damping: float) -> None:
     """
     Update all vertex constraints by the residuals of the current iteration,
     and store their updated vertex coordinates in the numdata parameter.
@@ -138,9 +136,7 @@ def _update_constraints(
     numdata.tangent_residuals = asarray([c.tangent for c in constraints if c])
 
 
-def _is_converged_residuals(
-    residuals: NDArray[Literal["*, 3"], Float64], tol_res: float
-) -> bool:
+def _is_converged_residuals(residuals: NDArray[Literal["*, 3"], Float64], tol_res: float) -> bool:
     """
     Verify whether the maximum constraint residual is within tolerance.
     """

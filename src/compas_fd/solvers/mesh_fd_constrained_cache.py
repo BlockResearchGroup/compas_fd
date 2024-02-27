@@ -73,9 +73,7 @@ def mesh_fd_constrained_cache_delete() -> None:
     pass
 
 
-def mesh_fd_constrained_cache_call(
-    scale: float, cached_data: dict
-) -> List[List[float]]:
+def mesh_fd_constrained_cache_call(scale: float, cached_data: dict) -> List[List[float]]:
     numdata: FDNumericalData = cached_data["numdata"]
     edgeset: List[int] = cached_data["edgeset"]
     qs: NDArray[Literal["*, 1"], Float64] = cached_data["qs"]
@@ -93,9 +91,9 @@ def mesh_fd_constrained_cache_call(
         _solve_fd(numdata, selfweight)
         _update_constraints(numdata, constraints, damping)
 
-        if _is_converged_residuals(
-            numdata.tangent_residuals, tol_res
-        ) and _is_converged_disp(xyz_prev, numdata.xyz, tol_disp):
+        if _is_converged_residuals(numdata.tangent_residuals, tol_res) and _is_converged_disp(
+            xyz_prev, numdata.xyz, tol_disp
+        ):
             break
 
     return numdata.xyz.tolist()

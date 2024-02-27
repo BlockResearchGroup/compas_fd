@@ -49,9 +49,7 @@ class SelfweightCalculator:
         thickness_attr_name: str = "t",
     ):
         self.mesh = mesh
-        self.rho = numpy.array(
-            [t * density for t in mesh.vertices_attribute(thickness_attr_name)]
-        ).reshape((-1, 1))
+        self.rho = numpy.array([t * density for t in mesh.vertices_attribute(thickness_attr_name)]).reshape((-1, 1))
         self.vertex_index = mesh.vertex_index()
         self.fvertex_index = {fkey: index for index, fkey in enumerate(mesh.faces())}
         self.is_loaded = {fkey: True for fkey in mesh.faces()}
@@ -75,9 +73,7 @@ class SelfweightCalculator:
         """
         face_vertices = [None] * self.mesh.number_of_faces()
         for fkey in self.mesh.faces():
-            face_vertices[self.fvertex_index[fkey]] = [
-                self.vertex_index[key] for key in self.mesh.face_vertices(fkey)
-            ]
+            face_vertices[self.fvertex_index[fkey]] = [self.vertex_index[key] for key in self.mesh.face_vertices(fkey)]
         return face_matrix(face_vertices, rtype="csr", normalize=True)
 
     def compute_tributary_areas(self, xyz: FloatNx3) -> FloatNx1:

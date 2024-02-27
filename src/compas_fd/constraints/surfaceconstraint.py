@@ -54,15 +54,11 @@ class SurfaceConstraint(Constraint):
             self.project()
 
     def project(self):
-        xyz, self._param = self.geometry.closest_point(
-            self._location, return_parameters=True
-        )
+        xyz, self._param = self.geometry.closest_point(self._location, return_parameters=True)
         self._location = Point(*xyz)
 
     def compute_param(self):
-        _, self._param = self.geometry.closest_point(
-            self._location, return_parameters=True
-        )
+        _, self._param = self.geometry.closest_point(self._location, return_parameters=True)
 
     def update_location_at_param(self):
         self._location = self.geometry.point_at(*self._param)
