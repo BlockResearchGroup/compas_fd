@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import os
 import invoke
 from invoke import Collection
@@ -39,18 +37,9 @@ def check(ctx):
     with chdir(ctx.base_folder):
         lint(ctx)
 
-        # print("Checking MANIFEST.in...")
-        # ctx.run("check-manifest")
-
-        # print("Checking metadata...")
-        # ctx.run("python setup.py check --strict --metadata")
-
 
 ns = Collection(
     docs.help,
-    # style.check,
-    # style.lint,
-    # style.format,
     check,
     lint,
     format,
