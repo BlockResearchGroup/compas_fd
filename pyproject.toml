@@ -7,31 +7,25 @@ build-backend = "setuptools.build_meta"
 # ============================================================================
 
 [project]
-dynamic = ['dependencies', 'optional-dependencies']
 name = "compas_fd"
 version = "0.4.2"
 authors = [{ name = "tom van mele", email = "tom.v.mele@gmail.com" }]
+description = "Constrained form finding using the Force Density Method."
+keywords = ["form finding", "force density"]
+license = { file = "LICENSE" }
+readme = "README.md"
+requires-python = ">=3.8"
+dynamic = ['dependencies', 'optional-dependencies']
 classifiers = [
     "Development Status :: 4 - Beta",
-    "Intended Audience :: Developers",
     "Topic :: Scientific/Engineering",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: Unix",
-    "Operating System :: POSIX",
-    "Operating System :: Microsoft :: Windows",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: Implementation :: CPython",
 ]
-description = "Constrained form finding using the Force Density Method."
-keywords = ["form finding", "force density"]
-license = { file = "LICENSE" }
-readme = "README.md"
-requires-python = ">=3.8"
 
 [project.urls]
 Homepage = "https://blockresearchgroup.github.io/compas_fd"
@@ -104,17 +98,19 @@ target-version = "py39"
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
-per-file-ignores = { "__init__.py" = ["I001"], "tests/*" = ["I001"] }
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["I001"]
+"tests/*" = ["I001"]
+"tasks.py" = ["I001"]
 
 [tool.ruff.lint.isort]
 force-single-line = true
-# known-first-party = ["compas_fd"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
 
 [tool.ruff.lint.pycodestyle]
-# max-line-length = 119
 max-doc-length = 179
 
 [tool.ruff.format]
