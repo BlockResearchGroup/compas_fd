@@ -1,9 +1,13 @@
-from compas_view2.app import App
-from compas.datastructures import Mesh
-from compas.geometry import Point, Vector, Line, Sphere, NurbsCurve
 from compas.colors import Color
-from compas_fd.solvers import fd_constrained_numpy
+from compas.datastructures import Mesh
+from compas.geometry import Line
+from compas.geometry import NurbsCurve
+from compas.geometry import Point
+from compas.geometry import Sphere
+from compas.geometry import Vector
 from compas_fd.constraints import Constraint
+from compas_fd.solvers import fd_constrained_numpy
+from compas_view2.app import App
 
 # mesh
 
