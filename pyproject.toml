@@ -108,7 +108,7 @@ per-file-ignores = { "__init__.py" = ["I001"], "tests/*" = ["I001"] }
 
 [tool.ruff.lint.isort]
 force-single-line = true
-known-first-party = ["compas_fd"]
+# known-first-party = ["compas_fd"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
