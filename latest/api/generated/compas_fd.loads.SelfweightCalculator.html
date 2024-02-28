@@ -9,7 +9,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
     <link rel="icon" href="../../_static/compas.ico" type="image/x-icon">
-    <title>SelfweightCalculator &#8212; COMPAS Force Density</title>
+    <title>SelfweightCalculator &#8212; COMPAS FD</title>
   
   
   
@@ -130,7 +130,7 @@
     <script>document.write(`<img src="../../_static/compas_icon_white.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
   
   
-    <p class="title logo__title">COMPAS Force Density</p>
+    <p class="title logo__title">COMPAS FD</p>
   
 </a></div>
     
@@ -577,7 +577,7 @@ to compute the selfweight for the current mesh coordinates.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mesh</span><span class="o">.</span><span class="n">update_default_vertex_attributes</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="mf">0.10</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">density</span> <span class="o">=</span> <span class="mi">22</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">calculator</span> <span class="o">=</span> <span class="n">SelfweightCalculator</span><span class="p">(</span><span class="n">mesh</span><span class="p">,</span> <span class="n">density</span><span class="o">=</span><span class="n">density</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">vertices_attributes</span><span class="p">(</span><span class="s1">&#39;xyz&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">xyz</span> <span class="o">=</span> <span class="n">mesh</span><span class="o">.</span><span class="n">vertices_attributes</span><span class="p">(</span><span class="s2">&quot;xyz&quot;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">selfweight</span> <span class="o">=</span> <span class="n">calculator</span><span class="p">(</span><span class="n">xyz</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">selfweight</span><span class="p">)</span> <span class="o">==</span> <span class="n">mesh</span><span class="o">.</span><span class="n">number_of_vertices</span><span class="p">()</span>
 <span class="go">True</span>
