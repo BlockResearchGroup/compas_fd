@@ -4,8 +4,11 @@ Constrained Form Finding with Iterative Force Density
 
 .. rst-class:: lead
 
-:mod:`compas_fd` is a Python package for computing the equilibrium of form active structures
-such as cable-nets and tensile surfaces, subject to geometrical constraints, using the force density method.
+This package provides equilibrium solvers and constraints
+for constrained form finding using the "force density" method.
+The solvers can be used through the :mod:`compas_fd` package directly,
+or through COMPAS FormFinder, which is a form finding tool with a GUI
+combining various different form finding approaches.
 
 
 Table of Contents
