@@ -1,3 +1,1 @@
 compas >=2.0.1
-nptyping >=2.3.1
-typing_extensions
