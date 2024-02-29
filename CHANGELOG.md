@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 * Updated `build` and `docs` workflows to `v4`
+* Remove dependency on `nptyping` and `typing_extensions`.
+* Switch to `pyproject.toml`.
 
 ### Removed
 
@@ -41,6 +43,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 ### Changed
+
 * Fixed workflow errors.
 
 ### Removed
@@ -58,11 +61,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.3.0] 2022-03-22
 
 ### Added
-- Workflow for changelog check.
-- Support for python 3.10
+
+* Workflow for changelog check.
+* Support for python 3.10
 
 ### Changed
-- Update build workflow version
+
+* Update build workflow version
 
 ### Removed
-- Release candidate option.
+
+* Release candidate option.
