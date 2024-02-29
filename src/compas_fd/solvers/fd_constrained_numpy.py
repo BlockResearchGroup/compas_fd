@@ -4,13 +4,10 @@ from typing import Optional
 from typing import Sequence
 from typing import Tuple
 
+import numpy as np
 from compas.linalg import normrow
-from nptyping import Float64
-from nptyping import NDArray
-from numpy import asarray
 from scipy.linalg import norm
 from scipy.sparse.linalg import spsolve
-from typing_extensions import Literal
 
 from compas_fd.constraints import Constraint
 from compas_fd.types import FloatNx3
@@ -132,10 +129,10 @@ def _update_constraints(numdata: FDNumericalData, constraints: Sequence[Constrai
         constraint.residual = numdata.residuals[vertex]
         constraint.update(damping=damping)
         numdata.xyz[vertex] = constraint.location
-    numdata.tangent_residuals = asarray([c.tangent for c in constraints if c])
+    numdata.tangent_residuals = np.asarray([c.tangent for c in constraints if c])
 
 
-def _is_converged_residuals(residuals: NDArray[Literal["*, 3"], Float64], tol_res: float) -> bool:
+def _is_converged_residuals(residuals: FloatNx3, tol_res: float) -> bool:
     """
     Verify whether the maximum constraint residual is within tolerance.
     """
@@ -146,8 +143,8 @@ def _is_converged_residuals(residuals: NDArray[Literal["*, 3"], Float64], tol_re
 
 
 def _is_converged_disp(
-    old_xyz: NDArray[Literal["*, 3"], Float64],
-    new_xyz: NDArray[Literal["*, 3"], Float64],
+    old_xyz: FloatNx3,
+    new_xyz: FloatNx3,
     tol_disp: float,
 ) -> bool:
     """

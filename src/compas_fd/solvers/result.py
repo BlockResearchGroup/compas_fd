@@ -1,14 +1,12 @@
 from typing import List
 from typing import NamedTuple
 
-from nptyping import Float64
-from nptyping import NDArray
-from typing_extensions import Literal
+from compas_fd.types import FloatNx3
 
 
 class Result(NamedTuple):
-    vertices: NDArray[Literal["*, 3"], Float64]
-    residuals: NDArray[Literal["*, 3"], Float64]
+    vertices: FloatNx3
+    residuals: FloatNx3
     forces: List[float]
     lengths: List[float]
 

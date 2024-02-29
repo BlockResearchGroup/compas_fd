@@ -1,20 +1,23 @@
-from typing import List
+from typing import Annotated
+from typing import Literal
 from typing import Sequence
 from typing import Union
 
-from nptyping import Float64
-from nptyping import NDArray
-from typing_extensions import Annotated
-from typing_extensions import Literal
+import numpy as np
+import numpy.typing as npt
 
 FloatNx3 = Union[
-    Sequence[Annotated[List[float], 3]],
-    NDArray[Literal["*, 3"], Float64],
+    Sequence[Annotated[Sequence[float], 3]],
+    Annotated[npt.NDArray[np.float64], Literal["*, 3"]],
 ]
-"""A sequence of lists with each list containing three floats."""
+"""An array-like object, with each item in the array containing three (3) floats."""
 
 FloatNx1 = Union[
-    Sequence[Annotated[List[float], 1]],
-    NDArray[Literal["*, 1"], Float64],
+    Sequence[Annotated[Sequence[float], 1]],
+    Annotated[npt.NDArray[np.float64], Literal["*, 1"]],
 ]
-"""A sequence of lists with each list containing one float."""
+"""An array-like object, with each item in the array containing one (1) float."""
+
+IntNxM = Annotated[npt.NDArray[np.int32], Literal["*, *"]]
+
+FloatNxM = Annotated[npt.NDArray[np.float64], Literal["*, *"]]

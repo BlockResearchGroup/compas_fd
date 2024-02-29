@@ -2,27 +2,21 @@ from dataclasses import astuple
 from dataclasses import dataclass
 from typing import List
 from typing import Optional
-from typing import Sequence
 from typing import Tuple
-from typing import Union
 
 from compas.datastructures import Mesh
 from compas.matrices import connectivity_matrix
-from nptyping import NDArray
 from numpy import asarray
 from numpy import float64
-from numpy import int32
 from numpy import zeros_like
 from scipy.sparse import diags
-from typing_extensions import Annotated
-from typing_extensions import Literal
+
+from compas_fd.types import FloatNx1
+from compas_fd.types import FloatNx3
+from compas_fd.types import FloatNxM
+from compas_fd.types import IntNxM
 
 from .result import Result
-
-FloatNx3 = Union[
-    Sequence[Annotated[List[float], 3]],
-    NDArray[Literal["*, 3"], float64],
-]
 
 
 @dataclass
@@ -31,19 +25,19 @@ class FDNumericalData:
 
     free: int
     fixed: int
-    xyz: NDArray[Literal["*, 3"], float64]
-    C: NDArray[Literal["*, *"], int32]
-    q: NDArray[Literal["*, 1"], float64]
-    Q: NDArray[Literal["*, *"], float64]
-    p: NDArray[Literal["*, 1"], float64]
-    A: NDArray[Literal["*, *"], float64]
-    Ai: NDArray[Literal["*, *"], float64]
-    Af: NDArray[Literal["*, *"], float64]
-    forces: NDArray[Literal["*, 1"], float64] = None
-    lengths: NDArray[Literal["*, 1"], float64] = None
-    residuals: NDArray[Literal["*, 3"], float64] = None
-    tangent_residuals: NDArray[Literal["*, 3"], float64] = None
-    normal_residuals: NDArray[Literal["*, 1"], float64] = None
+    xyz: FloatNx3
+    C: IntNxM
+    q: FloatNx1
+    Q: FloatNxM
+    p: FloatNx3
+    A: FloatNxM
+    Ai: FloatNxM
+    Af: FloatNxM
+    forces: Optional[FloatNx1] = None
+    lengths: Optional[FloatNx1] = None
+    residuals: Optional[FloatNx3] = None
+    tangent_residuals: Optional[FloatNx3] = None
+    normal_residuals: Optional[FloatNx3] = None
 
     def __iter__(self):
         return iter(astuple(self))
