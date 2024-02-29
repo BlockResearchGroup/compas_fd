@@ -5,21 +5,32 @@ Installation
 Stable
 ======
 
-Currently, :mod:`compas_fd` is only available on PyPI, and not (yet) on conda-forge.
-Therefore, it has to be installed with ``pip``.
+Stable releases are available on PyPI and can be installed with pip.
 
 .. code-block:: bash
 
     pip install compas_fd
 
 
-Development
-===========
+Latest
+======
 
-To get the latest development version, you can install from local source.
+The latest version can be installed from local source.
 
 .. code-block:: bash
 
     git clone https://github.com/blockresearchgroup/compas_fd.git
     cd compas_fd
-    pip install -r requirements-dev.txt
+    pip install -e .
+
+
+Development
+===========
+
+To install `compas_fd` for development, install from local source with the "dev" requirements.
+
+.. code-block:: bash
+
+    git clone https://github.com/blockresearchgroup/compas_fd.git
+    cd compas_fd
+    pip install -e ".[dev]"

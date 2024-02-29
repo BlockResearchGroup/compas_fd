@@ -1,19 +1,13 @@
-from compas_view2.app import App
+from compas.colors import Color
 from compas.datastructures import Mesh
+from compas.geometry import Line
+from compas.geometry import Point
+from compas.geometry import Sphere
+from compas.geometry import Vector
 from compas_fd.solvers import fd_numpy
+from compas_view2.app import App
 
 mesh = Mesh.from_meshgrid(dx=10, nx=10)
-
-bottomleft = list(mesh.vertices_where(x=0, y=0))[0]
-topright = list(mesh.vertices_where(x=10, y=10))[0]
-
-# bottomleft = mesh.vertex_where(x=0, y=0)
-# topright = mesh.vertex_where(x=10, y=10)
-
-mesh.vertices_attribute(name="z", value=7, keys=[bottomleft, topright])
-
-# mesh.vertices[bottomleft]['z'] = 7.0
-# mesh.vertices[topright]['z'] = 7.0
 
 vertices = mesh.vertices_attributes("xyz")
 fixed = list(mesh.vertices_where(vertex_degree=2))
@@ -41,6 +35,21 @@ for vertex, attr in mesh.vertices(data=True):
     attr["z"] = result.vertices[vertex, 2]
 
 viewer = App()
+viewer.view.camera.position = [5, -5, 20]
+viewer.view.camera.look_at([5, 5, 0])
+
 viewer.add(mesh)
-viewer.view.camera.zoom_extents()
+
+for vertex in fixed:
+    point = Point(*mesh.vertex_coordinates(vertex))
+    residual = Vector(*result.residuals[vertex])
+    ball = Sphere(radius=0.1, point=point)
+
+    viewer.add(ball.to_brep(), facecolor=Color.red())
+    viewer.add(
+        Line(point, point - residual * 0.1),
+        linecolor=Color.green().darkened(50),
+        linewidth=3,
+    )
+
 viewer.run()
