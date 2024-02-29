@@ -466,9 +466,12 @@ document.write(`
 <li class="toctree-l1"><a class="reference internal" href="index.html">Introduction</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorial</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">Examples</a></li>
-<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="api/compas_fd.html">compas_fd</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="examples.html">Examples</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="examples/example_mesh_constrained_on-arch.html">Mesh Supported by a Simple Arch</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="api/compas_fd.html">compas_fd</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l3"><a class="reference internal" href="api/compas_fd.constraints.html">constraints</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/compas_fd.solvers.html">solvers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/compas_fd.loads.html">loads</a></li>
@@ -541,18 +544,26 @@ document.write(`
 <h1>Installation</h1>
 <section id="stable">
 <h2>Stable</h2>
-<p>Currently, <code class="xref py py-mod docutils literal notranslate"><span class="pre">compas_fd</span></code> is only available on PyPI, and not (yet) on conda-forge.
-Therefore, it has to be installed with <code class="docutils literal notranslate"><span class="pre">pip</span></code>.</p>
+<p>Stable releases are available on PyPI and can be installed with pip.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>compas_fd
+</pre></div>
+</div>
+</section>
+<section id="latest">
+<h2>Latest</h2>
+<p>The latest version can be installed from local source.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/blockresearchgroup/compas_fd.git
+<span class="nb">cd</span><span class="w"> </span>compas_fd
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </pre></div>
 </div>
 </section>
 <section id="development">
 <h2>Development</h2>
-<p>To get the latest development version, you can install from local source.</p>
+<p>To install <cite>compas_fd</cite> for development, install from local source with the “dev” requirements.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/blockresearchgroup/compas_fd.git
 <span class="nb">cd</span><span class="w"> </span>compas_fd
-pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements-dev.txt
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">&quot;.[dev]&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -580,6 +591,7 @@ pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </s
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#stable">Stable</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#latest">Latest</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#development">Development</a></li>
 </ul>
   </nav></div>
