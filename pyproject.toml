@@ -8,14 +8,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "compas_fd"
-version = "0.4.2"
 authors = [{ name = "tom van mele", email = "tom.v.mele@gmail.com" }]
 description = "Constrained form finding using the Force Density Method."
 keywords = ["form finding", "force density"]
 license = { file = "LICENSE" }
 readme = "README.md"
 requires-python = ">=3.9"
-dynamic = ['dependencies', 'optional-dependencies']
+dynamic = ['dependencies', 'optional-dependencies', 'version']
 classifiers = [
     "Development Status :: 4 - Beta",
     "Topic :: Scientific/Engineering",
@@ -40,6 +39,7 @@ include-package-data = true
 zip-safe = false
 
 [tool.setuptools.dynamic]
+version = { attr = "compas_fd.__version__" }
 dependencies = { file = "requirements.txt" }
 optional-dependencies = { dev = { file = "requirements-dev.txt" } }
 
