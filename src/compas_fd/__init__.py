@@ -8,7 +8,7 @@ __author__ = ["tom van mele <tom.v.mele@gmail.com>"]
 __copyright__ = "Block Research Group - ETH Zurich"
 __license__ = "MIT License"
 __email__ = "tom.v.mele@gmail.com"
-__version__ = "0.5.0"
+__version__ = "0.5.1"
 
 
 get = compas.get
