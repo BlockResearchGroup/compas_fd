@@ -7,7 +7,7 @@ from compas.geometry import Sphere
 from compas.geometry import Vector
 from compas_fd.constraints import Constraint
 from compas_fd.solvers import fd_constrained_numpy
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 # mesh
 
@@ -67,28 +67,31 @@ for vertex, attr in mesh.vertices(data=True):
 # Visualization
 # =============================================================================
 
-viewer = App()
-viewer.add(mesh)
+viewer = Viewer()
+viewer.renderer.camera.target = [5, 5, 0]
+viewer.renderer.camera.position = [-3, -10, 10]
+
+viewer.scene.add(mesh, show_points=False)
 
 for vertex in mesh.vertices():
     point = Point(*mesh.vertex_coordinates(vertex))
     residual = Vector(*result.residuals[vertex])
 
     if vertex in fixed:
-        ball = Sphere(radius=0.1, point=point)
+        ball = Sphere(radius=0.05, point=point)
 
         if constraints[vertex]:
-            viewer.add(ball.to_brep(), facecolor=Color.blue())
+            viewer.scene.add(ball.to_brep(), surfacecolor=Color.blue(), show_points=False)
         else:
-            viewer.add(ball.to_brep(), facecolor=Color.red())
+            viewer.scene.add(ball.to_brep(), surfacecolor=Color.red(), show_points=False)
 
-        viewer.add(
+        viewer.scene.add(
             Line(point, point - residual * 0.1),
             linecolor=Color.green().darkened(50),
-            linewidth=3,
+            lineswidth=3,
+            show_points=False,
         )
 
-viewer.add(arch.to_polyline(), linecolor=Color.cyan(), linewidth=3)
+viewer.scene.add(arch.to_polyline(), linecolor=Color.cyan(), lineswidth=3, show_points=False)
 
-viewer.view.camera.zoom_extents()
-viewer.run()
+viewer.show()

@@ -5,7 +5,7 @@ from compas.geometry import Point
 from compas.geometry import Sphere
 from compas.geometry import Vector
 from compas_fd.solvers import fd_numpy
-from compas_view2.app import App
+from compas_viewer import Viewer
 
 mesh = Mesh.from_meshgrid(dx=10, nx=10)
 
@@ -34,22 +34,23 @@ for vertex, attr in mesh.vertices(data=True):
     attr["y"] = result.vertices[vertex, 1]
     attr["z"] = result.vertices[vertex, 2]
 
-viewer = App()
-viewer.view.camera.position = [5, -5, 20]
-viewer.view.camera.look_at([5, 5, 0])
+viewer = Viewer()
+viewer.renderer.camera.target = [5, 5, 0]
+viewer.renderer.camera.position = [5, -5, 20]
 
-viewer.add(mesh)
+viewer.scene.add(mesh, show_points=False)
 
 for vertex in fixed:
     point = Point(*mesh.vertex_coordinates(vertex))
     residual = Vector(*result.residuals[vertex])
     ball = Sphere(radius=0.1, point=point)
 
-    viewer.add(ball.to_brep(), facecolor=Color.red())
-    viewer.add(
+    viewer.scene.add(ball.to_brep(), surfacecolor=Color.red(), show_points=False)
+    viewer.scene.add(
         Line(point, point - residual * 0.1),
         linecolor=Color.green().darkened(50),
-        linewidth=3,
+        lineswidth=3,
+        show_points=False,
     )
 
-viewer.run()
+viewer.show()
