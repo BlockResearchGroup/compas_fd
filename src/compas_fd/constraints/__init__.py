@@ -1,5 +1,4 @@
-"""This package defines geometric constraints that can be applied to the fixed vertices of a mesh/cable-mesh.
-"""
+"""This package defines geometric constraints that can be applied to the fixed vertices of a mesh/cable-mesh."""
 
 from __future__ import print_function
 from __future__ import absolute_import
