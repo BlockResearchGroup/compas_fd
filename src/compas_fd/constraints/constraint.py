@@ -68,9 +68,7 @@ class Constraint(Data):
             if cls is not None:
                 break
         if cls is None:
-            raise GeometryNotRegisteredAsConstraint(
-                "No constraint is registered for this geometry type: {}".format(gtype)
-            )
+            raise GeometryNotRegisteredAsConstraint("No constraint is registered for this geometry type: {}".format(gtype))
         return cls
 
     def __new__(cls, *args, **kwargs):

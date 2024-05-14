@@ -84,9 +84,7 @@ def fd_constrained_numpy(
         # - vectorize the computation of residuals
         # -
         _update_constraints(numdata, constraints, damping)
-        if _is_converged_residuals(numdata.tangent_residuals, tol_res) and _is_converged_disp(
-            xyz_prev, numdata.xyz, tol_disp
-        ):
+        if _is_converged_residuals(numdata.tangent_residuals, tol_res) and _is_converged_disp(xyz_prev, numdata.xyz, tol_disp):
             break
 
     _post_process_fd(numdata)
