@@ -14,6 +14,7 @@ from scipy.sparse import diags
 from compas_fd.types import FloatNx1
 from compas_fd.types import FloatNx3
 from compas_fd.types import FloatNxM
+from compas_fd.types import IntNx2
 from compas_fd.types import IntNxM
 
 from .result import Result
@@ -26,6 +27,7 @@ class FDNumericalData:
     free: int
     fixed: int
     xyz: FloatNx3
+    edges: IntNx2
     C: IntNxM
     q: FloatNx1
     Q: FloatNxM
@@ -77,7 +79,7 @@ class FDNumericalData:
         A = C.T.dot(Q).dot(C)
         Ai = Ci.T.dot(Q).dot(Ci)
         Af = Ci.T.dot(Q).dot(Cf)
-        return cls(free, fixed, xyz, C, q, Q, p, A, Ai, Af)
+        return cls(free, fixed, xyz, edges, C, q, Q, p, A, Ai, Af)
 
     @classmethod
     def from_mesh(cls, mesh: Mesh) -> "FDNumericalData":
