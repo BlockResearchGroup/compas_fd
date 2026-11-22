@@ -27,9 +27,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Not verified against COMPAS 2
 
-* `CurveConstraint` and `SurfaceConstraint` need a NURBS backend such as `compas_occ`, which is not a requirement of `compas_fd`. `CurveConstraint` is verified against a COMPAS 2 baseline with `compas_occ`.
 * `SurfaceConstraint` and `CircleConstraint` on a `Circle` did not work with COMPAS 2 and have no baseline; they are verified against closed-form values with COMPAS 3 only.
-* Loading a `CircleConstraint` from data (for example with `compas.json_loads`) fails, as it did before the port.
+* `CurveConstraint` and `SurfaceConstraint` need a NURBS backend such as `compas_occ`, which is not a requirement of `compas_fd`. `CurveConstraint` is compared against a COMPAS 2 baseline when `compas_occ` is installed. The build workflow does not install it, so the backend tests run locally only.
+* Loading constraints from data is tested for `LineConstraint`, `PlaneConstraint`, `VectorConstraint`, and `FrameConstraint` only. Loading a `CircleConstraint` from data returns an unusable `CurveConstraint`, as before the port. Loading `CurveConstraint` or `SurfaceConstraint` data written with COMPAS 2 is not tested.
+* The examples and the notebook are not ported to COMPAS 3.
 * Python 3.13 and 3.14 are declared but have not been tested yet.
 
 
