@@ -1,7 +1,3 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-
 import inspect
 
 from compas.data import Data
@@ -74,7 +70,7 @@ class Constraint(Data):
     def __new__(cls, *args, **kwargs):
         geometry = args[0]
         cls = Constraint.get_constraint_cls(geometry)
-        return super(Constraint, cls).__new__(cls)
+        return super().__new__(cls)
 
     @property
     def __data__(self):
@@ -84,7 +80,7 @@ class Constraint(Data):
         return data
 
     def __init__(self, geometry, name=None):
-        super(Constraint, self).__init__(name=name)
+        super().__init__(name=name)
         self._geometry = None
         self._location = None
         self._residual = None
