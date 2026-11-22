@@ -18,6 +18,11 @@ BASELINES = pathlib.Path(__file__).parent / "baselines"
 ATOL = 1e-9
 RTOL = 1e-9
 
+# Inputs that are themselves the result of a solve (fd-03 evaluates the selfweight on the
+# fd-02 geometry). They differ in the last bits between platforms, so they are compared
+# with the output tolerance instead of exactly.
+DERIVED_INPUTS = {("fd-03", "xyz")}
+
 
 def _load_cases():
     spec = importlib.util.spec_from_file_location("compas_fd_baseline_cases", BASELINES / "cases.py")
@@ -54,7 +59,12 @@ def test_baseline(name):
         base = stored["in_" + key]
         assert new.dtype == base.dtype, key
         assert new.shape == base.shape, key
-        assert np.array_equal(new, base), "input {} differs from the stored input".format(key)
+        if (name, key) in DERIVED_INPUTS:
+            max_abs, max_rel = deviation(new, base)
+            print("{} input {}: max abs deviation {:.3e}, max rel deviation {:.3e}".format(name, key, max_abs, max_rel))
+            assert np.all(np.abs(new - base) <= ATOL + RTOL * np.abs(base)), "input {} beyond tolerance".format(key)
+        else:
+            assert np.array_equal(new, base), "input {} differs from the stored input".format(key)
 
     failed = []
 
