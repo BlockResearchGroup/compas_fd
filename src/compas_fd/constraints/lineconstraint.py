@@ -7,22 +7,13 @@ from compas.geometry import Point
 from compas.geometry import Vector
 from compas.geometry import closest_point_on_segment
 from compas.geometry import is_point_on_segment
-from compas.geometry import vector_component
+from compas.linalg import vector_component
 
 from .constraint import Constraint
 
 
 class LineConstraint(Constraint):
     """Constraint for limiting the movement of a vertex to a line."""
-
-    DATASCHEMA = {
-        "type": "object",
-        "properties": {
-            "geometry": Line.DATASCHEMA,
-            "rhino_guid": {"type": "string"},
-        },
-        "required": ["geometry"],
-    }
 
     @classmethod
     def __from_data__(cls, data):

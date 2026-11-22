@@ -5,22 +5,13 @@ from __future__ import print_function
 from compas.geometry import NurbsCurve
 from compas.geometry import Point
 from compas.geometry import Vector
-from compas.geometry import vector_component
+from compas.linalg import vector_component
 
 from .constraint import Constraint
 
 
 class CurveConstraint(Constraint):
     """Constraint for limiting the movement of a vertex to a Nurbs curve."""
-
-    DATASCHEMA = {
-        "type": "object",
-        "properties": {
-            "geometry": NurbsCurve.DATASCHEMA,
-            "rhino_guid": {"type": "string"},
-        },
-        "required": ["geometry"],
-    }
 
     @classmethod
     def __from_data__(cls, data):

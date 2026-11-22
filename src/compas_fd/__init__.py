@@ -23,5 +23,3 @@ TEMP = os.path.abspath(os.path.join(HOME, "temp"))
 
 
 __all__ = ["HOME", "DATA", "DOCS", "TEMP", "get"]
-
-__all_plugins__ = ["compas_fd.install"]

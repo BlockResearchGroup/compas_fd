@@ -5,7 +5,7 @@ from typing import Optional
 from typing import Tuple
 
 from compas.datastructures import Mesh
-from compas.matrices import connectivity_matrix
+from compas.linalg import connectivity_matrix
 from numpy import asarray
 from numpy import float64
 from numpy import zeros_like

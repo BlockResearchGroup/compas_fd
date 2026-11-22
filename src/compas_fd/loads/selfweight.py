@@ -1,9 +1,9 @@
 import numpy
 import scipy.sparse
 from compas.datastructures import Mesh
-from compas.geometry import cross_vectors
-from compas.geometry import length_vector
-from compas.matrices import face_matrix
+from compas.linalg import cross_vectors
+from compas.linalg import face_matrix
+from compas.linalg import length_vector
 
 from compas_fd.types import FloatNx1
 from compas_fd.types import FloatNx3

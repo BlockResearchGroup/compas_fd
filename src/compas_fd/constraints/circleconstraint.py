@@ -6,22 +6,13 @@ from compas.geometry import Circle
 from compas.geometry import NurbsCurve
 from compas.geometry import Point
 from compas.geometry import Vector
-from compas.geometry import vector_component
+from compas.linalg import vector_component
 
 from .constraint import Constraint
 
 
 class CircleConstraint(Constraint):
     """Constraint for limiting the movement of a vertex to a circle."""
-
-    DATASCHEMA = {
-        "type": "object",
-        "properties": {
-            "geometry": Circle.DATASCHEMA,
-            "rhino_guid": {"type": "string"},
-        },
-        "required": ["geometry"],
-    }
 
     @classmethod
     def __from_data__(cls, data):

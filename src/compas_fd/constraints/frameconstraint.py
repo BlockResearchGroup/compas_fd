@@ -4,22 +4,13 @@ from __future__ import print_function
 
 from compas.geometry import Frame
 from compas.geometry import Vector
-from compas.geometry import vector_component
+from compas.linalg import vector_component
 
 from .constraint import Constraint
 
 
 class FrameConstraint(Constraint):
     """Constraint for limiting the movement of a vertex to a frame."""
-
-    DATASCHEMA = {
-        "type": "object",
-        "properties": {
-            "geometry": Frame.DATASCHEMA,
-            "rhino_guid": {"type": "string"},
-        },
-        "required": ["geometry"],
-    }
 
     @classmethod
     def __from_data__(cls, data):

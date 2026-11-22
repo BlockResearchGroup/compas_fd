@@ -5,22 +5,13 @@ from __future__ import print_function
 from compas.geometry import NurbsSurface
 from compas.geometry import Point
 from compas.geometry import Vector
-from compas.geometry import vector_component
+from compas.linalg import vector_component
 
 from .constraint import Constraint
 
 
 class SurfaceConstraint(Constraint):
     """Constraint for limiting the movement of a vertex to a surface."""
-
-    DATASCHEMA = {
-        "type": "object",
-        "properties": {
-            "geometry": NurbsSurface.DATASCHEMA,
-            "rhino_guid": {"type": "string"},
-        },
-        "required": ["geometry"],
-    }
 
     @classmethod
     def __from_data__(cls, data):
@@ -45,7 +36,7 @@ class SurfaceConstraint(Constraint):
         self._tangent = self.residual - self.normal
 
     def compute_normal(self):
-        _, _, _, normal = self.geometry.curvature_at(*self._param)
+        normal = self.geometry.normal_at(*self._param)
         self._normal = Vector(*vector_component(self.residual, normal))
 
     def update(self, damping=0.1):
