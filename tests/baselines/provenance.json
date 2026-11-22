@@ -1,0 +1,29 @@
+{
+  "package": "compas_fd",
+  "commit": "7ee3c5a15bb304a71067638c758f1cad63995a91",
+  "versions": {
+    "compas": "2.16.0",
+    "compas_fd": "0.5.4",
+    "numpy": "2.5.5",
+    "scipy": "1.18.1",
+    "compas_occ": "1.5.0"
+  },
+  "python": "3.12.16",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "machine": "arm64",
+  "command": "/Users/vanmelet/miniforge3/envs/brg-compas2/bin/python tests/baselines/record.py tests/baselines",
+  "date": "2026-11-22T14:10:04+00:00",
+  "cases": {
+    "fd-01": "recorded",
+    "fd-02": "recorded",
+    "fd-03": "recorded",
+    "fd-04": "recorded",
+    "fd-05": "recorded",
+    "fd-06": "recorded",
+    "fd-07": "recorded",
+    "fd-08": "recorded",
+    "fd-09": "recorded",
+    "fd-10": "recorded",
+    "fd-11": "recorded"
+  }
+}
