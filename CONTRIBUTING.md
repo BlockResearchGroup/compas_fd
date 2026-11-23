@@ -28,6 +28,11 @@ In short, this is how that works.
 4. Add a changelog entry for user-facing changes and
    [open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
 
+Keep maintained Python examples in `docs/examples/` and documentation images
+in `docs/assets/images/`. The loaded-network example is checked by Ruff and
+Pyright and executed in CI. The historical COMPAS 2 viewer scripts are
+retained in `examples/legacy/`.
+
 ## Bug reports
 
 When [reporting a bug](https://github.com/blockresearchgroup/compas_fd/issues) please include:

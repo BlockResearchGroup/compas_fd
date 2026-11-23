@@ -2,15 +2,14 @@ site_name: COMPAS FD
 repo_url: https://github.com/BlockResearchGroup/compas_fd
 theme:
   name: material
-exclude_docs: |
-  *.rst
-  conf.py
 nav:
   - Overview: index.md
   - Installation: installation.md
   - Solvers and loads: tutorial.md
   - Examples: examples.md
   - API reference: api.md
+  - Contributing: contributing.md
+  - Changelog: changelog.md
   - License: license.md
 plugins:
   - search

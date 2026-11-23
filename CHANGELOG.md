@@ -16,10 +16,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Aligned numerical imports, plugin discovery and constraint serialization with COMPAS 3.
 * Updated the supported Python versions to 3.12–3.14 and added locked development tools.
 * Migrated the documentation build to MkDocs and updated solver annotations and docstrings.
+* Organised the documentation assets, archived COMPAS 2 viewer scripts, and added the maintained example to the Pyright check.
 
 ### Removed
 
 * Removed the legacy `DATASCHEMA` attributes from all constraints to align with COMPAS 3. Existing constraint JSON payloads remain supported.
+* Removed the superseded reStructuredText pages and Sphinx configuration.
 
 ## [0.5.4] 2024-11-10
 

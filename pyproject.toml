@@ -132,7 +132,7 @@ docstring-code-format = true
 docstring-code-line-length = "dynamic"
 
 [tool.pyright]
-include = ["src", "tests"]
+include = ["src", "tests", "docs/examples"]
 pythonVersion = "3.12"
 typeCheckingMode = "strict"
 # The core candidate and SciPy do not yet ship complete PEP 561 metadata.
