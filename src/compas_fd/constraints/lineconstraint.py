@@ -10,15 +10,11 @@ from compas.geometry import Vector
 from compas.geometry import closest_point_on_segment
 from compas.geometry import is_point_on_segment
 
-from ._dataschemas import LINE
-from ._dataschemas import constraint_schema
 from .constraint import Constraint
 
 
 class LineConstraint(Constraint[Line]):
     """Constraint for limiting the movement of a vertex to a line."""
-
-    DATASCHEMA = constraint_schema(LINE)
 
     @classmethod
     def __from_data__(cls, data: dict[str, Any]) -> Self:

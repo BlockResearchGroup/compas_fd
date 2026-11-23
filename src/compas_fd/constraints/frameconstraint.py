@@ -8,15 +8,11 @@ from compas.geometry import Frame
 from compas.geometry import Point
 from compas.geometry import Vector
 
-from ._dataschemas import FRAME
-from ._dataschemas import constraint_schema
 from .constraint import Constraint
 
 
 class FrameConstraint(Constraint[Frame]):
     """Constraint for limiting the movement of a vertex to a frame."""
-
-    DATASCHEMA = constraint_schema(FRAME)
 
     @classmethod
     def __from_data__(cls, data: dict[str, Any]) -> Self:

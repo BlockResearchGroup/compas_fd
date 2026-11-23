@@ -9,15 +9,11 @@ from compas.geometry import NurbsSurface
 from compas.geometry import Point
 from compas.geometry import Vector
 
-from ._dataschemas import SURFACE
-from ._dataschemas import constraint_schema
 from .constraint import Constraint
 
 
 class SurfaceConstraint(Constraint[NurbsSurface]):
     """Constraint for limiting the movement of a vertex to a surface."""
-
-    DATASCHEMA = constraint_schema(SURFACE)
 
     @property
     def __data__(self) -> dict[str, Any]:

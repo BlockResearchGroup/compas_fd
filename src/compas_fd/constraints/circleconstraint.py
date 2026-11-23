@@ -10,15 +10,11 @@ from compas.geometry import NurbsCurve
 from compas.geometry import Point
 from compas.geometry import Vector
 
-from ._dataschemas import CIRCLE
-from ._dataschemas import constraint_schema
 from .constraint import Constraint
 
 
 class CircleConstraint(Constraint[Circle | NurbsCurve]):
     """Constraint for limiting the movement of a vertex to a circle."""
-
-    DATASCHEMA = constraint_schema(CIRCLE)
 
     @classmethod
     def __from_data__(cls, data: dict[str, Any]) -> Self:

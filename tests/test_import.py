@@ -6,6 +6,13 @@ from compas.plugins import PluginManager
 
 import compas_fd
 
+from compas_fd.constraints import Constraint
+
+
+def test_constraint_classes_have_no_legacy_data_schema() -> None:
+    classes = {Constraint, *Constraint.GEOMETRY_CONSTRAINT.values()}
+    assert all(not hasattr(cls, "DATASCHEMA") for cls in classes)
+
 
 def test_all_package_modules_import():
     modules = [module.name for module in pkgutil.walk_packages(compas_fd.__path__, prefix="compas_fd.")]

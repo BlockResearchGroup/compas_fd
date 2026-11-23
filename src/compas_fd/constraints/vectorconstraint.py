@@ -7,15 +7,11 @@ from typing import cast
 from compas.geometry import Point
 from compas.geometry import Vector
 
-from ._dataschemas import XYZ
-from ._dataschemas import constraint_schema
 from .constraint import Constraint
 
 
 class VectorConstraint(Constraint[Vector]):
     """Constraint for limiting the movement of a vertex to a vector."""
-
-    DATASCHEMA = constraint_schema(XYZ)
 
     @classmethod
     def __from_data__(cls, data: dict[str, Any]) -> Self:

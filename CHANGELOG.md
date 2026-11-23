@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+* Removed the legacy `DATASCHEMA` attributes from all constraints to align with COMPAS 3. Existing constraint JSON payloads remain supported.
 
 ## [0.5.4] 2024-11-10
 

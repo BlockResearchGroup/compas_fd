@@ -9,15 +9,11 @@ from compas.geometry import NurbsCurve
 from compas.geometry import Point
 from compas.geometry import Vector
 
-from ._dataschemas import CURVE
-from ._dataschemas import constraint_schema
 from .constraint import Constraint
 
 
 class CurveConstraint(Constraint[NurbsCurve]):
     """Constraint for limiting the movement of a vertex to a Nurbs curve."""
-
-    DATASCHEMA = constraint_schema(CURVE)
 
     @classmethod
     def __from_data__(cls, data: dict[str, Any]) -> Self:
