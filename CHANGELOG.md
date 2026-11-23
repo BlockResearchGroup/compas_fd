@@ -9,7 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Added analytical equilibrium, constraint and installed-plugin regression tests.
+
 ### Changed
+
+* Aligned numerical imports, plugin discovery and constraint serialization with COMPAS 3.
+* Updated the supported Python versions to 3.12–3.14 and added locked development tools.
+* Migrated the documentation build to MkDocs and updated solver annotations and docstrings.
 
 ### Removed
 

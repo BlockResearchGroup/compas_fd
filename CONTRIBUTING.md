@@ -8,38 +8,25 @@ We accept code contributions through pull requests.
 In short, this is how that works.
 
 1. Fork [the repository](https://github.com/blockresearchgroup/compas_fd) and clone the fork.
-2. Create a virtual environment using your tool of choice (e.g. `virtualenv`, `conda`, etc).
-3. Install development dependencies:
+2. Create and populate the locked environment using uv.
 
    ```bash
-   pip install -r requirements-dev.txt
+   uv sync --locked --group docs
    ```
 
-4. Make sure all tests pass:
+3. Run the local checks before and after making your changes.
 
    ```bash
-   invoke test
+   uv run --no-sync ruff check src tests docs/examples
+   uv run --no-sync ruff format --check src tests docs/examples
+   uv run --no-sync pyright
+   uv run --no-sync pytest --doctest-modules src/compas_fd tests
+   uv run --no-sync python docs/examples/loaded_network.py
+   uv run --no-sync mkdocs build --strict
    ```
 
-5. Start making your changes to the **master** branch (or branch off of it).
-6. Make sure all tests still pass:
-
-   ```bash
-   invoke test
-   ```
-
-7. Add yourself to the *Contributors* section of `AUTHORS.md`.
-8. Commit your changes and push your branch to GitHub.
-9. Create a [pull request](https://help.github.com/articles/about-pull-requests/) through the GitHub website.
-
-During development, use [pyinvoke](http://docs.pyinvoke.org/) tasks on the
-command line to ease recurring operations:
-
-* `invoke clean`: Clean all generated artifacts.
-* `invoke check`: Run various code and documentation style checks.
-* `invoke docs`: Generate documentation.
-* `invoke test`: Run all tests and checks in one swift command.
-* `invoke`: Show available tasks.
+4. Add a changelog entry for user-facing changes and
+   [open a pull request](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests).
 
 ## Bug reports
 

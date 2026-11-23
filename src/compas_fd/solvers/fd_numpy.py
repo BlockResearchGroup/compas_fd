@@ -1,10 +1,9 @@
-from typing import List
-from typing import Optional
-from typing import Tuple
+from collections.abc import Sequence
 
 from compas.linalg import normrow
-from scipy.sparse.linalg import spsolve
 
+from compas_fd._scipy import dot_coordinates
+from compas_fd._scipy import solve_coordinates
 from compas_fd.types import FloatNx3
 
 from .fd_numerical_data import FDNumericalData
@@ -14,53 +13,54 @@ from .result import Result
 def fd_numpy(
     *,
     vertices: FloatNx3,
-    fixed: List[int],
-    edges: List[Tuple[int, int]],
-    forcedensities: List[float],
-    loads: Optional[FloatNx3] = None,
+    fixed: list[int],
+    edges: Sequence[tuple[int, int]],
+    forcedensities: Sequence[float],
+    loads: FloatNx3 | None = None,
 ) -> Result:
     """Compute the equilibrium coordinates of a system of vertices connected by edges.
 
     Parameters
     ----------
     vertices : FloatNx3
-        The XYZ coordinates of the vertices.
+        Initial XYZ coordinates in vertex-index order, shape `(n, 3)`.
     fixed : list[int]
         The fixed vertices.
     edges : list[tuple[int, int]]
         The edges between the vertices.
     forcedensities : list[float]
-        The force densities of the edges.
+        Axial force per unit length for each edge, in edge order.
     loads : FloatNx3, optional
-        The loads on the vertices.
+        Applied force vectors, shape `(n, 3)`. Defaults to zero.
 
     Returns
     -------
     Result
+        Equilibrium coordinates and residual forces in vertex order, and
+        axial forces and lengths in edge order.
 
     See Also
     --------
-    :func:`compas_fd.solvers.fd_constrained_numpy`
+    fd_constrained_numpy
+
+    Notes
+    -----
+    Coordinates and lengths use the same units. Loads, residuals and axial
+    forces use a consistent force unit. A compatible float64 input coordinate
+    array may be updated in place.
 
     Examples
     --------
-    >>> from compas.datastructures import Mesh
     >>> from compas_fd.solvers import fd_numpy
-
-    >>> mesh = Mesh.from_meshgrid(dx=10, nx=10)
-
-    >>> vertices = mesh.vertices_attributes("xyz")
-    >>> fixed = list(mesh.vertices_where(vertex_degree=2))
-    >>> edges = list(mesh.edges())
-    >>> loads = [[0, 0, 0] for _ in range(len(vertices))]
-    >>> q = [1.0] * len(edges)
-
-    >>> result = fd_numpy(vertices=vertices, fixed=fixed, edges=edges, forcedensities=q, loads=loads)
-
-    >>> all(result.residuals < 1e-6)
-    True
-    >>> all(result.forces > 0)
-    True
+    >>> result = fd_numpy(
+    ...     vertices=[[0, 0, 0], [0, 0, 0], [4, 0, 0]],
+    ...     fixed=[1, 2],
+    ...     edges=[(0, 1), (0, 2)],
+    ...     forcedensities=[1, 3],
+    ...     loads=[[0, 0, -4], [0, 0, 0], [0, 0, 0]],
+    ... )
+    >>> result.vertices[0].tolist()
+    [3.0, 0.0, -1.0]
 
     """
     numdata = FDNumericalData.from_params(vertices, fixed, edges, forcedensities, loads)
@@ -75,10 +75,10 @@ def fd_numpy(
     Ai = numdata.Ai
     Af = numdata.Af
 
-    b = p[free] - Af.dot(xyz[fixed])
-    xyz[free] = spsolve(Ai, b)
-    lengths = normrow(C.dot(xyz))
+    b = p[free] - dot_coordinates(Af, xyz[fixed])
+    xyz[free] = solve_coordinates(Ai, b)
+    lengths = normrow(dot_coordinates(C, xyz))
     forces = q * lengths
-    residuals = p - A.dot(xyz)
+    residuals = p - dot_coordinates(A, xyz)
 
     return Result(xyz, residuals, forces, lengths)

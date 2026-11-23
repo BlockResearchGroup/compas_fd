@@ -4,8 +4,9 @@ from compas.geometry import Line
 from compas.geometry import Point
 from compas.geometry import Sphere
 from compas.geometry import Vector
-from compas_fd.solvers import fd_numpy
 from compas_viewer import Viewer
+
+from compas_fd.solvers import fd_numpy
 
 mesh = Mesh.from_meshgrid(dx=10, nx=10)
 

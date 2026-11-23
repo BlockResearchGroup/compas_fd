@@ -1,30 +1,11 @@
-on:
-  push:
-    tags:
-      - "v*"
+name: prepare release artifacts
 
-name: Create Release
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
-  build:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [macos-latest, windows-latest, ubuntu-latest]
-        python: ["3.9", "3.10", "3.11"]
-
-    steps:
-      - uses: compas-dev/compas-actions.build@v4
-        with:
-          invoke_lint: true
-          invoke_test: true
-          python: ${{ matrix.python }}
-
-  Publish:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: compas-dev/compas-actions.publish@v3
-        with:
-          pypi_token: ${{ secrets.PYPI }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+  verify-distributions:
+    uses: ./.github/workflows/build.yml

@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=66.0"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 # ============================================================================
@@ -11,23 +11,50 @@ name = "compas_fd"
 authors = [{ name = "tom van mele", email = "tom.v.mele@gmail.com" }]
 description = "Constrained form finding using the Force Density Method."
 keywords = ["form finding", "force density"]
-license = { file = "LICENSE" }
+license = "MIT"
+license-files = ["LICENSE"]
 readme = "README.md"
-requires-python = ">=3.9"
-dynamic = ['dependencies', 'optional-dependencies', 'version']
+requires-python = ">=3.12,<3.15"
+dynamic = ["version"]
+dependencies = [
+    "compas>=3.0,<4",
+    "numpy>=1.26",
+    "scipy>=1.11.4",
+]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Topic :: Scientific/Engineering",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
-    "Programming Language :: Python :: 3.10",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
 
 [project.urls]
 Homepage = "https://blockresearchgroup.github.io/compas_fd"
 Repository = "https://github.com/blockresearchgroup/compas_fd"
+
+[project.entry-points."compas.plugins"]
+compas_fd_install = "compas_fd.install"
+
+[dependency-groups]
+dev = [
+    "build==1.3.0",
+    "pyright==1.1.414",
+    "pytest>=9,<10",
+    "ruff>=0.14,<1",
+    "setuptools>=77",
+    "twine==6.2.0",
+]
+docs = [
+    "mkdocs>=1.6,<2",
+    "mkdocs-material>=9.6,<10",
+    "mkdocstrings[python]>=0.30",
+]
+
+[tool.uv.sources]
+compas = { git = "https://github.com/compas-dev/compas.git", rev = "9b1518f74fe7d0315626954d8b893756f8dae06d" }
 
 # ============================================================================
 # setuptools config
@@ -40,8 +67,6 @@ zip-safe = false
 
 [tool.setuptools.dynamic]
 version = { attr = "compas_fd.__version__" }
-dependencies = { file = "requirements.txt" }
-optional-dependencies = { dev = { file = "requirements-dev.txt" } }
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -51,17 +76,9 @@ where = ["src"]
 # ============================================================================
 
 [tool.pytest.ini_options]
-minversion = "6.0"
-testpaths = ["tests", "src/compas_fd"]
-python_files = ["test_*.py", "*_test.py", "test.py"]
-addopts = ["-ra", "--strict", "--doctest-glob=*.rst", "--tb=short"]
-doctest_optionflags = [
-    "NORMALIZE_WHITESPACE",
-    "IGNORE_EXCEPTION_DETAIL",
-    "ALLOW_UNICODE",
-    "ALLOW_BYTES",
-    "NUMBER",
-]
+minversion = "9.0"
+testpaths = ["tests"]
+addopts = ["-ra", "--strict-markers", "--tb=short", "--import-mode=importlib"]
 
 # ============================================================================
 # replace bumpversion.cfg
@@ -87,13 +104,10 @@ replace = "[{new_version}] {now:%Y-%m-%d}"
 # replace setup.cfg
 # ============================================================================
 
-[tool.black]
-line-length = 179
-
 [tool.ruff]
 line-length = 179
 indent-width = 4
-target-version = "py39"
+target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
@@ -105,6 +119,7 @@ select = ["E", "F", "I"]
 
 [tool.ruff.lint.isort]
 force-single-line = true
+known-first-party = ["compas_fd"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -115,3 +130,10 @@ max-doc-length = 179
 [tool.ruff.format]
 docstring-code-format = true
 docstring-code-line-length = "dynamic"
+
+[tool.pyright]
+include = ["src", "tests"]
+pythonVersion = "3.12"
+typeCheckingMode = "strict"
+# The core candidate and SciPy do not yet ship complete PEP 561 metadata.
+reportMissingTypeStubs = false

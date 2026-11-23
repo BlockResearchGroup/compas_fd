@@ -1,0 +1,26 @@
+site_name: COMPAS FD
+repo_url: https://github.com/BlockResearchGroup/compas_fd
+theme:
+  name: material
+exclude_docs: |
+  *.rst
+  conf.py
+nav:
+  - Overview: index.md
+  - Installation: installation.md
+  - Solvers and loads: tutorial.md
+  - Examples: examples.md
+  - API reference: api.md
+  - License: license.md
+plugins:
+  - search
+  - mkdocstrings:
+      handlers:
+        python:
+          paths: [src]
+          options:
+            docstring_style: numpy
+            show_source: false
+markdown_extensions:
+  - pymdownx.snippets:
+      check_paths: true

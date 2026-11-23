@@ -3,7 +3,7 @@
 This package provides equilibrium solvers and constraints
 for constrained form finding using the "force density" method.
 
-The solvers can be used through the `compas_fd` paclage directly,
+The solvers can be used through the `compas_fd` package directly,
 or through COMPAS FormFinder, which is a form finding tool with a GUI
 combining various different form finding approaches.
 
@@ -20,13 +20,13 @@ To install the latest development version, do:
 ```bash
 git clone https://github.com/blockresearchgroup/compas_fd.git
 cd compas_fd
-pip install -e ".[dev]"
+uv sync --locked --group docs
 ```
 
 ## Documentation
 
 For further "getting started" instructions, a tutorial, examples, and an API reference,
-please check out the online documentation here: [COMPAS DR docs](https://blockresearchgroup.github.io/compas_fd)
+see the [COMPAS FD documentation](https://blockresearchgroup.github.io/compas_fd).
 
 ## Issue Tracker
 

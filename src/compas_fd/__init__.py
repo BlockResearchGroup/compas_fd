@@ -1,6 +1,9 @@
 from __future__ import print_function
 
 import os
+from collections.abc import Callable
+from typing import cast
+
 import compas
 
 
@@ -11,7 +14,7 @@ __email__ = "tom.v.mele@gmail.com"
 __version__ = "0.5.4"
 
 
-get = compas.get
+get: Callable[[str], str] = cast("Callable[[str], str]", compas.get)  # pyright: ignore[reportUnknownMemberType]
 
 
 HERE = os.path.dirname(__file__)
@@ -24,4 +27,4 @@ TEMP = os.path.abspath(os.path.join(HOME, "temp"))
 
 __all__ = ["HOME", "DATA", "DOCS", "TEMP", "get"]
 
-__all_plugins__ = ["compas_fd.install"]
+__all_plugins__: list[str] = ["compas_fd.install"]

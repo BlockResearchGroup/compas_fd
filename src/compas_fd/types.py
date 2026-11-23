@@ -1,10 +1,12 @@
+from collections.abc import Sequence
 from typing import Annotated
 from typing import Literal
-from typing import Sequence
 from typing import Union
 
 import numpy as np
 import numpy.typing as npt
+
+FloatArray = npt.NDArray[np.float64]
 
 FloatNx3 = Union[
     Sequence[Annotated[Sequence[float], 3]],
