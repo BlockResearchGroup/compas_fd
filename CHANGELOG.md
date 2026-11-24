@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Removed the legacy `DATASCHEMA` attributes from all constraints to align with COMPAS 3. Existing constraint JSON payloads remain supported.
 * Removed the superseded reStructuredText pages and Sphinx configuration.
 * Removed the legacy Viewer examples and the `scripts/` and `notebooks/` folders.
+* Removed the unused `temp/` placeholder directory.
 
 ## [0.5.4] 2024-11-10
 
