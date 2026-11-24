@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 * Added analytical equilibrium, constraint and installed-plugin regression tests.
+* Added COMPAS 3 Viewer examples for fixed and arch-supported meshes.
 
 ### Changed
 
@@ -17,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Updated the supported Python versions to 3.12–3.14 and added locked development tools.
 * Migrated the documentation build to MkDocs and updated solver annotations and docstrings.
 * Organised the documentation assets, archived COMPAS 2 viewer scripts, and added the maintained example to the Pyright check.
+* Organised the maintained examples into named sections and formatted longer calls with one argument per line.
 
 ### Removed
 

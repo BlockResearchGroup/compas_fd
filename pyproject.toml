@@ -132,7 +132,8 @@ docstring-code-format = true
 docstring-code-line-length = "dynamic"
 
 [tool.pyright]
-include = ["src", "tests", "docs/examples"]
+# Check optional Viewer examples explicitly in the interactive environment.
+include = ["src", "tests", "docs/examples/loaded_network.py"]
 pythonVersion = "3.12"
 typeCheckingMode = "strict"
 # The core candidate and SciPy do not yet ship complete PEP 561 metadata.
