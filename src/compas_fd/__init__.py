@@ -1,5 +1,3 @@
-from __future__ import print_function
-
 import os
 from collections.abc import Callable
 from typing import cast

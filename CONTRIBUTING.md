@@ -45,6 +45,10 @@ performance work. Use supported geometry and data structures with the standard
 COMPAS Viewer and scene in examples. Keep custom scene objects and rendering
 extensions out of the solver package.
 
+Target modern Python 3.12+ syntax. Do not add `__future__` imports or Python
+2.7/IronPython compatibility code. Use zero-argument `super()` and keep
+host-runtime compatibility in the package that owns the host integration.
+
 When changing `docs/examples/viewer/`, use the interactive COMPAS 3 environment
 to check types and run the affected examples with a desktop session.
 

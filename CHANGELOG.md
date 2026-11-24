@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Removed the superseded reStructuredText pages and Sphinx configuration.
 * Removed the legacy Viewer examples and the `scripts/` and `notebooks/` folders.
 * Removed the unused `temp/` placeholder directory.
+* Removed obsolete Python 2.7 compatibility imports, modernised legacy `super` calls, and documented the Python 3.12+ convention.
 
 ## [0.5.4] 2024-11-10
 

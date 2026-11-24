@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 import inspect
 from collections.abc import Iterable
 from typing import Any
@@ -57,14 +55,14 @@ class Constraint[GeometryT: Data](Data):
 
     """
 
-    GEOMETRY_CONSTRAINT: ClassVar[dict[type[Data], type[Constraint[Any]]]] = {}
+    GEOMETRY_CONSTRAINT: ClassVar[dict[type[Data], type["Constraint[Any]"]]] = {}
 
     @staticmethod
-    def register(gtype: type[Data], ctype: type[Constraint[Any]]) -> None:
+    def register(gtype: type[Data], ctype: type["Constraint[Any]"]) -> None:
         Constraint.GEOMETRY_CONSTRAINT[gtype] = ctype
 
     @staticmethod
-    def get_constraint_cls(geometry: Data, **kwargs: object) -> type[Constraint[Any]]:
+    def get_constraint_cls(geometry: Data, **kwargs: object) -> type["Constraint[Any]"]:
         gtype = type(geometry)
         cls = None
         for type_ in inspect.getmro(gtype):
@@ -88,7 +86,7 @@ class Constraint[GeometryT: Data](Data):
         return data
 
     def __init__(self, geometry: GeometryT, name: str | None = None) -> None:
-        super(Constraint, self).__init__(name=name)
+        super().__init__(name=name)
         self._geometry: GeometryT
         self._location: Point | None = None
         self._residual: Vector | None = None
