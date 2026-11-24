@@ -19,11 +19,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 * Migrated the documentation build to MkDocs and updated solver annotations and docstrings.
 * Organised the documentation assets, archived COMPAS 2 viewer scripts, and added the maintained example to the Pyright check.
 * Organised the maintained examples into named sections and formatted longer calls with one argument per line.
+* Simplified the loaded-network example to demonstrate solver inputs and results.
 
 ### Removed
 
 * Removed the legacy `DATASCHEMA` attributes from all constraints to align with COMPAS 3. Existing constraint JSON payloads remain supported.
 * Removed the superseded reStructuredText pages and Sphinx configuration.
+* Removed the legacy Viewer examples and the `scripts/` and `notebooks/` folders.
 
 ## [0.5.4] 2024-11-10
 

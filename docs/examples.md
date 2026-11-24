@@ -11,7 +11,9 @@ of 4 puts the free vertex at `(3, 0, -1)`.
 --8<-- "docs/examples/loaded_network.py"
 ```
 
-## Mesh with fixed corners or an arch
+## Viewer examples
+
+### Mesh with fixed corners or an arch
 
 Run the scripts from the repository root in the interactive COMPAS 3
 environment with this package and `compas_viewer` installed. The arch example

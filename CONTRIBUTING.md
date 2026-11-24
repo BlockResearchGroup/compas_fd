@@ -34,9 +34,9 @@ Introduce functions only when they clarify the example or remove substantial
 repetition. Use named sections with 80-character comment dividers for
 parameters, model setup and major steps. Give Viewer setup and rendering their
 own section. Add a trailing comma to longer function call argument lists so
-Ruff formats them one argument per line. The loaded-network example is checked
-by Ruff and Pyright and executed in CI. The historical COMPAS 2 viewer scripts
-are in `examples/legacy/`.
+Ruff formats them one argument per line. Use worked examples to demonstrate
+inputs and results, and keep numerical assertions in `tests/`. The
+loaded-network example is checked by Ruff and Pyright and executed in CI.
 
 Keep package code focused on the solver and its helpers. Define clear input
 and output contracts, validate inputs, and test the numerical results and
